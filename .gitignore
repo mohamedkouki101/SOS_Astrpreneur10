@@ -1,0 +1,30 @@
+# Environment Variables
+.env
+.env.*
+!example.env
+
+# mounted volume
+sites
+
+# Pycharm
+.idea
+
+# VS Code
+.vscode/
+
+# VS Code devcontainer
+.devcontainer
+*.code-workspace
+
+# Python
+*.pyc
+__pycache__
+venv
+
+# NodeJS
+node_modules
+
+# Generated compose files and backups
+compose.custom.yaml
+*.sql
+*.sql.gz
