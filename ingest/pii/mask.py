@@ -25,12 +25,29 @@ MIN_PRESIDIO_SCORE = 0.4
 CURRENCY_AFTER = re.compile(r"[ \t]*(?:dt|tnd|dinars?|€|eur|\$|usd|k\b)", re.IGNORECASE)
 
 
+# Name particles: never masked on their own ("Ben Arous" is a city, "de" a word).
+NAME_PARTICLES = {
+    "ben", "bin", "ibn", "bel", "bou", "abd", "abou", "abu", "el", "al", "de", "du", "des", "la", "le",
+    "van", "von", "der", "del", "da", "di", "dos", "mac", "mc",
+}
+MIN_NAME_PART = 3
+# Titles before a name: trimmed, so "Mme Salem" is matched as the name part "Salem".
+TITLES = re.compile(r"^(?:m|mr|mrs|ms|mme|mlle|mme\.|dr|pr|prof|madame|monsieur|mademoiselle)\.?\s+",
+                    re.IGNORECASE)
+# Tunisian places that look like person names to the small spaCy model.
+KNOWN_PLACES = {
+    "ben arous", "ben guerdane", "sidi bouzid", "sidi bou said", "sidi bou saïd", "la marsa",
+    "la goulette", "la manouba", "el menzah", "el kef", "el mourouj", "menzel bourguiba",
+}
+
+
 @dataclass(frozen=True)
 class _Detection:
     start: int
     end: int
     entity: str  # PERSON, EMAIL, ... or a protected attribute name
     protected: bool
+    alias_of: str | None = None  # a name part: use the full name's token
 
 
 @dataclass(frozen=True)
@@ -115,12 +132,17 @@ def _presidio_detections(text: str, language: str) -> list[_Detection]:
             continue
         value = text[result.start:result.end]
         if result.entity_type == "PERSON":
-            # The small models also tag skills or headings as names. Keep only
-            # names of 2+ capitalized words, with no digits or symbols.
+            start = result.start
+            if title := TITLES.match(value):  # "Mme Salem" -> "Salem"
+                start += title.end()
+                value = value[title.end():]
+            # The small models also tag skills, headings or places as names. Keep
+            # only names of 2+ capitalized words, with no digits or symbols.
             words = value.split()
-            if len(words) < 2 or not all(word[:1].isupper() for word in words) or re.search(r"[\d@<>\[\]_/]", value):
+            if (len(words) < 2 or not all(word[:1].isupper() for word in words)
+                    or re.search(r"[\d@<>\[\]_/]", value) or value.lower() in KNOWN_PLACES):
                 continue
-            detections.append(_Detection(result.start, result.end, "PERSON", False))
+            detections.append(_Detection(start, result.end, "PERSON", False))
         elif not CURRENCY_AFTER.match(text, result.end):
             detections.append(_Detection(result.start, result.end, "PHONE", False))
     return detections
@@ -139,14 +161,27 @@ def _rule_detections(text: str) -> list[_Detection]:
     return detections
 
 
+def _name_parts(name: str) -> list[str]:
+    return [part for part in re.split(r"[\s'’-]+", name)
+            if len(part) >= MIN_NAME_PART and part.isalpha() and part.lower() not in NAME_PARTICLES]
+
+
 def _repeat_names(text: str, detections: list[_Detection]) -> list[_Detection]:
-    """A name found once is masked everywhere it appears, even where the
-    model missed it (e.g. in the experience section)."""
+    """A name found once is masked everywhere it appears, even where the model
+    missed it. Each part of it ("Amina", "Salem") is masked too, with the same
+    token, unless that part belongs to two different names (ambiguous)."""
     names = {text[d.start:d.end] for d in detections if d.entity == "PERSON"}
+    owners: dict[str, set[str]] = {}
+    for name in names:
+        for part in _name_parts(name):
+            owners.setdefault(part.lower(), set()).add(_normalize("PERSON", name))
+
     extra = []
     for name in names:
-        for match in re.finditer(rf"(?<!\w){re.escape(name)}(?!\w)", text, re.IGNORECASE):
-            extra.append(_Detection(match.start(), match.end(), "PERSON", False))
+        variants = [name] + [part for part in _name_parts(name) if len(owners[part.lower()]) == 1]
+        for variant in variants:
+            for match in re.finditer(rf"(?<!\w){re.escape(variant)}(?!\w)", text, re.IGNORECASE):
+                extra.append(_Detection(match.start(), match.end(), "PERSON", False, alias_of=name))
     return extra
 
 
@@ -216,11 +251,12 @@ def mask(text: str) -> MaskResult:
             pieces.append(REMOVED)
             removed.append(RemovedAttribute(detection.entity, value))
             continue
-        key = (detection.entity, _normalize(detection.entity, value))
+        canonical = detection.alias_of or value  # a name part counts as its full name
+        key = (detection.entity, _normalize(detection.entity, canonical))
         if key not in tokens:
             counters[detection.entity] = counters.get(detection.entity, 0) + 1
             tokens[key] = f"<{detection.entity}_{counters[detection.entity]}>"
-            originals[tokens[key]] = value
+            originals[tokens[key]] = canonical
         token = tokens[key]
         counts[token] = counts.get(token, 0) + 1
         pieces.append(token)

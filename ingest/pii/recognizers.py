@@ -37,6 +37,10 @@ IDENTIFIER_RULES: list[tuple[str, re.Pattern]] = [
     ("PROFILE_URL", re.compile(
         r"(?P<value>(?:h[tx]{2}ps?://)?(?:www(?:\[\.\]|\.))?(?:linkedin|github)(?:\[\.\]|\.)com/(?:in/)?[\w-]+/?)",
         FLAGS)),
+    # A postal address after a label: the rest of the line.
+    ("ADDRESS", re.compile(
+        r"^[ \t]*(?:adresse(?: postale| personnelle| du domicile)?|(?:home |postal )?address|domicile"
+        rf"|lieu de r[ée]sidence){SEP}(?P<value>[^\n]{{3,150}}?)[ \t]*$", FLAGS)),
     # A name after a label, e.g. "Nom : Amina Ben Salem" (the whole line).
     ("PERSON", re.compile(
         rf"^[ \t]*(?:nom(?: et pr[ée]nom| complet)?|pr[ée]nom|name|full name){SEP}"

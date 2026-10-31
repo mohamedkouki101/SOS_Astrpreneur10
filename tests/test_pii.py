@@ -137,6 +137,36 @@ def test_same_profile_same_token():
     assert result.masked_text == "<PROFILE_URL_1> and <PROFILE_URL_1>"
 
 
+@pytest.mark.parametrize("text, expected", [
+    ("Adresse : 12 rue de la Liberté, 3000 Sfax", "Adresse : <ADDRESS_1>"),
+    ("Address: 5 Fictional Street, Tunis", "Address: <ADDRESS_1>"),
+    ("Adresse postale : Résidence Fictive, Bloc B, Tunis", "Adresse postale : <ADDRESS_1>"),
+])
+def test_labeled_address_is_masked(text, expected):
+    result = mask(text)
+    assert result.masked_text == expected
+    assert result.items[0].original == text.split(":", 1)[1].strip()
+
+
+def test_name_parts_alone_get_the_full_name_token():
+    text = ("Nom : Amina Ben Salem\n"
+            "Amina a dirigé l'équipe. Mme Salem parle trois langues. Bureau de Ben Arous.")
+    result = mask(text)
+    assert result.masked_text == (
+        "Nom : <PERSON_1>\n"
+        "<PERSON_1> a dirigé l'équipe. Mme <PERSON_1> parle trois langues. Bureau de Ben Arous.")
+    assert result.items[0].original == "Amina Ben Salem" and result.items[0].count == 3
+
+
+def test_name_part_shared_by_two_names_is_left_alone():
+    text = "Nom : Amina Salem\nRéférence : Karim Salem, manager.\nSalem a validé."
+    assert "Salem a validé" in mask(text).masked_text
+
+
+def test_short_name_parts_are_left_alone():
+    assert "Jo" in mask("Nom : Jo Fictional\nJo aime Python.").masked_text
+
+
 def test_works_with_networking_blocked(monkeypatch):
     """The container has no internet: loading and masking must never try to connect."""
     import socket
