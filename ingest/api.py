@@ -8,7 +8,8 @@ One key per caller, sent in the X-API-Key header:
     REPORT_API_KEY    HR dashboard      GET  /v1/reports, /v1/reports/{id}   (contain PII)
                                         POST /v1/reports/{id}/release, /reject (reason required)
     ENVELOPE_API_KEY  AI layer          GET  /v1/envelopes, /v1/envelopes/{id} (masked only)
-So the AI layer can never read a report, and the dashboard can never upload.
+    RESOLVER_API_KEY  Execution Gateway POST /v1/resolve {doc_id, token}     (released docs only)
+So the AI layer can never read a report or resolve a token, and the dashboard can never upload.
 """
 
 import hmac
@@ -52,6 +53,11 @@ class Summary(BaseModel):
     released_to_ai: bool
     decision: Literal["released", "rejected"] | None = None  # set by HR on the dashboard
     duplicate: bool = False
+
+
+class ResolveIn(BaseModel):
+    doc_id: str = Field(pattern=r"^sha256:[0-9a-f]{64}$")
+    token: str = Field(pattern=r"^<[A-Z_]+_[1-9][0-9]{0,3}>$")  # contract token format
 
 
 class DecisionIn(BaseModel):
@@ -143,6 +149,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     upload_key = Depends(_key_check(settings.upload_api_key))
     report_key = Depends(_key_check(settings.report_api_key))
     envelope_key = Depends(_key_check(settings.envelope_api_key))
+    resolver_key = Depends(_key_check(settings.resolver_api_key))
 
     def summary(report: InspectionReport, duplicate: bool = False) -> Summary:
         meta = pipeline.store.get_json("meta", report.report_id) or {}
@@ -259,5 +266,16 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         if result is None or result.envelope is None:
             raise HTTPException(status_code=404, detail="not found")
         return result.envelope
+
+    # --- Token resolver: Execution Gateway only ---
+
+    @app.post("/v1/resolve", dependencies=[resolver_key])
+    def resolve(body: ResolveIn):
+        """Turn <PERSON_1> back into the real value, so the Gateway can execute a
+        human-approved action (e.g. address an email). Released documents only."""
+        value = pipeline.resolve(body.doc_id, body.token)
+        if value is None:  # unknown, quarantined or rejected: the same answer
+            raise HTTPException(status_code=404, detail="not found")
+        return {"doc_id": body.doc_id, "token": body.token, "value": value}
 
     return app

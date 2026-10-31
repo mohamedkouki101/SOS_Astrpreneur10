@@ -15,6 +15,7 @@ KEYS = {
     "UPLOAD_API_KEY": "u" * 64, "REPORT_API_KEY": "w" * 64,
     "ENVELOPE_API_KEY": "y" * 64, "RESOLVER_API_KEY": "v" * 64,
 }
+GATEWAY = {"X-API-Key": KEYS["RESOLVER_API_KEY"]}
 UPLOAD = {"X-API-Key": KEYS["UPLOAD_API_KEY"]}
 DASHBOARD = {"X-API-Key": KEYS["REPORT_API_KEY"]}
 AI_LAYER = {"X-API-Key": KEYS["ENVELOPE_API_KEY"]}
@@ -188,6 +189,37 @@ def test_only_the_dashboard_key_can_decide(client):
     report_id = upload(client, INJECTED_CV).json()["report_id"]
     for headers in (UPLOAD, AI_LAYER, {}):
         assert decide(client, report_id, "release", headers=headers).status_code == 401
+
+
+# --- Token resolver ---
+
+def resolve(client, doc_id, token, headers=GATEWAY):
+    return client.post("/v1/resolve", headers=headers, json={"doc_id": doc_id, "token": token})
+
+
+def test_gateway_resolves_a_token_of_a_released_document(client):
+    summary = upload(client, pdf(*CV)).json()
+    response = resolve(client, summary["doc_id"], "<PERSON_1>")
+    assert response.status_code == 200 and response.json()["value"] == "Amina Ben Salem"
+    assert resolve(client, summary["doc_id"], "<PERSON_9>").status_code == 404  # unknown token
+
+
+def test_quarantined_tokens_resolve_only_after_hr_release(client):
+    summary = upload(client, INJECTED_CV).json()
+    assert resolve(client, summary["doc_id"], "<PERSON_1>").status_code == 404
+    decide(client, summary["report_id"], "release")
+    assert resolve(client, summary["doc_id"], "<PERSON_1>").json()["value"] == "Amina Ben Salem"
+
+
+@pytest.mark.parametrize("headers", [UPLOAD, DASHBOARD, AI_LAYER, {}])
+def test_only_the_gateway_key_can_resolve(client, headers):
+    doc_id = upload(client, pdf(*CV)).json()["doc_id"]
+    assert resolve(client, doc_id, "<PERSON_1>", headers=headers).status_code == 401
+
+
+@pytest.mark.parametrize("doc_id, token", [("sha256:" + "0" * 64, "PERSON_1"), ("abc", "<PERSON_1>")])
+def test_resolve_checks_formats(client, doc_id, token):
+    assert resolve(client, doc_id, token).status_code == 422
 
 
 # --- Keys: one per caller ---

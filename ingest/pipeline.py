@@ -162,6 +162,21 @@ class Pipeline:
         return [InspectionReport.model_validate(self.store.get_json("reports", report_id))
                 for report_id in self.store.list_report_ids()]
 
+    # --- Token resolver (Execution Gateway only) ---
+
+    def resolve(self, doc_id: str, token: str) -> str | None:
+        """Original value behind a token, for a document released to the AI layer.
+
+        Tokens only mean something together with their doc_id (contract:
+        token_scope "doc"). Quarantined, rejected or unknown documents resolve
+        nothing: the Gateway only acts on proposals built from released ones."""
+        for report in self.list_reports():
+            if report.doc_id == doc_id and report.released_to_ai:
+                mapping = self.store.get_json("pii", report.report_id) or {}
+                if token in mapping:
+                    return mapping[token]
+        return None
+
     # --- Human decisions (HR dashboard) ---
 
     def _decidable(self, report_id: str) -> InspectionReport:
