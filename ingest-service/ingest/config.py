@@ -15,11 +15,14 @@ from pydantic import Field, SecretStr, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 MIN_KEY_LENGTH = 32
+# The ingest-service/ folder. .env and a relative EVIDENCE_DIR are found from
+# here, not from wherever the command is started (the team repo root, an IDE...).
+SERVICE_DIR = Path(__file__).resolve().parent.parent
 
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=SERVICE_DIR / ".env",
         env_file_encoding="utf-8",
         extra="forbid",  # an unknown name in .env (likely a typo) is an error
         frozen=True,  # settings cannot be changed while the service runs
@@ -50,7 +53,12 @@ class Settings(BaseSettings):
     extract_memory_mb: int = Field(default=256, ge=64, le=1_024)
 
     # --- Evidence Store ---
-    evidence_dir: Path = Path("./evidence")
+    evidence_dir: Path = Path("evidence")  # relative = inside ingest-service/; Docker sets /data/evidence
+
+    @field_validator("evidence_dir")
+    @classmethod
+    def anchor_to_service_dir(cls, value: Path) -> Path:
+        return value if value.is_absolute() else SERVICE_DIR / value
 
     @field_validator(
         "ingest_signing_key", "ingest_ref_key", "upload_api_key", "report_api_key",

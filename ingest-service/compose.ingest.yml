@@ -1,10 +1,10 @@
 # Ingest service, joining the team's Frappe stack (hr.yml, network frappe_network).
 #
-#   docker compose -f compose.ingest.yml up -d --build
+#   docker compose -f ingest-service/compose.ingest.yml up -d --build   (from the repo root)
 #
 # Frappe reaches it at http://ingest:8090 on frappe_network. Check the
 # network name with `docker network ls` if the stack names it differently.
-# Secrets come from .env (never committed, never baked into the image).
+# Secrets come from ingest-service/.env (never committed, never baked into the image).
 
 services:
   ingest:

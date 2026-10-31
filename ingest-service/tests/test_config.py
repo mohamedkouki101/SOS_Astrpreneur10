@@ -67,6 +67,18 @@ def test_secrets_not_shown_in_repr(env):
 
 
 
+def test_env_file_and_evidence_are_found_from_the_service_folder(env, monkeypatch, tmp_path):
+    from ingest.config import SERVICE_DIR
+
+    assert SERVICE_DIR.name == "ingest-service"
+    assert Settings.model_config["env_file"] == SERVICE_DIR / ".env"
+    monkeypatch.chdir(tmp_path)  # started from somewhere else, e.g. the team repo root
+    monkeypatch.setenv("EVIDENCE_DIR", "./evidence")
+    assert load().evidence_dir == SERVICE_DIR / "evidence"
+    monkeypatch.setenv("EVIDENCE_DIR", str(tmp_path / "abs"))
+    assert load().evidence_dir == tmp_path / "abs"  # absolute paths (Docker) are kept
+
+
 def test_no_mailbox_settings_any_more(env, tmp_path):
     # Mail arrives through Frappe: a leftover IMAP line in .env is refused, not silently ignored.
     assert not any(name.startswith("imap") for name in Settings.model_fields)

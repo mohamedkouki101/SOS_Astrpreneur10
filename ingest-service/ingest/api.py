@@ -1,6 +1,6 @@
 """Internal HTTP API: upload in, inspection reports and envelopes out.
 
-Run:  uvicorn ingest.api:create_app --factory --port 8090
+Run (from ingest-service/):  uvicorn ingest.api:create_app --factory --port 8090
 Then: http://localhost:8090/docs  (Swagger: upload a CV live from the browser)
 
 One key per caller, sent in the X-API-Key header:
