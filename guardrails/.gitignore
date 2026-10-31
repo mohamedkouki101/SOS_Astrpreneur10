@@ -1,0 +1,6 @@
+# runtime database (actions + audit log): never commit
+data/
+*.db
+*.db-wal
+*.db-shm
+.pytest_cache/

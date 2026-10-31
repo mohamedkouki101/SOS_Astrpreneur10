@@ -1,0 +1,19 @@
+{
+  "version": "2026-10-31.1",
+  "approver_roles": [
+    "HR Manager"
+  ],
+  "agent_roles": [
+    "AI Agent",
+    "RH Flow Agent Recruitment",
+    "RH Flow Agent Comms",
+    "RH Flow Agent Assistant",
+    "RH Flow Agent Orchestrator",
+    "RH Flow Agent Onboarding",
+    "RH Flow Agent Leave",
+    "RH Flow Agent Payroll",
+    "RH Flow Agent Performance",
+    "RH Flow Agent Conflict"
+  ],
+  "token_ttl_seconds": 86400
+}
