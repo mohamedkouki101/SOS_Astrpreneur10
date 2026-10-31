@@ -2,7 +2,7 @@
 
 Implements only what the guardrails service uses:
   GET  /api/method/frappe.auth.get_logged_user
-  GET  /api/method/frappe.core.doctype.user.user.get_roles
+  GET  /api/resource/User/<own user>               (roles child table)
   GET  /api/resource/<DocType>/<name>
   PUT  /api/resource/<DocType>/<name>               (gateway token only)
   POST /api/resource/<DocType>                      (gateway token only)
@@ -121,10 +121,12 @@ class Handler(BaseHTTPRequestHandler):
         user, roles = who
         if path == "/api/method/frappe.auth.get_logged_user":
             return self._send(200, {"message": user})
-        if path == "/api/method/frappe.core.doctype.user.user.get_roles":
-            return self._send(200, {"message": roles})
         if path.startswith("/api/resource/"):
             doctype, name = self._resource(path)
+            if doctype == "User":  # like Frappe: you may read your own User record
+                if name != user:
+                    return self._send(403, {"exc_type": "PermissionError"})
+                return self._send(200, {"data": {"name": user, "roles": [{"role": r} for r in roles]}})
             with STATE.lock:
                 doc = STATE.docs.get((doctype, name))
             if doc is None:

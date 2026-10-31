@@ -20,7 +20,7 @@ import threading
 import time
 from dataclasses import dataclass
 from typing import Mapping, Protocol
-from urllib import error, request
+from urllib import error, parse, request
 
 from .frappe_client import FrappeUnavailable
 
@@ -83,13 +83,16 @@ class FrappeAuthenticator:
             if hit and hit[0] > now:
                 return hit[1]
 
-        user = self._get(cred, "frappe.auth.get_logged_user")
+        user = self._get(cred, "/api/method/frappe.auth.get_logged_user", "message")
         if not isinstance(user, str) or not user or user == "Guest":
             raise AuthError(401, "unauthenticated", "not logged in to Frappe")
-        roles = self._get(cred, "frappe.core.doctype.user.user.get_roles")
-        if not isinstance(roles, list):
+        # v16 has no whitelisted get_roles: read the caller's OWN User record
+        # (every user may read their own) and take its roles child table.
+        doc = self._get(cred, "/api/resource/User/" + parse.quote(user, safe=""), "data")
+        if not isinstance(doc, dict) or not isinstance(doc.get("roles"), list):
             raise AuthError(503, "frappe_unavailable", "could not read roles from Frappe")
-        ident = Identity(user, frozenset(r for r in roles if isinstance(r, str)))
+        roles = {r.get("role") for r in doc["roles"] if isinstance(r, dict)}
+        ident = Identity(user, frozenset(r for r in roles if isinstance(r, str) and r))
 
         with self._lock:
             if len(self._cache) >= self.max_cache:
@@ -97,12 +100,12 @@ class FrappeAuthenticator:
             self._cache[key] = (now + self.cache_seconds, ident)
         return ident
 
-    def _get(self, cred: dict, method: str):
-        req = request.Request(f"{self.base_url}/api/method/{method}", method="GET",
+    def _get(self, cred: dict, path: str, key: str):
+        req = request.Request(f"{self.base_url}{path}", method="GET",
                               headers={**cred, "Accept": "application/json"})
         try:
             with request.urlopen(req, timeout=self.timeout) as resp:
-                return json.loads(resp.read() or b"{}").get("message")
+                return json.loads(resp.read() or b"{}").get(key)
         except error.HTTPError as e:
             if e.code in (401, 403):
                 raise AuthError(401, "unauthenticated", "Frappe rejected the credentials") from None

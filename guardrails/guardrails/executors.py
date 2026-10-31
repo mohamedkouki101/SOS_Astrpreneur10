@@ -22,7 +22,7 @@ from .frappe_client import FrappeAPI
 from .models import ProposedAction, RecordRef
 
 EMAIL_RE = re.compile(r"^[^@\s<>\"',;]+@[^@\s<>\"',;]+\.[A-Za-z]{2,}$")
-APPLICANT_STATUSES = {"Open", "Replied", "Rejected", "Hold", "Accepted"}
+APPLICANT_STATUSES = {"Open", "Replied", "Shortlisted", "Rejected", "Hold", "Accepted"}  # Frappe HR v16
 MAX_SUBJECT = 200
 MAX_BODY = 10_000
 MAX_SLOTS = 5

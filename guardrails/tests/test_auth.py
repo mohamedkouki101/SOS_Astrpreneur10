@@ -2,6 +2,7 @@
 import json
 import threading
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from urllib.parse import unquote
 
 import pytest
 
@@ -30,8 +31,10 @@ class FakeFrappeAuth(BaseHTTPRequestHandler):
         user, roles = USERS[cred]
         if self.path.endswith("frappe.auth.get_logged_user"):
             return self._send(200, {"message": user})
-        if self.path.endswith("frappe.core.doctype.user.user.get_roles"):
-            return self._send(200, {"message": roles})
+        if self.path.startswith("/api/resource/User/"):
+            if unquote(self.path.split("/")[-1]) != user:   # own record only
+                return self._send(403, {"exc_type": "PermissionError"})
+            return self._send(200, {"data": {"name": user, "roles": [{"role": r} for r in roles]}})
         self._send(404, {})
 
     def _send(self, code, body):
@@ -86,4 +89,4 @@ def test_identity_cached(frappe_url):
     FakeFrappeAuth.calls = 0
     for _ in range(5):
         auth.authenticate("GET", {"authorization": "token hrkey:hrsecret"}, {})
-    assert FakeFrappeAuth.calls == 2   # get_logged_user + get_roles, once
+    assert FakeFrappeAuth.calls == 2   # get_logged_user + own User record, once
