@@ -126,8 +126,10 @@ class Monitor:
         if e.event in ("approval.denied", "execution.refused", "api.denied"):
             sev = cfg["instant_alert_codes"].get(d.get("code"))
             if sev:
+                where = f" on {e.action_id}" if e.action_id else (
+                    f" at {d['endpoint']}" if d.get("endpoint") else "")
                 out += self._raise("instant", sev, e.actor,
-                                   f"{e.actor} triggered '{d.get('code')}' on {e.action_id}",
+                                   f"{e.actor} triggered '{d.get('code')}'{where}",
                                    (e.seq,), key=f"instant:{e.seq}")
 
         # suspected injection

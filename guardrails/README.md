@@ -165,6 +165,22 @@ If Frappe is unreachable, every call is refused (fail closed).
 - Job criteria for scoring come from `config/job_criteria.json` (trusted), never from the agent.
   Unknown job opening = no criterion accepted.
 
+## Demo & manual testing
+```bash
+./venv/Scripts/python scripts/demo.py --start          # full scenario, ~5 s, exit 0 = all good
+./venv/Scripts/python scripts/demo.py --start --step   # live presentation: Enter between scenes
+```
+`--start` launches `scripts/fake_frappe.py` (fictional Frappe, no Docker) and the API with a
+throw-away database. Scenes: normal flow, fair screening, **prompt injection blocked**,
+misbehaving agent, edit voids approval, monitor + tamper-evident audit log.
+
+Against real services, set `DEMO_COMMS_TOKEN`, `DEMO_RECRUIT_TOKEN`, `DEMO_HR_TOKEN`
+(`KEY:SECRET`) and pass `--api`, `--applicant`, `--applicant2`, `--malicious`, `--job`.
+
+To explore by hand: `python scripts/fake_frappe.py --port 8090` (prints demo tokens), start
+the API with `FRAPPE_URL=http://127.0.0.1:8090`, `FRAPPE_GATEWAY_API_KEY=demo-gateway`,
+`FRAPPE_GATEWAY_API_SECRET=secret`, then use curl. `GET /__state` shows sent emails.
+
 ## Setup & run
 ```bash
 cd guardrails
