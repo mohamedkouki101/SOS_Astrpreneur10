@@ -116,13 +116,13 @@ def _analyzer():
 
 def _block_tldextract_downloads() -> None:
     """tldextract (a Presidio dependency) may download a domain list on first
-    use. This service has no internet access and must not try: use the copy
-    bundled with the package instead."""
+    use and cache it on disk. This service has no internet access and runs on
+    a read-only filesystem: use the copy bundled with the package, no cache."""
     try:
         import tldextract.tldextract as module
     except ImportError:
         return
-    module.TLD_EXTRACTOR = module.TLDExtract(suffix_list_urls=())
+    module.TLD_EXTRACTOR = module.TLDExtract(suffix_list_urls=(), cache_dir=None)
 
 
 def _presidio_detections(text: str, language: str) -> list[_Detection]:

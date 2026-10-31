@@ -1,0 +1,38 @@
+# Ingest service, joining the team's Frappe stack (hr.yml, network frappe_network).
+#
+#   docker compose -f compose.ingest.yml up -d --build
+#
+# Frappe reaches it at http://ingest:8090 on frappe_network. Check the
+# network name with `docker network ls` if the stack names it differently.
+# Secrets come from .env (never committed, never baked into the image).
+
+services:
+  ingest:
+    build: .
+    image: fedi-ingest:1.1
+    env_file: .env
+    environment:
+      EVIDENCE_DIR: /data/evidence
+    volumes:
+      - ingest-evidence:/data/evidence      # the only writable place
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777              # uploads are spooled here while being read
+    user: "10001:10001"
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 1g
+    cpus: 1.0
+    pids_limit: 128
+    networks: [frappe_network]
+    ports:
+      - "127.0.0.1:8090:8090"                # demo only: Swagger on this machine, not the LAN
+    restart: unless-stopped
+
+volumes:
+  ingest-evidence:
+
+networks:
+  frappe_network:
+    external: true
