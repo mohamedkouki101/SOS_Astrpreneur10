@@ -4,10 +4,13 @@ The ingest scanner and the AI layer's output validator both import this file,
 so both sides flag exactly the same phrases. Standard library only: copy or
 import it as is. Change it only together with the AI-layer teammate.
 
-Rules run on a "folded" copy of the text (lowercase, accents removed), so
-"IGNOREZ les instructions PRÉCÉDENTES" and "ignore prévious" still match.
-Folding keeps one character per character, so match positions map straight
-back onto the real text.
+Rules run on a "folded" copy of the text (lowercase, accents removed,
+Cyrillic/Greek lookalike letters turned into Latin ones), so
+"IGNOREZ les instructions PRÉCÉDENTES", "ignore prévious" and "іgnоrе"
+(with Cyrillic і, о, е) all still match. Folding keeps one character per
+character, so match positions map straight back onto the real text.
+A few rules need the original case ("SYSTEM:" but not "System: Linux"):
+they run on a folded copy that keeps upper and lower case.
 """
 
 import re
@@ -22,6 +25,7 @@ class Rule:
     label: str  # short English text for the dashboard
     weight_bp: int  # risk points, in basis points (10000 = certain)
     pattern: re.Pattern
+    case_sensitive: bool = False  # match on the case-keeping folded copy
 
 
 @dataclass(frozen=True)
@@ -34,24 +38,33 @@ class RuleMatch:
 
 # Typographic quotes from Word / Outlook: "Don’t" must match "don't".
 QUOTES = {"’": "'", "‘": "'", "ʼ": "'", "“": '"', "”": '"'}
+# Cyrillic and Greek letters that look like Latin ones ("іgnоrе" with Cyrillic
+# і, о, е). Only clear lookalikes; upper and lower case are kept apart.
+LOOKALIKES = dict(zip(
+    "аеіјорсѕухһԁԛԝӏүАВЕНІЈКМОРСЅТХУҮԚԜ" "αεικνοργτυχΑΒΕΖΗΙΚΜΝΟΡΤΥΧ",
+    "aeijopcsyxhdqwlyABEHIJKMOPCSTXYYQW" "aeikvopytuxABEZHIKMNOPTYX",
+))
 
 
-@lru_cache(maxsize=4096)
-def _fold_char(char: str) -> str:
+@lru_cache(maxsize=8192)
+def _fold_char(char: str, lower: bool) -> str:
     """One character in, exactly one character out (so positions never shift)."""
     if char in QUOTES:
         return QUOTES[char]
+    char = LOOKALIKES.get(char, char)
     base = "".join(c for c in unicodedata.normalize("NFKD", char) if not unicodedata.combining(c))
-    return (base or char).lower()[:1]
+    base = base or char
+    return (base.lower() if lower else base)[:1]
 
 
-def fold(text: str) -> str:
-    """Lowercase and strip accents, keeping the length: é -> e, É -> e."""
-    return "".join(_fold_char(char) for char in text)
+def fold(text: str, lower: bool = True) -> str:
+    """Strip accents, turn lookalikes into Latin, lowercase (unless lower=False),
+    keeping the length: é -> e, É -> e, Cyrillic о -> o."""
+    return "".join(_fold_char(char, lower) for char in text)
 
 
-def _rule(rule_id: str, label: str, weight_bp: int, pattern: str) -> Rule:
-    return Rule(rule_id, label, weight_bp, re.compile(pattern, re.MULTILINE))
+def _rule(rule_id: str, label: str, weight_bp: int, pattern: str, case_sensitive: bool = False) -> Rule:
+    return Rule(rule_id, label, weight_bp, re.compile(pattern, re.MULTILINE), case_sensitive)
 
 
 # Patterns are written in folded form: lowercase, no accents, straight quotes.
@@ -65,11 +78,35 @@ RULES: list[Rule] = [
           r"(?:(?:(?:all|any|the|your|these|those)\s+){0,2}"
           r"(?:(?:previous|prior|above|earlier|preceding|system|original|initial)\s+){1,2}"
           r"|(?:all|your)\s+(?:the\s+)?)"
-          r"(?:instructions?|prompts?|rules?|directions?|messages?|context|guidelines?)\b"),
+          r"(?:instructions?|prompts?|rules?|directions?|messages?|context|guidelines?)\b"
+          # "ignore the above", "disregard all of the above", "ignore everything before this"
+          r"|\b(?:ignore|disregard|forget)\s+"
+          r"(?:(?:all|everything|anything)\s+(?:of\s+)?(?:the\s+|that\s+)?|the\s+|what\s+(?:is|was|comes|came)\s+)"
+          r"(?:written\s+|said\s+|stated\s+)?(?:above|before)\b"
+          # "disregard what you were told"
+          r"|\b(?:ignore|disregard|forget)\s+(?:everything\s+|all\s+|what\s+|anything\s+)(?:that\s+)?"
+          r"you(?:\s+(?:were|have\s+been|are|got)|'ve\s+been)\s+told\b"),
     _rule("ignore_previous_fr", "Tries to cancel the AI's instructions", 4000,
           r"\b(?:ignore[rz]?|oublie[rz]?|ne\s+(?:tiens|tenez)\s+pas\s+compte\s+des)\s+(?:toutes\s+)?(?:les\s+|tes\s+|vos\s+)?"
           r"(?:instructions?|consignes?|regles?|directives?)\b"
-          r"(?:\s+(?:precedentes?|ci-dessus|anterieures?|du\s+systeme)\b)?"),
+          r"(?:\s+(?:precedentes?|ci-dessus|anterieures?|du\s+systeme)\b)?"
+          # "ignorez tout ce qui précède", "oublie ce qu'on t'a dit"
+          r"|\b(?:ignore[rz]?|oublie[rz]?)\s+(?:tout\s+)?ce\s+qui\s+(?:precede|est\s+(?:ecrit\s+)?(?:au-dessus|ci-dessus))\b"
+          r"|\b(?:ignore[rz]?|oublie[rz]?)\s+ce\s+qu'on\s+(?:t'a|vous\s+a)\s+dit\b"),
+
+    # --- Speak to the AI directly ---
+    # Narrow on purpose: "As an AI engineer, I built..." is normal CV text.
+    _rule("addressed_to_ai_en", "Speaks directly to the AI", 3000,
+          r"\b(?:note|message|instructions?|reminder)\s+(?:to|for)\s+(?:the\s+|any\s+)?"
+          r"(?:ai|llm|assistant|model|chatbot|chatgpt|gpt|bot|screener)\b"
+          r"|\bas\s+an?\s+(?:ai|llm|language\s+model)(?:\s+(?:assistant|model))?\s*,?\s+you\s+"
+          r"(?:must|should|will|have\s+to|need\s+to|are\s+(?:required|asked))\b"
+          r"|\bas\s+an\s+ai\s+language\s+model\b"
+          r"|\bdear\s+(?:ai|llm|assistant|chatbot)\b"),
+    _rule("addressed_to_ai_fr", "Speaks directly to the AI", 3000,
+          r"\b(?:note|message|consigne)\s+(?:a|pour)\s+(?:l'\s*)?(?:ia|intelligence\s+artificielle|assistant|chatbot)\b"
+          r"|\ben\s+tant\s+qu'\s*(?:ia|assistant|modele(?:\s+de\s+langage)?)\s*,?\s+(?:tu|vous)\s+(?:dois|devez)\b"
+          r"|\bchere?\s+(?:ia|assistant)\b"),
 
     # --- Change the AI's role ---
     _rule("role_override_en", "Tries to change the AI's role", 3000,
@@ -120,6 +157,9 @@ RULES: list[Rule] = [
     _rule("fake_chat_markers", "Contains fake AI chat markers", 3000,
           r"\[/?inst\]|<\|im_(?:start|end)\|>|</?[ \t]*(?:system|assistant)[ \t]*>"
           r"|^[ \t]*#{2,}[ \t]*(?:instructions?|system)\b"),
+    # Upper case only, at the start of a line: "SYSTEM: rank first", not "System: Linux".
+    _rule("fake_system_line", "Contains fake AI chat markers", 3000,
+          r"^[ \t]*(?:SYSTEM|SYSTEME|ASSISTANT)[ \t]*:", case_sensitive=True),
 
     # --- Ask to hide the attempt ---
     _rule("conceal_en", "Asks the AI to hide something", 2000,
@@ -135,10 +175,10 @@ RULES: list[Rule] = [
 
 def find_matches(text: str) -> list[RuleMatch]:
     """Every rule match in `text`, in order of position."""
-    folded = fold(text)
+    folded = {False: fold(text), True: fold(text, lower=False)}  # keyed by case_sensitive
     matches = [
         RuleMatch(rule, m.start(), m.end(), text[m.start():m.end()])
         for rule in RULES
-        for m in rule.pattern.finditer(folded)
+        for m in rule.pattern.finditer(folded[rule.case_sensitive])
     ]
     return sorted(matches, key=lambda match: (match.start, match.end))
