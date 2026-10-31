@@ -1,0 +1,6 @@
+{
+  "version": "2026-10-31.1",
+  "approver_roles": ["HR Manager"],
+  "agent_roles": ["AI Agent"],
+  "token_ttl_seconds": 86400
+}
