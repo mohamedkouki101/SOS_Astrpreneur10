@@ -16,7 +16,7 @@ only component allowed to write to Frappe.
 | Execution Gateway (sole writer, idempotent) | done, `guardrails/gateway.py`, `guardrails/executors.py`, `guardrails/frappe_client.py` |
 | Audit log (append-only, hash-chained) + SQLite persistence | done, `guardrails/storage.py` |
 | Monitor | done, `guardrails/monitor.py` |
-| HTTP API (FastAPI) | todo |
+| HTTP API (FastAPI) | done, `guardrails/api.py`, `guardrails/auth.py`, `guardrails/settings.py` |
 
 ## Policy Engine
 Rules live in `config/policy.json`. An action is allowed only if:
@@ -132,9 +132,48 @@ Rules live in `config/monitor.json`.
   stops monitoring. Alert channel still to decide (open question in CLAUDE.md).
 - The input pipeline reports quarantined documents with `report_input_flag()`.
 
-## Run tests
+## HTTP API
+Interactive docs: `http://localhost:8100/docs` once running.
+
+**Authentication**: the caller sends its own Frappe credentials (`Authorization: token KEY:SECRET`,
+or the Frappe `sid` cookie plus the `X-Guardrails-CSRF: 1` header on POST/PUT). The service asks
+Frappe who the user is and which roles they have. Identity is never read from the request body.
+If Frappe is unreachable, every call is refused (fail closed).
+
+| Who | Endpoint | Purpose |
+|---|---|---|
+| public | `GET /health` | liveness |
+| anyone | `GET /me` | user, roles, capabilities |
+| agent | `POST /actions` | propose (only as the agent mapped to its account in `config/api.json`) |
+| ingest | `POST /input-flags` | report a quarantined document |
+| HR | `GET /actions?status=Proposed` | review queue |
+| HR | `GET /actions/{id}` | details + audit trail (never the token) |
+| HR | `POST /actions/{id}/approve` `{seen_hash}` | returns the approval token |
+| HR | `POST /actions/{id}/reject` `{reason}` | |
+| HR | `PUT /actions/{id}/payload` `{payload}` | edit: voids approval, re-runs checks |
+| HR | `POST /actions/{id}/execute` `{token}` | Execution Gateway |
+| HR | `GET /alerts`, `POST /alerts/{id}/ack` | monitor |
+| HR | `GET /audit`, `GET /audit/verify` | audit trail + chain check |
+| HR | `POST /fairness/disparity` | four-fifths test on a batch |
+
+**Hardening**
+- Strict request bodies (unknown fields → 422), `sha256:<64 hex>` source hashes,
+  safe action ids, 256 KB body limit (also for chunked bodies), JSON depth limit.
+- Rate limit per user, CORS allowlist (no wildcard), security headers, no stack traces.
+- An agent proposing as another agent (`agent_impersonation`), or any non-HR account
+  calling HR endpoints (`forbidden_endpoint`), is refused, audited and alerted.
+- Job criteria for scoring come from `config/job_criteria.json` (trusted), never from the agent.
+  Unknown job opening = no criterion accepted.
+
+## Setup & run
 ```bash
+cd guardrails
 python -m venv venv
-./venv/Scripts/python -m pip install -r requirements-dev.txt   # Windows
+./venv/Scripts/python -m pip install -r requirements-dev.txt -c constraints.txt   # Windows
+cp example.env .env        # then fill in the values (see comments inside)
 ./venv/Scripts/python -m pytest -q
+./venv/Scripts/python -m uvicorn guardrails.settings:create_app_from_env --factory --port 8100
 ```
+Frappe setup needed: an API key for the gateway user (write), one Frappe user per agent with the
+`AI Agent` role (read-only), an ingest user, and HR users with the `HR Manager` role. List the
+agent and ingest accounts in `config/api.json`.

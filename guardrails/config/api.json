@@ -1,0 +1,13 @@
+{
+  "version": "2026-10-31.1",
+  "agent_accounts": {
+    "svc.recruitment@hr-ai.test": "recruitment_agent",
+    "svc.comms@hr-ai.test": "comms_agent",
+    "svc.assistant@hr-ai.test": "hr_assistant"
+  },
+  "ingest_accounts": ["svc.ingest@hr-ai.test"],
+  "cors_origins": ["http://localhost:8080", "http://localhost:5173"],
+  "max_body_bytes": 262144,
+  "max_json_depth": 20,
+  "rate_limit_per_minute": 120
+}

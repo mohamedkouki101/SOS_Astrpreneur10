@@ -172,6 +172,10 @@ class InMemoryActionStore:
             r.status = Status.EXECUTING
             return True
 
+    def list(self, status: "Status | None" = None, limit: int = 100) -> list[ActionRecord]:
+        recs = [r for r in self._records.values() if status is None or r.status is status]
+        return sorted(recs, key=lambda r: r.created_at, reverse=True)[:limit]
+
     def count_recent(self, agent: str, tool: str, since: float, exclude: str | None = None) -> int:
         return sum(
             1 for r in self._records.values()

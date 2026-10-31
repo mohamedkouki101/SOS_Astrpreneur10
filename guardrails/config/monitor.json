@@ -24,7 +24,9 @@
     "self_approval": "critical",
     "token_invalid": "high",
     "token_mismatch": "critical",
-    "integrity_error": "critical"
+    "integrity_error": "critical",
+    "agent_impersonation": "critical",
+    "forbidden_endpoint": "high"
   },
 
   "injection": {

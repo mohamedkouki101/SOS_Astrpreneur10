@@ -123,7 +123,7 @@ class Monitor:
         d = e.details
 
         # instant: alarming single events
-        if e.event in ("approval.denied", "execution.refused"):
+        if e.event in ("approval.denied", "execution.refused", "api.denied"):
             sev = cfg["instant_alert_codes"].get(d.get("code"))
             if sev:
                 out += self._raise("instant", sev, e.actor,
@@ -194,7 +194,7 @@ class Monitor:
 
     @staticmethod
     def _is_denial(e: AuditEntry) -> bool:
-        return e.event in ("approval.denied", "execution.refused") or (
+        return e.event in ("approval.denied", "execution.refused", "api.denied") or (
             e.event == "action.submitted" and e.details.get("status") == "Blocked")
 
     def _window(self, e: AuditEntry, seconds: int, pred) -> list[int]:

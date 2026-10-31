@@ -1,0 +1,5 @@
+{
+  "_comment": "Job-related scoring criteria per Job Opening (fictional). Trusted source: agents cannot supply their own. Unknown job opening = no criterion is accepted.",
+  "HR-OPN-0001": ["python_experience", "sql", "rest_apis", "communication", "education_relevant"],
+  "HR-OPN-0002": ["hr_software", "labour_law", "recruitment_experience", "communication", "languages"]
+}
