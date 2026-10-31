@@ -4,7 +4,7 @@ Run:  uvicorn ingest.api:create_app --factory --port 8090
 Then: http://localhost:8090/docs  (Swagger: upload a CV live from the browser)
 
 One key per caller, sent in the X-API-Key header:
-    UPLOAD_API_KEY    Frappe            POST /v1/upload, POST /v1/email
+    UPLOAD_API_KEY    Frappe            POST /v1/upload, /v1/email, /v1/email/attachment
     REPORT_API_KEY    HR dashboard      GET  /v1/reports, /v1/reports/{id}   (contain PII)
                                         POST /v1/reports/{id}/release, /reject (reason required)
     ENVELOPE_API_KEY  AI layer          GET  /v1/envelopes, /v1/envelopes/{id} (masked only)
@@ -28,10 +28,12 @@ from ingest.pipeline import DecisionError, Pipeline, PipelineResult
 from ingest.report import InspectionReport
 from ingest.store import HEX_ID
 
-# Same format as the contract: checked here so a bad value is a clean 422.
-FRAPPE_NAME = re.compile(r"[A-Za-z0-9-]{1,64}")
+# Same formats as the contract: checked here so a bad value is a clean 422.
+FRAPPE_NAME = r"^[A-Za-z0-9-]{1,64}$"
+MESSAGE_ID = r"^[!-~]{1,998}$"  # printable ASCII, as in email headers
+SENDER = r"^[^\s@]{1,64}@[^\s@]{1,255}$"
 MULTIPART_OVERHEAD = 64 * 1024  # room for form fields and boundaries around the file
-UPLOAD_PATHS = {"/v1/upload", "/v1/email"}
+UPLOAD_PATHS = {"/v1/upload", "/v1/email", "/v1/email/attachment"}
 
 
 class Summary(BaseModel):
@@ -69,10 +71,10 @@ class DecisionIn(BaseModel):
 class EmailIn(BaseModel):
     body: str = Field(max_length=1_000_000)
     is_html: bool = False
-    sender_email: str = Field(pattern=r"^[^\s@]{1,64}@[^\s@]{1,255}$")
-    message_id: str = Field(pattern=r"^[!-~]{1,998}$")
-    in_reply_to: str | None = Field(default=None, pattern=r"^[!-~]{1,998}$")
-    job_hint: str | None = Field(default=None, pattern=r"^[A-Za-z0-9-]{1,64}$")
+    sender_email: str = Field(pattern=SENDER)
+    message_id: str = Field(pattern=MESSAGE_ID)
+    in_reply_to: str | None = Field(default=None, pattern=MESSAGE_ID)
+    job_hint: str | None = Field(default=None, pattern=FRAPPE_NAME)
 
 
 def _key_check(expected: SecretStr):
@@ -164,17 +166,43 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     # --- In: Frappe (or Swagger during the demo) ---
 
-    @app.post("/v1/upload", dependencies=[upload_key], response_model=Summary)
-    def upload(file: UploadFile = File(...), job_opening_id: str | None = Form(default=None)):
-        job_opening_id = job_opening_id or None  # an empty form field means "none"
-        if job_opening_id is not None and not FRAPPE_NAME.fullmatch(job_opening_id):
-            raise HTTPException(status_code=422, detail="invalid job_opening_id")
+    def check_field(name: str, value: str | None, pattern: str, required: bool = False) -> str | None:
+        value = value or None  # an empty form field means "none"
+        missing = value is None and required
+        malformed = value is not None and not re.fullmatch(pattern, value)
+        if missing or malformed:
+            raise HTTPException(status_code=422, detail=f"invalid {name}")
+        return value
+
+    def read_file(file: UploadFile) -> bytes:
         # The guard middleware already refused oversized requests; this exact
         # check catches a file just over the limit.
         data = file.file.read(settings.max_file_bytes + 1)
         if len(data) > settings.max_file_bytes:
             raise HTTPException(status_code=413, detail="file too large")
-        return result_summary(pipeline.process_upload(data, file.filename, job_opening_id))
+        return data
+
+    @app.post("/v1/upload", dependencies=[upload_key], response_model=Summary)
+    def upload(file: UploadFile = File(...), job_opening_id: str | None = Form(default=None)):
+        job_opening_id = check_field("job_opening_id", job_opening_id, FRAPPE_NAME)
+        return result_summary(pipeline.process_upload(read_file(file), file.filename, job_opening_id))
+
+    @app.post("/v1/email/attachment", dependencies=[upload_key], response_model=Summary)
+    def email_attachment(
+        file: UploadFile = File(...),
+        sender_email: str = Form(...),
+        message_id: str = Form(...),
+        in_reply_to: str | None = Form(default=None),
+        job_hint: str | None = Form(default=None),
+    ):
+        """A CV attached to an email, forwarded by Frappe's Email Account."""
+        return result_summary(pipeline.process_email_attachment(
+            read_file(file), file.filename,
+            check_field("sender_email", sender_email, SENDER, required=True),
+            check_field("message_id", message_id, MESSAGE_ID, required=True),
+            check_field("in_reply_to", in_reply_to, MESSAGE_ID),
+            check_field("job_hint", job_hint, FRAPPE_NAME),
+        ))
 
     @app.post("/v1/email", dependencies=[upload_key], response_model=Summary)
     def email(message: EmailIn):

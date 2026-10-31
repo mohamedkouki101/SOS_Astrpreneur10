@@ -22,8 +22,7 @@ AI_LAYER = {"X-API-Key": KEYS["ENVELOPE_API_KEY"]}
 
 @pytest.fixture
 def client(tmp_path, monkeypatch):
-    for name, value in {**KEYS, "IMAP_USER": "hr-inbox@example.test", "IMAP_PASSWORD": "fictional",
-                        "EVIDENCE_DIR": str(tmp_path / "evidence"), "MAX_FILE_BYTES": "200000"}.items():
+    for name, value in {**KEYS, "EVIDENCE_DIR": str(tmp_path / "evidence"), "MAX_FILE_BYTES": "200000"}.items():
         monkeypatch.setenv(name, value)
     with TestClient(create_app(Settings(_env_file=None))) as test_client:
         yield test_client
@@ -101,6 +100,33 @@ def test_email_endpoint(client):
     assert response.status_code == 200
     assert response.json()["source_type"] == "email_body"
     assert response.json()["verdict"] in ("suspicious", "quarantined")
+
+
+def attach(client, data: bytes, headers=UPLOAD, **fields):
+    form = {"sender_email": "amina@example.test", "message_id": "<demo-020@mail.example.test>", **fields}
+    return client.post("/v1/email/attachment", headers=headers,
+                       files={"file": ("cv.pdf", io.BytesIO(data), "application/pdf")}, data=form)
+
+
+def test_email_attachment_endpoint(client):
+    summary = attach(client, pdf(*CV), job_hint="HR-OPN-0004").json()
+    assert summary["source_type"] == "email_attachment" and summary["verdict"] == "clean"
+    envelope = client.get(f"/v1/envelopes/{summary['report_id']}", headers=AI_LAYER).json()
+    assert envelope["source"]["message_id"] == "<demo-020@mail.example.test>"
+    assert envelope["source"]["sender_ref"].startswith("hmac:")
+    assert envelope["job_opening"] == {"id": "HR-OPN-0004", "origin": "email_hint"}  # untrusted hint
+
+
+@pytest.mark.parametrize("fields", [
+    {"message_id": "has space"}, {"sender_email": "not-an-email"},
+    {"message_id": ""}, {"job_hint": "../x"},
+])
+def test_email_attachment_rejects_bad_fields(client, fields):
+    assert attach(client, pdf(*CV), **fields).status_code == 422
+
+
+def test_email_attachment_needs_the_upload_key(client):
+    assert attach(client, pdf(*CV), headers=DASHBOARD).status_code == 401
 
 
 # --- Human decisions ---

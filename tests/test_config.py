@@ -11,8 +11,6 @@ VALID_ENV = {
     "RESOLVER_API_KEY": "d" * 64,
     "REPORT_API_KEY": "e" * 64,
     "ENVELOPE_API_KEY": "f" * 64,
-    "IMAP_USER": "hr-inbox@example.test",
-    "IMAP_PASSWORD": "test-password",
 }
 
 
@@ -32,10 +30,10 @@ def load() -> Settings:
 def test_valid_env_loads_with_defaults(env):
     settings = load()
     assert settings.max_file_bytes == 10_000_000
-    assert settings.imap_folder == "INBOX"
+    assert settings.max_pdf_pages == 20
 
 
-@pytest.mark.parametrize("name", ["INGEST_SIGNING_KEY", "INGEST_REF_KEY", "IMAP_PASSWORD"])
+@pytest.mark.parametrize("name", ["INGEST_SIGNING_KEY", "INGEST_REF_KEY", "UPLOAD_API_KEY"])
 def test_missing_secret_fails(env, name):
     env.delenv(name)
     with pytest.raises(ValidationError):
@@ -66,7 +64,16 @@ def test_secrets_not_shown_in_repr(env):
     for name in ("INGEST_SIGNING_KEY", "INGEST_REF_KEY", "UPLOAD_API_KEY", "RESOLVER_API_KEY",
                  "REPORT_API_KEY", "ENVELOPE_API_KEY"):
         assert VALID_ENV[name] not in text
-    assert VALID_ENV["IMAP_PASSWORD"] not in text
+
+
+
+def test_no_mailbox_settings_any_more(env, tmp_path):
+    # Mail arrives through Frappe: a leftover IMAP line in .env is refused, not silently ignored.
+    assert not any(name.startswith("imap") for name in Settings.model_fields)
+    leftover = tmp_path / ".env"
+    leftover.write_text("IMAP_PASSWORD=old-secret\n", encoding="utf-8")
+    with pytest.raises(ValidationError):
+        Settings(_env_file=leftover)
 
 
 def test_secret_not_leaked_in_error_message(env):

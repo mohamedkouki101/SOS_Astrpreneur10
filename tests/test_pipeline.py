@@ -37,7 +37,6 @@ def pipeline(tmp_path, monkeypatch):
         "INGEST_SIGNING_KEY": SIGNING_KEY, "INGEST_REF_KEY": "r" * 64,
         "UPLOAD_API_KEY": "u" * 64, "RESOLVER_API_KEY": "v" * 64,
         "REPORT_API_KEY": "w" * 64, "ENVELOPE_API_KEY": "y" * 64,
-        "IMAP_USER": "hr-inbox@example.test", "IMAP_PASSWORD": "fictional",
         "EVIDENCE_DIR": str(tmp_path / "evidence"),
     }.items():
         monkeypatch.setenv(name, value)

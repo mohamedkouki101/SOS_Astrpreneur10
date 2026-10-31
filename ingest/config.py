@@ -38,13 +38,8 @@ class Settings(BaseSettings):
     # Comma-separated browser origins allowed to call the API (the dashboard).
     dashboard_origins: str = "http://localhost:5173,http://localhost:3000"
 
-    # --- HR mailbox ---
-    imap_host: str = "localhost"
-    imap_port: int = Field(default=993, ge=1, le=65535)
-    imap_use_ssl: bool = True
-    imap_user: str
-    imap_password: SecretStr
-    imap_folder: str = "INBOX"
+    # No mailbox settings: Frappe's Email Account receives HR mail and forwards
+    # it to POST /v1/email and /v1/email/attachment. One less secret here.
 
     # --- Sanitizer limits ---
     max_file_bytes: int = Field(default=10_000_000, ge=1_024, le=50_000_000)
