@@ -29,13 +29,13 @@ from ingest.contract import Chunk, IngestedDocument, JobOpening, Pii, Scan, Sour
 from ingest.pii.mask import MaskResult, mask
 from ingest.pii.refs import email_ref
 from ingest.report import (
-    REJECTION_LABELS, REMOVED_LABELS, Hashes, InjectionMatch, InspectionReport, MaskedValue,
+    REJECTION_LABELS, REMOVED_LABELS, Decision, Hashes, InjectionMatch, InspectionReport, MaskedValue,
     ProtectedValue, Reason, Rejection, RemovedPassage, ReportSource, ReportText, Stage, label_for,
 )
 from ingest.sanitizer.extract import ExtractLimits
 from ingest.sanitizer.filetype import FileLimits, RejectedFile
 from ingest.sanitizer.sanitize import SanitizeResult, sanitize_email_body, sanitize_file
-from ingest.scanner import ScanResult, scan
+from ingest.scanner import ScanResult, neutralize_text, scan
 from ingest.signing import sign_document
 from ingest.store import EvidenceStore
 
@@ -48,6 +48,14 @@ RETRY_AFTER_S = 60
 # Files derived from a run. A new run clears leftovers from a crashed one first
 # (raw evidence is never touched).
 DERIVED_AREAS = ("meta", "envelopes", "quarantine", "pii")
+
+
+class DecisionError(Exception):
+    """A release/reject request that cannot apply: code is "not_found" or "conflict"."""
+
+    def __init__(self, code: str):
+        super().__init__(code)
+        self.code = code
 
 
 @dataclass(frozen=True)
@@ -153,6 +161,77 @@ class Pipeline:
     def list_reports(self) -> list[InspectionReport]:
         return [InspectionReport.model_validate(self.store.get_json("reports", report_id))
                 for report_id in self.store.list_report_ids()]
+
+    # --- Human decisions (HR dashboard) ---
+
+    def _decidable(self, report_id: str) -> InspectionReport:
+        result = self.get(report_id)
+        if result is None:
+            raise DecisionError("not_found")
+        if result.report.status != "accepted" or result.report.decision is not None:
+            raise DecisionError("conflict")  # rejected files, errors, or already decided
+        return result.report
+
+    def release(self, report_id: str, reason: str) -> PipelineResult:
+        """HR releases a quarantined document after reading it.
+
+        The quarantined envelope has no chunks (the contract forbids them), so a
+        new one is built from the masked text, with every rule match neutralized.
+        It is marked "suspicious" + "human_released", so the AI layer still
+        treats it as flagged data, then signed and moved to envelopes/."""
+        with self._processing:
+            report = self._decidable(report_id)
+            quarantined = self.store.get_json("quarantine", report_id)
+            if report.verdict != "quarantined" or quarantined is None:
+                raise DecisionError("conflict")
+
+            text = neutralize_text(report.text.masked)
+            chunks = chunk_text(text, report.source.type == "email_body")
+            envelope = dict(quarantined, signature=None)
+            envelope["scan"] = dict(quarantined["scan"], verdict="suspicious",
+                                    signals=(quarantined["scan"]["signals"] + ["human_released"])[:100])
+            envelope["chunks"] = [{"chunk_id": sha256_id(t.encode("utf-8")), "section": s, "text": t}
+                                  for s, t in chunks]
+            signed = sign_document(IngestedDocument.model_validate(envelope), self._signing_key)
+            envelope_json = signed.model_dump(mode="json")
+
+            updated = report.model_copy(update={
+                "released_to_ai": True,
+                "decision": Decision(action="released", reason=reason, decided_at=utc_now()),
+                "text": report.text.model_copy(update={"sent": "\n\n".join(c.text for c in signed.chunks)}),
+                "hashes": Hashes(doc_id=report.doc_id, chunk_ids=[c.chunk_id for c in signed.chunks],
+                                 signature=signed.signature),
+            })
+            self._move_envelope(report_id, envelope_json, "quarantine", "envelopes", updated)
+            return PipelineResult(updated, envelope_json, False)
+
+    def reject(self, report_id: str, reason: str) -> PipelineResult:
+        """HR rejects a document. If it had been released, its envelope is
+        moved back to quarantine/, so the AI layer can no longer fetch it."""
+        with self._processing:
+            report = self._decidable(report_id)
+            updated = report.model_copy(update={
+                "released_to_ai": False,
+                "decision": Decision(action="rejected", reason=reason, decided_at=utc_now()),
+            })
+            envelope = self.store.get_json("envelopes", report_id)
+            if envelope is not None:
+                self._move_envelope(report_id, envelope, "envelopes", "quarantine", updated)
+            else:
+                self.store.replace_report(report_id, updated.model_dump())
+            return PipelineResult(updated, None, False)
+
+    def _move_envelope(self, report_id, envelope, source: str, target: str, report: InspectionReport):
+        """Write the new location, then the report, then remove the old one;
+        undo the write if the report cannot be saved."""
+        if not self.store.put_json(target, report_id, envelope):
+            raise DecisionError("conflict")
+        try:
+            self.store.replace_report(report_id, report.model_dump())
+        except Exception:
+            self.store.delete(target, report_id)
+            raise
+        self.store.delete(source, report_id)
 
     # --- The run ---
 

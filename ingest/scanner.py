@@ -130,6 +130,11 @@ def scan(
     )
 
 
+def neutralize_text(text: str) -> str:
+    """Replace every rule match in `text` (used when HR releases a quarantined document)."""
+    return _neutralize(text, find_matches(text))
+
+
 def _text_for_ai(verdict: Verdict, masked_text: str, visible: list[RuleMatch]) -> str:
     """clean: as is. suspicious: matched phrases neutralized. quarantined: nothing."""
     if verdict == "quarantined":

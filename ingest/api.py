@@ -6,6 +6,7 @@ Then: http://localhost:8090/docs  (Swagger: upload a CV live from the browser)
 One key per caller, sent in the X-API-Key header:
     UPLOAD_API_KEY    Frappe            POST /v1/upload, POST /v1/email
     REPORT_API_KEY    HR dashboard      GET  /v1/reports, /v1/reports/{id}   (contain PII)
+                                        POST /v1/reports/{id}/release, /reject (reason required)
     ENVELOPE_API_KEY  AI layer          GET  /v1/envelopes, /v1/envelopes/{id} (masked only)
 So the AI layer can never read a report, and the dashboard can never upload.
 """
@@ -18,12 +19,12 @@ from typing import Literal
 from fastapi import Depends, FastAPI, File, Form, Header, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel, Field, SecretStr
+from pydantic import BaseModel, Field, SecretStr, field_validator
 
 from ingest import PIPELINE_VERSION
 from ingest.config import Settings, get_settings
 from ingest.pii.mask import mask
-from ingest.pipeline import Pipeline, PipelineResult
+from ingest.pipeline import DecisionError, Pipeline, PipelineResult
 from ingest.report import InspectionReport
 from ingest.store import HEX_ID
 
@@ -47,7 +48,22 @@ class Summary(BaseModel):
     risk_score_bp: int
     rejection: str | None
     released_to_ai: bool
+    decision: Literal["released", "rejected"] | None = None  # set by HR on the dashboard
     duplicate: bool = False
+
+
+class DecisionIn(BaseModel):
+    """Why HR releases or rejects a document: always required, kept in the report."""
+
+    reason: str = Field(max_length=500)
+
+    @field_validator("reason")
+    @classmethod
+    def not_blank(cls, value: str) -> str:
+        value = value.strip()
+        if len(value) < 3:
+            raise ValueError("a reason of at least 3 characters is required")
+        return value
 
 
 class EmailIn(BaseModel):
@@ -133,7 +149,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             filename=meta.get("original_filename"), source_type=report.source.type,
             file_type=report.source.file_type, status=report.status, verdict=report.verdict,
             risk_score_bp=report.risk_score_bp, rejection=report.rejection.label if report.rejection else None,
-            released_to_ai=report.released_to_ai, duplicate=duplicate,
+            released_to_ai=report.released_to_ai,
+            decision=report.decision.action if report.decision else None, duplicate=duplicate,
         )
 
     def result_summary(result: PipelineResult) -> Summary:
@@ -178,6 +195,25 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         if result is None:
             raise HTTPException(status_code=404, detail="not found")
         return result.report
+
+    # --- Human decisions: HR on the dashboard (the person decides) ---
+
+    def decide(action, report_id: str, body: DecisionIn) -> Summary:
+        try:
+            return summary(action(_report_id(report_id), body.reason).report)
+        except DecisionError as error:
+            status = 404 if error.code == "not_found" else 409
+            raise HTTPException(status_code=status, detail=error.code) from None
+
+    @app.post("/v1/reports/{report_id}/release", dependencies=[report_key], response_model=Summary)
+    def release(report_id: str, body: DecisionIn):
+        """Release a quarantined document to the AI layer, flagged as suspicious."""
+        return decide(pipeline.release, report_id, body)
+
+    @app.post("/v1/reports/{report_id}/reject", dependencies=[report_key], response_model=Summary)
+    def reject(report_id: str, body: DecisionIn):
+        """Reject a document; if it was released, the AI layer can no longer fetch it."""
+        return decide(pipeline.reject, report_id, body)
 
     # --- Out: AI layer (released envelopes only) ---
 

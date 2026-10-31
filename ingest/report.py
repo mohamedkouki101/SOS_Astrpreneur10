@@ -81,6 +81,14 @@ class Hashes(_Model):
     signature: str | None
 
 
+class Decision(_Model):
+    """A human decision from the HR dashboard: the person decides, not the system."""
+
+    action: Literal["released", "rejected"]
+    reason: str
+    decided_at: str
+
+
 class InspectionReport(_Model):
     report_version: Literal["1.0"] = "1.0"
     report_id: str  # one per submission: same file + same source + same job opening
@@ -101,7 +109,8 @@ class InspectionReport(_Model):
     protected_removed: list[ProtectedValue]
     injection_matches: list[InjectionMatch]
     hashes: Hashes
-    released_to_ai: bool  # True only for accepted, non-quarantined documents
+    released_to_ai: bool  # True for accepted, non-quarantined documents, or after a human release
+    decision: Decision | None = None
 
 
 # --- Readable labels for every code (English; the dashboard may translate) ---
