@@ -8,6 +8,9 @@ dashboard can show *why* a document got its verdict.
     3000 <= score < 7000  suspicious   -> sent, matched phrases neutralized, visibly flagged
     score >= 7000         quarantined  -> nothing sent to the AI, HR alerted
 
+    Any instruction found in HIDDEN text -> quarantined, whatever the score:
+    hiding an instruction is never innocent.
+
 Security does not rely on this detection alone: downstream the LLM has no
 tools or keys, its output is validated, and a human approves every action.
 """
@@ -110,7 +113,7 @@ def scan(
             "invisible_chars", f"{invisible_chars_removed} invisible character(s) removed", INVISIBLE_CHARS_POINTS))
 
     score = min(MAX_SCORE, sum(reason.points for reason in reasons))
-    verdict = _verdict(score)
+    verdict = "quarantined" if hidden else _verdict(score)
 
     signals = list(sanitizer_signals)
     signals += [f"rule:{rule_id}" for rule_id in dict.fromkeys(m.rule.id for m in visible)]
