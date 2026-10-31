@@ -48,6 +48,7 @@ class Settings(BaseSettings):
     max_zip_entries: int = Field(default=1_000, ge=10, le=10_000)
     max_zip_uncompressed_bytes: int = Field(default=50_000_000, ge=1_000_000, le=200_000_000)
     max_zip_ratio: int = Field(default=100, ge=10, le=1_000)  # uncompressed / compressed
+    max_text_chars: int = Field(default=200_000, ge=1_000, le=1_000_000)  # extracted text per file
     extract_timeout_s: int = Field(default=10, ge=1, le=60)
     extract_memory_mb: int = Field(default=256, ge=64, le=1_024)
 

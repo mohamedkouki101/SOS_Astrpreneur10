@@ -1,2 +1,5 @@
 pydantic==2.14.2
 pydantic-settings==2.16.2
+# 1.26.x on purpose: 2.0 pulls in an unused ML layout engine (onnxruntime, numpy, ...).
+pymupdf==1.26.7
+python-docx==1.2.0
