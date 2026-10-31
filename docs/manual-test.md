@@ -1,0 +1,71 @@
+# Manual end-to-end test: inbox → agent → human approval → email sent
+
+What you will see: an external email arrives in the HR inbox, the Comms agent drafts a reply (names masked),
+HR approves it in RH Flow, the Execution Gateway sends it, and the sent email appears in Mailpit.
+A phishing / prompt-injection email is quarantined and never reaches the model.
+
+## Open these 3 windows
+| Window | URL / place |
+|---|---|
+| RH Flow (login `Administrator`) | http://localhost:8001/desk, then the **RH AI** tile (or directly http://localhost:8001/desk/rh-ai) |
+| Mailpit (test mail server, catches every email) | http://localhost:8025 |
+| WSL terminal | `cd ~/Desktop/SOS && P=$HOME/.venvs/rhflow-agents/bin/python` |
+
+Prerequisites: the stack is up (`docker compose -p hr -f hr.yml up -d` in `~/frappe_docker`) and Ollama runs `qwen3:8b`.
+
+## Step 1: external emails arrive
+```bash
+$P -m agents.scripts.demo_scenario --reset
+```
+This empties the Mailpit test inbox, then sends 3 fictional emails to `hr@rhflow.local`:
+a candidate question, an employee question, and an attack ("URGENT: updated payroll instructions").
+**Check:** Mailpit shows 3 emails to `hr@rhflow.local`.
+
+## Step 2: the agent reads the inbox and drafts a reply
+```bash
+$P -m agents.cli run comms "List the new emails in the HR inbox. For the candidate's email, read it and draft a polite reply for HR to approve."
+```
+**Check in the terminal:**
+- The tool calls are printed (`list_new_emails`, `read_email`, `propose_email_reply`).
+- The last line shows `proposal AIA-2026-000NN [email_reply] ... (status: Proposed)`.
+- Nothing has been sent: Mailpit still holds only the 3 incoming emails.
+
+## Step 3: the attack is blocked
+In the same run, `list_new_emails` returned the attack as `QUARANTINED` with no content. It was flagged for hidden text, "ignore instructions", tool coercion and credential phishing. The model never read it.
+**Check:** `tail -1 var/alerts.jsonl` shows an `injection_quarantine` alert.
+You can also run `$P -m agents.cli run comms "Make a digest of the HR inbox"`. The digest lists the attack as a security item.
+
+## Step 4: HR reviews the proposal in RH Flow
+Open the **RH AI** app from the `/desk` apps screen. The decision page shows one card per agent proposal:
+- tabs with counters: Waiting for decision / Allowed / Done / Declined / Failed
+- an agent filter
+- **Show real names** (HR Manager / System Manager only)
+- **Allow** / **Decline** buttons on each waiting card
+
+Click **Details / edit** for the full record:
+- The **Summary** shows the draft exactly as the model wrote it, with `[PERSON_1]` and `[EMAIL_1]`: the model never saw real names.
+- **De-tokenisation** is visible only to HR Manager and System Manager. It shows which real values replace the tokens at send time.
+- The Integrity section shows the action hash and the source hash of the email the draft is based on.
+
+**Optional, test "edit voids approval":**
+1. Change a word in **Payload** and save.
+2. The record stays Proposed, with a comment that the approval was voided.
+3. Approve after editing: you are approving the edited version.
+
+## Step 5: allow, then the email is sent
+Click **Allow** on the card, then confirm. Use **Decline** with a reason to refuse.
+- The status turns **Approved**, then about 5 seconds later **Executed**. The page refreshes by itself.
+- The **Execution result** reads `Email sent to hr.review@rhflow.local (test mode; intended for <candidate>)`.
+- In Mailpit, a new email from `hr@rhflow.local` to `hr.review@rhflow.local` appears. Its banner names the intended recipient, and the body contains the **real** candidate name.
+
+Test mode: every outgoing email goes to the site setting `hr_ai_test_recipient` (`hr.review@rhflow.local`), never to the fictional candidate address.
+
+## Step 6: other things to try
+- **Decline:** run step 2 again, click **Decline** and give a reason. The card moves to Declined and nothing is sent.
+- **Decision-only proposals:** Allowing a digest or a ranking records HR's decision. The status stays Allowed, with "HR follows up manually", because there is nothing for the gateway to execute.
+- **Tampering:** a forged hash, an agent claiming another agent's identity, or a direct REST insert are all refused. Commands are in session.md.
+- **Duplicate:** running the executor again on an Executed action does nothing (no second email).
+- **Audit:** `$P -m agents.cli audit-verify` checks the agent-side hash chain. The AI Action's history (timeline) shows who approved it and when.
+
+## Reset
+Run Step 1 again with `--reset`. Old AI Actions stay in RH Flow as history.

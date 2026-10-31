@@ -1,0 +1,277 @@
+{
+ "actions": [],
+ "autoname": "AIA-.YYYY.-.#####",
+ "creation": "2026-10-31 12:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "status",
+  "kind",
+  "agent",
+  "column_break_1",
+  "subject",
+  "reference_doctype",
+  "reference_name",
+  "section_proposal",
+  "summary",
+  "payload",
+  "section_decision",
+  "approver",
+  "approved_on",
+  "column_break_2",
+  "decision_note",
+  "section_execution",
+  "executed_on",
+  "execution_result",
+  "column_break_4",
+  "result_doctype",
+  "result_name",
+  "section_integrity",
+  "action_hash",
+  "source_hashes",
+  "approval_token",
+  "column_break_3",
+  "external_id",
+  "run_id",
+  "section_tokens",
+  "token_map"
+ ],
+ "fields": [
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Proposed\nApproved\nRejected\nExecuted\nFailed",
+   "default": "Proposed",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "kind",
+   "fieldtype": "Select",
+   "label": "Kind",
+   "options": "ranking\napplicant_status\ninterview\nemail_reply\ndigest\nleave_decision\nonboarding_tasks\nwelcome_email\npayroll_reply\nreview_summary\ngrievance_triage",
+   "read_only": 1,
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "agent",
+   "fieldtype": "Data",
+   "label": "Agent",
+   "read_only": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "subject",
+   "fieldtype": "Data",
+   "label": "Subject",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "reference_doctype",
+   "fieldtype": "Link",
+   "label": "Reference Type",
+   "options": "DocType",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reference_name",
+   "fieldtype": "Dynamic Link",
+   "label": "Reference",
+   "options": "reference_doctype",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_proposal",
+   "fieldtype": "Section Break",
+   "label": "Proposal"
+  },
+  {
+   "fieldname": "summary",
+   "fieldtype": "Long Text",
+   "label": "Summary (as proposed by the agent)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "payload",
+   "fieldtype": "Code",
+   "options": "JSON",
+   "label": "Payload (editing it voids any approval)"
+  },
+  {
+   "fieldname": "section_decision",
+   "fieldtype": "Section Break",
+   "label": "Human decision"
+  },
+  {
+   "fieldname": "approver",
+   "fieldtype": "Link",
+   "label": "Decided by",
+   "options": "User",
+   "read_only": 1
+  },
+  {
+   "fieldname": "approved_on",
+   "fieldtype": "Datetime",
+   "label": "Decided on",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "decision_note",
+   "fieldtype": "Small Text",
+   "label": "Decision note",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_integrity",
+   "fieldtype": "Section Break",
+   "label": "Integrity",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "action_hash",
+   "fieldtype": "Data",
+   "label": "Action hash (SHA-256)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "source_hashes",
+   "fieldtype": "Small Text",
+   "label": "Source hashes",
+   "read_only": 1
+  },
+  {
+   "fieldname": "approval_token",
+   "fieldtype": "Data",
+   "label": "Approval token",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "external_id",
+   "fieldtype": "Data",
+   "label": "Agent proposal ID",
+   "read_only": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "run_id",
+   "fieldtype": "Data",
+   "label": "Agent run ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_execution",
+   "fieldtype": "Section Break",
+   "label": "Execution"
+  },
+  {
+   "fieldname": "executed_on",
+   "fieldtype": "Datetime",
+   "label": "Executed on",
+   "read_only": 1
+  },
+  {
+   "fieldname": "execution_result",
+   "fieldtype": "Small Text",
+   "label": "Execution result",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "result_doctype",
+   "fieldtype": "Link",
+   "label": "Result type",
+   "options": "DocType",
+   "read_only": 1
+  },
+  {
+   "fieldname": "result_name",
+   "fieldtype": "Dynamic Link",
+   "label": "Result",
+   "options": "result_doctype",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_tokens",
+   "fieldtype": "Section Break",
+   "label": "Pseudonym map (HR Managers only)",
+   "collapsible": 1,
+   "permlevel": 1
+  },
+  {
+   "fieldname": "token_map",
+   "fieldtype": "Code",
+   "options": "JSON",
+   "label": "Token -> real value (used only by the Execution Gateway)",
+   "read_only": 1,
+   "permlevel": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-10-31 21:30:00.000000",
+ "modified_by": "Administrator",
+ "module": "HR AI",
+ "name": "AI Action",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1
+  },
+  {
+   "role": "HR Manager",
+   "read": 1,
+   "write": 1,
+   "report": 1,
+   "export": 1,
+   "print": 1
+  },
+  {
+   "role": "HR User",
+   "read": 1,
+   "report": 1,
+   "print": 1
+  },
+  {
+   "role": "System Manager",
+   "permlevel": 1,
+   "read": 1
+  },
+  {
+   "role": "HR Manager",
+   "permlevel": 1,
+   "read": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "subject",
+ "track_changes": 1
+}

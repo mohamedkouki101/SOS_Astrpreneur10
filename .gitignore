@@ -1,0 +1,47 @@
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Upstream platform code and tooling: never part of this repo
+hrms/
+erpnext/
+frappe/
+frappe_docker/
+frappe-bench/
+apps/
+sites/
+apps.json
+*.sql
+*.sql.gz
+
+# Raw / quarantined / generated data (assumed layout)
+data/raw/
+data/quarantine/
+data/**/*.tokenmap*
+
+# Python / tooling caches
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+node_modules/
+
+# Logs
+*.log
+logs/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+var/
+
+# local session handoff notes
+session.md
