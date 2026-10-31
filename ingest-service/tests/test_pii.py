@@ -167,6 +167,12 @@ def test_short_name_parts_are_left_alone():
     assert "Jo" in mask("Nom : Jo Fictional\nJo aime Python.").masked_text
 
 
+def test_masking_keeps_line_breaks_around_names():
+    result = mask("Nom : Karim Fictif\nCompétences : Java\nKarim Fictif a dirigé l'équipe.")
+    assert result.masked_text == "Nom : <PERSON_1>\nCompétences : Java\n<PERSON_1> a dirigé l'équipe."
+    assert result.items[0].original == "Karim Fictif"
+
+
 def test_works_with_networking_blocked(monkeypatch):
     """The container has no internet: loading and masking must never try to connect."""
     import socket

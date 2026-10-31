@@ -130,9 +130,15 @@ def _presidio_detections(text: str, language: str) -> list[_Detection]:
     for result in _analyzer().analyze(text=text, language=language, entities=["PERSON", "PHONE_NUMBER"]):
         if result.score < MIN_PRESIDIO_SCORE:
             continue
-        value = text[result.start:result.end]
+        # spaCy sometimes includes a line break or space at the edge of a name:
+        # trim it, or masking would swallow the line break ("<PERSON_1>Compétences").
+        raw = text[result.start:result.end]
+        start = result.start + (len(raw) - len(raw.lstrip()))
+        end = result.end - (len(raw) - len(raw.rstrip()))
+        if end <= start:
+            continue
+        value = text[start:end]
         if result.entity_type == "PERSON":
-            start = result.start
             if title := TITLES.match(value):  # "Mme Salem" -> "Salem"
                 start += title.end()
                 value = value[title.end():]
@@ -142,9 +148,9 @@ def _presidio_detections(text: str, language: str) -> list[_Detection]:
             if (len(words) < 2 or not all(word[:1].isupper() for word in words)
                     or re.search(r"[\d@<>\[\]_/]", value) or value.lower() in KNOWN_PLACES):
                 continue
-            detections.append(_Detection(start, result.end, "PERSON", False))
-        elif not CURRENCY_AFTER.match(text, result.end):
-            detections.append(_Detection(result.start, result.end, "PHONE", False))
+            detections.append(_Detection(start, end, "PERSON", False))
+        elif not CURRENCY_AFTER.match(text, end):
+            detections.append(_Detection(start, end, "PHONE", False))
     return detections
 
 

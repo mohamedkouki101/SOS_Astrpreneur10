@@ -107,7 +107,9 @@ def scan(
     # A hidden instruction scores its full rule weight, on top of the hiding:
     # hiding it shows intent, so it must never weigh less than a visible one.
     for rule in {m.rule.id: m.rule for _, m in hidden}.values():
-        reasons.append(ScanReason(f"hidden_rule:{rule.id}", f"Hidden text: {rule.label.lower()}", rule.weight_bp))
+        # Only the first letter is lowered: "Hidden text: tries to cancel the AI's instructions".
+        label = rule.label[:1].lower() + rule.label[1:]
+        reasons.append(ScanReason(f"hidden_rule:{rule.id}", f"Hidden text: {label}", rule.weight_bp))
     if invisible_chars_removed >= INVISIBLE_CHARS_MIN:
         reasons.append(ScanReason(
             "invisible_chars", f"{invisible_chars_removed} invisible character(s) removed", INVISIBLE_CHARS_POINTS))

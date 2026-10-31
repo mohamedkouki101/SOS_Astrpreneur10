@@ -69,6 +69,12 @@ def test_any_hidden_instruction_is_quarantined(item):
     assert result.neutralized_text == ""
 
 
+def test_hidden_rule_label_keeps_ai_in_capitals():
+    result = run(CLEAN_CV, HIDDEN)
+    labels = [r.label for r in result.reasons if r.code.startswith("hidden_rule:")]
+    assert "Hidden text: tries to cancel the AI's instructions" in labels
+
+
 def test_hidden_text_without_instruction_is_not_quarantined():
     result = run(CLEAN_CV, [RemovedItem("white_text", "keywords keywords keywords", "page 1")])
     assert result.verdict == "clean" and result.risk_score_bp == 2000
