@@ -83,7 +83,8 @@ class Hashes(_Model):
 
 class InspectionReport(_Model):
     report_version: Literal["1.0"] = "1.0"
-    doc_id: str
+    report_id: str  # one per submission: same file + same source + same job opening
+    doc_id: str  # sha256 of the raw bytes (contract)
     received_at: str
     source: ReportSource
     job_opening: dict | None
