@@ -1,0 +1,51 @@
+{
+  "version": "2026-10-31.1",
+
+  "bulk_send": {
+    "tools": ["send_email", "answer_employee", "propose_interview_slots"],
+    "max": 20,
+    "window_seconds": 600,
+    "severity": "high"
+  },
+
+  "proposal_flood": {
+    "max": 50,
+    "window_seconds": 300,
+    "severity": "warning"
+  },
+
+  "repeated_denials": {
+    "max": 3,
+    "window_seconds": 600,
+    "severity": "high"
+  },
+
+  "instant_alert_codes": {
+    "self_approval": "critical",
+    "token_invalid": "high",
+    "token_mismatch": "critical",
+    "integrity_error": "critical"
+  },
+
+  "injection": {
+    "violation_rules": [
+      "recipient_not_a_record", "recipient_not_subject", "too_many_recipients",
+      "protected_attribute", "protected_term_in_text", "embedded_image"
+    ],
+    "events": ["input.injection_flagged"],
+    "severity": "high"
+  },
+
+  "off_hours": {
+    "utc_offset_hours": 1,
+    "start_hour": 8,
+    "end_hour": 19,
+    "workdays": [0, 1, 2, 3, 4],
+    "events": ["action.approved", "action.edited", "execution.started"],
+    "severity": "warning"
+  },
+
+  "execution_failure": {
+    "severity": "high"
+  }
+}
