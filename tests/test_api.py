@@ -261,12 +261,11 @@ def test_security_headers(client):
     assert response.headers["X-Content-Type-Options"] == "nosniff"
 
 
-def test_server_error_keeps_security_and_cors_headers(client, monkeypatch):
+def test_server_error_keeps_security_headers(client, monkeypatch):
     monkeypatch.setattr(client.app.state.pipeline, "list_reports", lambda: 1 / 0)
-    response = client.get("/v1/reports", headers={**DASHBOARD, "Origin": "http://localhost:5173"})
+    response = client.get("/v1/reports", headers=DASHBOARD)
     assert response.status_code == 500 and response.json() == {"error": "internal"}
     assert response.headers["Cache-Control"] == "no-store"
-    assert response.headers["access-control-allow-origin"] == "http://localhost:5173"
 
 
 def test_oversized_request_refused_before_reading(client):
@@ -274,10 +273,13 @@ def test_oversized_request_refused_before_reading(client):
     assert response.status_code == 413
 
 
-def test_cors_allows_only_the_dashboard(client):
-    allowed = client.options("/v1/reports", headers={
-        "Origin": "http://localhost:5173", "Access-Control-Request-Method": "GET"})
-    denied = client.options("/v1/reports", headers={
-        "Origin": "https://evil.example", "Access-Control-Request-Method": "GET"})
-    assert allowed.headers.get("access-control-allow-origin") == "http://localhost:5173"
-    assert "access-control-allow-origin" not in denied.headers
+@pytest.mark.parametrize("origin", ["http://localhost:5173", "http://localhost:8080", "https://evil.example"])
+def test_no_browser_origin_is_ever_allowed(client, origin):
+    preflight = client.options("/v1/reports", headers={"Origin": origin, "Access-Control-Request-Method": "GET"})
+    request = client.get("/v1/reports", headers={**DASHBOARD, "Origin": origin})
+    for response in (preflight, request):
+        assert not any(name.lower().startswith("access-control-") for name in response.headers)
+
+
+def test_no_cors_setting_any_more():
+    assert "dashboard_origins" not in Settings.model_fields

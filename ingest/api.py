@@ -10,6 +10,7 @@ One key per caller, sent in the X-API-Key header:
     ENVELOPE_API_KEY  AI layer          GET  /v1/envelopes, /v1/envelopes/{id} (masked only)
     RESOLVER_API_KEY  Execution Gateway POST /v1/resolve {doc_id, token}     (released docs only)
 So the AI layer can never read a report or resolve a token, and the dashboard can never upload.
+All callers are servers (Frappe, the AI layer, the Gateway): browsers never call this API.
 """
 
 import hmac
@@ -18,7 +19,6 @@ from contextlib import asynccontextmanager
 from typing import Literal
 
 from fastapi import Depends, FastAPI, File, Form, Header, HTTPException, Request, UploadFile
-from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field, SecretStr, field_validator
 
@@ -138,13 +138,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         response.headers["Cache-Control"] = "no-store"  # reports contain PII: never cached
         return response
 
-    # Added last, so it is the outermost layer: even errors get CORS headers.
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=[origin.strip() for origin in settings.dashboard_origins.split(",") if origin.strip()],
-        allow_methods=["GET", "POST"],
-        allow_headers=["X-API-Key", "Content-Type"],
-    )
+    # No CORS on purpose: the dashboard reaches this API through Frappe,
+    # server-side. Without CORS headers, no web page in a browser can read
+    # these responses, even if it somehow obtained a key.
 
     upload_key = Depends(_key_check(settings.upload_api_key))
     report_key = Depends(_key_check(settings.report_api_key))

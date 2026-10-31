@@ -35,8 +35,6 @@ class Settings(BaseSettings):
     report_api_key: SecretStr  # HR dashboard -> inspection reports (contain PII)
     envelope_api_key: SecretStr  # AI layer -> released envelopes (masked)
     resolver_api_key: SecretStr  # Execution Gateway -> token resolver
-    # Comma-separated browser origins allowed to call the API (the dashboard).
-    dashboard_origins: str = "http://localhost:5173,http://localhost:3000"
 
     # No mailbox settings: Frappe's Email Account receives HR mail and forwards
     # it to POST /v1/email and /v1/email/attachment. One less secret here.
