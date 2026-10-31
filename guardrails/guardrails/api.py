@@ -2,8 +2,11 @@
 
 Who may call what (identity and roles come from Frappe, see auth.py):
 
-  Agents (AI Agent role + listed in config/api.json agent_accounts)
+  Agents (agent role + listed in config/api.json agent_accounts)
     POST /actions                  propose an action (as THEIR agent only)
+    POST /agent-actions            same, in the agent layer's AI Action format
+  Agents or HR
+    POST /agent-actions/check      dry run: would the guardrails allow it?
   Ingest service (listed in ingest_accounts)
     POST /input-flags              report a quarantined document
   HR (approver role, never an AI Agent)
@@ -34,6 +37,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ConfigDict, Field
 
+from .agent_layer import AgentLayerAdapter, AgentLayerError, AgentOutput
 from .approval import ActionRecord, ApprovalError, ApprovalService, Approver, Status
 from .auth import AuthError, Authenticator, Identity
 from .gateway import ExecutionGateway, GatewayError
@@ -88,6 +92,7 @@ class Services:
     authenticator: Authenticator
     config: ApiConfig
     job_criteria: Mapping[str, tuple[str, ...]]
+    agent_layer: AgentLayerAdapter | None = None
 
 
 # --- request bodies (strict: unknown fields are rejected) -----------------------
@@ -352,6 +357,68 @@ def create_app(s: Services, enable_docs: bool = True) -> FastAPI:
         return {"action_id": rec.action.action_id, "status": rec.status.value,
                 "action_hash": rec.action_hash,
                 "violations": [{"rule": v.rule, "reason": v.reason} for v in rec.violations]}
+
+    # -- agent layer (hr_ai "AI Action" format, exactly as the agents produce it) --
+
+    def translate_agent_output(raw: dict, ident: Identity, endpoint: str, hr_allowed: bool):
+        if s.agent_layer is None:
+            raise _error("not_configured", "agent layer adapter is not configured", 503)
+        check_depth(raw)
+        try:
+            out = AgentOutput.parse(raw)
+        except AgentLayerError as e:
+            raise _error("agent_output_invalid", str(e), 422) from None
+        tr = s.agent_layer.translate(out)
+        is_hr = bool(ident.roles & approvals.approver_roles) and not ident.roles & approvals.agent_roles
+        mapped = s.config.agent_accounts.get(ident.user)
+        if mapped is None or not ident.roles & approvals.agent_roles:
+            if not (hr_allowed and is_hr):
+                raise deny(ident, "forbidden_endpoint", "only registered agent accounts may submit",
+                           endpoint, out.external_id)
+        elif tr.action.agent != mapped:
+            raise deny(ident, "agent_impersonation",
+                       f"this account is '{mapped}', it cannot propose as '{out.agent}'",
+                       endpoint, out.external_id)
+        criteria = None
+        if tr.action.tool in approvals.fairness.scored_tools:
+            criteria = s.job_criteria.get(str(tr.action.payload.get("job_opening")), ())
+        return out, tr, criteria
+
+    def translated_view(tr) -> dict:
+        a = tr.action
+        return {"agent": a.agent, "tool": a.tool,
+                "subject": {"doctype": a.subject.doctype, "name": a.subject.name},
+                "recipients": a.payload.get("recipients")}
+
+    @app.post("/agent-actions", status_code=201)
+    def submit_agent_action(raw: dict[str, Any], tasks: BackgroundTasks,
+                            ident: Identity = Depends(identity)):
+        """Submit a proposal in the agent layer's own format. Stored and queued
+        for HR like POST /actions; Blocked if any guardrail objects."""
+        out, tr, criteria = translate_agent_output(raw, ident, "POST /agent-actions", hr_allowed=False)
+        try:
+            rec = approvals.submit(tr.action, job_criteria=criteria, extra_violations=tr.violations)
+        except ApprovalError as e:
+            raise _error(e.code, e.message) from None
+        tasks.add_task(s.monitor.run_once)
+        return {"action_id": rec.action.action_id, "status": rec.status.value,
+                "action_hash": rec.action_hash, "agent_action_hash": out.action_hash,
+                "translated": translated_view(tr),
+                "violations": [{"rule": v.rule, "reason": v.reason} for v in rec.violations]}
+
+    @app.post("/agent-actions/check")
+    def check_agent_action(raw: dict[str, Any], ident: Identity = Depends(identity)):
+        """Dry run: would the guardrails allow this proposal? Nothing is stored.
+        For the hr_ai app to call before an AI Action can be approved."""
+        out, tr, criteria = translate_agent_output(raw, ident, "POST /agent-actions/check", hr_allowed=True)
+        decision = approvals.policy.evaluate(tr.action)
+        fair = approvals.fairness.check(tr.action, criteria)
+        violations = list(tr.violations) + list(decision.violations) + list(fair.violations)
+        return {"external_id": out.external_id, "allowed": not violations,
+                "translated": translated_view(tr),
+                "violations": [{"rule": v.rule, "reason": v.reason} for v in violations],
+                "policy_version": approvals.policy.version,
+                "fairness_version": approvals.fairness.version}
 
     # -- ingest --
 

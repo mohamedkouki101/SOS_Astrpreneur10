@@ -22,7 +22,7 @@ import json
 import threading
 from datetime import datetime
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from urllib.parse import unquote, urlparse
+from urllib.parse import parse_qs, unquote, urlparse
 
 # token "KEY:SECRET" -> (user, roles). Same users as config/api.json.
 TOKENS = {
@@ -127,6 +127,14 @@ class Handler(BaseHTTPRequestHandler):
                 if name != user:
                     return self._send(403, {"exc_type": "PermissionError"})
                 return self._send(200, {"data": {"name": user, "roles": [{"role": r} for r in roles]}})
+            if name is None:  # list with simple [[field, "=", value]] filters
+                q = parse_qs(urlparse(self.path).query)
+                filters = json.loads(q.get("filters", ["[]"])[0])
+                fields = json.loads(q.get("fields", ['["name"]'])[0])
+                with STATE.lock:
+                    rows = [{"name": n, **d} for (dt, n), d in STATE.docs.items() if dt == doctype]
+                rows = [r for r in rows if all(op == "=" and r.get(f) == v for f, op, v in filters)]
+                return self._send(200, {"data": [{k: r.get(k) for k in fields} for r in rows]})
             with STATE.lock:
                 doc = STATE.docs.get((doctype, name))
             if doc is None:

@@ -4,6 +4,7 @@ from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
 
+from guardrails.agent_layer import AgentLayerAdapter, FrappeDirectory
 from guardrails.api import ApiConfig, Services, create_app
 from guardrails.approval import ApprovalService, ApprovalSigner
 from guardrails.auth import AuthError, Identity, credential_from
@@ -25,6 +26,9 @@ IDENTITIES = {
     "ingest": Identity("svc.ingest@hr-ai.test", frozenset({"Ingest"})),
     "hr": Identity("hr.manager@acme.test", frozenset({"HR Manager", "Employee"})),
     "employee": Identity("employee@acme.test", frozenset({"Employee"})),
+    # the team's real agent-layer accounts and roles
+    "rh_comms": Identity("agent.comms@rhflow.local", frozenset({"RH Flow Agent Comms"})),
+    "rh_recruit": Identity("agent.recruitment@rhflow.local", frozenset({"RH Flow Agent Recruitment"})),
 }
 
 
@@ -61,6 +65,8 @@ def make_client(tmp_path, **api_overrides):
         authenticator=FakeAuth(),
         config=ApiConfig.parse(api_cfg),
         job_criteria={"HR-OPN-0001": ("python_experience", "sql")},
+        agent_layer=AgentLayerAdapter(json.loads((CFG / "agent_layer.json").read_text(encoding="utf-8")),
+                                      FrappeDirectory(frappe)),
     )
     client = TestClient(create_app(services))
     client.frappe, client.db, client.services = frappe, db, services
@@ -353,6 +359,68 @@ def test_disparity_endpoint(client):
     r = client.post("/fairness/disparity", json={"job_opening": "HR-OPN-0001", "outcomes": outcomes},
                     headers=H("hr")).json()
     assert r["status"] == "adverse_impact" and r["flagged"] == ["B"] and r["alerts"]
+
+
+# --- agent layer format (hr_ai AI Action) ----------------------------------------------
+
+def agent_email(**over):
+    from test_agent_layer import EMAIL_REPLY, mutate
+    return mutate(EMAIL_REPLY, **over)
+
+
+def test_agent_layer_proposal_queued_for_hr(client):
+    r = client.post("/agent-actions", json=agent_email(), headers=H("rh_comms"))
+    assert r.status_code == 201, r.json()
+    body = r.json()
+    assert body["status"] == "Proposed" and body["action_id"] == "AIA-6ec528d223"
+    assert body["translated"]["recipients"] == [{"doctype": "Job Applicant",
+                                                 "name": "cyrine.jlassi.sr2@example.com"}]
+    assert body["agent_action_hash"].startswith("84c22d")
+    # then the normal HR flow works on it
+    view = client.get("/actions/AIA-6ec528d223", headers=H("hr")).json()
+    token = client.post("/actions/AIA-6ec528d223/approve", json={"seen_hash": view["action_hash"]},
+                        headers=H("hr")).json()["approval_token"]
+    ex = client.post("/actions/AIA-6ec528d223/execute", json={"token": token}, headers=H("hr")).json()
+    assert ex["status"] == "Executed"
+    assert client.frappe.writes()[0][2]["content"].startswith("Dear Cyrine Jlassi,")
+
+
+def test_agent_layer_token_swap_blocked_and_alerted(client):
+    r = client.post("/agent-actions", json=agent_email(token_map={"[EMAIL_1]": "attacker@evil-mail.test"}),
+                    headers=H("rh_comms"))
+    assert r.status_code == 201 and r.json()["status"] == "Blocked"
+    assert "recipient_unknown" in [v["rule"] for v in r.json()["violations"]]
+    assert "suspected_injection" in [a["rule"] for a in alerts(client)]
+
+
+def test_agent_layer_impersonation_refused(client):
+    from test_agent_layer import INTERVIEW
+    r = client.post("/agent-actions", json=INTERVIEW, headers=H("rh_comms"))   # comms posing as recruitment
+    assert r.status_code == 403 and r.json()["detail"]["error"] == "agent_impersonation"
+
+
+def test_agent_layer_roles_cannot_approve(client):
+    client.post("/agent-actions", json=agent_email(), headers=H("rh_comms"))
+    r = client.post("/actions/AIA-6ec528d223/approve", json={"seen_hash": SRC}, headers=H("rh_comms"))
+    assert r.status_code == 403
+
+
+def test_agent_layer_malformed_is_422(client):
+    r = client.post("/agent-actions", json=agent_email(approver="Administrator"), headers=H("rh_comms"))
+    assert r.status_code == 422 and r.json()["detail"]["error"] == "agent_output_invalid"
+
+
+def test_check_endpoint_is_a_dry_run(client):
+    ok = client.post("/agent-actions/check", json=agent_email(), headers=H("hr")).json()
+    bad = client.post("/agent-actions/check", json=agent_email(
+        token_map={"[PERSON_1]": "Click http://evil.test/pay"}), headers=H("hr")).json()
+    assert ok["allowed"] is True and ok["violations"] == []
+    assert bad["allowed"] is False and bad["violations"][0]["rule"] == "token_value_not_from_record"
+    assert client.get("/actions", headers=H("hr")).json() == []   # nothing stored
+
+
+def test_check_endpoint_refuses_employees(client):
+    assert client.post("/agent-actions/check", json=agent_email(), headers=H("employee")).status_code == 403
 
 
 # --- config -------------------------------------------------------------------------

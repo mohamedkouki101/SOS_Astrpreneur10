@@ -245,11 +245,14 @@ class ApprovalService:
 
     # -- agent side --
 
-    def submit(self, action: ProposedAction, job_criteria: Iterable[str] | None = None) -> ActionRecord:
+    def submit(self, action: ProposedAction, job_criteria: Iterable[str] | None = None,
+               extra_violations: Iterable[Violation] = ()) -> ActionRecord:
+        """`extra_violations`: problems found before the policy, e.g. by the
+        agent-layer adapter (untrusted token values). Any of them blocks."""
         if self.store.get(action.action_id) is not None:
             raise ApprovalError("duplicate_action", "action_id already exists")
         now = self.now()
-        violations = self._check(action, job_criteria, _StoreUsage(self.store, now))
+        violations = tuple(extra_violations) + self._check(action, job_criteria, _StoreUsage(self.store, now))
         record = ActionRecord(
             action=action,
             action_hash=action_hash(action),

@@ -29,6 +29,13 @@ class FakeFrappe:
                                                "job_title": "HR-OPN-0001", "status": "Open"},
             ("Job Applicant", "HR-APP-0002"): {"email_id": "not-an-email", "job_title": "HR-OPN-0001"},
             ("Employee", "HR-EMP-0001"): {"prefered_email": None, "company_email": "sami@acme.test"},
+            # agent-layer style applicants: record name == email (as on the team Frappe)
+            ("Job Applicant", "cyrine.jlassi.sr2@example.com"): {
+                "applicant_name": "Cyrine Jlassi", "email_id": "cyrine.jlassi.sr2@example.com",
+                "job_title": "HR-OPN-2026-0004"},
+            ("Job Applicant", "imen.baccouche.dm7@example.com"): {
+                "applicant_name": "Imen Baccouche", "email_id": "imen.baccouche.dm7@example.com",
+                "job_title": "HR-OPN-2026-0005"},
         }
         self.calls = []
         self.fail_with = None
@@ -40,6 +47,15 @@ class FakeFrappe:
     def get_doc(self, doctype, name):
         self._maybe_fail()
         return dict(self.docs[(doctype, name)])
+
+    def list_docs(self, doctype, filters, fields, limit=20):
+        self._maybe_fail()
+        out = []
+        for (dt, name), doc in self.docs.items():
+            row = {"name": name, **doc}
+            if dt == doctype and all(op == "=" and row.get(f) == v for f, op, v in filters):
+                out.append({k: row.get(k) for k in fields})
+        return out[:limit]
 
     def update_doc(self, doctype, name, fields):
         self._maybe_fail()

@@ -27,6 +27,7 @@ class FrappeUnavailable(Exception):
 
 class FrappeAPI(Protocol):
     def get_doc(self, doctype: str, name: str) -> dict: ...
+    def list_docs(self, doctype: str, filters: list, fields: list[str], limit: int = 20) -> list[dict]: ...
     def update_doc(self, doctype: str, name: str, fields: Mapping[str, Any]) -> dict: ...
     def insert_doc(self, doctype: str, fields: Mapping[str, Any]) -> dict: ...
     def call(self, method: str, params: Mapping[str, Any]) -> Any: ...
@@ -57,6 +58,11 @@ class FrappeClient:
 
     def get_doc(self, doctype: str, name: str) -> dict:
         return self._request("GET", self._resource(doctype, name))["data"]
+
+    def list_docs(self, doctype: str, filters: list, fields: list[str], limit: int = 20) -> list[dict]:
+        query = parse.urlencode({"filters": json.dumps(filters), "fields": json.dumps(fields),
+                                 "limit_page_length": str(limit)})
+        return self._request("GET", f"{self._resource(doctype)}?{query}")["data"]
 
     def update_doc(self, doctype: str, name: str, fields: Mapping[str, Any]) -> dict:
         return self._request("PUT", self._resource(doctype, name), fields)["data"]

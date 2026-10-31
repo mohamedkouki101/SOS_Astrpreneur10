@@ -10,6 +10,7 @@ import json
 import os
 from pathlib import Path
 
+from .agent_layer import AgentLayerAdapter, FrappeDirectory
 from .api import ApiConfig, Services, create_app
 from .approval import ApprovalService, ApprovalSigner
 from .auth import FrappeAuthenticator
@@ -56,7 +57,8 @@ def build_services(base_dir: Path = BASE_DIR) -> Services:
         cfg / "approval.json", policy=policy, fairness=fairness,
         signer=ApprovalSigner.from_env(), store=SQLiteActionStore(db), audit=audit,
     )
-    gateway = ExecutionGateway(approvals, FrappeClient.from_env())
+    frappe = FrappeClient.from_env()
+    gateway = ExecutionGateway(approvals, frappe)
     monitor = Monitor.from_file(cfg / "monitor.json", audit, notifiers=[ConsoleNotifier()],
                                 fairness=fairness)
     criteria = {k: tuple(v) for k, v in _json(cfg, "job_criteria.json").items() if not k.startswith("_")}
@@ -65,6 +67,7 @@ def build_services(base_dir: Path = BASE_DIR) -> Services:
         authenticator=FrappeAuthenticator(os.environ.get("FRAPPE_URL", "")),
         config=ApiConfig.parse(_json(cfg, "api.json")),
         job_criteria=criteria,
+        agent_layer=AgentLayerAdapter(_json(cfg, "agent_layer.json"), FrappeDirectory(frappe)),
     )
 
 

@@ -70,25 +70,76 @@ def _single_recipient(action: ProposedAction) -> RecordRef:
     return ref
 
 
-def resolve_email(frappe: FrappeAPI, ref: RecordRef) -> str:
+PERSON_FIELDS = {
+    "Job Applicant": {"names": ["applicant_name"], "emails": ["email_id"]},
+    "Employee": {"names": ["employee_name", "first_name", "last_name"],
+                 "emails": ["prefered_email", "company_email", "personal_email"]},
+}
+TOKEN_RE = re.compile(r"\[[A-Z]+_\d+\]")
+
+
+def person_values(doctype: str, doc: Mapping) -> set[str]:
+    """Values a PII token may legitimately stand for: the person's names
+    (full and first name) and email addresses, as stored in Frappe."""
+    spec = PERSON_FIELDS.get(doctype)
+    if spec is None:
+        return set()
+    out: set[str] = set()
+    for f in spec["names"]:
+        v = doc.get(f)
+        if isinstance(v, str) and v.strip():
+            out.add(v.strip().lower())
+            out.add(v.strip().split()[0].lower())
+    for f in spec["emails"]:
+        v = doc.get(f)
+        if isinstance(v, str) and v.strip():
+            out.add(v.strip().lower())
+    return out
+
+
+def detokenize(text: str, token_map: Mapping[str, str], allowed: set[str]) -> str:
+    """Replace [PERSON_1]-style tokens with real values, but only values that
+    belong to the recipient's own Frappe record. The token map comes from the
+    agent layer and is not trusted on its own."""
+    def sub(m):
+        token = m.group(0)
+        value = token_map.get(token)
+        if not isinstance(value, str):
+            raise ExecutionRefused("unresolved_token", f"{token} has no value")
+        if value.strip().lower() not in allowed:
+            raise ExecutionRefused("token_value_not_from_record",
+                                   f"{token} does not match the recipient's Frappe record")
+        return value
+    return TOKEN_RE.sub(sub, text)
+
+
+def resolve_recipient(frappe: FrappeAPI, ref: RecordRef) -> tuple[str, dict]:
     """Look up the real address in Frappe. This is the ONLY place an address
     enters an outgoing action, so a prompt-injected address cannot."""
-    doc = frappe.get_doc(ref.doctype, ref.name)
-    if ref.doctype == "Job Applicant":
-        candidates = [doc.get("email_id")]
-    elif ref.doctype == "Employee":
-        candidates = [doc.get("prefered_email"), doc.get("company_email"), doc.get("personal_email")]
-    else:
+    spec = PERSON_FIELDS.get(ref.doctype)
+    if spec is None:
         raise ExecutionRefused("recipient_invalid", f"cannot email a {ref.doctype}")
-    for addr in candidates:
+    doc = frappe.get_doc(ref.doctype, ref.name)
+    for f in spec["emails"]:
+        addr = doc.get(f)
         if isinstance(addr, str) and EMAIL_RE.match(addr.strip()):
-            return addr.strip()
+            return addr.strip(), doc
     raise ExecutionRefused("recipient_no_email", f"{ref.doctype} {ref.name} has no valid email")
 
 
-def _send(frappe: FrappeAPI, action: ProposedAction, subject: str, html_body: str) -> dict:
+def resolve_email(frappe: FrappeAPI, ref: RecordRef) -> str:
+    return resolve_recipient(frappe, ref)[0]
+
+
+def _send(frappe: FrappeAPI, action: ProposedAction, subject: str, body_text: str) -> dict:
     ref = _single_recipient(action)
-    address = resolve_email(frappe, ref)
+    address, doc = resolve_recipient(frappe, ref)
+    token_map = action.payload.get("token_map") or {}
+    if not isinstance(token_map, Mapping):
+        raise ExecutionRefused("payload_invalid", "token_map must be an object")
+    allowed = person_values(ref.doctype, doc)
+    subject = detokenize(subject, token_map, allowed)
+    html_body = _to_html(detokenize(body_text, token_map, allowed))
     msg = frappe.call("frappe.core.doctype.communication.email.make", {
         "doctype": ref.doctype,
         "name": ref.name,
@@ -113,10 +164,18 @@ def _parse_dt(value: Any, where: str) -> datetime:
 
 # --- executors ------------------------------------------------------------------
 
+def _allowed_keys(payload: Mapping, required: set[str], optional: set[str]) -> None:
+    if not isinstance(payload, Mapping) or not required <= set(payload) <= required | optional:
+        got = sorted(payload) if isinstance(payload, Mapping) else type(payload).__name__
+        raise ExecutionRefused("payload_invalid",
+                               f"expected keys {sorted(required)} (+ optional {sorted(optional)}), got {got}")
+
+
 def send_email(frappe: FrappeAPI, action: ProposedAction) -> dict:
     p = action.payload
-    _exact_keys(p, {"recipients", "subject", "body"})
-    return _send(frappe, action, _text(p, "subject", MAX_SUBJECT), _to_html(_text(p, "body", MAX_BODY)))
+    # token_map / inbound_email come from the agent layer (AI Action format)
+    _allowed_keys(p, {"recipients", "subject", "body"}, {"token_map", "inbound_email"})
+    return _send(frappe, action, _text(p, "subject", MAX_SUBJECT), _text(p, "body", MAX_BODY))
 
 
 def answer_employee(frappe: FrappeAPI, action: ProposedAction) -> dict:
@@ -137,7 +196,41 @@ def propose_interview_slots(frappe: FrappeAPI, action: ProposedAction) -> dict:
             raise ExecutionRefused("payload_invalid", f"slots[{i}] ends before it starts")
         lines.append(f"- {start:%A %d %B %Y, %H:%M} to {end:%H:%M}")
     body = _text(p, "body", MAX_BODY) + "\n\n" + "\n".join(lines)
-    return _send(frappe, action, _text(p, "subject", MAX_SUBJECT), _to_html(body))
+    return _send(frappe, action, _text(p, "subject", MAX_SUBJECT), body)
+
+
+TIME_RE = re.compile(r"^([01]\d|2[0-3]):[0-5]\d(:[0-5]\d)?$")
+
+
+def schedule_interview(frappe: FrappeAPI, action: ProposedAction) -> dict:
+    """Agent-layer 'interview' action: create a Frappe HR Interview."""
+    p = action.payload
+    _allowed_keys(p, {"applicant", "interview_type", "date", "from_time", "to_time"}, {"token_map"})
+    ref = action.subject
+    if ref.doctype != "Job Applicant":
+        raise ExecutionRefused("subject_mismatch", "interviews are scheduled for a Job Applicant")
+    token_map = p.get("token_map") or {}
+    applicant = token_map.get(p["applicant"], p["applicant"]) if isinstance(token_map, Mapping) else p["applicant"]
+    if applicant != ref.name:
+        raise ExecutionRefused("subject_mismatch", "payload applicant is not the action subject")
+    itype = _text(p, "interview_type", 140)
+    try:
+        day = datetime.strptime(str(p["date"]), "%Y-%m-%d").date()
+    except ValueError:
+        raise ExecutionRefused("payload_invalid", "date must be YYYY-MM-DD") from None
+    start, end = str(p["from_time"]).strip(), str(p["to_time"]).strip()
+    if not TIME_RE.match(start) or not TIME_RE.match(end) or end[:5] <= start[:5]:
+        raise ExecutionRefused("payload_invalid", "from_time/to_time must be HH:MM and end after start")
+    frappe.get_doc(ref.doctype, ref.name)  # applicant must exist
+    doc = frappe.insert_doc("Interview", {
+        "interview_type": itype,
+        "job_applicant": ref.name,
+        "scheduled_on": day.isoformat(),
+        "from_time": start,
+        "to_time": end,
+        "status": "Pending",
+    })
+    return {"interview": doc.get("name"), "scheduled_on": day.isoformat(), "from": start, "to": end}
 
 
 def rank_candidate(frappe: FrappeAPI, action: ProposedAction) -> dict:
@@ -190,4 +283,5 @@ EXECUTORS: dict[str, Executor] = {
     "propose_interview_slots": propose_interview_slots,
     "rank_candidate": rank_candidate,
     "update_applicant_status": update_applicant_status,
+    "schedule_interview": schedule_interview,
 }
