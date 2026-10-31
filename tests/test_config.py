@@ -9,6 +9,8 @@ VALID_ENV = {
     "INGEST_REF_KEY": "b" * 64,
     "UPLOAD_API_KEY": "c" * 64,
     "RESOLVER_API_KEY": "d" * 64,
+    "REPORT_API_KEY": "e" * 64,
+    "ENVELOPE_API_KEY": "f" * 64,
     "IMAP_USER": "hr-inbox@example.test",
     "IMAP_PASSWORD": "test-password",
 }
@@ -61,7 +63,8 @@ def test_out_of_range_or_non_integer_limit_fails(env, value):
 
 def test_secrets_not_shown_in_repr(env):
     text = repr(load())
-    for name in ("INGEST_SIGNING_KEY", "INGEST_REF_KEY", "UPLOAD_API_KEY", "RESOLVER_API_KEY"):
+    for name in ("INGEST_SIGNING_KEY", "INGEST_REF_KEY", "UPLOAD_API_KEY", "RESOLVER_API_KEY",
+                 "REPORT_API_KEY", "ENVELOPE_API_KEY"):
         assert VALID_ENV[name] not in text
     assert VALID_ENV["IMAP_PASSWORD"] not in text
 

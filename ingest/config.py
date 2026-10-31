@@ -30,9 +30,13 @@ class Settings(BaseSettings):
     ingest_signing_key: SecretStr  # signs the envelope
     ingest_ref_key: SecretStr  # candidate_ref / sender_ref
 
-    # --- Internal API keys ---
-    upload_api_key: SecretStr  # Frappe -> upload endpoint
+    # --- Internal API keys: one per caller ---
+    upload_api_key: SecretStr  # Frappe -> upload / email endpoints
+    report_api_key: SecretStr  # HR dashboard -> inspection reports (contain PII)
+    envelope_api_key: SecretStr  # AI layer -> released envelopes (masked)
     resolver_api_key: SecretStr  # Execution Gateway -> token resolver
+    # Comma-separated browser origins allowed to call the API (the dashboard).
+    dashboard_origins: str = "http://localhost:5173,http://localhost:3000"
 
     # --- HR mailbox ---
     imap_host: str = "localhost"
@@ -56,7 +60,8 @@ class Settings(BaseSettings):
     evidence_dir: Path = Path("./evidence")
 
     @field_validator(
-        "ingest_signing_key", "ingest_ref_key", "upload_api_key", "resolver_api_key"
+        "ingest_signing_key", "ingest_ref_key", "upload_api_key", "report_api_key",
+        "envelope_api_key", "resolver_api_key",
     )
     @classmethod
     def key_is_long_enough(cls, value: SecretStr) -> SecretStr:
@@ -73,6 +78,8 @@ class Settings(BaseSettings):
             self.ingest_signing_key.get_secret_value(),
             self.ingest_ref_key.get_secret_value(),
             self.upload_api_key.get_secret_value(),
+            self.report_api_key.get_secret_value(),
+            self.envelope_api_key.get_secret_value(),
             self.resolver_api_key.get_secret_value(),
         ]
         if len(set(keys)) != len(keys):

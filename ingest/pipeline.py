@@ -41,8 +41,13 @@ from ingest.store import EvidenceStore
 
 log = logging.getLogger(__name__)
 STAGE_ORDER = ["file_check", "extraction", "hidden_text", "unicode", "pii", "injection", "chunking", "signing"]
-# Failures that may not happen again on a second try: these can be re-processed.
+# Failures that may not happen again on a second try: these can be re-processed,
+# but only after a pause, so one bad file resent in a loop cannot block everyone.
 RETRYABLE = {"extract_timeout", "extract_memory", "internal_error"}
+RETRY_AFTER_S = 60
+# Files derived from a run. A new run clears leftovers from a crashed one first
+# (raw evidence is never touched).
+DERIVED_AREAS = ("meta", "envelopes", "quarantine", "pii")
 
 
 @dataclass(frozen=True)
@@ -102,8 +107,10 @@ class Pipeline:
         self.extract_limits = ExtractLimits.from_settings(settings)
         self._signing_key = settings.ingest_signing_key.get_secret_value().encode("utf-8")
         self._ref_key = settings.ingest_ref_key.get_secret_value().encode("utf-8")
-        self._locks: dict[str, threading.Lock] = {}
-        self._locks_guard = threading.Lock()
+        # One document at a time: simple, avoids two runs of the same submission
+        # racing, and keeps spaCy single-threaded. Plenty for HR volumes.
+        self._processing = threading.Lock()
+        self.retry_after_s = RETRY_AFTER_S
 
     # --- Entry points ---
 
@@ -111,25 +118,29 @@ class Pipeline:
                        received_at: str | None = None) -> PipelineResult:
         """A CV uploaded by a recruiter through Frappe (job opening chosen by the recruiter: trusted)."""
         job = {"id": job_opening_id, "origin": "recruiter_upload"} if job_opening_id else None
-        return self._run(data, "upload_cv", None, None, None, job, filename, None, received_at)
+        return self._run(raw=data, source_type="upload_cv", job=job, filename=filename, received_at=received_at)
 
     def process_email(self, body: str, is_html: bool, sender_email: str, message_id: str,
                       in_reply_to: str | None = None, job_hint: str | None = None,
                       received_at: str | None = None) -> PipelineResult:
-        """An email body from the HR mailbox (the job hint comes from the email: untrusted)."""
-        # doc_id covers the Message-ID and sender too, so two emails with the same text stay separate.
+        """An email body from the HR mailbox (the job hint comes from the email: untrusted).
+
+        Note for the AI layer: this entry point receives the decoded body, not the
+        raw RFC 822 message, so doc_id = sha256(Message-ID + sender + body). Two
+        emails with the same text from different people stay separate.
+        """
         raw = f"{message_id}\n{sender_email}\n".encode("utf-8") + body.encode("utf-8")
         job = {"id": job_hint, "origin": "email_hint"} if job_hint else None
-        return self._run(raw, "email_body", message_id, in_reply_to, sender_email, job, None,
-                         (body, is_html), received_at)
+        return self._run(raw=raw, source_type="email_body", message_id=message_id, in_reply_to=in_reply_to,
+                         sender_email=sender_email, job=job, email=(body, is_html), received_at=received_at)
 
     def process_email_attachment(self, data: bytes, filename: str | None, sender_email: str, message_id: str,
                                  in_reply_to: str | None = None, job_hint: str | None = None,
                                  received_at: str | None = None) -> PipelineResult:
         """A CV attached to an email."""
         job = {"id": job_hint, "origin": "email_hint"} if job_hint else None
-        return self._run(data, "email_attachment", message_id, in_reply_to, sender_email, job, filename,
-                         None, received_at)
+        return self._run(raw=data, source_type="email_attachment", message_id=message_id, in_reply_to=in_reply_to,
+                         sender_email=sender_email, job=job, filename=filename, received_at=received_at)
 
     def get(self, report_id: str) -> PipelineResult | None:
         stored = self.store.get_json("reports", report_id)
@@ -145,11 +156,9 @@ class Pipeline:
 
     # --- The run ---
 
-    def _lock(self, report_id: str) -> threading.Lock:
-        with self._locks_guard:
-            return self._locks.setdefault(report_id, threading.Lock())
-
-    def _run(self, raw, source_type, message_id, in_reply_to, sender_email, job, filename, email, received_at):
+    def _run(self, *, raw: bytes, source_type: str, message_id: str | None = None, in_reply_to: str | None = None,
+             sender_email: str | None = None, job: dict | None = None, filename: str | None = None,
+             email: tuple[str, bool] | None = None, received_at: str | None = None) -> PipelineResult:
         doc_id = sha256_id(raw)
         key = f"{doc_id}|{source_type}|{(job or {}).get('id') or ''}|{message_id or ''}"
         sub = _Submission(
@@ -158,27 +167,35 @@ class Pipeline:
             in_reply_to=in_reply_to, sender_email=sender_email, job=job, filename=filename, email=email,
         )
         timeline = _Timeline()
-        try:
-            with self._lock(sub.report_id):  # one run at a time per submission
-                return self._run_locked(sub, timeline)
-        except Exception as error:  # never crash the caller (or the demo)
-            log.error("pipeline error on %s: %s", sub.report_id, type(error).__name__)  # no content in logs
-            timeline.fail_current("Internal error")
-            report = self._failed_report(sub, "internal_error", timeline, status="error")
+        with self._processing:  # the error path below runs inside the lock too
             try:
-                self._save_report(sub.report_id, report, replace=True)
-            except Exception:
-                log.error("could not store error report for %s", sub.report_id)
-            return PipelineResult(report, None, False)
+                return self._run_locked(sub, timeline)
+            except Exception as error:  # never crash the caller (or the demo)
+                log.error("pipeline error on %s: %s", sub.report_id, type(error).__name__)  # no content in logs
+                timeline.fail_current("Internal error")
+                report = self._failed_report(sub, "internal_error", timeline, status="error")
+                try:
+                    self._save_report(sub.report_id, report, replace=True)
+                except Exception:
+                    log.error("could not store error report for %s", sub.report_id)
+                return PipelineResult(report, None, False)
+
+    def _can_retry(self, report: InspectionReport) -> bool:
+        if report.rejection is None or report.rejection.code not in RETRYABLE:
+            return False
+        failed_at = datetime.strptime(report.received_at, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+        return (datetime.now(timezone.utc) - failed_at).total_seconds() >= self.retry_after_s
 
     def _run_locked(self, sub: _Submission, timeline: _Timeline) -> PipelineResult:
         existing = self.get(sub.report_id)
         retry = existing is not None
-        if existing is not None:
-            code = existing.report.rejection.code if existing.report.rejection else None
-            if code not in RETRYABLE:
-                return existing  # already processed: dedupe
+        if existing is not None and not self._can_retry(existing.report):
+            return existing  # already processed (or failed too recently): dedupe
 
+        # No valid report exists, so anything derived that is still on disk is a
+        # leftover from a crashed run: clear it so old and new never get mixed.
+        for area in DERIVED_AREAS:
+            self.store.delete(area, sub.report_id)
         self.store.put_raw(sub.doc_id, sub.raw)
         self.store.put_json("meta", sub.report_id, {
             "doc_id": sub.doc_id, "received_at": sub.received_at, "size_bytes": len(sub.raw),
@@ -219,7 +236,9 @@ class Pipeline:
             timeline.add("chunking", "pass", f"{len(chunks)} chunk(s), each with its SHA-256 id")
 
         sender_ref = email_ref(sub.sender_email, self._ref_key) if sub.sender_email else None
-        candidate_email = masked.first_email or sub.sender_email
+        # The sender's address (checked by the mail server) wins over an address
+        # written in the document, which the author fully controls.
+        candidate_email = sub.sender_email or masked.first_email
         envelope = IngestedDocument(
             schema_version=SCHEMA_VERSION,
             doc_id=sub.doc_id,

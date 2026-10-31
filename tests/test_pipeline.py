@@ -36,6 +36,7 @@ def pipeline(tmp_path, monkeypatch):
     for name, value in {
         "INGEST_SIGNING_KEY": SIGNING_KEY, "INGEST_REF_KEY": "r" * 64,
         "UPLOAD_API_KEY": "u" * 64, "RESOLVER_API_KEY": "v" * 64,
+        "REPORT_API_KEY": "w" * 64, "ENVELOPE_API_KEY": "y" * 64,
         "IMAP_USER": "hr-inbox@example.test", "IMAP_PASSWORD": "fictional",
         "EVIDENCE_DIR": str(tmp_path / "evidence"),
     }.items():
@@ -154,6 +155,8 @@ def test_unexpected_error_becomes_error_report_and_can_be_retried(pipeline, monk
     assert stage_status(report)["pii"] == "fail"
 
     monkeypatch.setattr(module, "mask", real_mask)  # the problem goes away
+    assert pipeline.process_upload(data, "cv.pdf").duplicate  # too soon: the failure is returned again
+    pipeline.retry_after_s = 0  # the 60 s pause has passed
     retried = pipeline.process_upload(data, "cv.pdf")
     assert not retried.duplicate and retried.report.status == "accepted"
     assert pipeline.get(report.report_id).report.status == "accepted"
@@ -177,6 +180,27 @@ def test_storage_failure_never_raises_and_leaves_no_envelope(pipeline, monkeypat
     result = pipeline.process_upload(make_pdf(CV_LINES), "cv.pdf")
     assert result.report.status == "error" and result.envelope is None
     assert pipeline.store.get_json("envelopes", result.report.report_id) is None  # cleaned up
+
+
+def test_leftovers_from_a_crashed_run_are_cleared(pipeline):
+    data = make_pdf(CV_LINES)
+    first = pipeline.process_upload(data, "cv.pdf")
+    report_id = first.report.report_id
+    # Simulate a crash after the envelope was written but before the report.
+    pipeline.store._path("reports", report_id).unlink()
+    pipeline.store.delete("envelopes", report_id)
+    pipeline.store.put_json("envelopes", report_id, {"stale": True})
+    again = pipeline.process_upload(data, "cv.pdf")
+    stored = pipeline.store.get_json("envelopes", report_id)
+    assert stored == again.envelope and stored["signature"] == again.report.hashes.signature
+
+
+def test_sender_email_wins_for_candidate_ref(pipeline):
+    from ingest.pii.refs import email_ref
+    data = make_pdf(["Contact : someone.else@example.test", "Expérience", "Python"])
+    result = pipeline.process_email_attachment(data, "cv.pdf", "amina.bensalem@example.test",
+                                               "<demo-003@mail.example.test>")
+    assert result.envelope["candidate_ref"] == email_ref("amina.bensalem@example.test", b"r" * 64)
 
 
 def test_raw_store_failure_never_raises(pipeline, monkeypatch):
