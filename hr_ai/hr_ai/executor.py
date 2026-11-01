@@ -2,7 +2,9 @@
 
 Flow: HR clicks Approve -> on_update hook enqueues execute(name) -> checks -> handler -> Executed | Failed.
 Checks before acting: status is Approved (so a second run is a no-op), the payload still matches
-action_hash, and the approval token is valid for (name, action_hash, approver).
+action_hash, the approval token is valid for (name, action_hash, approver), and the guardrails
+service still allows the action (policy, fairness, token values; rules or records may have
+changed since approval). Guardrails unreachable -> Failed (fail closed).
 Pseudonyms are resolved back to real values ONLY here:
 - <PERSON_1>-style tokens from the input security layer: POST /v1/resolve (RESOLVER key held only here),
   scoped to the document (doc_id) the proposal was built from;
@@ -11,7 +13,6 @@ Pseudonyms are resolved back to real values ONLY here:
 
 TEST MODE: every email goes to the address in site config `hr_ai_test_recipient`, never to the
 (fictional) applicant. Without that setting, emails are refused.
-TODO (security pass): policy.py re-check (default-deny), fairness, hr_ai audit log, monitor alerts.
 """
 
 import html
@@ -71,6 +72,11 @@ def _check(doc):
         raise ExecutionError("Integrity check failed: payload does not match the approved action hash")
     if not verify(doc.name, doc.action_hash, doc.approver, doc.approval_token):
         raise ExecutionError("Approval token is missing or invalid")
+    from hr_ai.guardrails_client import GuardrailsRefused, check
+    try:
+        check({**doc.as_dict(), "external_id": doc.external_id or doc.name}, frappe.conf)
+    except GuardrailsRefused as exc:
+        raise ExecutionError(str(exc)) from None
 
 
 def _finish(doc, status, message, result_doctype=None, result_name=None):

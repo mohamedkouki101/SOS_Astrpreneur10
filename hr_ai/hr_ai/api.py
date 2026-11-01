@@ -98,7 +98,7 @@ def propose_action(action):
 
     tokens = _token_values(action.get("token_values"), subject, payload)
     ref_dt, ref_name = _reference(subject, tokens)
-    doc = frappe.get_doc({
+    record = {
         "doctype": "AI Action",
         "kind": kind,
         "agent": agent,
@@ -113,11 +113,23 @@ def propose_action(action):
         "run_id": str(action.get("run_id", ""))[:40],
         "status": "Proposed",
         "token_map": json.dumps(tokens, ensure_ascii=False, indent=1) if tokens else None,
-    })
+    }
+    _ask_guardrails(record)  # blocked proposals never reach the HR queue
+    doc = frappe.get_doc(record)
     doc.flags.ignore_permissions = True
     doc.flags.from_propose_action = True
     doc.insert()
     return {"name": doc.name, "status": doc.status}
+
+
+def _ask_guardrails(record: dict):
+    """Policy, fairness and token checks in the guardrails service. Fail closed."""
+    from hr_ai.guardrails_client import GuardrailsRefused, check
+    external_id = record["external_id"] or f"AIA-{frappe.generate_hash(length=10)}"
+    try:
+        check({**record, "external_id": external_id}, frappe.conf)
+    except GuardrailsRefused as exc:
+        frappe.throw(str(exc), frappe.PermissionError)
 
 
 # ---------------------------------------------------------------- RH AI decision page (Desk app)

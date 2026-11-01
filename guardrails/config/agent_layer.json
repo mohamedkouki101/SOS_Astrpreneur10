@@ -14,7 +14,8 @@
   "kinds": {
     "email_reply": "send_email",
     "interview": "schedule_interview",
-    "ranking": "rank_candidate",
-    "applicant_status": "update_applicant_status"
+    "ranking": "rank_shortlist",
+    "applicant_status": "update_applicant_status",
+    "digest": "inbox_digest"
   }
 }

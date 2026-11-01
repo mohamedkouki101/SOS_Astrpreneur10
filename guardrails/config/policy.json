@@ -5,13 +5,15 @@
       "tools": [
         "rank_candidate",
         "update_applicant_status",
-        "schedule_interview"
+        "schedule_interview",
+        "rank_shortlist"
       ]
     },
     "comms_agent": {
       "tools": [
         "send_email",
-        "propose_interview_slots"
+        "propose_interview_slots",
+        "inbox_digest"
       ]
     },
     "hr_assistant": {
@@ -108,6 +110,23 @@
       "subject_doctypes": [
         "Job Applicant"
       ],
+      "rate_limit": {
+        "max": 30,
+        "window_seconds": 3600
+      }
+    },
+    "rank_shortlist": {
+      "description": "Propose the ranked shortlist of ONE job opening (agent-layer 'ranking' kind). Decision only: nothing is written to Frappe",
+      "subject_doctypes": [
+        "Job Opening"
+      ],
+      "rate_limit": {
+        "max": 50,
+        "window_seconds": 3600
+      }
+    },
+    "inbox_digest": {
+      "description": "Summarise the HR inbox for HR (agent-layer 'digest' kind). Decision only: nothing is written or sent",
       "rate_limit": {
         "max": 30,
         "window_seconds": 3600
