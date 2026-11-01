@@ -20,6 +20,7 @@ KINDS_BY_AGENT = {
     "payroll": {"payroll_reply"},
     "performance": {"review_summary"},
     "conflict": {"grievance_triage"},
+    "assistant": {"hr_request"},   # RH Chat: a request from an employee/applicant, handled by HR
 }
 HEX64 = re.compile(r"^[0-9a-f]{64}$")
 TOKEN = re.compile(r"\[[A-Z]+_\d+\]")
@@ -50,6 +51,9 @@ def _summary(kind: str, p: dict) -> str:
     if kind == "interview":
         return (f"{p['interview_type']} with {p['applicant']}\n"
                 f"{p['date']}  {p['from_time']} - {p['to_time']}")
+    if kind == "hr_request":
+        return (f"RH Chat request from a {p['persona']} ({p['category']})\n{p['summary']}\n\n"
+                "HR follows up with the person; approving records the decision only.")
     if kind == "payroll_reply":
         return f"Employee: {p['employee']}\n\n{p['body']}"
     return json.dumps(p, indent=1, ensure_ascii=False)
@@ -64,7 +68,7 @@ def _token_values(raw, subject: str, payload: dict) -> dict:
     return {k: str(v)[:200] for k, v in raw.items() if k in used and isinstance(v, str)}
 
 
-SUBJECT_DOCTYPES = {"email": "Inbound Email"}
+SUBJECT_DOCTYPES = {"email": "Inbound Email", "chat": "Chat Message"}
 
 
 def _reference(subject: str, tokens: dict):

@@ -130,6 +130,8 @@ def sync_inbox_job():
         sync_inbox()
     except IngestError:
         frappe.log_error(title="Input security layer: inbox sync failed")
+    from hr_ai.webhooks import retry_failed_events
+    retry_failed_events()
 
 
 def sync_inbox(limit: int = 100) -> dict:
@@ -198,6 +200,9 @@ def _ingest_mail(mailpit_id: str, raw: bytes) -> str:
     doc = frappe.get_doc(record)
     doc.flags.from_ingest = True
     doc.insert(ignore_permissions=True)
+    if doc.released_to_ai:  # clean mail goes straight to the comms agent; held-back mail waits for HR
+        from hr_ai.webhooks import notify_inbound_email
+        notify_inbound_email(doc.name)
     return doc.name
 
 
@@ -245,6 +250,8 @@ def _links() -> dict:
     for r in frappe.get_all("Job Applicant", filters={"rhflow_ingest_report_id": ["is", "set"]},
                             fields=["name", "rhflow_ingest_report_id"]):
         links[r.rhflow_ingest_report_id] = ["Job Applicant", r.name]
+    for r in frappe.get_all("Chat Message", filters={"report_id": ["is", "set"]}, fields=["name", "report_id"]):
+        links[r.report_id] = ["Chat Message", r.name]
     return links
 
 
@@ -295,6 +302,11 @@ def security_decide(report_id: str, action: str, reason: str):
             frappe.db.set_value("Inbound Email", doc.name, {"verdict": verdict,
                                                           "released_to_ai": int(summary["released_to_ai"])})
         doc.add_comment("Info", f"Input security layer: {action}d by {frappe.session.user}. Reason: {reason.strip()[:500]}")
+        if summary.get("released_to_ai") and doc.report_id == report_id:
+            from hr_ai.webhooks import notify_inbound_email
+            notify_inbound_email(doc.name)
+    elif link and link[0] == "Chat Message":
+        frappe.db.set_value("Chat Message", link[1], "verdict", verdict, update_modified=False)
     elif link:
         frappe.db.set_value("Job Applicant", link[1], "rhflow_ingest_verdict", verdict, update_modified=False)
         frappe.get_doc("Job Applicant", link[1]).add_comment(

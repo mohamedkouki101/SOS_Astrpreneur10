@@ -40,6 +40,15 @@ KNOWN_PLACES = {
     "la goulette", "la manouba", "el menzah", "el kef", "el mourouj", "menzel bourguiba",
 }
 
+# HR vocabulary the small NER models tag as names when capitalized ("Privilege Leave", "Sick Leave",
+# "Congé Annuel"). A candidate made only of these words is not a person. Real names are never in here.
+HR_TERMS = {
+    "leave", "leaves", "privilege", "casual", "sick", "compensatory", "maternity", "paternity", "annual",
+    "unpaid", "without", "pay", "off", "holiday", "holidays", "congé", "congés", "conge", "conges", "annuel",
+    "maladie", "payé", "paye", "sans", "solde", "jours", "fériés", "feries", "salary", "slip", "payslip",
+    "attestation", "travail", "interview", "entretien", "job", "opening", "offer", "position", "poste",
+}
+
 
 @dataclass(frozen=True)
 class _Detection:
@@ -146,7 +155,8 @@ def _presidio_detections(text: str, language: str) -> list[_Detection]:
             # only names of 2+ capitalized words, with no digits or symbols.
             words = value.split()
             if (len(words) < 2 or not all(word[:1].isupper() for word in words)
-                    or re.search(r"[\d@<>\[\]_/]", value) or value.lower() in KNOWN_PLACES):
+                    or re.search(r"[\d@<>\[\]_/]", value) or value.lower() in KNOWN_PLACES
+                    or all(word.lower().strip(".,;:!?()\"'") in HR_TERMS for word in words)):
                 continue
             detections.append(_Detection(start, end, "PERSON", False))
         elif not CURRENCY_AFTER.match(text, end):

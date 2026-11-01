@@ -27,7 +27,7 @@ READS: dict[str, list[str]] = {
     "orchestrator": ["Leave Application", "Job Applicant"],
     "recruitment": ["Job Opening", "Job Applicant", "Interview"],
     "comms": ["Job Applicant", "Job Opening", "Inbound Email"],
-    "assistant": ["Employee", "Leave Ledger Entry", "Holiday List"],
+    "assistant": ["Employee", "Leave Ledger Entry", "Holiday List", "Job Applicant", "Job Opening", "Interview"],
     "leave": ["Leave Application", "Leave Ledger Entry", "Holiday List", "Employee"],
     "onboarding": ["Employee", "Employee Onboarding Template"],
     "payroll": ["Salary Slip", "Attendance"],

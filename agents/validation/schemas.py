@@ -124,6 +124,14 @@ class GrievanceTriagePayload(Strict):
     next_step: str = Field(max_length=400)
 
 
+class HrRequestPayload(Strict):
+    """RH Chat: something an employee or applicant asked for that only HR can do (HR follows up)."""
+    message: str = Field(pattern=r"^CHAT-\d{4}-\d{5,}$")
+    persona: Literal["employee", "applicant"]
+    category: Literal["leave", "interview", "application", "document", "payroll", "complaint", "other"]
+    summary: str = Field(min_length=10, max_length=600)
+
+
 PROPOSAL_SCHEMAS: dict[str, type[Strict]] = {
     "ranking": RankingPayload,
     "applicant_status": ApplicantStatusPayload,
@@ -136,6 +144,7 @@ PROPOSAL_SCHEMAS: dict[str, type[Strict]] = {
     "payroll_reply": PayrollReplyPayload,
     "review_summary": ReviewSummaryPayload,
     "grievance_triage": GrievanceTriagePayload,
+    "hr_request": HrRequestPayload,
 }
 
 # Which agent may propose which kind (default-deny).
@@ -147,6 +156,7 @@ PROPOSAL_KINDS_BY_AGENT: dict[str, set[str]] = {
     "payroll": {"payroll_reply"},
     "performance": {"review_summary"},
     "conflict": {"grievance_triage"},
+    "assistant": {"hr_request"},
 }
 
 FREE_TEXT_FIELDS = {"justification", "reason", "note", "body", "subject", "summary", "next_step", "tasks", "quote"}

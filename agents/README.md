@@ -33,6 +33,27 @@ rhf graph              # Mermaid diagram of the orchestrator graph
 rhf audit-verify       # check the hash chain of the agent audit trail
 ```
 
+### Agent service (RH Chat + automatic inbox replies)
+
+```sh
+$HOME/.venvs/rhflow-agents/bin/python -m agents.integration.server   # 127.0.0.1:8200
+```
+
+HR Core calls it with signed requests (`hr_ai/webhooks.py` -> `agents/integration/server.py`):
+HMAC-SHA256 over timestamp + event id + body, a 300 s replay window, and one run per event id.
+- `POST /chat`: an RH Chat message (page `/chat`). The text went through the input security layer first;
+  a held-back message never reaches this service. Intake (qwen, strict JSON) picks the persona, code binds
+  it to the employee / job applicant HR linked to the account (User fields "Chat: linked ..."), then the HR
+  Assistant answers with that persona's tools only. Requests become an `hr_request` AI Action for HR.
+- `POST /events`: `inbound_email.received` for every released inbox mail; the Comms agent drafts a reply
+  (AI Action "Proposed"). Failed runs are retried 3 times.
+
+Needs `WEBHOOK_HMAC_SECRET` in `.env`, and the same value in HR Core site config `hr_ai_agents_webhook_secret`
+(plus `hr_ai_agents_url = http://host.docker.internal:8200`). Ollama must be running (`ollama serve`).
+
+Chat demo account: `bench --site frontend execute hr_ai.setup.setup_demo_users --kwargs "{'chat_password': '...'}"`
+creates the login `Utilisateur` (website user, no Desk) linked to a fictional employee and a fictional applicant.
+
 Expect about 5–20 s per Qwen step. Ranking one opening (about 16 CVs) takes several minutes, so run it before the demo scene.
 
 ## Layout
@@ -75,7 +96,5 @@ $HOME/.venvs/rhflow-agents/bin/python -m pytest -q
 The tests run offline: a scripted fake LLM stands in for Qwen and nothing calls RH Flow. There is one test file per guardrail (`tests/guardrails/`). The duplicate-webhook test is skipped until the receiver exists.
 
 ## Not done yet
-- `hr_ai.api.propose_action` (proposals are stored in `var/outbox/` until then; set `RHFLOW_PROPOSE_ENABLED=1` once it exists).
-- Signed webhook receiver.
 - Malware scanner and injection classifier (hooks exist; not chosen yet).
 - Where the PII token map lives long-term, and who may de-tokenize (open question).

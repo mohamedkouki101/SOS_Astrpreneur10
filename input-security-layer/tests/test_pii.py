@@ -201,3 +201,17 @@ def test_email_ref_normalizes_and_hides_email():
     assert ref == email_ref("amina@example.test", key)
     assert ref.startswith("hmac:") and "amina" not in ref
     assert ref != email_ref("amina@example.test", b"s" * 32)
+
+
+@pytest.mark.parametrize("text", [
+    "Bonjour, combien de jours de Privilege Leave il me reste ?",
+    "How many days of Sick Leave do I have left?",
+    "Je voudrais poser un Congé Annuel la semaine prochaine.",
+])
+def test_hr_terms_are_not_masked_as_names(text):
+    assert "<PERSON_" not in mask(text).masked_text
+
+
+def test_name_next_to_hr_terms_still_masked():
+    text = "Bonjour, je suis Amina Ben Salem et je voudrais poser un Congé Annuel."
+    assert "Amina" not in mask(text).masked_text
