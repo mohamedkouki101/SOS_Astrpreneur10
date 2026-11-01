@@ -1,0 +1,12 @@
+[project]
+name = "hrflow_theme"
+authors = [{ name = "SOS_Astrpreneur1 team" }]
+description = "HRflow: visual theme for Frappe HR v16 (CSS, one small JS file, logo). No backend logic."
+requires-python = ">=3.10"
+readme = "README.md"
+dynamic = ["version"]
+dependencies = []
+
+[build-system]
+requires = ["flit_core >=3.4,<4"]
+build-backend = "flit_core.buildapi"

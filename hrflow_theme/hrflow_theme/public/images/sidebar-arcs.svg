@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 520" preserveAspectRatio="xMidYMax slice">
+  <!-- Decorative curved bands at the bottom of the sidebar (HRflow reference). -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M-40 560 C -40 300, 120 260, 300 120" stroke="#1455E8" stroke-opacity=".55" stroke-width="64"/>
+    <path d="M30 560 C 30 360, 150 320, 300 230" stroke="#76A9FF" stroke-opacity=".38" stroke-width="44"/>
+    <path d="M100 560 C 100 430, 180 390, 300 340" stroke="#FFFDF8" stroke-opacity=".16" stroke-width="30"/>
+  </g>
+</svg>
