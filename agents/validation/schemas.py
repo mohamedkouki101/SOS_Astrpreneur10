@@ -5,7 +5,7 @@ from __future__ import annotations
 import datetime as dt
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 
 class Strict(BaseModel):
@@ -65,9 +65,18 @@ class InterviewPayload(Strict):
 
 class EmailReplyPayload(Strict):
     email_id: str
-    to: str = Field(pattern=r"^\[EMAIL_\d+\]$", description="Masked recipient token")
+    # [EMAIL_n]: local pipeline token. <SENDER>: input-layer email, the gateway replies to the original sender.
+    to: str = Field(pattern=r"^(\[EMAIL_\d+\]|<SENDER>)$", description="Masked recipient")
     subject: str = Field(max_length=200)
     body: str = Field(max_length=3000)
+    doc_id: str | None = Field(default=None, pattern=r"^sha256:[0-9a-f]{64}$",
+                               description="Input-layer document the <TOKENS> belong to")
+
+    @model_validator(mode="after")
+    def sender_needs_doc(self) -> EmailReplyPayload:
+        if (self.to == "<SENDER>") != (self.doc_id is not None):
+            raise ValueError("<SENDER> replies need the doc_id of the email, and only they have one")
+        return self
 
 
 class DigestItem(Strict):

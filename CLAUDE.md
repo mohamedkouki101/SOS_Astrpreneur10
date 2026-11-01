@@ -9,7 +9,8 @@ The demo should show a prompt-injection attempt being blocked.
 
 ## 2. Current state
 - DONE: Frappe + ERPNext + HRMS v16 running in Docker (WSL2 Ubuntu on Windows). ERPNext is a required dependency of HRMS; hide non-HR modules via Module Profiles. Architecture designed (section 4).
-- NOT BUILT: `hr_ai` app, AI Action queue, webhooks, agent service, security pipeline, mail ingestion, fictional data, tests.
+- BUILT: `hr_ai` app (AI Action queue, RH AI decision page, Execution Gateway, Inbound Email, input-layer feeder), agent service (9 agents), input security layer integration, Mailpit mail, fictional data, guardrail tests.
+- NOT BUILT: signed webhook receiver, policy/fairness/audit/monitor inside `hr_ai`.
 - Current task: project SKELETON only. No agent intelligence yet.
 - Environment: Frappe stack in `~/frappe_docker` (compose file `hr.yml`, project name `hr`, site `frontend`, UI http://localhost:8001). Image `custom:16` was built from `frappe_docker` with `apps.json` (erpnext + hrms, branch `version-16`). Default login Administrator/admin must be changed.
 - TODO verify: scheduler is disabled on a fresh site. Enable with `bench --site frontend enable-scheduler`.
@@ -123,6 +124,7 @@ Propose a plan and wait for approval before writing code. Small steps, commit af
 - Where are raw originals and the PII token map stored?
 - DECIDED (2026-10-31): agent service in Python 3.12 with LangGraph; LLM qwen3:8b via local Ollama for all 9 agents.
 - DECIDED (2026-10-31): Mailpit (`axllent/mailpit:v1.21.8`, service `mailpit` in `hr.yml`) is the test mail server for sending and receiving. Web inbox http://localhost:8025, SMTP `mailpit:1025` (from WSL `localhost:1025`), REST API `/api/v1`. It catches everything, nothing leaves the machine. RH Flow outgoing Email Account "RH Flow HR" = `hr@rhflow.local` via Mailpit. Inbound: external mail sent to `hr@rhflow.local` lands in Mailpit; the ingester (to build) pulls it via the Mailpit API and runs stages 1-4.
+- DECIDED (2026-11-01): stages 1-4 run in the input security layer service (`input-security-layer/`, FastAPI, port 8090, container `ingest` on `hr_frappe_network`). `hr_ai/ingest.py` is the only feeder (CVs on Job Applicant update, Mailpit inbox every minute -> Inbound Email DocType) with the UPLOAD key; HR release/reject in the RH AI "Security checks" tab (REPORT key); agents read signed envelopes only (ENVELOPE key, `agents/tools/input_layer.py`, `INPUT_LAYER=service`); the Execution Gateway alone resolves `<PERSON_n>`/`<SENDER>` (RESOLVER key). Keys live in site config and gitignored `.env` only.
 - Not chosen yet: malware scanner, injection classifier, vector store, Secrets Manager, approval-signing key management.
 - Audit Log storage and Monitor alert channel unspecified. Calendar source for scheduling unspecified.
 - Licensing: Frappe HR is GPL v3. Check implications of distributing the modified product.

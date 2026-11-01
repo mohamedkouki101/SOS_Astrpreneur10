@@ -13,6 +13,7 @@ def isolated_var(tmp_path, monkeypatch):
     monkeypatch.setenv("DATASET_DIR", str(DATASET))
     monkeypatch.setenv("RHFLOW_PROPOSE_ENABLED", "0")  # tests never write to RH Flow
     monkeypatch.setenv("MAIL_SOURCE", "folder")        # tests read the dataset .eml folder
+    monkeypatch.setenv("INPUT_LAYER", "local")         # service-mode tests opt in explicitly
     from agents import config
     from agents.ingest import pipeline
 

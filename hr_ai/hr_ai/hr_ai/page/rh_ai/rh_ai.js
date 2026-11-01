@@ -14,7 +14,11 @@ const TABS = [
 	["Executed", __("Done"), "blue"],
 	["Rejected", __("Declined"), "red"],
 	["Failed", __("Failed"), "red"],
+	["__security", __("Security checks"), "purple"],
 ];
+const VERDICT_COLORS = { clean: "green", suspicious: "orange", quarantined: "red", released: "purple", rejected: "gray", error: "gray" };
+const SOURCE_LABELS = { upload_cv: __("CV upload"), email_body: __("Email"), email_attachment: __("Email attachment") };
+const esc = (v) => frappe.utils.escape_html(v == null ? "" : String(v)); // report text is hostile: always plain text
 const AGENTS = ["", "recruitment", "comms", "leave", "onboarding", "payroll", "performance", "conflict"];
 
 frappe.pages["rh-ai"].on_page_load = function (wrapper) {
@@ -33,6 +37,13 @@ class RHAIDecisions {
 		this.agent = "";
 		this.show_real = false;
 		this.page.set_secondary_action(__("Refresh"), () => this.refresh(), "refresh");
+		this.page.add_inner_button(__("Sync inbox & CVs"), () =>
+			frappe.call({ method: "hr_ai.ingest.security_sync", freeze: true, freeze_message: __("Inspecting new emails and CVs...") })
+				.then((r) => {
+					const m = r.message || {};
+					frappe.show_alert({ message: __("{0} new email(s), {1} CV(s) inspected", [m.inbox?.new || 0, m.cvs?.processed || 0]), indicator: "green" });
+					this.refresh();
+				}));
 		this.agent_field = this.page.add_field({
 			fieldname: "agent", label: __("Agent"), fieldtype: "Select",
 			options: AGENTS.map((a) => ({ value: a, label: a ? frappe.utils.to_title_case(a) : __("All agents") })),
@@ -70,11 +81,18 @@ class RHAIDecisions {
 		this.$list = this.$body.find(".rh-ai-list");
 		this.$tabs.on("click", ".rh-ai-tab", (e) => { this.status = $(e.currentTarget).data("status"); this.refresh(); });
 		this.$list.on("click", "[data-action]", (e) => this.act($(e.currentTarget)));
+		this.$list.on("click", "[data-sec]", (e) => this.security_action($(e.currentTarget)));
 		frappe.realtime.on("list_update", (d) => { if (d && d.doctype === "AI Action") this.refresh(); });
 		setInterval(() => { if (frappe.get_route_str() === "rh-ai" && !document.hidden) this.refresh(); }, 15000);
 	}
 
 	refresh() {
+		this.agent_field.$wrapper.toggle(this.status !== "__security");
+		if (this.status === "__security") {
+			frappe.call({ method: "hr_ai.ingest.security_reports", type: "GET" })
+				.then((r) => { this.reports = r.message || []; this.render(); });
+			return;
+		}
 		frappe.call({
 			method: "hr_ai.api.review_queue", type: "GET",
 			args: { status: this.status, agent: this.agent || null },
@@ -84,11 +102,16 @@ class RHAIDecisions {
 	render() {
 		if (!this.data) return;
 		const { rows, counts, can_decide } = this.data;
+		if (this.data.security_pending != null) counts.__security = this.data.security_pending;
 		this.real_field.$wrapper.toggle(!!can_decide);
 		this.$tabs.html(TABS.map(([s, label, color]) => `
 			<div class="rh-ai-tab ${s === this.status ? "active" : ""}" data-status="${s}">
 				<span class="indicator-pill ${color}">${label}</span><span class="count">${counts[s] || 0}</span>
 			</div>`).join(""));
+		if (this.status === "__security") {
+			this.render_security(can_decide);
+			return;
+		}
 		if (!rows.length) {
 			this.$list.html(`<div class="rh-ai-empty">${this.status === "Proposed"
 				? __("Nothing waiting for a decision. Proposals from the agents will appear here.")
@@ -96,6 +119,71 @@ class RHAIDecisions {
 			return;
 		}
 		this.$list.html(rows.map((r) => this.card(r, can_decide)).join(""));
+	}
+
+	render_security(can_decide) {
+		const rows = this.reports || [];
+		const intro = `<div class="rh-ai-meta">${__("Every CV and email from outside is inspected by the input security layer before any agent can read it: hidden text removed, personal data masked, prompt injections scored. Quarantined documents never reach the AI unless HR releases them.")}</div>`;
+		if (!rows.length) {
+			this.$list.html(intro + `<div class="rh-ai-empty">${__("No inspected documents yet. Use Sync inbox & CVs.")}</div>`);
+			return;
+		}
+		const order = { quarantined: 0, suspicious: 1 };
+		rows.sort((a, b) => (order[a.verdict] ?? 2) - (order[b.verdict] ?? 2));
+		this.$list.html(intro + rows.map((r) => {
+			const v = r.decision || (r.status === "accepted" ? r.verdict : "rejected") || "error";
+			const link = r.linked ? ` · <a href="/desk/${frappe.router.slug(r.linked[0])}/${encodeURIComponent(r.linked[1])}">${esc(__(r.linked[0]))}</a>` : "";
+			const can_release = can_decide && r.verdict === "quarantined" && !r.decision;
+			const can_reject = can_decide && r.status === "accepted" && !r.decision;
+			return `
+			<div class="rh-ai-card">
+				<div class="rh-ai-card-head">
+					<span class="title">${esc(SOURCE_LABELS[r.source_type] || r.source_type)}${r.filename ? " · " + esc(r.filename) : ""}</span>
+					<span class="indicator-pill gray">${__("Risk")} ${Math.round((r.risk_score_bp || 0) / 100)}%</span>
+					<span class="indicator-pill ${VERDICT_COLORS[v] || "gray"}">${esc(__(v))}</span>
+				</div>
+				<div class="rh-ai-meta">${esc(r.received_at)} · ${r.released_to_ai ? __("sent to the AI (masked)") : __("held back from the AI")}${r.rejection ? " · " + esc(r.rejection) : ""}${link}</div>
+				<div class="rh-ai-actions">
+					<button class="btn btn-default btn-sm" data-sec="inspect" data-id="${esc(r.report_id)}">${__("Inspect")}</button>
+					${can_release ? `<button class="btn btn-warning btn-sm" data-sec="release" data-id="${esc(r.report_id)}">${__("Release to AI")}</button>` : ""}
+					${can_reject ? `<button class="btn btn-danger btn-sm" data-sec="reject" data-id="${esc(r.report_id)}">${__("Reject")}</button>` : ""}
+				</div>
+			</div>`;
+		}).join(""));
+	}
+
+	security_action($btn) {
+		const id = $btn.data("id"), action = $btn.data("sec");
+		if (action === "inspect") return this.inspect(id);
+		frappe.prompt({ fieldname: "reason", fieldtype: "Small Text", reqd: 1,
+			label: action === "release" ? __("Why is it safe to release this document to the AI?") : __("Why are you rejecting this document?") },
+			(v) => frappe.call({ method: "hr_ai.ingest.security_decide", args: { report_id: id, action, reason: v.reason }, freeze: true })
+				.then(() => { frappe.show_alert({ message: action === "release" ? __("Released to the AI, flagged as suspicious") : __("Rejected"), indicator: "green" }); this.refresh(); }),
+			action === "release" ? __("Release to AI") : __("Reject document"), action === "release" ? __("Release") : __("Reject"));
+	}
+
+	inspect(id) {
+		frappe.call({ method: "hr_ai.ingest.security_report", type: "GET", args: { report_id: id } }).then((r) => {
+			const rep = r.message;
+			const pill = { pass: "green", warn: "orange", fail: "red", skipped: "gray" };
+			const section = (title, body) => body ? `<h5 style="margin-top:16px">${title}</h5>${body}` : "";
+			const list = (items, fn) => items && items.length ? `<ul>${items.map(fn).join("")}</ul>` : "";
+			const pre = (t) => `<pre class="rh-ai-summary">${esc(t)}</pre>`;
+			const html = `
+				<div class="rh-ai-meta">${esc(SOURCE_LABELS[rep.source.type] || rep.source.type)} · ${esc(rep.source.file_type)} · ${__("risk")} ${Math.round(rep.risk_score_bp / 100)}% · ${esc(rep.verdict || rep.status)}</div>
+				${section(__("Pipeline"), list(rep.stages, (s) => `<li><span class="indicator-pill ${pill[s.status] || "gray"}">${esc(s.status)}</span> <b>${esc(s.stage)}</b>: ${esc(s.detail)}</li>`))}
+				${section(__("Why this score"), list(rep.reasons, (x) => `<li>${esc(x.label)} <span class="text-muted">(+${Math.round(x.points / 100)}%)</span></li>`))}
+				${section(__("Hidden content removed"), list(rep.removed, (x) => `<li>${esc(x.label)} · ${esc(x.location)}${pre(x.text)}</li>`))}
+				${section(__("Injection attempts"), list(rep.injection_matches, (x) => `<li>${esc(x.label)} (${esc(x.where)})${pre(x.text)}</li>`))}
+				${section(__("Personal data protected"), list(rep.masked, (x) => `<li><code>${esc(x.token)}</code> = ${esc(x.original)}</li>`) + list(rep.protected_removed, (x) => `<li>${esc(x.attribute)} ${__("removed")}</li>`))}
+				${section(__("What the AI receives"), rep.text.sent ? pre(rep.text.sent) : `<div class="text-muted">${__("Nothing: held back from the AI.")}</div>`)}
+				${section(__("Original text (as a naive extractor would read it)"), pre(rep.text.original))}
+				${rep.decision ? section(__("HR decision"), `<div>${esc(rep.decision.action)} · ${esc(rep.decision.decided_at)} · ${esc(rep.decision.reason)}</div>`) : ""}`;
+			const d = new frappe.ui.Dialog({ title: __("Inspection report"), size: "extra-large",
+				fields: [{ fieldtype: "HTML", fieldname: "body" }] });
+			d.fields_dict.body.$wrapper.html(html);
+			d.show();
+		});
 	}
 
 	text(r, value) {

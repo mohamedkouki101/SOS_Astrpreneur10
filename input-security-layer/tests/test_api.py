@@ -54,6 +54,11 @@ def test_health_needs_no_key(client):
     assert client.get("/health").json()["status"] == "ok"
 
 
+def test_root_redirects_to_docs(client):
+    response = client.get("/", follow_redirects=False)
+    assert response.status_code == 307 and response.headers["location"] == "/docs"
+
+
 def test_clean_upload_flows_to_dashboard_and_ai_layer(client):
     response = upload(client, pdf(*CV), "Amina_CV.pdf", job="HR-OPN-0004")
     assert response.status_code == 200

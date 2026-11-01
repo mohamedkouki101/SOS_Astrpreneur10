@@ -69,3 +69,26 @@ Test mode: every outgoing email goes to the site setting `hr_ai_test_recipient` 
 
 ## Reset
 Run Step 1 again with `--reset`. Old AI Actions stay in RH Flow as history.
+
+## Variant: through the input security layer (`INPUT_LAYER=service`)
+With `INPUT_LAYER=service` in `.env`, the agents never read Mailpit or CV files directly. Every CV and every
+email first goes through the input security layer (`input-security-layer/`, port 8090), and the agents only
+read its signed, masked envelopes.
+
+Start the layer once: `docker compose -f input-security-layer/compose.ingest.yml up -d` (needs `input-security-layer/.env`).
+
+| Flow | Who calls the layer | Key |
+|---|---|---|
+| New Job Applicant with a CV → `/v1/upload` (verdict stored on the applicant) | `hr_ai` (doc_event, background job) | UPLOAD |
+| Mailpit inbox → `/v1/email` (+ attachments) → **Inbound Email** record | `hr_ai` scheduler (every minute) or **Sync inbox & CVs** | UPLOAD |
+| Agents read content → `/v1/envelopes/{id}`, signature checked, quarantined never used | agents | ENVELOPE |
+| HR reviews quarantined items, **Release** / **Reject** with a reason | RH AI page, **Security checks** tab | REPORT |
+| Real values for `<PERSON_1>` / `<SENDER>` at send time | Execution Gateway only | RESOLVER |
+
+Steps:
+1. Run Step 1 (`demo_scenario --reset`), then in RH AI click **Sync inbox & CVs**. Three Inbound Email records appear; the attack is `quarantined`.
+2. Open the **Security checks** tab, then **Inspect** on the attack: stages, matched rules (`ignore_previous_en`), what was removed. All text is shown escaped.
+3. Run Step 2. The draft's recipient is `<SENDER>` and its body uses `<PERSON_1>`. The Gateway resolves them only after approval.
+4. **Release** a quarantined item: the agent now gets it as `suspicious` with the hidden instruction removed. **Reject**: the agent never gets it (404). Decisions are permanent, so test them on a copy, not on the demo email.
+
+Agent API users get 403 on every security endpoint, and they cannot read the sender's address (HR-only field).

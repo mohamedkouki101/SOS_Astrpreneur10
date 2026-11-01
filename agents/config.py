@@ -53,6 +53,10 @@ class Settings:
     mail_source: str
     mailpit_url: str
     hr_inbox_address: str
+    input_layer: str
+    ingest_url: str
+    ingest_envelope_key: str
+    ingest_signing_key: str
 
     def credentials(self, agent: str) -> tuple[str, str] | None:
         """Per-agent read-only API key/secret (RHFLOW_<AGENT>_API_KEY / _API_SECRET)."""
@@ -81,4 +85,10 @@ def get_settings() -> Settings:
         mail_source=env("MAIL_SOURCE", "folder"),
         mailpit_url=env("MAILPIT_URL", "http://localhost:8025").rstrip("/"),
         hr_inbox_address=env("HR_INBOX_ADDRESS", "hr@rhflow.local"),
+        # "service": CVs and emails come from the input security layer (signed, masked envelopes);
+        # "local": the agents' own ingest pipeline (offline fallback, used by the tests).
+        input_layer=env("INPUT_LAYER", "local"),
+        ingest_url=env("INGEST_URL", "http://localhost:8090").rstrip("/"),
+        ingest_envelope_key=env("INGEST_ENVELOPE_API_KEY", ""),
+        ingest_signing_key=env("INGEST_SIGNING_KEY", ""),
     )

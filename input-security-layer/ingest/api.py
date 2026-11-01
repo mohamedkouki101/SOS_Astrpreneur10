@@ -19,7 +19,7 @@ from contextlib import asynccontextmanager
 from typing import Literal
 
 from fastapi import Depends, FastAPI, File, Form, Header, HTTPException, Request, UploadFile
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, RedirectResponse
 from pydantic import BaseModel, Field, SecretStr, field_validator
 
 from ingest import PIPELINE_VERSION
@@ -162,6 +162,11 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         return summary(result.report, result.duplicate)
 
     # --- Health ---
+
+    @app.get("/", include_in_schema=False)
+    def root():
+        """Opening the service in a browser lands on the interactive docs (Swagger)."""
+        return RedirectResponse("/docs", status_code=307)
 
     @app.get("/health")
     def health():

@@ -26,7 +26,7 @@ URL = os.environ.get("RHFLOW_URL", "http://localhost:8080").rstrip("/")
 READS: dict[str, list[str]] = {
     "orchestrator": ["Leave Application", "Job Applicant"],
     "recruitment": ["Job Opening", "Job Applicant", "Interview"],
-    "comms": ["Job Applicant", "Job Opening"],
+    "comms": ["Job Applicant", "Job Opening", "Inbound Email"],
     "assistant": ["Employee", "Leave Ledger Entry", "Holiday List"],
     "leave": ["Leave Application", "Leave Ledger Entry", "Holiday List", "Employee"],
     "onboarding": ["Employee", "Employee Onboarding Template"],
