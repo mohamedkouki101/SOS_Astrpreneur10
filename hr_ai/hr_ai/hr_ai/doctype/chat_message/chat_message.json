@@ -1,0 +1,183 @@
+{
+ "actions": [],
+ "autoname": "CHAT-.YYYY.-.#####",
+ "creation": "2026-11-01 18:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "user",
+  "direction",
+  "status",
+  "column_break_1",
+  "persona",
+  "in_reply_to",
+  "ai_action",
+  "section_content",
+  "content",
+  "section_layer",
+  "verdict",
+  "report_id",
+  "doc_id",
+  "section_restricted",
+  "masked_content",
+  "run_id"
+ ],
+ "fields": [
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "read_only": 1,
+   "options": "User",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "direction",
+   "fieldtype": "Select",
+   "label": "Direction",
+   "read_only": 1,
+   "options": "In\nOut",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "read_only": 1,
+   "options": "Checking\nThinking\nAnswered\nBlocked\nError",
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "column_break_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "persona",
+   "fieldtype": "Select",
+   "label": "Persona (decided by the agent)",
+   "read_only": 1,
+   "options": "\nemployee\napplicant\nunknown\nhr",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "in_reply_to",
+   "fieldtype": "Link",
+   "label": "In reply to",
+   "read_only": 1,
+   "options": "Chat Message"
+  },
+  {
+   "fieldname": "ai_action",
+   "fieldtype": "Link",
+   "label": "AI Action (waiting for HR)",
+   "read_only": 1,
+   "options": "AI Action"
+  },
+  {
+   "fieldname": "section_content",
+   "fieldtype": "Section Break",
+   "label": "Message"
+  },
+  {
+   "fieldname": "content",
+   "fieldtype": "Long Text",
+   "label": "Content",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_layer",
+   "fieldtype": "Section Break",
+   "label": "Input security layer",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "verdict",
+   "fieldtype": "Select",
+   "label": "Security verdict",
+   "read_only": 1,
+   "options": "\nclean\nsuspicious\nquarantined\nreleased\nrejected\nerror",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "report_id",
+   "fieldtype": "Data",
+   "label": "Inspection report",
+   "read_only": 1
+  },
+  {
+   "fieldname": "doc_id",
+   "fieldtype": "Data",
+   "label": "Message hash (SHA-256)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_restricted",
+   "fieldtype": "Section Break",
+   "label": "What the agents saw (masked)",
+   "permlevel": 1,
+   "collapsible": 1
+  },
+  {
+   "fieldname": "masked_content",
+   "fieldtype": "Long Text",
+   "label": "Masked text",
+   "read_only": 1,
+   "permlevel": 1
+  },
+  {
+   "fieldname": "run_id",
+   "fieldtype": "Data",
+   "label": "Agent run",
+   "read_only": 1,
+   "permlevel": 1
+  }
+ ],
+ "in_create": 1,
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-11-01 18:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "HR AI",
+ "name": "Chat Message",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "report": 1
+  },
+  {
+   "role": "HR Manager",
+   "read": 1,
+   "report": 1
+  },
+  {
+   "role": "HR User",
+   "read": 1,
+   "report": 1
+  },
+  {
+   "role": "RH Flow Chat User",
+   "read": 1,
+   "if_owner": 1
+  },
+  {
+   "role": "System Manager",
+   "permlevel": 1,
+   "read": 1
+  },
+  {
+   "role": "HR Manager",
+   "permlevel": 1,
+   "read": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "title_field": "status"
+}

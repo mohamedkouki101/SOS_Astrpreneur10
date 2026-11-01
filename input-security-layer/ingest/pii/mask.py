@@ -40,6 +40,20 @@ KNOWN_PLACES = {
     "la goulette", "la manouba", "el menzah", "el kef", "el mourouj", "menzel bourguiba",
 }
 
+# A date ("2026-11-16", "16/11/2026", "16-11-2026") is never a phone number: HR messages are full of them.
+DATE_LIKE = re.compile(r"\d{4}[-/.]\d{1,2}[-/.]\d{1,2}|\d{1,2}[-/.]\d{1,2}[-/.]\d{2,4}")
+# Nor is the number part of an HR record id ("HR-INT-2026-0009", "HR-LAP-2026-00027", "HR-EMP-00007").
+RECORD_ID = re.compile(r"\b[A-Z]{2,}(?:-[A-Z]{2,})*(?:-\d+)+\b")
+
+# HR vocabulary the small NER models tag as names when capitalized ("Privilege Leave", "Sick Leave",
+# "Congé Annuel"). A candidate made only of these words is not a person. Real names are never in here.
+HR_TERMS = {
+    "leave", "leaves", "privilege", "casual", "sick", "compensatory", "maternity", "paternity", "annual",
+    "unpaid", "without", "pay", "off", "holiday", "holidays", "congé", "congés", "conge", "conges", "annuel",
+    "maladie", "payé", "paye", "sans", "solde", "jours", "fériés", "feries", "salary", "slip", "payslip",
+    "attestation", "travail", "interview", "entretien", "job", "opening", "offer", "position", "poste",
+}
+
 
 @dataclass(frozen=True)
 class _Detection:
@@ -127,6 +141,7 @@ def _block_tldextract_downloads() -> None:
 
 def _presidio_detections(text: str, language: str) -> list[_Detection]:
     detections = []
+    record_ids = [m.span() for m in RECORD_ID.finditer(text)]
     for result in _analyzer().analyze(text=text, language=language, entities=["PERSON", "PHONE_NUMBER"]):
         if result.score < MIN_PRESIDIO_SCORE:
             continue
@@ -146,10 +161,12 @@ def _presidio_detections(text: str, language: str) -> list[_Detection]:
             # only names of 2+ capitalized words, with no digits or symbols.
             words = value.split()
             if (len(words) < 2 or not all(word[:1].isupper() for word in words)
-                    or re.search(r"[\d@<>\[\]_/]", value) or value.lower() in KNOWN_PLACES):
+                    or re.search(r"[\d@<>\[\]_/]", value) or value.lower() in KNOWN_PLACES
+                    or all(word.lower().strip(".,;:!?()\"'") in HR_TERMS for word in words)):
                 continue
             detections.append(_Detection(start, end, "PERSON", False))
-        elif not CURRENCY_AFTER.match(text, end):
+        elif (not CURRENCY_AFTER.match(text, end) and not DATE_LIKE.fullmatch(value.strip())
+              and not any(a <= start and end <= b for a, b in record_ids)):
             detections.append(_Detection(start, end, "PHONE", False))
     return detections
 

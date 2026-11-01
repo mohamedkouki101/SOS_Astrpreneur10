@@ -28,7 +28,7 @@ needs_dataset = pytest.mark.skipif(not (DATASET / "cvs").is_dir(), reason="synth
 
 
 class FakeLLM:
-    """Scripted stand-in for qwen3:8b: returns the given AIMessages in order."""
+    """Scripted stand-in for qwen3:14b: returns the given AIMessages in order."""
 
     def __init__(self, replies):
         self.replies = list(replies)

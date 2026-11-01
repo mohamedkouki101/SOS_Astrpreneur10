@@ -19,7 +19,13 @@ doc_events = {
 
 # Input security layer: pull new mail for the HR inbox (Mailpit) every minute.
 scheduler_events = {"cron": {"* * * * *": ["hr_ai.ingest.sync_inbox_job"]}}
-# TODO (build plan task 4): signed webhooks to the agent service (webhooks.py)
+# Released mail is sent to the agent service as a signed event (webhooks.py); failed deliveries are
+# retried by the same job.
+
+# Apps screen: the ERPNext tile is replaced by the RH Chat tile (boot data only; erpnext is untouched).
+extend_bootinfo = "hr_ai.desk.extend_bootinfo"
+# Chat users (website users, no Desk) land on the chat page after login; everyone else is unchanged.
+get_website_user_home_page = "hr_ai.desk.home_page"
 
 # RH AI tile on the /desk apps screen -> decision page where HR allows or declines agent proposals.
 add_to_apps_screen = [

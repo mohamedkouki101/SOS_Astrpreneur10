@@ -1,4 +1,4 @@
-"""The Orchestrator: a LangGraph supervisor. qwen3:8b decides which specialist handles a request.
+"""The Orchestrator: a LangGraph supervisor. qwen3:14b decides which specialist handles a request.
 
     START -> orchestrator --delegate(agent=X)--> X (specialist subgraph) --> orchestrator ... -> END
                          \\--other tool--> tools -----------------------------^

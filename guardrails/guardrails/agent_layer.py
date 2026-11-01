@@ -41,6 +41,26 @@ SENDER = "<SENDER>"  # input-layer placeholder: "the person who wrote this inbox
 DOC_ID = re.compile(r"^sha256:[0-9a-f]{64}$")
 MIN_JUSTIFICATION = 20  # same minimum as fairness.json for scored tools
 
+# RH Chat kinds: each acts on ONE record, which must be the AI Action's reference AND the
+# record named in the payload. kind -> (reference doctype, payload key naming it, required, allowed)
+RECORD_BOUND = {
+    "hr_request": ("Chat Message", "message", {"message", "persona", "category", "summary"},
+                   {"message", "persona", "category", "summary"}),
+    "interview_update": ("Interview", "interview", {"interview", "action"},
+                         {"interview", "action", "date", "from_time", "to_time", "reason"}),
+    "leave_application": ("Employee", "employee", {"employee", "leave_type", "from_date", "to_date"},
+                          {"employee", "leave_type", "from_date", "to_date", "reason"}),
+    "leave_decision": ("Leave Application", "application", {"application", "decision", "reason"},
+                       {"application", "decision", "reason"}),
+    "employee_update": ("Employee", "employee", {"employee"},
+                        {"employee", "department", "designation", "branch", "reports_to", "reason"}),
+}
+CHOICES = {
+    "interview_update": {"action": {"reschedule", "cancel"}},
+    "leave_decision": {"decision": {"Approved", "Rejected"}},
+    "hr_request": {"persona": {"employee", "applicant"}},
+}
+
 
 class AgentLayerError(ValueError):
     """The proposal is not even well-formed: refuse before storing anything."""
@@ -180,6 +200,8 @@ class AgentLayerAdapter:
                 subject, payload = self._applicant_status(out, reference, problems)
             elif out.kind == "ranking":
                 subject, payload = self._ranking(out, reference, problems)
+            elif out.kind in RECORD_BOUND:
+                subject, payload = self._record_bound(out, reference, problems)
             elif out.kind == "digest":
                 # Read by HR only: nothing is sent or written, so there is no recipient to verify.
                 subject = RecordRef("(none)", out.subject or out.external_id)
@@ -326,6 +348,33 @@ class AgentLayerAdapter:
         if p.get("note"):
             payload["note"] = p["note"]
         return reference, payload
+
+    def _record_bound(self, out, reference, problems):
+        """One record per action: no recipients, no tokens (the operator works with record ids)."""
+        doctype, key, required, allowed = RECORD_BOUND[out.kind]
+        p = out.payload
+        missing = required - set(p)
+        if missing:
+            raise AgentLayerError(f"{out.kind} payload misses {sorted(missing)}")
+        extra = set(p) - allowed
+        if extra:
+            problems.append(Violation("agent_output_malformed", f"unexpected payload keys {sorted(extra)}"))
+        for k, choices in CHOICES.get(out.kind, {}).items():
+            if p.get(k) not in choices:
+                problems.append(Violation("agent_output_malformed", f"{k} must be one of {sorted(choices)}"))
+        if out.kind == "employee_update" and not any(p.get(k) for k in
+                                                     ("department", "designation", "branch", "reports_to")):
+            problems.append(Violation("agent_output_malformed", "employee_update changes nothing"))
+        if reference is None or reference.doctype != doctype:
+            problems.append(Violation("subject_mismatch", f"{out.kind} must reference a {doctype}"))
+            reference = reference or RecordRef("(none)", out.subject or out.external_id)
+        elif p.get(key) != reference.name:
+            problems.append(Violation("subject_mismatch",
+                                      f"payload {key} does not match the referenced {doctype}"))
+        if out.token_map:
+            problems.append(Violation("token_value_not_from_record",
+                                      f"{out.kind} acts on record ids and takes no tokens"))
+        return reference, dict(p)
 
     def _interview(self, out, reference, problems):
         p = out.payload

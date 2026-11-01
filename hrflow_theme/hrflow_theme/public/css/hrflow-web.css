@@ -1,0 +1,93 @@
+/* HRflow theme: website pages (mainly /login).
+   Same brand tokens as hrflow.css; light theme only. */
+:root {
+	--hf-royal: #073B9B;
+	--hf-electric: #1455E8;
+	--hf-soft: #76A9FF;
+	--hf-cream: #F8F0DF;
+	--hf-white: #FFFDF8;
+	--hf-ink: #14264D;
+	--hf-error: #E5484D;
+	--hf-line: color-mix(in srgb, var(--hf-ink) 12%, transparent);
+	--hf-line-strong: color-mix(in srgb, var(--hf-ink) 20%, transparent);
+	--hf-focus: 0 0 0 3px color-mix(in srgb, var(--hf-electric) 22%, transparent);
+}
+
+:root:not([data-theme="dark"]) {
+	--font-stack: "InterVariable", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	--bg-color: var(--hf-cream);
+	--fg-color: var(--hf-white);
+	--card-bg: var(--hf-white);
+	--surface-base: var(--hf-white);
+	--control-bg: var(--hf-white);
+	--text-color: var(--hf-ink);
+	--heading-color: var(--hf-ink);
+	--ink-gray-9: var(--hf-ink);
+	--ink-gray-8: var(--hf-ink);
+	--ink-gray-6: color-mix(in srgb, var(--hf-ink) 62%, var(--hf-white));
+	--ink-gray-5: color-mix(in srgb, var(--hf-ink) 45%, var(--hf-white));
+	--border-color: var(--hf-line);
+	--primary: var(--hf-electric);
+	--primary-color: var(--hf-electric);
+	--btn-primary: var(--hf-electric);
+}
+
+html:not([data-theme="dark"]) body {
+	background:
+		url("/assets/hrflow_theme/images/header-stripes.svg") right top / min(60vw, 720px) auto no-repeat,
+		var(--hf-cream);
+	color: var(--hf-ink);
+}
+
+/* Login card */
+html:not([data-theme="dark"]) .page-card {
+	background-color: var(--hf-white);
+	border: 1px solid var(--hf-line);
+	border-radius: 20px;
+	box-shadow: 0 18px 48px -16px color-mix(in srgb, var(--hf-ink) 28%, transparent);
+}
+@media (max-width: 576px) {
+	html:not([data-theme="dark"]) .page-card { border-radius: 0; border: none; box-shadow: none; }
+}
+.page-card-head img.app-logo {
+	max-height: 56px;
+	width: auto;
+}
+html:not([data-theme="dark"]) .page-card-head h4,
+html:not([data-theme="dark"]) .page-card-head .text-3xl-bold {
+	color: var(--hf-ink);
+	letter-spacing: -0.01em;
+}
+
+/* Inputs and buttons */
+html:not([data-theme="dark"]) .page-card .form-control {
+	background-color: var(--hf-white);
+	border: 1px solid var(--hf-line-strong);
+	border-radius: 8px;
+	color: var(--hf-ink);
+}
+html:not([data-theme="dark"]) .page-card .form-control:focus {
+	border-color: var(--hf-electric);
+	box-shadow: var(--hf-focus);
+}
+html:not([data-theme="dark"]) .btn {
+	border-radius: 999px;
+	font-weight: 500;
+}
+html:not([data-theme="dark"]) .btn-primary {
+	color: #fff;
+	background-color: var(--hf-electric);
+	border-color: var(--hf-electric);
+}
+html:not([data-theme="dark"]) .btn-primary:hover,
+html:not([data-theme="dark"]) .btn-primary:focus {
+	color: #fff;
+	background-color: var(--hf-royal);
+	border-color: var(--hf-royal);
+}
+html:not([data-theme="dark"]) .btn-default {
+	background-color: var(--hf-white);
+	border: 1px solid var(--hf-line-strong);
+	color: var(--hf-ink);
+}
+html:not([data-theme="dark"]) a { color: var(--hf-electric); }

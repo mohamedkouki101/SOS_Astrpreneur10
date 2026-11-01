@@ -180,4 +180,65 @@ def _create_interview(doc, p, tokens):
                                          f"{p['from_time']}-{p['to_time']}")
 
 
-HANDLERS = {"email_reply": _send_email, "interview": _create_interview}
+def _update_interview(doc, p, tokens):
+    iv = frappe.get_doc("Interview", p["interview"])
+    if iv.status in ("Cleared", "Rejected", "Cancelled"):
+        raise ExecutionError(f"Interview {iv.name} is already {iv.status}")
+    if p["action"] == "cancel":
+        iv.db_set("status", "Cancelled")
+        return "Interview", iv.name, f"Interview {iv.name} cancelled"
+    # Direct field update (no notification e-mails to interviewers: test mode sends no mail but ours).
+    iv.db_set({"scheduled_on": p["date"], "from_time": p["from_time"], "to_time": p["to_time"]})
+    return "Interview", iv.name, f"Interview {iv.name} moved to {p['date']} {p['from_time']}-{p['to_time']}"
+
+
+def _set_applicant_status(doc, p, tokens):
+    applicant = _real(p["applicant"], tokens)
+    ja = frappe.get_doc("Job Applicant", applicant)
+    ja.status = p["status"]
+    ja.flags.ignore_permissions = True
+    ja.save()
+    return "Job Applicant", ja.name, f"Applicant status set to {p['status']}"
+
+
+def _create_leave(doc, p, tokens):
+    emp = frappe.db.get_value("Employee", p["employee"], ["company", "leave_approver", "status"], as_dict=True)
+    if not emp or emp.status != "Active":
+        raise ExecutionError("Employee not found or not active")
+    la = frappe.get_doc({
+        "doctype": "Leave Application", "employee": p["employee"], "leave_type": p["leave_type"],
+        "from_date": p["from_date"], "to_date": p["to_date"], "description": p.get("reason") or "",
+        "company": emp.company, "leave_approver": emp.leave_approver, "status": "Open",
+        "posting_date": frappe.utils.today(), "follow_via_email": 0,
+    })
+    la.flags.ignore_permissions = True
+    la.insert()
+    return "Leave Application", la.name, f"Leave application {la.name} created (Open, {la.total_leave_days} day(s))"
+
+
+def _decide_leave(doc, p, tokens):
+    la = frappe.get_doc("Leave Application", p["application"])
+    if la.docstatus != 0 or la.status != "Open":
+        raise ExecutionError(f"Leave application {la.name} is not open (status {la.status})")
+    la.status = p["decision"]
+    la.follow_via_email = 0
+    la.flags.ignore_permissions = True
+    la.submit()
+    return "Leave Application", la.name, f"Leave application {la.name} {p['decision'].lower()}"
+
+
+EMPLOYEE_JOB_FIELDS = ("department", "designation", "branch", "reports_to")
+
+
+def _update_employee(doc, p, tokens):
+    emp = frappe.get_doc("Employee", p["employee"])
+    changed = {k: p[k] for k in EMPLOYEE_JOB_FIELDS if p.get(k)}   # job fields only, never personal data
+    emp.update(changed)
+    emp.flags.ignore_permissions = True
+    emp.save()
+    return "Employee", emp.name, "Updated " + ", ".join(f"{k} = {v}" for k, v in changed.items())
+
+
+HANDLERS = {"email_reply": _send_email, "interview": _create_interview, "interview_update": _update_interview,
+            "applicant_status": _set_applicant_status, "leave_application": _create_leave,
+            "leave_decision": _decide_leave, "employee_update": _update_employee}

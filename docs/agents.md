@@ -2,12 +2,12 @@
 
 **Framework:** LangGraph (each agent is a compiled `StateGraph`; the Orchestrator is a supervisor graph with one node per specialist). **Code:** `agents/` (see `agents/README.md`).
 
-**Decision model:** `qwen3:8b`, served by Ollama (`http://localhost:11434`). It is the decision model for all 9 agents: at every step it picks which of its allowed tools to call, then writes the answer or proposal.
-**Verified:** with the Ollama `tools` API, qwen3:8b picked the correct tool and arguments (`get_leave_balance`, ~10 s including model load, `think: false`).
+**Decision model:** `qwen3:14b`, served by Ollama (`http://localhost:11434`). It is the decision model for all 9 agents: at every step it picks which of its allowed tools to call, then writes the answer or proposal.
+**Verified:** with the Ollama `tools` API, qwen3:14b picked the correct tool and arguments (`get_leave_balance`, ~10 s including model load, `think: false`).
 
 ## One loop for all agents
 
-All agents share one LangGraph implementation (`agents/agents/base.py`): `model` node (qwen3:8b with bound tools) → `guarded_tools` node (our own, not the prebuilt ToolNode) → back to `model`. Each agent has its own **system prompt, tool allowlist and budgets** (CLAUDE.md §3 allows this).
+All agents share one LangGraph implementation (`agents/agents/base.py`): `model` node (qwen3:14b with bound tools) → `guarded_tools` node (our own, not the prebuilt ToolNode) → back to `model`. Each agent has its own **system prompt, tool allowlist and budgets** (CLAUDE.md §3 allows this).
 
 ```
 task ─► Qwen (system prompt + task + only THIS agent's tools)

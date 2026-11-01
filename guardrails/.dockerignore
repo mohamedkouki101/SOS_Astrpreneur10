@@ -1,0 +1,15 @@
+# Only requirements, constraints, guardrails/ and config/ are copied.
+.env
+.env.*
+!example.env
+venv/
+.venv/
+data/
+.git/
+tests/
+scripts/
+pytest.ini
+requirements-dev.txt
+**/__pycache__/
+**/*.pyc
+.pytest_cache/

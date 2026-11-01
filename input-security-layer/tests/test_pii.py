@@ -201,3 +201,45 @@ def test_email_ref_normalizes_and_hides_email():
     assert ref == email_ref("amina@example.test", key)
     assert ref.startswith("hmac:") and "amina" not in ref
     assert ref != email_ref("amina@example.test", b"s" * 32)
+
+
+@pytest.mark.parametrize("text", [
+    "Bonjour, combien de jours de Privilege Leave il me reste ?",
+    "How many days of Sick Leave do I have left?",
+    "Je voudrais poser un Congé Annuel la semaine prochaine.",
+])
+def test_hr_terms_are_not_masked_as_names(text):
+    assert "<PERSON_" not in mask(text).masked_text
+
+
+def test_name_next_to_hr_terms_still_masked():
+    text = "Bonjour, je suis Amina Ben Salem et je voudrais poser un Congé Annuel."
+    assert "Amina" not in mask(text).masked_text
+
+
+@pytest.mark.parametrize("text", [
+    "Create a casual leave from 2026-11-16 to 2026-11-17 please.",
+    "Mon entretien du 16/11/2026 peut-il passer au 18/11/2026 ?",
+])
+def test_dates_are_not_masked_as_phones(text):
+    assert "<PHONE_" not in mask(text).masked_text
+
+
+def test_phone_still_masked_next_to_a_date():
+    masked = mask("From 2026-11-16, call me on +216 22 123 456.").masked_text
+    assert "2026-11-16" in masked and "22 123 456" not in masked
+
+
+@pytest.mark.parametrize("text", [
+    "Reschedule interview HR-INT-2026-0009 to 2026-12-14, same times.",
+    "Reject leave application HR-LAP-2026-00027 please.",
+    "Move employee HR-EMP-00007 to the Sfax branch.",
+])
+def test_record_ids_are_not_masked_as_phones(text):
+    masked = mask(text).masked_text
+    assert "<PHONE_" not in masked and "HR-" in masked
+
+
+def test_phone_still_masked_next_to_a_record_id():
+    masked = mask("About HR-INT-2026-0009: call me on +216 22 123 456.").masked_text
+    assert "HR-INT-2026-0009" in masked and "22 123 456" not in masked

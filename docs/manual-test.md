@@ -11,7 +11,7 @@ A phishing / prompt-injection email is quarantined and never reaches the model.
 | Mailpit (test mail server, catches every email) | http://localhost:8025 |
 | WSL terminal | `cd ~/Desktop/SOS && P=$HOME/.venvs/rhflow-agents/bin/python` |
 
-Prerequisites: the stack is up (`docker compose -p hr -f hr.yml up -d` in `~/frappe_docker`) and Ollama runs `qwen3:8b`.
+Prerequisites: the stack is up (`docker compose -p hr -f hr.yml up -d` in `~/frappe_docker`) and Ollama runs `qwen3:14b`.
 
 ## Step 1: external emails arrive
 ```bash

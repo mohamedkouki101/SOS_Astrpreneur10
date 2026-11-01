@@ -19,6 +19,7 @@ AGENT_NAMES = (
     "payroll",
     "performance",
     "conflict",
+    "operator",
 )
 
 
@@ -57,6 +58,10 @@ class Settings:
     ingest_url: str
     ingest_envelope_key: str
     ingest_signing_key: str
+    webhook_secret: str
+    webhook_window: int
+    server_host: str
+    server_port: int
 
     def credentials(self, agent: str) -> tuple[str, str] | None:
         """Per-agent read-only API key/secret (RHFLOW_<AGENT>_API_KEY / _API_SECRET)."""
@@ -72,7 +77,7 @@ def get_settings() -> Settings:
     return Settings(
         rhflow_url=env("RHFLOW_URL", "http://localhost:8001").rstrip("/"),
         ollama_url=env("OLLAMA_URL", "http://localhost:11434").rstrip("/"),
-        model=env("LLM_MODEL", "qwen3:8b"),
+        model=env("LLM_MODEL", "qwen3:14b"),
         temperature=float(env("LLM_TEMPERATURE", "0.1")),
         num_ctx=int(env("LLM_NUM_CTX", "16384")),
         dataset_dir=Path(env("DATASET_DIR", str(Path.home() / "frappe_docker/Data_set/dataset"))),
@@ -91,4 +96,9 @@ def get_settings() -> Settings:
         ingest_url=env("INGEST_URL", "http://localhost:8090").rstrip("/"),
         ingest_envelope_key=env("INGEST_ENVELOPE_API_KEY", ""),
         ingest_signing_key=env("INGEST_SIGNING_KEY", ""),
+        # Signed calls from RH Flow (hr_ai/webhooks.py) to agents/integration/server.py.
+        webhook_secret=env("WEBHOOK_HMAC_SECRET", ""),
+        webhook_window=int(env("WEBHOOK_REPLAY_WINDOW_SECONDS", "300")),
+        server_host=env("AGENTS_HOST", "127.0.0.1"),
+        server_port=int(env("AGENTS_PORT", "8200")),
     )

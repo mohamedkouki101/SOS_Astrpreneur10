@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 160" preserveAspectRatio="xMaxYMin slice">
+  <!-- Soft diagonal light-blue bands behind the page title (HRflow reference). -->
+  <path d="M250 0 H330 L170 160 H90 Z" fill="#76A9FF" fill-opacity=".22"/>
+  <path d="M360 0 H470 L310 160 H200 Z" fill="#76A9FF" fill-opacity=".38"/>
+  <path d="M500 0 H560 L400 160 H340 Z" fill="#1455E8" fill-opacity=".14"/>
+  <path d="M590 0 H640 V40 L520 160 H430 Z" fill="#76A9FF" fill-opacity=".30"/>
+</svg>

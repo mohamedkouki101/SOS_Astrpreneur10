@@ -1,0 +1,520 @@
+/* =====================================================================
+   HRflow theme for Frappe HR v16 (Desk)
+   ---------------------------------------------------------------------
+   1. Brand tokens (the only place colours are written as HEX)
+   2. Frappe design tokens remapped to the brand (covers most of the UI)
+   3. Components: sidebar, page head, buttons, inputs, cards, lists,
+      status pills, dialogs, menus
+   4. RH AI Decisions page (hr_ai) to match the reference design
+
+   Light theme only: when a user picks the dark theme, Frappe's own
+   dark palette is left untouched.
+   Selectors were checked against the Frappe v16 desk bundle.
+   ===================================================================== */
+
+/* ---------- 1. Brand tokens ---------- */
+:root {
+	--hf-royal: #073B9B;     /* Deep Royal Blue: brand, sidebar */
+	--hf-electric: #1455E8;  /* Electric Blue: primary buttons, active states */
+	--hf-soft: #76A9FF;      /* Soft Blue: secondary accents, hovers */
+	--hf-cream: #F8F0DF;     /* Vintage Cream: main background */
+	--hf-white: #FFFDF8;     /* Warm White: cards, panels */
+	--hf-ink: #14264D;       /* Navy Ink: headings, text */
+
+	--hf-pending: #F59E0B;
+	--hf-success: #16A36A;
+	--hf-info: #1455E8;
+	--hf-error: #E5484D;
+	--hf-failed: #D92D65;
+
+	/* Derived shades (mixed from the tokens above, no new hues) */
+	--hf-ink-2: color-mix(in srgb, var(--hf-ink) 78%, var(--hf-white));
+	--hf-ink-muted: color-mix(in srgb, var(--hf-ink) 62%, var(--hf-white));
+	--hf-ink-faint: color-mix(in srgb, var(--hf-ink) 45%, var(--hf-white));
+	--hf-cream-deep: color-mix(in srgb, var(--hf-cream) 88%, var(--hf-ink));
+	--hf-cream-soft: color-mix(in srgb, var(--hf-cream) 55%, var(--hf-white));
+	--hf-line: color-mix(in srgb, var(--hf-ink) 12%, transparent);
+	--hf-line-strong: color-mix(in srgb, var(--hf-ink) 20%, transparent);
+	--hf-line-blue: color-mix(in srgb, var(--hf-electric) 30%, transparent);
+	--hf-tint-blue: color-mix(in srgb, var(--hf-soft) 18%, var(--hf-white));
+	--hf-tint-blue-2: color-mix(in srgb, var(--hf-soft) 34%, var(--hf-white));
+
+	--hf-radius-sm: 8px;
+	--hf-radius: 12px;
+	--hf-radius-card: 16px;
+	--hf-radius-dialog: 20px;
+	--hf-pill: 999px;
+
+	--hf-shadow-sm: 0 1px 2px color-mix(in srgb, var(--hf-ink) 6%, transparent);
+	--hf-shadow: 0 1px 2px color-mix(in srgb, var(--hf-ink) 5%, transparent),
+		0 6px 18px -8px color-mix(in srgb, var(--hf-ink) 18%, transparent);
+	--hf-shadow-lg: 0 18px 48px -16px color-mix(in srgb, var(--hf-ink) 30%, transparent);
+	--hf-focus: 0 0 0 3px color-mix(in srgb, var(--hf-electric) 22%, transparent);
+}
+
+/* ---------- 2. Frappe tokens -> brand ---------- */
+:root:not([data-theme="dark"]) {
+	/* Font: the reference uses Inter, which is also Frappe's default. Kept on purpose. */
+	--font-stack: "InterVariable", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+	/* Surfaces: cream page, warm-white cards */
+	--bg-color: var(--hf-cream);
+	--fg-color: var(--hf-white);
+	--card-bg: var(--hf-white);
+	--surface-base: var(--hf-white);
+	--surface-elevation-1: var(--hf-white);
+	--surface-elevation-2: var(--hf-white);
+	--surface-elevation-3: var(--hf-white);
+	--surface-gray-1: var(--hf-cream-soft);
+	--surface-gray-2: color-mix(in srgb, var(--hf-cream) 80%, var(--hf-white));
+	--surface-gray-3: var(--hf-cream);
+	/* --surface-sidebar is left alone: other light panels use it. The desk sidebar
+	   gets its royal background directly in section 3. */
+	--navbar-bg: var(--hf-cream);
+	--modal-bg: var(--hf-white);
+	--popover-bg: var(--hf-white);
+	--highlight-color: var(--hf-tint-blue);
+	--subtle-fg: var(--hf-cream-soft);
+	--subtle-accent: var(--hf-cream-soft);
+	--control-bg: var(--hf-white);
+	--control-bg-on-gray: var(--hf-white);
+	--btn-default-bg: var(--hf-white);
+	--sidebar-select-color: var(--hf-tint-blue);
+
+	/* Text */
+	--text-color: var(--hf-ink);
+	--heading-color: var(--hf-ink);
+	--text-muted: var(--hf-ink-muted);
+	--text-light: var(--hf-ink-faint);
+	--ink-gray-9: var(--hf-ink);
+	--ink-gray-8: var(--hf-ink);
+	--ink-gray-7: var(--hf-ink-2);
+	--ink-gray-6: var(--hf-ink-muted);
+	--ink-gray-5: var(--hf-ink-faint);
+
+	/* Lines */
+	--border-color: var(--hf-line);
+	--dark-border-color: var(--hf-line-strong);
+	--outline-gray-1: var(--hf-line);
+	--outline-gray-2: var(--hf-line-strong);
+
+	/* Brand / primary */
+	--primary: var(--hf-electric);
+	--primary-color: var(--hf-electric);
+	--btn-primary: var(--hf-electric);
+	--checkbox-color: var(--hf-electric);
+	--focus-default: var(--hf-focus);
+
+	/* Status (used by .indicator-pill, alerts, list indicators) */
+	--bg-orange: color-mix(in srgb, var(--hf-pending) 14%, var(--hf-white));
+	--text-on-orange: color-mix(in srgb, var(--hf-pending) 62%, var(--hf-ink));
+	--bg-yellow: color-mix(in srgb, var(--hf-pending) 14%, var(--hf-white));
+	--text-on-yellow: color-mix(in srgb, var(--hf-pending) 62%, var(--hf-ink));
+	--bg-green: color-mix(in srgb, var(--hf-success) 13%, var(--hf-white));
+	--text-on-green: color-mix(in srgb, var(--hf-success) 78%, var(--hf-ink));
+	--bg-blue: color-mix(in srgb, var(--hf-info) 11%, var(--hf-white));
+	--text-on-blue: var(--hf-info);
+	--bg-red: color-mix(in srgb, var(--hf-error) 12%, var(--hf-white));
+	--text-on-red: color-mix(in srgb, var(--hf-error) 85%, var(--hf-ink));
+	--bg-pink: color-mix(in srgb, var(--hf-failed) 12%, var(--hf-white));
+	--text-on-pink: color-mix(in srgb, var(--hf-failed) 88%, var(--hf-ink));
+	--bg-gray: color-mix(in srgb, var(--hf-ink) 7%, var(--hf-white));
+	--text-on-gray: var(--hf-ink);
+
+	/* Shapes and depth */
+	--radius: var(--hf-radius-sm);
+	--radius-md: 10px;
+	--radius-lg: var(--hf-radius);
+	--radius-xl: var(--hf-radius-card);
+	--shadow-sm: var(--hf-shadow-sm);
+	--shadow-base: var(--hf-shadow);
+}
+
+/* ---------- 3. Components (light theme only) ---------- */
+html:not([data-theme="dark"]) body {
+	background: var(--hf-cream);
+	color: var(--hf-ink);
+	-webkit-font-smoothing: antialiased;
+}
+
+/* Sidebar: deep royal panel, rounded edge, curved bands at the bottom */
+html:not([data-theme="dark"]) .body-sidebar {
+	background:
+		url("/assets/hrflow_theme/images/sidebar-arcs.svg") left bottom / 100% auto no-repeat,
+		linear-gradient(180deg, var(--hf-royal) 0%, var(--hf-royal) 45%,
+			color-mix(in srgb, var(--hf-royal) 80%, var(--hf-electric)) 100%);
+	border-right: 0;
+	border-radius: 0 22px 22px 0;
+	box-shadow: 4px 0 24px -12px color-mix(in srgb, var(--hf-ink) 45%, transparent);
+	color: var(--hf-white);
+}
+html:not([data-theme="dark"]) .body-sidebar .standard-sidebar-item .item-anchor,
+html:not([data-theme="dark"]) .body-sidebar .header-title,
+html:not([data-theme="dark"]) .body-sidebar .sidebar-item-label,
+html:not([data-theme="dark"]) .body-sidebar .sidebar-user-button .avatar-name-email span {
+	color: var(--hf-white);
+}
+html:not([data-theme="dark"]) .body-sidebar .sidebar-user-button .avatar-name-email span + span {
+	color: color-mix(in srgb, var(--hf-white) 72%, transparent);
+}
+html:not([data-theme="dark"]) .body-sidebar .standard-sidebar-item,
+html:not([data-theme="dark"]) .body-sidebar .sidebar-header,
+html:not([data-theme="dark"]) .body-sidebar .standard-items-band,
+html:not([data-theme="dark"]) .body-sidebar .sidebar-user-button {
+	--icon-stroke: var(--hf-white);
+}
+html:not([data-theme="dark"]) .body-sidebar .standard-sidebar-item {
+	border-radius: var(--hf-radius);
+}
+html:not([data-theme="dark"]) .body-sidebar .standard-sidebar-item:not(.active-sidebar):has(a:not(.section-break)):hover,
+html:not([data-theme="dark"]) .body-sidebar .sidebar-header.hover,
+html:not([data-theme="dark"]) .body-sidebar-container.expanded .body-sidebar .dropdown-navbar-user .sidebar-user-button:hover,
+html:not([data-theme="dark"]) .body-sidebar-container.expanded .body-sidebar .dropdown-navbar-user .sidebar-user-button.user-menu-active {
+	background-color: color-mix(in srgb, var(--hf-white) 12%, transparent);
+	border-radius: var(--hf-radius);
+}
+/* Active item: soft-blue pill, royal text (as in the reference) */
+html:not([data-theme="dark"]) .body-sidebar .active-sidebar,
+html:not([data-theme="dark"]) .body-sidebar .sidebar-item-container:has(> .nested-container.hidden .active-sidebar) > .standard-sidebar-item {
+	background: var(--hf-tint-blue-2);
+	box-shadow: 0 0 0 1px color-mix(in srgb, var(--hf-white) 55%, transparent) inset;
+	border-radius: var(--hf-radius);
+	--icon-stroke: var(--hf-royal);
+}
+html:not([data-theme="dark"]) .body-sidebar .active-sidebar .item-anchor,
+html:not([data-theme="dark"]) .body-sidebar .active-sidebar .sidebar-item-label {
+	color: var(--hf-royal);
+	font-weight: 600;
+}
+html:not([data-theme="dark"]) .body-sidebar .standard-items-band:not(:empty),
+html:not([data-theme="dark"]) .body-sidebar .body-sidebar-bottom {
+	border-color: color-mix(in srgb, var(--hf-white) 18%, transparent);
+}
+/* Dropdowns opened from the sidebar keep normal (dark-on-light) text */
+html:not([data-theme="dark"]) .body-sidebar .dropdown-menu,
+html:not([data-theme="dark"]) .body-sidebar .dropdown-menu * {
+	--icon-stroke: var(--hf-ink);
+	color: var(--hf-ink);
+}
+
+/* HRflow logo block, inserted at the top of the sidebar by hrflow.js */
+.hrflow-brand {
+	display: flex;
+	align-items: center;
+	padding: 18px 16px 10px;
+}
+.hrflow-brand img {
+	display: block;
+	width: 100%;
+	max-width: 180px;
+	height: auto;
+}
+.body-sidebar-container:not(.expanded) .hrflow-brand {
+	display: none;
+}
+html[data-theme="dark"] .hrflow-brand {
+	display: none;
+}
+
+/* Page head: cream, translucent when content scrolls under it, light-blue bands */
+html:not([data-theme="dark"]) .page-head {
+	background:
+		url("/assets/hrflow_theme/images/header-stripes.svg") right top / auto 100% no-repeat,
+		color-mix(in srgb, var(--hf-cream) 92%, transparent);
+	backdrop-filter: blur(8px);
+	border-bottom: 1px solid var(--hf-line);
+}
+html:not([data-theme="dark"]) .page-title .es-breadcrumbs li:last-child .es-breadcrumbs__item,
+html:not([data-theme="dark"]) .page-title h1,
+html:not([data-theme="dark"]) .page-title h3 {
+	color: var(--hf-ink);
+	font-weight: 700;
+	letter-spacing: -0.01em;
+}
+html:not([data-theme="dark"]) h1,
+html:not([data-theme="dark"]) h2,
+html:not([data-theme="dark"]) h3,
+html:not([data-theme="dark"]) h4 {
+	color: var(--hf-ink);
+	letter-spacing: -0.01em;
+}
+
+/* Buttons: pill shaped */
+html:not([data-theme="dark"]) .btn {
+	border-radius: var(--hf-pill);
+	font-weight: 500;
+}
+html:not([data-theme="dark"]) .btn-primary {
+	color: #fff;
+	background-color: var(--hf-electric);
+	border-color: var(--hf-electric);
+	box-shadow: 0 1px 2px color-mix(in srgb, var(--hf-electric) 35%, transparent);
+}
+html:not([data-theme="dark"]) .btn-primary:hover,
+html:not([data-theme="dark"]) .btn-primary:focus,
+html:not([data-theme="dark"]) .btn-primary:active,
+html:not([data-theme="dark"]) .btn-primary.active {
+	color: #fff;
+	background-color: var(--hf-royal);
+	border-color: var(--hf-royal);
+}
+html:not([data-theme="dark"]) .btn-primary:focus-visible { box-shadow: var(--hf-focus); }
+html:not([data-theme="dark"]) .btn-default,
+html:not([data-theme="dark"]) .btn-secondary {
+	color: var(--hf-ink);
+	background-color: var(--hf-white);
+	border: 1px solid var(--hf-line-strong);
+	box-shadow: var(--hf-shadow-sm);
+}
+html:not([data-theme="dark"]) .btn-default:hover,
+html:not([data-theme="dark"]) .btn-secondary:hover {
+	color: var(--hf-electric);
+	border-color: var(--hf-electric);
+	background-color: var(--hf-white);
+}
+/* Page-level secondary actions (e.g. Refresh): outlined blue, as in the reference */
+html:not([data-theme="dark"]) .page-head .page-actions .btn-default,
+html:not([data-theme="dark"]) .page-head .page-actions .btn-secondary {
+	color: var(--hf-electric);
+	border-color: color-mix(in srgb, var(--hf-electric) 55%, transparent);
+	--icon-stroke: var(--hf-electric);
+}
+html:not([data-theme="dark"]) .btn-danger {
+	color: #fff;
+	background-color: var(--hf-error);
+	border-color: var(--hf-error);
+}
+html:not([data-theme="dark"]) .btn-danger:hover {
+	background-color: color-mix(in srgb, var(--hf-error) 85%, var(--hf-ink));
+	border-color: color-mix(in srgb, var(--hf-error) 85%, var(--hf-ink));
+}
+
+/* Inputs */
+html:not([data-theme="dark"]) .form-control,
+html:not([data-theme="dark"]) .awesomplete > input {
+	background-color: var(--hf-white);
+	border: 1px solid var(--hf-line-strong);
+	border-radius: var(--hf-radius-sm);
+	color: var(--hf-ink);
+}
+html:not([data-theme="dark"]) .form-control:hover {
+	border-color: color-mix(in srgb, var(--hf-electric) 45%, transparent);
+}
+html:not([data-theme="dark"]) .form-control:focus,
+html:not([data-theme="dark"]) .awesomplete > input:focus {
+	border-color: var(--hf-electric);
+	box-shadow: var(--hf-focus);
+}
+html:not([data-theme="dark"]) .page-form {
+	background: transparent;
+}
+/* Filter fields in the page head (e.g. "All agents"): pill, as in the reference */
+html:not([data-theme="dark"]) .page-form .form-control,
+html:not([data-theme="dark"]) .standard-filter-section .form-control {
+	border-radius: var(--hf-pill);
+	border-color: var(--hf-line-blue);
+	padding-left: 14px;
+}
+html:not([data-theme="dark"]) input[type="checkbox"] {
+	border-color: color-mix(in srgb, var(--hf-electric) 55%, transparent);
+	border-radius: 5px;
+}
+html:not([data-theme="dark"]) input[type="checkbox"]:checked {
+	background-color: var(--hf-electric);
+	border-color: var(--hf-electric);
+}
+
+/* Cards and workspace widgets */
+html:not([data-theme="dark"]) .frappe-card,
+html:not([data-theme="dark"]) .widget,
+html:not([data-theme="dark"]) .form-page,
+html:not([data-theme="dark"]) .report-wrapper {
+	background-color: var(--hf-white);
+	border: 1px solid var(--hf-line);
+	border-radius: var(--hf-radius-card);
+	box-shadow: var(--hf-shadow);
+}
+html:not([data-theme="dark"]) .widget:hover {
+	border-color: var(--hf-line-blue);
+}
+html:not([data-theme="dark"]) .widget .widget-title,
+html:not([data-theme="dark"]) .frappe-card .frappe-card-title {
+	color: var(--hf-ink);
+	font-weight: 600;
+}
+html:not([data-theme="dark"]) .number-widget-box .widget-content .number {
+	color: var(--hf-royal);
+	font-weight: 700;
+}
+html:not([data-theme="dark"]) .form-section {
+	border-color: var(--hf-line);
+}
+html:not([data-theme="dark"]) .form-tabs-list .nav-link.active {
+	color: var(--hf-electric);
+	border-bottom-color: var(--hf-electric);
+}
+
+/* Lists and report tables */
+html:not([data-theme="dark"]) .frappe-list,
+html:not([data-theme="dark"]) .layout-main-section .result {
+	background-color: var(--hf-white);
+}
+html:not([data-theme="dark"]) .list-row-head {
+	background-color: var(--hf-cream-soft);
+	color: var(--hf-ink-muted);
+	font-weight: 600;
+}
+html:not([data-theme="dark"]) .list-row-container:hover .list-row,
+html:not([data-theme="dark"]) .list-row:hover {
+	background-color: var(--hf-tint-blue);
+}
+html:not([data-theme="dark"]) .list-row-container .list-row .level-left a,
+html:not([data-theme="dark"]) .list-subject a {
+	color: var(--hf-ink);
+}
+html:not([data-theme="dark"]) .dt-header .dt-cell,
+html:not([data-theme="dark"]) .dt-cell--header {
+	background-color: var(--hf-cream-soft);
+	color: var(--hf-ink-muted);
+	font-weight: 600;
+}
+
+/* Status pills: rounded, soft tint, matching tinted border */
+html:not([data-theme="dark"]) .indicator-pill,
+html:not([data-theme="dark"]) .indicator-pill-right,
+html:not([data-theme="dark"]) .indicator-pill-round {
+	border-radius: var(--hf-pill);
+	border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+	font-weight: 500;
+}
+
+/* Dialogs, menus, popovers */
+html:not([data-theme="dark"]) .modal-content {
+	background-color: var(--hf-white);
+	border: 1px solid var(--hf-line);
+	border-radius: var(--hf-radius-dialog);
+	box-shadow: var(--hf-shadow-lg);
+}
+html:not([data-theme="dark"]) .modal-header,
+html:not([data-theme="dark"]) .modal-footer {
+	border-color: var(--hf-line);
+}
+html:not([data-theme="dark"]) .dropdown-menu,
+html:not([data-theme="dark"]) .popover,
+html:not([data-theme="dark"]) .awesomplete > ul {
+	background-color: var(--hf-white);
+	border: 1px solid var(--hf-line);
+	border-radius: var(--hf-radius);
+	box-shadow: var(--hf-shadow-lg);
+}
+html:not([data-theme="dark"]) .dropdown-item:hover,
+html:not([data-theme="dark"]) .dropdown-item:focus {
+	background-color: var(--hf-tint-blue);
+	color: var(--hf-ink);
+}
+
+/* Links and selection */
+html:not([data-theme="dark"]) ::selection {
+	background: color-mix(in srgb, var(--hf-soft) 45%, transparent);
+}
+
+/* ---------- 4. RH AI Decisions page (hr_ai) ----------
+   Styles the page's existing markup only; its code is not modified.
+   "body .rh-ai" outranks the page's own inline <style>. */
+html:not([data-theme="dark"]) body .rh-ai .rh-ai-intro {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 12px 20px;
+	background: color-mix(in srgb, var(--hf-soft) 10%, var(--hf-white));
+	border: 1px solid var(--hf-line-blue);
+	border-radius: var(--hf-pill);
+	color: var(--hf-ink);
+}
+html:not([data-theme="dark"]) body .rh-ai .rh-ai-intro::before {
+	content: "";
+	flex: none;
+	width: 18px;
+	height: 18px;
+	background: var(--hf-royal);
+	/* four-point sparkle */
+	clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
+}
+html:not([data-theme="dark"]) body .rh-ai .rh-ai-tabs { gap: 12px; }
+html:not([data-theme="dark"]) body .rh-ai .rh-ai-tab {
+	border-radius: var(--hf-pill);
+	padding: 6px 16px 6px 8px;
+	background: var(--hf-white);
+	box-shadow: none;
+	transition: border-color .15s ease, background-color .15s ease;
+}
+html:not([data-theme="dark"]) body .rh-ai .rh-ai-tab[data-status="Proposed"] { background: var(--bg-orange); border-color: color-mix(in srgb, var(--hf-pending) 30%, transparent); }
+html:not([data-theme="dark"]) body .rh-ai .rh-ai-tab[data-status="Approved"] { background: var(--bg-green); border-color: color-mix(in srgb, var(--hf-success) 28%, transparent); }
+html:not([data-theme="dark"]) body .rh-ai .rh-ai-tab[data-status="Executed"] { background: var(--bg-blue); border-color: color-mix(in srgb, var(--hf-info) 28%, transparent); }
+html:not([data-theme="dark"]) body .rh-ai .rh-ai-tab[data-status="Rejected"] { background: var(--bg-red); border-color: color-mix(in srgb, var(--hf-error) 28%, transparent); }
+html:not([data-theme="dark"]) body .rh-ai .rh-ai-tab[data-status="Failed"] { background: var(--bg-pink); border-color: color-mix(in srgb, var(--hf-failed) 28%, transparent); }
+html:not([data-theme="dark"]) body .rh-ai .rh-ai-tab[data-status="Failed"] .indicator-pill {
+	background: var(--bg-pink);
+	color: var(--text-on-pink);
+}
+html:not([data-theme="dark"]) body .rh-ai .rh-ai-tab .indicator-pill { border-color: transparent; }
+html:not([data-theme="dark"]) body .rh-ai .rh-ai-tab .count { color: var(--hf-ink); }
+/* Selected tab: solid electric blue, white text */
+html:not([data-theme="dark"]) body .rh-ai .rh-ai-tab.active {
+	background: var(--hf-electric);
+	border-color: var(--hf-royal);
+	box-shadow: 0 0 0 2px color-mix(in srgb, var(--hf-electric) 25%, transparent);
+}
+html:not([data-theme="dark"]) body .rh-ai .rh-ai-tab.active .indicator-pill {
+	background: color-mix(in srgb, var(--hf-white) 16%, transparent);
+	color: #fff;
+}
+html:not([data-theme="dark"]) body .rh-ai .rh-ai-tab.active .indicator-pill::before { background: #fff; }
+html:not([data-theme="dark"]) body .rh-ai .rh-ai-tab.active .count { color: #fff; }
+
+/* Decision cards: warm white, thin blue border, accent bar on the left */
+html:not([data-theme="dark"]) body .rh-ai .rh-ai-card {
+	position: relative;
+	padding: 20px 24px 20px 28px;
+	background: var(--hf-white);
+	border: 1px solid var(--hf-line-blue);
+	border-radius: var(--hf-radius-card);
+	box-shadow: var(--hf-shadow);
+	overflow: hidden;
+}
+html:not([data-theme="dark"]) body .rh-ai .rh-ai-card::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 16px;
+	bottom: 16px;
+	width: 4px;
+	border-radius: 0 4px 4px 0;
+	background: var(--hf-electric);
+}
+html:not([data-theme="dark"]) body .rh-ai .rh-ai-card-head .title {
+	font-size: var(--text-xl, 20px);
+	font-weight: 600;
+	color: var(--hf-ink);
+}
+html:not([data-theme="dark"]) body .rh-ai .rh-ai-card-head .indicator-pill.gray {
+	background: color-mix(in srgb, var(--hf-ink) 7%, var(--hf-white));
+}
+html:not([data-theme="dark"]) body .rh-ai .rh-ai-meta { color: var(--hf-ink-muted); }
+html:not([data-theme="dark"]) body .rh-ai .rh-ai-summary {
+	background: color-mix(in srgb, var(--hf-soft) 12%, var(--hf-white));
+	border: 1px solid color-mix(in srgb, var(--hf-soft) 25%, transparent);
+	border-radius: var(--hf-radius);
+	color: var(--hf-ink);
+	padding: 14px 16px;
+}
+html:not([data-theme="dark"]) body .rh-ai .rh-ai-actions .btn-default {
+	color: var(--hf-electric);
+	border-color: color-mix(in srgb, var(--hf-electric) 55%, transparent);
+}
+html:not([data-theme="dark"]) body .rh-ai .rh-ai-empty {
+	background: var(--hf-white);
+	border: 1px dashed var(--hf-line-blue);
+	border-radius: var(--hf-radius-card);
+	color: var(--hf-ink-muted);
+}

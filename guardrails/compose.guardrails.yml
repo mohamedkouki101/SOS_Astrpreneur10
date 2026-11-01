@@ -1,0 +1,39 @@
+# Guardrails service, joining the HR stack's network (hr.yml, project "hr").
+#
+#   docker compose -f guardrails/compose.guardrails.yml up -d --build   (from the repo root)
+#
+# HR Core (hr_ai) reaches it at http://guardrails:8100; it reaches HR Core at http://frontend:8080.
+# Secrets come from guardrails/.env (never committed, never baked into the image).
+
+services:
+  guardrails:
+    build: .
+    image: rhflow-guardrails:1.0
+    env_file: .env
+    environment:
+      GUARDRAILS_DB_PATH: /data/guardrails.db
+      FRAPPE_URL: http://frontend:8080
+    volumes:
+      - guardrails-data:/data               # action queue + audit log, the only writable place
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    user: "10002:10002"
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 512m
+    cpus: 0.5
+    pids_limit: 64
+    networks: [frappe_network]
+    ports:
+      - "127.0.0.1:8100:8100"               # demo only: Swagger on this machine, not the LAN
+    restart: unless-stopped
+
+volumes:
+  guardrails-data:
+
+networks:
+  frappe_network:
+    external: true
+    name: hr_frappe_network

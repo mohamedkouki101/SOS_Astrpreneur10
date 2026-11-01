@@ -1,4 +1,4 @@
-"""The decision model for every agent: qwen3:8b served by Ollama.
+"""The decision model for every agent: qwen3:14b served by Ollama.
 
 The model is treated as untrusted: it only sees trusted system prompts plus masked, wrapped data,
 and everything it returns is checked by code (allowlists, schemas, the Output Validator).

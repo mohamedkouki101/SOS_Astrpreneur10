@@ -178,7 +178,7 @@ def test_interview_by_comms_agent_is_blocked(svc, adapter):
 
 
 def test_unknown_kind_is_denied_by_default(svc, adapter):
-    rec, _ = submit(svc, adapter, mutate(EMAIL_REPLY, kind="leave_decision", external_id="AIA-x1"))
+    rec, _ = submit(svc, adapter, mutate(EMAIL_REPLY, kind="payroll_reply", external_id="AIA-x1"))
     assert rec.status is Status.BLOCKED and "tool_not_allowed" in rules(rec)
 
 

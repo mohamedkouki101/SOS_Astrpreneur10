@@ -51,7 +51,7 @@ class RankingPayload(Strict):
 
 class ApplicantStatusPayload(Strict):
     applicant: str
-    status: Literal["Shortlisted", "Rejected", "Hold", "Replied"]
+    status: Literal["Open", "Replied", "Shortlisted", "Rejected", "Hold", "Accepted"]
     reason: str = Field(max_length=400)
 
 
@@ -124,6 +124,66 @@ class GrievanceTriagePayload(Strict):
     next_step: str = Field(max_length=400)
 
 
+class HrRequestPayload(Strict):
+    """RH Chat: something an employee or applicant asked for that only HR can do (HR follows up)."""
+    message: str = Field(pattern=r"^CHAT-\d{4}-\d{5,}$")
+    persona: Literal["employee", "applicant"]
+    category: Literal["leave", "interview", "application", "document", "payroll", "complaint", "other"]
+    summary: str = Field(min_length=10, max_length=600)
+
+
+TIME = r"^\d{2}:\d{2}(:\d{2})?$"
+
+
+class InterviewUpdatePayload(Strict):
+    """HR mode: reschedule or cancel an existing interview."""
+    interview: str = Field(pattern=r"^[A-Za-z0-9-]{3,40}$")
+    action: Literal["reschedule", "cancel"]
+    date: dt.date | None = None
+    from_time: str | None = Field(default=None, pattern=TIME)
+    to_time: str | None = Field(default=None, pattern=TIME)
+    reason: str = Field(default="", max_length=300)
+
+    @model_validator(mode="after")
+    def times_for_reschedule(self) -> InterviewUpdatePayload:
+        if self.action == "reschedule" and not (self.date and self.from_time and self.to_time):
+            raise ValueError("a reschedule needs date, from_time and to_time")
+        if self.action == "reschedule" and self.from_time >= self.to_time:
+            raise ValueError("from_time must be before to_time")
+        return self
+
+
+class LeaveApplicationPayload(Strict):
+    """HR mode: create a leave application (status Open) for an employee."""
+    employee: str = Field(pattern=r"^HR-EMP-\d{5}$")
+    leave_type: Literal["Casual Leave", "Sick Leave", "Privilege Leave", "Compensatory Off", "Leave Without Pay"]
+    from_date: dt.date
+    to_date: dt.date
+    reason: str = Field(default="", max_length=300)
+
+    @model_validator(mode="after")
+    def ordered(self) -> LeaveApplicationPayload:
+        if self.to_date < self.from_date:
+            raise ValueError("to_date is before from_date")
+        return self
+
+
+class EmployeeUpdatePayload(Strict):
+    """HR mode: change job fields of an employee (never personal data)."""
+    employee: str = Field(pattern=r"^HR-EMP-\d{5}$")
+    department: str | None = Field(default=None, max_length=140)
+    designation: str | None = Field(default=None, max_length=140)
+    branch: str | None = Field(default=None, max_length=140)
+    reports_to: str | None = Field(default=None, pattern=r"^HR-EMP-\d{5}$")
+    reason: str = Field(default="", max_length=300)
+
+    @model_validator(mode="after")
+    def something_changes(self) -> EmployeeUpdatePayload:
+        if not any((self.department, self.designation, self.branch, self.reports_to)):
+            raise ValueError("no field to change")
+        return self
+
+
 PROPOSAL_SCHEMAS: dict[str, type[Strict]] = {
     "ranking": RankingPayload,
     "applicant_status": ApplicantStatusPayload,
@@ -136,6 +196,10 @@ PROPOSAL_SCHEMAS: dict[str, type[Strict]] = {
     "payroll_reply": PayrollReplyPayload,
     "review_summary": ReviewSummaryPayload,
     "grievance_triage": GrievanceTriagePayload,
+    "hr_request": HrRequestPayload,
+    "interview_update": InterviewUpdatePayload,
+    "leave_application": LeaveApplicationPayload,
+    "employee_update": EmployeeUpdatePayload,
 }
 
 # Which agent may propose which kind (default-deny).
@@ -147,6 +211,9 @@ PROPOSAL_KINDS_BY_AGENT: dict[str, set[str]] = {
     "payroll": {"payroll_reply"},
     "performance": {"review_summary"},
     "conflict": {"grievance_triage"},
+    "assistant": {"hr_request"},
+    # RH Chat, HR mode only (the person chatting is an HR Manager): changes confirmed in the chat.
+    "operator": {"interview_update", "applicant_status", "leave_application", "leave_decision", "employee_update"},
 }
 
 FREE_TEXT_FIELDS = {"justification", "reason", "note", "body", "subject", "summary", "next_step", "tasks", "quote"}

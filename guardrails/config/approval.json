@@ -13,7 +13,8 @@
     "RH Flow Agent Leave",
     "RH Flow Agent Payroll",
     "RH Flow Agent Performance",
-    "RH Flow Agent Conflict"
+    "RH Flow Agent Conflict",
+    "RH Flow Agent Operator"
   ],
   "token_ttl_seconds": 86400
 }

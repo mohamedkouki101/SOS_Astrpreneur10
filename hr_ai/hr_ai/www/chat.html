@@ -1,0 +1,256 @@
+{% extends "templates/web.html" %}
+
+{% block title %}RH Chat{% endblock %}
+
+{% block content %}
+<style>
+  :root {
+    --rc-bg: #f4f6f5; --rc-card: #ffffff; --rc-text: #1d2621; --rc-muted: #66736c; --rc-line: #e1e6e3;
+    --rc-me: #0e7c66; --rc-me-text: #ffffff; --rc-bot: #eef2f0; --rc-ok: #1f7a46; --rc-ok-bg: #e5f4ea;
+    --rc-warn: #9a5b00; --rc-warn-bg: #fff3dc; --rc-bad: #b42318; --rc-bad-bg: #fde8e6; --rc-info: #1f4e79;
+    --rc-info-bg: #e6eef7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --rc-bg: #121715; --rc-card: #1a201d; --rc-text: #e6ece9; --rc-muted: #9aa8a1; --rc-line: #2b3430;
+      --rc-me: #14967b; --rc-bot: #232b27; --rc-ok: #7fd6a2; --rc-ok-bg: #1d3327; --rc-warn: #f2c06b;
+      --rc-warn-bg: #3a2e17; --rc-bad: #ff8f84; --rc-bad-bg: #3d1f1c; --rc-info: #9cc3ea; --rc-info-bg: #1c2a39;
+    }
+  }
+  .rc-wrap { background: var(--rc-bg); min-height: calc(100vh - 120px); padding: 24px 16px; }
+  .rc-card { max-width: 820px; margin: 0 auto; background: var(--rc-card); border: 1px solid var(--rc-line);
+             border-radius: 16px; display: flex; flex-direction: column; height: calc(100vh - 180px); min-height: 480px; }
+  .rc-head { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--rc-line); }
+  .rc-head img { width: 36px; height: 36px; }
+  .rc-head h1 { font-size: 18px; margin: 0; color: var(--rc-text); }
+  .rc-head p { margin: 0; font-size: 12.5px; color: var(--rc-muted); }
+  .rc-head .rc-spacer { flex: 1; }
+  .rc-btn { border: 1px solid var(--rc-line); background: transparent; color: var(--rc-text); border-radius: 8px;
+            padding: 6px 12px; font-size: 13px; cursor: pointer; }
+  .rc-btn:hover { background: var(--rc-bot); }
+  .rc-list { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+  .rc-empty { margin: auto; text-align: center; color: var(--rc-muted); max-width: 460px; font-size: 14px; }
+  .rc-empty b { color: var(--rc-text); }
+  .rc-sugg { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 14px; }
+  .rc-sugg button { border: 1px solid var(--rc-line); background: var(--rc-card); color: var(--rc-text);
+                    border-radius: 999px; padding: 6px 12px; font-size: 13px; cursor: pointer; }
+  .rc-row { display: flex; flex-direction: column; max-width: 78%; }
+  .rc-row.me { align-self: flex-end; align-items: flex-end; }
+  .rc-row.bot { align-self: flex-start; align-items: flex-start; }
+  .rc-bubble { padding: 10px 14px; border-radius: 14px; font-size: 14.5px; line-height: 1.45; white-space: pre-wrap;
+               word-break: break-word; }
+  .me .rc-bubble { background: var(--rc-me); color: var(--rc-me-text); border-bottom-right-radius: 4px; }
+  .bot .rc-bubble { background: var(--rc-bot); color: var(--rc-text); border-bottom-left-radius: 4px; }
+  .bot.blocked .rc-bubble { background: var(--rc-bad-bg); color: var(--rc-bad); }
+  .rc-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 5px; font-size: 11.5px; color: var(--rc-muted); }
+  .rc-chip { border-radius: 999px; padding: 2px 8px; font-weight: 500; }
+  .rc-chip.ok { background: var(--rc-ok-bg); color: var(--rc-ok); }
+  .rc-chip.warn { background: var(--rc-warn-bg); color: var(--rc-warn); }
+  .rc-chip.bad { background: var(--rc-bad-bg); color: var(--rc-bad); }
+  .rc-chip.info { background: var(--rc-info-bg); color: var(--rc-info); }
+  .rc-card-change { margin-top: 8px; border: 1px solid var(--rc-line); border-radius: 12px; padding: 10px 12px;
+                    background: var(--rc-card); font-size: 13.5px; color: var(--rc-text); white-space: pre-wrap; max-width: 100%; }
+  .rc-card-change b { display: block; font-size: 12px; color: var(--rc-muted); margin-bottom: 4px; font-weight: 600; }
+  .rc-actions { display: flex; gap: 8px; margin-top: 10px; }
+  .rc-actions button { border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1px solid var(--rc-line); }
+  .rc-actions .yes { background: var(--rc-me); color: #fff; border-color: var(--rc-me); }
+  .rc-actions .no { background: transparent; color: var(--rc-text); }
+  .rc-actions button:disabled { opacity: .5; cursor: default; }
+  .rc-form { display: flex; gap: 10px; padding: 14px 16px; border-top: 1px solid var(--rc-line); }
+  .rc-form textarea { flex: 1; resize: none; border: 1px solid var(--rc-line); border-radius: 10px; padding: 10px 12px;
+                      font: inherit; font-size: 14.5px; background: var(--rc-card); color: var(--rc-text); min-height: 46px; max-height: 160px; }
+  .rc-form button { background: var(--rc-me); color: #fff; border: 0; border-radius: 10px; padding: 0 18px; font-weight: 600; cursor: pointer; }
+  .rc-form button:disabled { opacity: .5; cursor: default; }
+  .rc-note { text-align: center; font-size: 11.5px; color: var(--rc-muted); padding: 0 16px 12px; }
+  .rc-error { color: var(--rc-bad); font-size: 13px; padding: 0 16px 8px; display: none; }
+  .rc-dots::after { content: "…"; animation: rc-blink 1.2s infinite; }
+  @keyframes rc-blink { 50% { opacity: .2; } }
+  @media (max-width: 600px) {
+    .rc-wrap { padding: 0; } .rc-card { border-radius: 0; height: calc(100vh - 70px); border-left: 0; border-right: 0; }
+    .rc-row { max-width: 90%; } .rc-head p { display: none; }
+  }
+</style>
+
+<div class="rc-wrap">
+  <div class="rc-card">
+    <div class="rc-head">
+      <img src="/assets/hr_ai/images/rh-chat-logo.svg" alt="">
+      <div>
+        <h1>RH Chat</h1>
+        <p>Ask HR anything about your job, your leave or your application.</p>
+      </div>
+      <div class="rc-spacer"></div>
+      <button class="rc-btn" id="rc-new" type="button">New conversation</button>
+      <a class="rc-btn" href="/logout">Log out</a>
+    </div>
+    <div class="rc-list" id="rc-list" aria-live="polite"></div>
+    <div class="rc-error" id="rc-error"></div>
+    <form class="rc-form" id="rc-form">
+      <textarea id="rc-input" rows="1" maxlength="2000" placeholder="Write your message, {{ first_name }}…" aria-label="Message"></textarea>
+      <button id="rc-send" type="submit">Send</button>
+    </form>
+    <div class="rc-note">Every message is checked by the security layer and personal data is masked before the assistant reads it.
+      The assistant never acts on its own: any request is reviewed and approved by HR.</div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const CSRF = "{{ csrf_token }}";
+  const list = document.getElementById("rc-list");
+  const input = document.getElementById("rc-input");
+  const sendBtn = document.getElementById("rc-send");
+  const errorBox = document.getElementById("rc-error");
+  let since = null, timer = null, busy = false, lastKey = "";
+  try { since = sessionStorage.getItem("rc-since"); } catch (e) {}
+
+  const SUGGESTIONS = [
+    "How many annual leave days do I have left?",
+    "What is the status of my job application?",
+    "What are the public holidays this year?",
+    "I would like to take 3 days off next week.",
+  ];
+
+  async function api(method, path, body) {
+    const opts = { method, headers: { "Accept": "application/json", "X-Frappe-CSRF-Token": CSRF } };
+    if (body) { opts.headers["Content-Type"] = "application/json"; opts.body = JSON.stringify(body); }
+    const r = await fetch("/api/method/" + path, opts);
+    const data = await r.json().catch(() => ({}));
+    if (!r.ok) {
+      let msg = "Something went wrong.";
+      try { msg = JSON.parse(JSON.parse(data._server_messages)[0]).message || msg; } catch (e) {}
+      throw new Error(msg);
+    }
+    return data.message;
+  }
+
+  function chip(text, kind) {
+    const s = document.createElement("span");
+    s.className = "rc-chip " + kind; s.textContent = text; return s;
+  }
+
+  function render(rows) {
+    if (since) rows = rows.filter(r => r.creation > since);
+    const key = JSON.stringify(rows.map(r => [r.name, r.status, r.action_status, r.action_result]));
+    if (key === lastKey) return;
+    lastKey = key;
+    list.replaceChildren();
+    if (!rows.length) {
+      const e = document.createElement("div");
+      e.className = "rc-empty";
+      e.innerHTML = "<b>Hello!</b><br>Tell me what you need in your own words. I can answer questions about HR policies, " +
+        "holidays, your leave balance or your application, and pass requests on to HR.";
+      const s = document.createElement("div"); s.className = "rc-sugg";
+      SUGGESTIONS.forEach(t => { const b = document.createElement("button"); b.type = "button"; b.textContent = t;
+        b.onclick = () => { input.value = t; input.focus(); }; s.appendChild(b); });
+      e.appendChild(s); list.appendChild(e); return;
+    }
+    rows.forEach(r => {
+      const row = document.createElement("div");
+      const me = r.direction === "In";
+      row.className = "rc-row " + (me ? "me" : "bot") + (!me && r.status === "Blocked" ? " blocked" : "");
+      const b = document.createElement("div"); b.className = "rc-bubble"; b.textContent = r.content;
+      row.appendChild(b);
+      const meta = document.createElement("div"); meta.className = "rc-meta";
+      if (me) {
+        if (r.status === "Checking") { const c = chip("Security check", "info"); c.classList.add("rc-dots"); meta.appendChild(c); }
+        else if (r.status === "Blocked") meta.appendChild(chip("⛔ Blocked by the security layer", "bad"));
+        else if (r.status === "Error") meta.appendChild(chip("Not processed", "warn"));
+        else {
+          meta.appendChild(chip(r.verdict === "suspicious" ? "✓ Security check (flagged)" : "✓ Passed security check",
+                                r.verdict === "suspicious" ? "warn" : "ok"));
+          if (r.status === "Thinking") { const c = chip("Assistant is thinking", "info"); c.classList.add("rc-dots"); meta.appendChild(c); }
+        }
+      } else {
+        if (r.persona === "employee") meta.appendChild(chip("Answered as: employee", "info"));
+        if (r.persona === "applicant") meta.appendChild(chip("Answered as: job applicant", "info"));
+        if (r.persona === "hr") meta.appendChild(chip("HR mode", "info"));
+        if (r.ai_action && r.action_summary !== undefined) {
+          row.appendChild(changeCard(r));
+        } else if (r.ai_action) {
+          const st = { Proposed: ["sent to HR for approval", "warn"], Approved: ["approved by HR", "ok"],
+                       Executed: ["done by HR", "ok"], Rejected: ["declined by HR", "bad"], Failed: ["could not be applied", "bad"] }[r.action_status] || ["sent to HR", "warn"];
+          meta.appendChild(chip("Request " + r.ai_action + " " + st[0], st[1]));
+        }
+      }
+      if (meta.childNodes.length) row.appendChild(meta);
+      list.appendChild(row);
+    });
+    list.scrollTop = list.scrollHeight;
+  }
+
+  function changeCard(r) {
+    const card = document.createElement("div"); card.className = "rc-card-change";
+    const title = document.createElement("b"); title.textContent = "Change prepared (" + r.ai_action + ")";
+    const body = document.createElement("div"); body.textContent = r.action_summary;
+    card.append(title, body);
+    const s = r.action_status;
+    if (r.can_confirm) {
+      const bar = document.createElement("div"); bar.className = "rc-actions";
+      const yes = document.createElement("button"); yes.className = "yes"; yes.type = "button"; yes.textContent = "Confirm";
+      const no = document.createElement("button"); no.className = "no"; no.type = "button"; no.textContent = "Cancel";
+      const go = async (decision) => {
+        yes.disabled = no.disabled = true;
+        try { await api("POST", "hr_ai.chat.decide", { message: r.name, decision }); }
+        catch (e) { showError(e.message); yes.disabled = no.disabled = false; }
+        refresh();
+      };
+      yes.onclick = () => go("confirm"); no.onclick = () => go("cancel");
+      bar.append(yes, no); card.appendChild(bar);
+    } else {
+      const meta = document.createElement("div"); meta.className = "rc-meta";
+      if (s === "Approved") { const c = chip("Confirmed, applying", "info"); c.classList.add("rc-dots"); meta.appendChild(c); }
+      else if (s === "Executed") meta.appendChild(chip("✓ Applied" + (r.action_result ? ": " + r.action_result : ""), "ok"));
+      else if (s === "Failed") meta.appendChild(chip("Not applied: " + (r.action_result || "error"), "bad"));
+      else if (s === "Rejected") meta.appendChild(chip("Cancelled", "warn"));
+      else if (s === "Proposed") meta.appendChild(chip("Waiting for HR in RH AI", "warn"));
+      card.appendChild(meta);
+    }
+    return card;
+  }
+
+  async function refresh() {
+    try {
+      const rows = await api("GET", "hr_ai.chat.history");
+      render(rows);
+      const pending = rows.some(r => r.direction === "In" && (r.status === "Checking" || r.status === "Thinking"));
+      const applying = rows.some(r => r.action_status === "Approved" && r.action_summary !== undefined);
+      busy = pending; sendBtn.disabled = pending;
+      clearTimeout(timer);
+      if (pending || applying) timer = setTimeout(refresh, 2000);
+    } catch (e) { showError(e.message); }
+  }
+
+  function showError(msg) {
+    errorBox.textContent = msg; errorBox.style.display = msg ? "block" : "none";
+  }
+
+  document.getElementById("rc-form").addEventListener("submit", async (ev) => {
+    ev.preventDefault();
+    const text = input.value.trim();
+    if (!text || busy) return;
+    showError(""); sendBtn.disabled = true;
+    try {
+      await api("POST", "hr_ai.chat.send", { message: text });
+      input.value = ""; autosize();
+    } catch (e) { showError(e.message); }
+    refresh();
+  });
+
+  input.addEventListener("keydown", (ev) => {
+    if (ev.key === "Enter" && !ev.shiftKey) { ev.preventDefault(); document.getElementById("rc-send").click(); }
+  });
+  function autosize() { input.style.height = "auto"; input.style.height = Math.min(input.scrollHeight, 160) + "px"; }
+  input.addEventListener("input", autosize);
+
+  document.getElementById("rc-new").addEventListener("click", async () => {
+    if (busy) return;
+    try { since = (await api("POST", "hr_ai.chat.clear")).since; } catch (e) { return showError(e.message); }
+    try { sessionStorage.setItem("rc-since", since); } catch (e) {}
+    lastKey = ""; refresh();
+  });
+
+  refresh();
+})();
+</script>
+{% endblock %}

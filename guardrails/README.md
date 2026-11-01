@@ -195,3 +195,19 @@ cp example.env .env        # then fill in the values (see comments inside)
 Frappe setup needed: an API key for the gateway user (write), one Frappe user per agent with the
 `AI Agent` role (read-only), an ingest user, and HR users with the `HR Manager` role. List the
 agent and ingest accounts in `config/api.json`.
+
+## Running next to RH Flow (container)
+```bash
+# once, from ~/frappe_docker: creates the two service accounts, stores the check key in the
+# site config and prints the reader key for guardrails/.env (with GUARDRAILS_APPROVAL_KEY)
+docker compose -p hr -f hr.yml exec backend bench --site frontend execute hr_ai.setup.setup_guardrails_accounts
+# from the repo root
+docker compose -f guardrails/compose.guardrails.yml up -d --build
+curl http://localhost:8100/health
+```
+- `guardrails.check@rhflow.local` (HR Manager + "RH Flow Guardrails Caller"): RH Flow calls
+  `/agent-actions/check` with it. The Caller role only lets it read the roles on its own user record.
+- `guardrails.reader@rhflow.local` ("RH Flow Guardrails Reader"): read-only lookups of applicants,
+  employees and inbox senders. The guardrails hold no write credentials; RH Flow's Execution
+  Gateway stays the only writer.
+- Stopping the container makes every new proposal and every execution fail (fail closed).

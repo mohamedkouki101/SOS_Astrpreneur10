@@ -155,6 +155,11 @@ def propose_email_reply(email_id: str, subject: str, body: str) -> dict:
                              if s.source_id.startswith(("Job Applicant/", "policy/"))]
     if src.meta.get("layer") == "service":
         # Recipient = the original sender, resolved by the Execution Gateway; tokens are scoped to doc_id.
+        subject, body, bad = _own_placeholders(src.text, subject, body)
+        if bad:
+            return {"status": "REJECTED",
+                    "reason": f"{', '.join(bad)} do not appear in this email. Use only the placeholders "
+                              "written in the email itself (like <PERSON_1>), or no name at all."}
         payload = {"email_id": email_id, "to": "<SENDER>", "subject": subject, "body": body,
                    "doc_id": src.meta["doc_id"]}
         return outbox.propose_action("email_reply", f"email/{email_id}", payload, hashes)
@@ -163,6 +168,27 @@ def propose_email_reply(email_id: str, subject: str, body: str) -> dict:
         return {"status": "REJECTED", "reason": "sender address could not be determined"}
     return outbox.propose_action("email_reply", f"email/{email_id}",
                                  {"email_id": email_id, "to": to.group(0), "subject": subject, "body": body}, hashes)
+
+
+def _own_placeholders(email_text: str, *texts: str) -> tuple:
+    """A reply may only use the placeholders of the email it answers. The model sometimes writes
+    "[PERSON_1]" for the email's "<PERSON_1>": "[PERSON_1]" belongs to another token store and can
+    stand for a different person, so it is switched back to "<PERSON_1>" when the email has that,
+    and refused otherwise. Returns the texts, then the placeholders that are not in the email."""
+    bad: set[str] = set()
+
+    def fix(m: re.Match) -> str:
+        token = m.group(0)
+        if token in email_text:
+            return token
+        angle = f"<{token[1:-1]}>"
+        if token.startswith("[") and angle in email_text:
+            return angle
+        bad.add(token)
+        return token
+
+    fixed = [re.sub(r"[\[<][A-Z]+_\d+[\]>]", fix, t or "") for t in texts]
+    return (*fixed, sorted(bad))
 
 
 def _email_exists(email_id: str) -> bool:

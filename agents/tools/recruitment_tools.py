@@ -1,7 +1,7 @@
 """Recruitment tools.
 
 One candidate per context: `evaluate_applicant` reads ONE CV through the 4-stage pipeline and asks
-qwen3:8b to extract evidence in a fresh, isolated context. Only scores and skill names come back to
+qwen3:14b to extract evidence in a fresh, isolated context. Only scores and skill names come back to
 the Recruitment agent; CV text never enters the ranking context. Scores are computed in code
 (job-related criteria only), never by the model.
 """

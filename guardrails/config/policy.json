@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-31.1",
+  "version": "2026-11-01.1",
   "agents": {
     "recruitment_agent": {
       "tools": [
@@ -18,14 +18,17 @@
     },
     "hr_assistant": {
       "tools": [
-        "answer_employee"
+        "answer_employee",
+        "log_hr_request"
       ]
     },
     "onboarding_agent": {
       "tools": []
     },
     "leave_agent": {
-      "tools": []
+      "tools": [
+        "decide_leave_application"
+      ]
     },
     "payroll_agent": {
       "tools": []
@@ -35,6 +38,15 @@
     },
     "conflict_agent": {
       "tools": []
+    },
+    "hr_operator": {
+      "tools": [
+        "update_interview",
+        "update_applicant_status",
+        "create_leave_application",
+        "decide_leave_application",
+        "update_employee_job"
+      ]
     }
   },
   "tools": {
@@ -129,6 +141,56 @@
       "description": "Summarise the HR inbox for HR (agent-layer 'digest' kind). Decision only: nothing is written or sent",
       "rate_limit": {
         "max": 30,
+        "window_seconds": 3600
+      }
+    },
+    "log_hr_request": {
+      "description": "RH Chat: record a request from an employee/applicant for HR to follow up. Decision only: nothing is written to HR Core records",
+      "subject_doctypes": [
+        "Chat Message"
+      ],
+      "rate_limit": {
+        "max": 120,
+        "window_seconds": 3600
+      }
+    },
+    "update_interview": {
+      "description": "RH Chat HR mode: reschedule or cancel ONE existing Interview, asked for and confirmed by an HR user",
+      "subject_doctypes": [
+        "Interview"
+      ],
+      "rate_limit": {
+        "max": 30,
+        "window_seconds": 3600
+      }
+    },
+    "create_leave_application": {
+      "description": "RH Chat HR mode: create ONE leave application (status Open) for an employee",
+      "subject_doctypes": [
+        "Employee"
+      ],
+      "rate_limit": {
+        "max": 30,
+        "window_seconds": 3600
+      }
+    },
+    "decide_leave_application": {
+      "description": "Approve or reject ONE open Leave Application",
+      "subject_doctypes": [
+        "Leave Application"
+      ],
+      "rate_limit": {
+        "max": 50,
+        "window_seconds": 3600
+      }
+    },
+    "update_employee_job": {
+      "description": "RH Chat HR mode: change job fields (department, designation, branch, manager) of ONE employee. Never personal data",
+      "subject_doctypes": [
+        "Employee"
+      ],
+      "rate_limit": {
+        "max": 20,
         "window_seconds": 3600
       }
     }
