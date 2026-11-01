@@ -1,0 +1,20 @@
+{
+  "_comment": "How the AI agent layer (hr_ai, AI Action format) maps onto the guardrails. Unmapped agents/kinds pass through unchanged and are therefore denied by the default-deny policy.",
+  "version": "2026-10-31.1",
+  "agents": {
+    "recruitment": "recruitment_agent",
+    "comms": "comms_agent",
+    "assistant": "hr_assistant",
+    "onboarding": "onboarding_agent",
+    "leave": "leave_agent",
+    "payroll": "payroll_agent",
+    "performance": "performance_agent",
+    "conflict": "conflict_agent"
+  },
+  "kinds": {
+    "email_reply": "send_email",
+    "interview": "schedule_interview",
+    "ranking": "rank_candidate",
+    "applicant_status": "update_applicant_status"
+  }
+}

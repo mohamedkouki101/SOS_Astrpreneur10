@@ -10,7 +10,8 @@ The demo should show a prompt-injection attempt being blocked.
 ## 2. Current state
 - DONE: Frappe + ERPNext + HRMS v16 running in Docker (WSL2 Ubuntu on Windows). ERPNext is a required dependency of HRMS; hide non-HR modules via Module Profiles. Architecture designed (section 4).
 - BUILT: `hr_ai` app (AI Action queue, RH AI decision page, Execution Gateway, Inbound Email, input-layer feeder), agent service (9 agents), input security layer integration, Mailpit mail, fictional data, guardrail tests.
-- NOT BUILT: signed webhook receiver, policy/fairness/audit/monitor inside `hr_ai`.
+- Guardrails service (`guardrails/`, FastAPI, port 8100): policy, fairness, approval, gateway, hash-chained audit, monitor. Merged but NOT wired yet: `hr_ai` should call `/agent-actions/check` on propose and before execute (guardrails/INTEGRATION.md, option A).
+- NOT BUILT: signed webhook receiver; guardrails <-> `hr_ai` wiring.
 - Current task: project SKELETON only. No agent intelligence yet.
 - Environment: Frappe stack in `~/frappe_docker` (compose file `hr.yml`, project name `hr`, site `frontend`, UI http://localhost:8001). Image `custom:16` was built from `frappe_docker` with `apps.json` (erpnext + hrms, branch `version-16`). Default login Administrator/admin must be changed.
 - TODO verify: scheduler is disabled on a fresh site. Enable with `bench --site frontend enable-scheduler`.
