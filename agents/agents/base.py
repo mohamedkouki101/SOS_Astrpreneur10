@@ -1,4 +1,4 @@
-"""The LangGraph loop shared by all agents. qwen3:8b decides; code enforces the limits.
+"""The LangGraph loop shared by all agents. qwen3:14b decides; code enforces the limits.
 
     START -> model --(tool calls?)--> guarded_tools --> model ... --> END
                    \\--(no tool calls / budget hit)--> END
@@ -53,7 +53,7 @@ def _tokens(msg: AIMessage) -> int:
 
 
 def build_agent(spec: AgentSpec, llm: Any = None):
-    """Compile the LangGraph for one agent. `llm` can be injected (tests); default is qwen3:8b."""
+    """Compile the LangGraph for one agent. `llm` can be injected (tests); default is qwen3:14b."""
     budget = Budget.default(**spec.budget)
     model = (llm or make_llm()).bind_tools(spec.tools)
     tools = {t.name: t for t in spec.tools}

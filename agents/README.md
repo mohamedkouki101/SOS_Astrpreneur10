@@ -1,6 +1,6 @@
 # agents — RH Flow agent service
 
-9 agents (Orchestrator + 8 specialists), each a **LangGraph** graph, all using **qwen3:8b** (Ollama) as the decision model. Agents only **read** RH Flow (one read-only API user per agent) and **propose** actions; a human approves every proposal.
+9 agents (Orchestrator + 8 specialists), each a **LangGraph** graph, all using **qwen3:14b** (Ollama) as the decision model. Agents only **read** RH Flow (one read-only API user per agent) and **propose** actions; a human approves every proposal.
 
 Design and tool lists: [`docs/agents.md`](../docs/agents.md).
 
@@ -17,7 +17,7 @@ uv pip install --python $UV_PROJECT_ENVIRONMENT/bin/python \
 ADMIN_PASSWORD=... $UV_PROJECT_ENVIRONMENT/bin/python agents/scripts/setup_agent_users.py
 ```
 
-Prerequisites: RH Flow at `http://localhost:8001` with the demo dataset, and Ollama at `http://localhost:11434` with `qwen3:8b`.
+Prerequisites: RH Flow at `http://localhost:8001` with the demo dataset, and Ollama at `http://localhost:11434` with `qwen3:14b`.
 
 ## Run
 
@@ -67,7 +67,7 @@ Expect about 5–20 s per Qwen step. Ranking one opening (about 16 CVs) takes se
 | Folder | Content |
 |---|---|
 | `agents/` | `base.py` (the shared LangGraph loop + guardrails), `specs.py` (the 8 specialists: role, tools, budget) |
-| `orchestrator/` | `orchestrator.py` (supervisor graph), `llm_client.py` (qwen3:8b), `budgets.py`, `audit.py` (hash-chained trail) |
+| `orchestrator/` | `orchestrator.py` (supervisor graph), `llm_client.py` (qwen3:14b), `budgets.py`, `audit.py` (hash-chained trail) |
 | `ingest/` | Stages 1–4: `sanitizer.py`, `pii.py` (Presidio), `injection.py`, `provenance.py`, `pipeline.py` |
 | `context/` | `context_builder.py` (trusted prompts vs `<data>`), `run_context.py` |
 | `validation/` | `schemas.py` (Pydantic), `validator.py` (deterministic Output Validator) |

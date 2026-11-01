@@ -1,7 +1,7 @@
 [project]
 name = "rhflow-agents"
 version = "0.1.0"
-description = "RH Flow AI agents: LangGraph + qwen3:8b (Ollama), read-only access to RH Flow, proposals only."
+description = "RH Flow AI agents: LangGraph + qwen3:14b (Ollama), read-only access to RH Flow, proposals only."
 requires-python = ">=3.12,<3.13"
 dependencies = [
   "langgraph>=0.6",

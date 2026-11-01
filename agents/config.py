@@ -77,7 +77,7 @@ def get_settings() -> Settings:
     return Settings(
         rhflow_url=env("RHFLOW_URL", "http://localhost:8001").rstrip("/"),
         ollama_url=env("OLLAMA_URL", "http://localhost:11434").rstrip("/"),
-        model=env("LLM_MODEL", "qwen3:8b"),
+        model=env("LLM_MODEL", "qwen3:14b"),
         temperature=float(env("LLM_TEMPERATURE", "0.1")),
         num_ctx=int(env("LLM_NUM_CTX", "16384")),
         dataset_dir=Path(env("DATASET_DIR", str(Path.home() / "frappe_docker/Data_set/dataset"))),

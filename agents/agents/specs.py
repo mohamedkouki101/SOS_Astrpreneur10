@@ -1,4 +1,4 @@
-"""The 8 specialist agents: role prompt + tool allowlist + budget. All use qwen3:8b as decision model.
+"""The 8 specialist agents: role prompt + tool allowlist + budget. All use qwen3:14b as decision model.
 
 The allowlist IS the tool list: an agent is only ever shown (and only allowed to run) its own tools.
 """
