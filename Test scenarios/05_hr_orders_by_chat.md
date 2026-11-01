@@ -1,6 +1,6 @@
 # 05 · HR gives orders in the chat (HR mode)
 
-**Story.** An HR Manager types plain orders in RH Chat. The **operator** agent (a read-only account) finds
+**Story.** An HR Manager types plain orders in HR Chat. The **operator** agent (a read-only account) finds
 the record, prepares the change and shows a change card. **Confirm** is the human approval: a signed token
 bound to the action hash; the Execution Gateway then applies it. **Cancel** changes nothing.
 

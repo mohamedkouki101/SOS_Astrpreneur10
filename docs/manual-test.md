@@ -7,7 +7,7 @@ A phishing / prompt-injection email is quarantined and never reaches the model.
 ## Open these 3 windows
 | Window | URL / place |
 |---|---|
-| HR Flow (login `Administrator`) | http://localhost:8001/desk, then the **RH AI** tile (or directly http://localhost:8001/desk/rh-ai) |
+| HR Flow (login `Administrator`) | http://localhost:8001/desk, then the **HR AI** tile (or directly http://localhost:8001/desk/rh-ai) |
 | Mailpit (test mail server, catches every email) | http://localhost:8025 |
 | WSL terminal, at the repo root | `P=$HOME/.venvs/rhflow-agents/bin/python` |
 
@@ -36,7 +36,7 @@ In the same run, `list_new_emails` returned the attack as `QUARANTINED` with no 
 You can also run `$P -m agents.cli run comms "Make a digest of the HR inbox"`. The digest lists the attack as a security item.
 
 ## Step 4: HR reviews the proposal in HR Flow
-Open the **RH AI** app from the `/desk` apps screen. The decision page shows one card per agent proposal:
+Open the **HR AI** app from the `/desk` apps screen. The decision page shows one card per agent proposal:
 - tabs with counters: Waiting for decision / Allowed / Done / Declined / Failed
 - an agent filter
 - **Show real names** (HR Manager / System Manager only)
@@ -82,11 +82,11 @@ Start the layer once: `docker compose -f input-security-layer/compose.ingest.yml
 | New Job Applicant with a CV → `/v1/upload` (verdict stored on the applicant) | `hr_ai` (doc_event, background job) | UPLOAD |
 | Mailpit inbox → `/v1/email` (+ attachments) → **Inbound Email** record | `hr_ai` scheduler (every minute) or **Sync inbox & CVs** | UPLOAD |
 | Agents read content → `/v1/envelopes/{id}`, signature checked, quarantined never used | agents | ENVELOPE |
-| HR reviews quarantined items, **Release** / **Reject** with a reason | RH AI page, **Security checks** tab | REPORT |
+| HR reviews quarantined items, **Release** / **Reject** with a reason | HR AI page, **Security checks** tab | REPORT |
 | Real values for `<PERSON_1>` / `<SENDER>` at send time | Execution Gateway only | RESOLVER |
 
 Steps:
-1. Run Step 1 (`demo_scenario --reset`), then in RH AI click **Sync inbox & CVs**. Three Inbound Email records appear; the attack is `quarantined`.
+1. Run Step 1 (`demo_scenario --reset`), then in HR AI click **Sync inbox & CVs**. Three Inbound Email records appear; the attack is `quarantined`.
 2. Open the **Security checks** tab, then **Inspect** on the attack: stages, matched rules (`ignore_previous_en`), what was removed. All text is shown escaped.
 3. Run Step 2. The draft's recipient is `<SENDER>` and its body uses `<PERSON_1>`. The Gateway resolves them only after approval.
 4. **Release** a quarantined item: the agent now gets it as `suspicious` with the hidden instruction removed. **Reject**: the agent never gets it (404). Decisions are permanent, so test them on a copy, not on the demo email.

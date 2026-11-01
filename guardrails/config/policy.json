@@ -145,7 +145,7 @@
       }
     },
     "log_hr_request": {
-      "description": "RH Chat: record a request from an employee/applicant for HR to follow up. Decision only: nothing is written to HR Core records",
+      "description": "HR Chat: record a request from an employee/applicant for HR to follow up. Decision only: nothing is written to HR Core records",
       "subject_doctypes": [
         "Chat Message"
       ],
@@ -155,7 +155,7 @@
       }
     },
     "update_interview": {
-      "description": "RH Chat HR mode: reschedule or cancel ONE existing Interview, asked for and confirmed by an HR user",
+      "description": "HR Chat HR mode: reschedule or cancel ONE existing Interview, asked for and confirmed by an HR user",
       "subject_doctypes": [
         "Interview"
       ],
@@ -165,7 +165,7 @@
       }
     },
     "create_leave_application": {
-      "description": "RH Chat HR mode: create ONE leave application (status Open) for an employee",
+      "description": "HR Chat HR mode: create ONE leave application (status Open) for an employee",
       "subject_doctypes": [
         "Employee"
       ],
@@ -185,7 +185,7 @@
       }
     },
     "update_employee_job": {
-      "description": "RH Chat HR mode: change job fields (department, designation, branch, manager) of ONE employee. Never personal data",
+      "description": "HR Chat HR mode: change job fields (department, designation, branch, manager) of ONE employee. Never personal data",
       "subject_doctypes": [
         "Employee"
       ],

@@ -24,7 +24,7 @@ application (never HR-LAP-2026-00009, which S04 uses), so every run decides a di
 ```bash
 $P -m agents.cli ask "Review leave application HR-LAP-2026-00011 and propose a decision for HR."
 ```
-The tool calls are printed as they happen. In RH AI, the **Leave decision** card shows "Approved -
+The tool calls are printed as they happen. In HR AI, the **Leave decision** card shows "Approved -
 HR-LAP-…" with the reason. **Allow** → Executed → the Leave Application is submitted.
 
 ## Expected

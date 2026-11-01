@@ -10,7 +10,7 @@ dataset in `platform/Data_set/dataset` stands in for real CVs and emails.
 | `guardrails/test_disparity.py` | Rankings are job-related only; protected attributes are blind |
 | `guardrails/test_duplicate_webhook.py` | Signed webhooks: bad signature, replay and duplicate events are rejected |
 | `guardrails/test_input_layer.py`, `test_pii.py` | Envelope signature checks, PII masking |
-| `agents/` | Orchestrator routing, Comms placeholders, RH Chat |
+| `agents/` | Orchestrator routing, Comms placeholders, HR Chat |
 
 ```bash
 uv run pytest -q tests      # repo root: 67 passed

@@ -22,7 +22,7 @@ Hackathon project (Astropreneur 2.0, SUP'COM, ~17 h). **Fictional data only.**
 flowchart TB
   CV["CV upload (recruiter, HR Flow)"] --> ISL
   MAIL["HR inbox (Mailpit)"] -->|hr_ai sync, every minute| ISL
-  CHAT["RH Chat (employees, candidates, HR)"] --> ISL
+  CHAT["HR Chat (employees, candidates, HR)"] --> ISL
   subgraph ISL["Input security layer :8090"]
     S1["1 Sanitizer"] --> S2["2 PII mask"] --> S3["3 Injection scan"] --> S4["4 Provenance + HMAC signature"]
   end
@@ -31,7 +31,7 @@ flowchart TB
   AG -->|read-only REST, one user per agent| RHF["HR Flow (Frappe + HRMS)"]
   AG -->|propose_action| Q["AI Action queue (hr_ai)"]
   Q -->|check 1: on proposal| GR["Guardrails :8100 (policy, fairness)"]
-  Q --> HUM["HR approves (RH AI page, or Confirm in RH Chat)"]
+  Q --> HUM["HR approves (HR AI page, or Confirm in HR Chat)"]
   HUM --> EX["Execution Gateway (hr_ai)"]
   EX -->|check 2: right before acting| GR
   EX -->|resolve tokens, gateway key only| ISL
@@ -59,7 +59,7 @@ a human approves; only the Execution Gateway writes, after re-checking everythin
 |---|---|---|---|
 | [`platform/`](platform/) | HR Flow platform: Frappe v16 + ERPNext + HRMS in Docker, Mailpit, image build (`build-images.sh`), fictional company **Bara3am** and its loader (`Data_set/`) | Docker Compose (project `hr`) | 8001, 8025 |
 | [`hrms/`](hrms/) | Frappe HR source, v16.53.0 (GPL v3): the version built into the image | in the platform image | — |
-| [`hr_ai/`](hr_ai/) | Our Frappe app: AI Action queue, **RH AI** decision page, **RH Chat**, Inbound Email, Execution Gateway, bridges to the services | in the platform image | 8001 |
+| [`hr_ai/`](hr_ai/) | Our Frappe app: AI Action queue, **HR AI** decision page, **HR Chat**, Inbound Email, Execution Gateway, bridges to the services | in the platform image | 8001 |
 | [`hrflow_theme/`](hrflow_theme/) | Our Frappe app: HR Flow look (Desk, login, website) | in the platform image | — |
 | [`input-security-layer/`](input-security-layer/) | Untrusted Input Zone: sanitizer, PII masking (Presidio EN + FR), injection scanner, provenance + signature, evidence store, inspection reports | FastAPI, Docker (non-root, read-only FS) | 8090 |
 | [`guardrails/`](guardrails/) | Policy Engine (default-deny), fairness checks, approval tokens, gateway logic, hash-chained audit log, monitor | FastAPI, Docker (non-root, read-only FS) | 8100 |
@@ -70,7 +70,7 @@ a human approves; only the Execution Gateway writes, after re-checking everythin
 | [`Test scenarios/`](Test%20scenarios/) | 12 end-to-end scenarios (story + HTTP script with PASS / FAIL checks) run on the live stack | Python | — |
 
 Demo agents: **Recruitment** (ranking, status, interviews), **Comms** (inbox digest, replies), **HR Assistant**
-(policy and own-data Q&A in RH Chat), **Operator** (HR orders typed in RH Chat), **Leave** (leave decisions). Onboarding, Payroll, Performance and Conflict exist as minimal stubs and are **denied by
+(policy and own-data Q&A in HR Chat), **Operator** (HR orders typed in HR Chat), **Leave** (leave decisions). Onboarding, Payroll, Performance and Conflict exist as minimal stubs and are **denied by
 the policy engine** by default.
 
 ---

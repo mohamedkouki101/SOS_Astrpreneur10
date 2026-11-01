@@ -1,7 +1,7 @@
 """Doc events from HR Flow handled by the agent service (asynchronously, one at a time).
 
 inbound_email.received: a mail released by the input security layer -> the Comms agent reads it and,
-if it needs an answer, proposes a reply (AI Action "Proposed", HR approves in RH AI).
+if it needs an answer, proposes a reply (AI Action "Proposed", HR approves in HR AI).
 """
 
 from __future__ import annotations

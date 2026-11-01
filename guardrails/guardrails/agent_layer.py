@@ -41,7 +41,7 @@ SENDER = "<SENDER>"  # input-layer placeholder: "the person who wrote this inbox
 DOC_ID = re.compile(r"^sha256:[0-9a-f]{64}$")
 MIN_JUSTIFICATION = 20  # same minimum as fairness.json for scored tools
 
-# RH Chat kinds: each acts on ONE record, which must be the AI Action's reference AND the
+# HR Chat kinds: each acts on ONE record, which must be the AI Action's reference AND the
 # record named in the payload. kind -> (reference doctype, payload key naming it, required, allowed)
 RECORD_BOUND = {
     "hr_request": ("Chat Message", "message", {"message", "persona", "category", "summary"},

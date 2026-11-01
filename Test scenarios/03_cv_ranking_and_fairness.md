@@ -30,7 +30,7 @@ $P -m agents.cli run recruitment "Rank the applicants for job opening HR-OPN-202
 | Allow → decision recorded (no automatic write) | Human approval |
 
 ## Show it live
-1. RH AI → ranking card "Senior Python Developer": shortlist with score and one-line justification each,
+1. HR AI → ranking card "Senior Python Developer": shortlist with score and one-line justification each,
    and "Quarantined (security): …" at the bottom.
 2. Security checks → APP-ATTACK-1 → **Inspect**: four rules on hidden text.
 3. Allow the shortlist: status Approved, "Decision recorded… HR follows up manually".

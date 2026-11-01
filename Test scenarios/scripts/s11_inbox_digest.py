@@ -20,7 +20,7 @@ if not props:
 
 a = adm.action(props[-1])
 p = json.loads(a["payload"])
-r.info("RH AI card:\n      " + a["summary"].replace("\n", "\n      "))
+r.info("HR AI card:\n      " + a["summary"].replace("\n", "\n      "))
 items = p["items"]
 quarantined = {x["name"] for x in adm.list("Inbound Email", ["name"], {"verdict": ["in", ["quarantined", "rejected"]]}, limit=100)}
 sec = [i for i in items if i["category"] == "security"]

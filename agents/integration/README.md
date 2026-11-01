@@ -6,7 +6,7 @@ the platform containers reach it through `host.docker.internal`.
 | Endpoint | Caller | What it does |
 |---|---|---|
 | `GET /health` | anyone | liveness |
-| `POST /chat` | `hr_ai.chat` (signed) | RH Chat: intake picks the persona, code binds it to the identities HR linked on the user, then the HR Assistant (employees, candidates) or the Operator (HR) answers |
+| `POST /chat` | `hr_ai.chat` (signed) | HR Chat: intake picks the persona, code binds it to the identities HR linked on the user, then the HR Assistant (employees, candidates) or the Operator (HR) answers |
 | `POST /events` | `hr_ai.webhooks` (signed) | new inbox mail → Comms agent drafts a reply; returns 202 at once, runs in a worker |
 
 Every request is verified in `signing.py`: HMAC-SHA256 over timestamp, event id and body (`WEBHOOK_HMAC_SECRET`),

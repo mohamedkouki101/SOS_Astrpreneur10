@@ -1,4 +1,4 @@
-"""RH Chat tools for the HR Assistant: an employee's or a job applicant's OWN data, and one way to
+"""HR Chat tools for the HR Assistant: an employee's or a job applicant's OWN data, and one way to
 hand a request to HR.
 
 Who the person is comes from the run context (bound by code from the identities HR linked to the

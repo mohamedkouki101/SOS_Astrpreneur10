@@ -6,7 +6,7 @@ Frappe apps baked into the image:
 | App | Source | What it adds |
 |---|---|---|
 | `erpnext`, `hrms` | upstream, pinned in [`apps.json`](apps.json) (`v16.53.0`; the same HRMS source is in [`../hrms`](../hrms)) | HR system of record |
-| `hr_ai` | [`../hr_ai`](../hr_ai) | AI Action queue, RH AI decision page, RH Chat, Inbound Email, Execution Gateway |
+| `hr_ai` | [`../hr_ai`](../hr_ai) | AI Action queue, HR AI decision page, HR Chat, Inbound Email, Execution Gateway |
 | `hrflow_theme` | [`../hrflow_theme`](../hrflow_theme) | HR Flow look (Desk, login, website) |
 
 This folder is based on [frappe_docker](https://github.com/frappe/frappe_docker) (MIT, see [LICENSE](LICENSE)).

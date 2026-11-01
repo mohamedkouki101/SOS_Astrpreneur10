@@ -1,4 +1,4 @@
-"""Allow rules for the RH Chat actions (agent `assistant` -> hr_request, agent `operator` -> HR-mode
+"""Allow rules for the HR Chat actions (agent `assistant` -> hr_request, agent `operator` -> HR-mode
 changes). Each rule is explicit: the right agent, the right tool, ONE record that is both the AI
 Action's reference and the record named in the payload. Everything else stays default-deny.
 All data fictional."""

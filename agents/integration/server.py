@@ -1,6 +1,6 @@
 """Agent service HTTP receiver for signed calls from HR Flow (hr_ai/webhooks.py). FastAPI.
 
-    POST /chat    RH Chat message (synchronous: HR Flow's background job waits for the reply)
+    POST /chat    HR Chat message (synchronous: HR Flow's background job waits for the reply)
     POST /events  doc events, e.g. inbound_email.received (queued, 202 returned at once)
     GET  /health
 

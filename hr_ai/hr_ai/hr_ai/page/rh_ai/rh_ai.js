@@ -1,4 +1,4 @@
-// RH AI decision page: every action proposed by an agent waits here until a human Allows or Declines it.
+// HR AI decision page: every action proposed by an agent waits here until a human Allows or Declines it.
 // Allow -> AI Action.approve() (signed approval) -> Execution Gateway; Decline -> AI Action.reject(reason).
 
 const KIND_LABELS = {
@@ -7,7 +7,7 @@ const KIND_LABELS = {
 	leave_decision: __("Leave decision"), onboarding_tasks: __("Onboarding tasks"),
 	welcome_email: __("Welcome email"), payroll_reply: __("Payroll answer"),
 	review_summary: __("Performance review summary"), grievance_triage: __("Grievance triage"),
-	hr_request: __("Chat request (RH Chat)"), interview_update: __("Interview change"),
+	hr_request: __("Chat request (HR Chat)"), interview_update: __("Interview change"),
 	leave_application: __("New leave application"), employee_update: __("Employee update"),
 };
 const TABS = [
@@ -24,7 +24,7 @@ const esc = (v) => frappe.utils.escape_html(v == null ? "" : String(v)); // repo
 const AGENTS = ["", "recruitment", "comms", "leave", "onboarding", "payroll", "performance", "conflict", "assistant", "operator"];
 
 frappe.pages["rh-ai"].on_page_load = function (wrapper) {
-	const page = frappe.ui.make_app_page({ parent: wrapper, title: __("RH AI: Decisions"), single_column: true });
+	const page = frappe.ui.make_app_page({ parent: wrapper, title: __("HR AI: Decisions"), single_column: true });
 	wrapper.rh_ai = new RHAIDecisions(page);
 };
 

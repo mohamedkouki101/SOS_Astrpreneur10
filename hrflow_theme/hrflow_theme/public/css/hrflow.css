@@ -5,7 +5,7 @@
    2. Frappe design tokens remapped to the brand (covers most of the UI)
    3. Components: sidebar, page head, buttons, inputs, cards, lists,
       status pills, dialogs, menus
-   4. RH AI Decisions page (hr_ai) to match the reference design
+   4. HR AI Decisions page (hr_ai) to match the reference design
 
    Light theme only: when a user picks the dark theme, Frappe's own
    dark palette is left untouched.
@@ -418,7 +418,7 @@ html:not([data-theme="dark"]) ::selection {
 	background: color-mix(in srgb, var(--hf-soft) 45%, transparent);
 }
 
-/* ---------- 4. RH AI Decisions page (hr_ai) ----------
+/* ---------- 4. HR AI Decisions page (hr_ai) ----------
    Styles the page's existing markup only; its code is not modified.
    "body .rh-ai" outranks the page's own inline <style>. */
 html:not([data-theme="dark"]) body .rh-ai .rh-ai-intro {

@@ -1,4 +1,4 @@
-"""Apps screen (/desk) for HR Flow: the ERPNext tile is replaced by the RH Chat tile.
+"""Apps screen (/desk) for HR Flow: the ERPNext tile is replaced by the HR Chat tile.
 
 ERPNext stays installed (HRMS depends on it) and its pages keep working; only its tile leaves the
 apps screen. The change is applied to this user's boot data, so nothing in erpnext is modified.
@@ -16,7 +16,7 @@ CHAT_TILE = {
     "on_apps_screen": True,
     "sequence_id": 1,
     "app_name": "rh_chat",
-    "app_title": "RH Chat",
+    "app_title": "HR Chat",
     "app_route": "/chat",
     "desk_route": "",
     "app_logo_url": "/assets/hr_ai/images/hr-chat-logo.svg",

@@ -20,8 +20,8 @@ KINDS_BY_AGENT = {
     "payroll": {"payroll_reply"},
     "performance": {"review_summary"},
     "conflict": {"grievance_triage"},
-    "assistant": {"hr_request"},   # RH Chat: a request from an employee/applicant, handled by HR
-    # RH Chat, HR mode: changes the HR manager asked for, confirmed by them in the chat.
+    "assistant": {"hr_request"},   # HR Chat: a request from an employee/applicant, handled by HR
+    # HR Chat, HR mode: changes the HR manager asked for, confirmed by them in the chat.
     "operator": {"interview_update", "applicant_status", "leave_application", "leave_decision", "employee_update"},
 }
 HEX64 = re.compile(r"^[0-9a-f]{64}$")
@@ -66,7 +66,7 @@ def _summary(kind: str, p: dict) -> str:
         changes = ", ".join(f"{k.replace('_', ' ')} -> {p[k]}" for k in ("department", "designation", "branch", "reports_to") if p.get(k))
         return f"Update employee {p['employee']}: {changes}"
     if kind == "hr_request":
-        return (f"RH Chat request from a {p['persona']} ({p['category']})\n{p['summary']}\n\n"
+        return (f"HR Chat request from a {p['persona']} ({p['category']})\n{p['summary']}\n\n"
                 "HR follows up with the person; approving records the decision only.")
     if kind == "payroll_reply":
         return f"Employee: {p['employee']}\n\n{p['body']}"
@@ -153,7 +153,7 @@ def _ask_guardrails(record: dict):
         frappe.throw(str(exc), frappe.PermissionError)
 
 
-# ---------------------------------------------------------------- RH AI decision page (Desk app)
+# ---------------------------------------------------------------- HR AI decision page (Desk app)
 
 REVIEW_ROLES = {"HR Manager", "HR User", "System Manager"}
 DECIDER_ROLES = {"HR Manager", "System Manager"}
@@ -163,7 +163,7 @@ REVIEW_FIELDS = ["name", "status", "kind", "agent", "subject", "summary", "refer
 
 
 def check_app_permission() -> bool:
-    """Show the RH AI tile on the /desk apps screen only to HR reviewers."""
+    """Show the HR AI tile on the /desk apps screen only to HR reviewers."""
     return frappe.session.user == "Administrator" or bool(REVIEW_ROLES & set(frappe.get_roles()))
 
 

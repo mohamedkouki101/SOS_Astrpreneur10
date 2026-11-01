@@ -1,4 +1,4 @@
-"""S05: HR gives orders in RH Chat (HR mode, Administrator). The operator agent (read-only account)
+"""S05: HR gives orders in HR Chat (HR mode, Administrator). The operator agent (read-only account)
 only prepares the change; the HR user's Confirm is the approval token; the Execution Gateway applies it.
 Cancel leaves the data untouched."""
 

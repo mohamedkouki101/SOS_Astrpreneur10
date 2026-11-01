@@ -15,7 +15,7 @@ brand. **Styling only**: no DocType, no API, no business logic, and nothing in `
 | Buttons / inputs / checkboxes | pill buttons (electric blue primary), warm-white inputs with a blue focus ring |
 | Cards, workspace widgets, forms, lists, reports | warm-white cards, 16 px radius, soft shadow, cream table headers, blue row hover |
 | Status pills | soft tint plus matching border (pending amber, success green, info blue, error red, failed magenta) |
-| RH AI Decisions page (`hr_ai`) | banner, status tabs, decision cards with a left accent bar, matching the reference design (CSS only, its JS is untouched) |
+| HR AI Decisions page (`hr_ai`) | banner, status tabs, decision cards with a left accent bar, matching the reference design (CSS only, its JS is untouched) |
 | Login page | cream background, warm-white card, HRflow logo, `app_name` = HR Flow |
 | Home page (`/desk` apps screen) | large light-blue diagonal stripes (`home-stripes.svg`) and soft curved bands (`home-arcs.svg`), tiles on warm-white cards |
 | Branding | logo (Website/Navbar Settings, splash, website navbar), favicon = the "HR" end of the logo (`hr_ai/public/images/hr-flow-favicon.svg`), app name "HR Flow" (Website + System Settings, English overrides of "Frappe HR", "Framework"...). Re-apply with `bench --site frontend execute hrflow_theme.install.apply_branding` |

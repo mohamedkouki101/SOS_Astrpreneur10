@@ -22,7 +22,7 @@ Script: `scripts/s02_attack_email.py` · about 1 minute + one model run (step 7)
 | `injection_quarantine` alert | Monitor |
 
 ## Show it live
-1. `$P -m agents.scripts.demo_scenario --reset`, then RH AI → **Sync inbox & CVs**.
+1. `$P -m agents.scripts.demo_scenario --reset`, then HR AI → **Sync inbox & CVs**.
 2. **Security checks** tab: the attack is `quarantined`. **Inspect**: stages (`hidden_text=warn`,
    `injection=fail`), reason *"Hidden text: tries to cancel the AI's instructions"*, removed passage shown escaped.
 3. **Reject** with a reason. Status `rejected`; the agent can never fetch it.

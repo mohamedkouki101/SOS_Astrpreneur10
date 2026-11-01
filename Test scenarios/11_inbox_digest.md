@@ -19,7 +19,7 @@ Script: `scripts/s11_inbox_digest.py` · about 2-3 minutes (one model run)
 ```bash
 $P -m agents.cli run comms "Make a digest of the HR inbox: one item per new email, then propose_digest."
 ```
-RH AI → the **Digest** card lists `[HIGH] security: …` lines for the attacks and `[MEDIUM] candidate / employee`
+HR AI → the **Digest** card lists `[HIGH] security: …` lines for the attacks and `[MEDIUM] candidate / employee`
 lines for the rest.
 
 ## Expected

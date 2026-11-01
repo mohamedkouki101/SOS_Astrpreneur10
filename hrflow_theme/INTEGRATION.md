@@ -19,7 +19,7 @@ It does not modify `frappe`, `erpnext`, `hrms` or `hr_ai`, and uninstalling it r
 | `after_install` | `hrflow_theme.install.apply_branding` | Website Settings `app_logo` and `app_name`, Navbar Settings `app_logo` |
 | `before_uninstall` | `hrflow_theme.install.restore_branding` | Puts those three values back |
 
-`required_apps = ["frappe", "hrms"]`. There is no dependency on `hr_ai`: the RH AI page
+`required_apps = ["frappe", "hrms"]`. There is no dependency on `hr_ai`: the HR AI page
 styles simply do nothing if that page is not installed.
 
 ---
@@ -63,7 +63,7 @@ bench --site <site> clear-cache
 | `/login` | cream background, warm-white card, HRflow logo, "HRflow" title |
 | `/desk` | royal-blue sidebar with the HRflow logo on top, cream page, pill buttons |
 | Employee / Job Applicant list | warm-white list, cream header row, blue hover |
-| `/desk/rh-ai` (RH AI Decisions) | info banner pill, coloured status tabs, cards with a blue left bar |
+| `/desk/rh-ai` (HR AI Decisions) | info banner pill, coloured status tabs, cards with a blue left bar |
 | User menu → Toggle theme → Dark | Frappe's normal dark theme (the theme is light-only on purpose) |
 
 ---
@@ -101,7 +101,7 @@ rather than hard-coded colours.
 - Load another font. The theme uses Inter, Frappe's default.
 - Override `--hf-*` tokens in your app. Change the brand in one place: the top of `hrflow.css`.
 
-### The RH AI Decisions page contract
+### The HR AI Decisions page contract
 `hrflow.css` (section 4) styles the existing markup of `hr_ai/.../page/rh_ai/rh_ai.js`. It depends on
 these class names and attributes. **If you rename them, tell the theme owner**; nothing breaks,
 the page just falls back to the plain style.

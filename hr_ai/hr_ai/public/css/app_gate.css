@@ -1,0 +1,11 @@
+/* Sign-in dialog of the apps-screen tiles (app_gate.js). HR Flow tokens with fallbacks. */
+.hf-gate-dialog .modal-dialog { max-width: 420px; }
+.hf-gate-intro {
+	display: flex; align-items: center; gap: 14px; margin-bottom: 8px; padding: 12px 14px;
+	border-radius: 14px; color: var(--hf-ink, var(--text-color));
+	background: color-mix(in srgb, var(--hf-soft, #76A9FF) 12%, var(--hf-white, var(--card-bg)));
+	border: 1px solid color-mix(in srgb, var(--hf-electric, #1455E8) 25%, transparent);
+}
+.hf-gate-intro img { width: 48px; height: 48px; flex: none; border-radius: 14px; }
+.hf-gate-error { min-height: 1.2em; color: var(--hf-error, var(--red-600)); font-size: var(--text-sm); }
+.hf-gate-dialog .modal-footer .btn-primary { min-width: 120px; }

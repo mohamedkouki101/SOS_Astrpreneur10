@@ -23,7 +23,7 @@ Agents can only read and propose. A human approves, and only the Execution Gatew
 |---|---|---|---|
 | [`platform/`](platform/) | The HR platform: **Frappe v16 + ERPNext + Frappe HR (HRMS)**, Docker setup, image build, fictional demo company and loader | Docker (project `hr`) | 8001, Mailpit 8025 |
 | [`hrms/`](hrms/) | Frappe HR source (v16.53.0, GPL v3), the exact version built into the image | inside the platform image | — |
-| [`hr_ai/`](hr_ai/) | Our Frappe app: AI Action queue, **RH AI** decision page, **RH Chat**, Inbound Email, Execution Gateway | inside the platform image | — |
+| [`hr_ai/`](hr_ai/) | Our Frappe app: AI Action queue, **HR AI** decision page, **HR Chat**, Inbound Email, Execution Gateway | inside the platform image | — |
 | [`hrflow_theme/`](hrflow_theme/) | Our Frappe app: HR Flow look and branding | inside the platform image | — |
 | [`input-security-layer/`](input-security-layer/) | Untrusted input zone: sanitizer, PII masking, injection scanner, signed envelopes | Docker | 8090 |
 | [`guardrails/`](guardrails/) | Default-deny policy, fairness checks, approval tokens, hash-chained audit log, monitor | Docker | 8100 |
@@ -32,7 +32,7 @@ Agents can only read and propose. A human approves, and only the Execution Gatew
 | [`scripts/setup_stack.py`](scripts/setup_stack.py) | Creates every key and configures the site in two commands | Python (stdlib) | — |
 
 Request path: untrusted content (CV, email, chat message) → **input security layer** (sanitize, mask, scan,
-sign) → **agent** (read-only, proposes only) → **guardrails** check #1 → **human approval** in RH AI or RH Chat →
+sign) → **agent** (read-only, proposes only) → **guardrails** check #1 → **human approval** in HR AI or HR Chat →
 **Execution Gateway** (guardrails check #2, hash and token re-checked) → HR record written or email sent.
 
 ---
@@ -158,9 +158,9 @@ without Docker Desktop, start the agent service with `AGENTS_HOST=0.0.0.0` and s
 | What | URL | Login |
 |---|---|---|
 | HR Flow Desk (HR Manager) | http://localhost:8001/desk | `Administrator` / `admin` |
-| **RH AI** decision page | http://localhost:8001/desk/rh-ai | `Administrator` |
-| **RH Chat**, employee / candidate | http://localhost:8001/chat (use a private window) | `Utilisateur` / `user` (employee HR-EMP-00007 + one job application) |
-| **RH Chat**, HR mode | http://localhost:8001/chat | `Administrator` |
+| **HR AI** decision page | http://localhost:8001/desk/rh-ai | `Administrator` |
+| **HR Chat**, employee / candidate | http://localhost:8001/chat (use a private window) | `Utilisateur` / `user` (employee HR-EMP-00007 + one job application) |
+| **HR Chat**, HR mode | http://localhost:8001/chat | `Administrator` |
 | Mailpit (every email ends here) | http://localhost:8025 | — |
 | Input layer API docs | http://localhost:8090/docs | API keys in `input-security-layer/.env` |
 | Guardrails API docs | http://localhost:8100/docs | — |
@@ -178,7 +178,7 @@ The local model needs 20–60 s per answer.
 ```bash
 $P -m agents.scripts.demo_scenario --reset     # 3 emails to hr@rhflow.local: candidate, employee, attack
 ```
-1. RH AI → **Sync inbox & CVs**. Three Inbound Emails appear. A **Comms** draft reply arrives automatically
+1. HR AI → **Sync inbox & CVs**. Three Inbound Emails appear. A **Comms** draft reply arrives automatically
    (signed webhook → agent service) within 1–2 minutes.
 2. **Details / edit → Payload**: `"to": "<SENDER>"`, `Hello <PERSON_1>,`. The model never saw a real name or address.
    The Integrity section shows the action hash and the source email's hash.
@@ -187,7 +187,7 @@ $P -m agents.scripts.demo_scenario --reset     # 3 emails to hr@rhflow.local: ca
    recipient `hr.review@rhflow.local` (the banner names the intended candidate).
 
 ### 2. Phishing email with hidden prompt injection → quarantined
-1. RH AI → **Security checks**: the attack email is `quarantined`. **Inspect** shows each stage
+1. HR AI → **Security checks**: the attack email is `quarantined`. **Inspect** shows each stage
    (hidden text, injection rules) and the removed passage, escaped.
 2. **Reject** it with a reason. The agents can never fetch it. Its content is not in the digest either.
 
@@ -195,7 +195,7 @@ $P -m agents.scripts.demo_scenario --reset     # 3 emails to hr@rhflow.local: ca
 ```bash
 $P -m agents.cli run recruitment "Rank the applicants for job opening HR-OPN-2026-0001 and propose the shortlist."
 ```
-About 35 s per CV (≈ 10 min, nothing is printed while it scores). RH AI → ranking card: each candidate has a
+About 35 s per CV (≈ 10 min, nothing is printed while it scores). HR AI → ranking card: each candidate has a
 score computed by code and a one-line, job-related justification. Poisoned CV `APP-ATTACK-1` (white text) is
 listed as *Quarantined (security)* and never scored. Rankings that mention age, gender, origin… are refused
 (`protected_term_in_text`), and a skewed selection triggers the four-fifths `adverse_impact` alert.
@@ -205,7 +205,7 @@ Private window → `/chat` as `Utilisateur` / `user` → **Clear**, then ask:
 - `How many casual leave days do I have left, and is my leave request approved?` → own data only
 - `Can I carry over unused casual leave to next year?` → answer from the policy documents
 - `What is the leave balance and the salary of my colleague Rim Sfaxi?` → refused (other people's data)
-- `I need a work certificate for my bank appointment next week, can HR prepare it?` → an **HR request** card appears in RH AI
+- `I need a work certificate for my bank appointment next week, can HR prepare it?` → an **HR request** card appears in HR AI
 
 ### 5. HR gives orders in the chat (Confirm = approval)
 `/chat` as `Administrator` → **Clear**:
@@ -269,7 +269,7 @@ stops with "Stack not ready, down: …" if a service is missing.
 | Agent prints `401` / `403` on reads | Re-run `ADMIN_PASSWORD=admin $P agents/scripts/setup_agent_users.py` (needed again after a site reset) |
 | Email approved but not in Mailpit | `bench --site frontend enable-scheduler` and check the Email Account "HR Flow HR" (created by `setup_stack.py site`) |
 | Seed says "Company 'Bara3am' not found" | Finish the setup wizard with that exact company name, then re-run the seed (it is idempotent) |
-| The RH AI card shows `To: ` / `Hello ,` | Known display limit: the HTML filter hides `<SENDER>` / `<PERSON_1>`. Open **Details / edit → Payload** |
+| The HR AI card shows `To: ` / `Hello ,` | Known display limit: the HTML filter hides `<SENDER>` / `<PERSON_1>`. Open **Details / edit → Payload** |
 | Start over | `docker compose -p hr -f platform/hr.yml down -v` (deletes the database), then B1 again |
 
 ---

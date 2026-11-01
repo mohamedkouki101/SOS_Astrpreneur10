@@ -44,7 +44,7 @@ are gaps in coverage, not ways for an agent to act alone.
 
 - **Refused proposals leave no central audit entry.** `hr_ai` has no audit or monitor of its own: that logic lives in the guardrails service. In the wired mode `hr_ai` calls the guardrails' dry-run check, so a refusal is returned to the caller and logged on the agent side (`var/audit.jsonl`), but a direct API call that is refused leaves no trace.
 - **The guardrails' own queue, audit chain and monitor are built and tested but not on the main path.** The decision trail in the demo is the AI Action history in Frappe (who approved, when), plus the agent-side hash-chained trail.
-- **RH AI card hides placeholders.** Frappe's HTML filter strips `<SENDER>` and `<PERSON_1>` from the card summary (they look like tags), so the card shows `To: ` / `Hello ,`. The payload and the sent email are correct; show **Details / edit → Payload** in the demo. The filter must stay on: the summary is model output.
+- **HR AI card hides placeholders.** Frappe's HTML filter strips `<SENDER>` and `<PERSON_1>` from the card summary (they look like tags), so the card shows `To: ` / `Hello ,`. The payload and the sent email are correct; show **Details / edit → Payload** in the demo. The filter must stay on: the summary is model output.
 - **Decision-only kinds** (ranking, digest, leave decision) record HR's decision but trigger no automatic write; HR follows up by hand.
 - **Approval key** (`hr_ai_approval_secret`) lives in Frappe site config; no key management or rotation.
 - **At-most-once execution:** a timeout during a write marks the action Failed / outcome unknown and is never retried automatically.

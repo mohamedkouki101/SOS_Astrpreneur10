@@ -1,4 +1,4 @@
-"""S04: an employee uses RH Chat (website user 'Utilisateur', linked by HR to employee HR-EMP-00007,
+"""S04: an employee uses HR Chat (website user 'Utilisateur', linked by HR to employee HR-EMP-00007,
 Khalil Ouali). Answers come from their own HR data only; anything HR must do becomes an hr_request
 AI Action. The employee can never approve anything."""
 
@@ -41,13 +41,13 @@ r.check(not rep.get("ai_action"), "no action created")
 r.check(any(w in txt for w in ("only", "own", "cannot", "can't", "not able", "unable", "not share", "privacy", "held back")),
         "the assistant declines to share a colleague's data")
 
-r.step("4. A request HR must handle becomes an hr_request in RH AI")
+r.step("4. A request HR must handle becomes an hr_request in HR AI")
 rep = ask("I need a work certificate for my bank appointment next week, can HR prepare it?")
 name = rep.get("ai_action")
 r.check(bool(name), "hr_request AI Action created", name or "none")
 if name:
     a = adm.action(name)
-    r.info("RH AI card:\n      " + a["summary"].replace("\n", "\n      "))
+    r.info("HR AI card:\n      " + a["summary"].replace("\n", "\n      "))
     r.check(a["kind"] == "hr_request" and a["agent"] == "assistant" and a["status"] == "Proposed", "kind hr_request, Proposed")
     refused = emp.approve(name)
     r.check(refused.status_code == 403, "the employee cannot approve it", str(refused.status_code))

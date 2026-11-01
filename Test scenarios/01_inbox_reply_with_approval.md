@@ -23,7 +23,7 @@ Script: `scripts/s01_inbox_reply.py` · about 2 minutes (one model run)
 
 ## Show it live
 1. Send the email: `$P -m agents.scripts.demo_scenario --reset` (or let the script send a fresh one).
-2. RH AI → **Sync inbox & CVs**. The Inbound Email appears with verdict `clean`.
+2. HR AI → **Sync inbox & CVs**. The Inbound Email appears with verdict `clean`.
 3. Wait 30-120 s: a **Comms** card "Re: Question about the Data Analyst position" arrives in *Waiting for decision*.
 4. **Details / edit → Payload**: `"to": "<SENDER>"`, body `Hello <PERSON_1>,`. No name, no phone number.
    Integrity section: action hash and the source hash of the email.
@@ -48,5 +48,5 @@ second approval refused · exactly one email sent · guardrails audit hash chain
 ```
 
 ## Notes
-- The RH AI card text hides `<SENDER>` / `<PERSON_1>` (README finding 1); show the payload instead.
+- The HR AI card text hides `<SENDER>` / `<PERSON_1>` (README finding 1); show the payload instead.
 - Test mode: every outgoing mail goes to `hr_ai_test_recipient`, never to the fictional address.

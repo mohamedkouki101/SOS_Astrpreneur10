@@ -1,4 +1,4 @@
-"""HR-mode tools (RH Chat, the person chatting is an HR Manager): find records and PREPARE changes.
+"""HR-mode tools (HR Chat, the person chatting is an HR Manager): find records and PREPARE changes.
 
 The operator agent reads with its own read-only API user and proposes changes; the HR user confirms
 each change in the chat, and only then the Execution Gateway (hr_ai/executor.py) writes it.

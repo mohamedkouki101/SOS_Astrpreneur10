@@ -1,4 +1,4 @@
-"""S06: prompt injection typed into RH Chat. The chat text goes through the input security layer
+"""S06: prompt injection typed into HR Chat. The chat text goes through the input security layer
 BEFORE the assistant: the message is held back, the model never reads it, HR sees it in Security checks."""
 
 import rhflow as r

@@ -1,4 +1,4 @@
-"""RH Chat: intake output is checked by code, personas bind only to identities linked to the account,
+"""HR Chat: intake output is checked by code, personas bind only to identities linked to the account,
 each persona gets its own tool allowlist, and requests become hr_request proposals."""
 
 import hashlib

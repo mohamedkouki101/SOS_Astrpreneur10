@@ -28,9 +28,9 @@ class RunContext:
     agent: str
     client: Any = None                        # PlatformClient (or a fake in tests)
     caller_employee: str | None = None        # bound by the interface, never by the model
-    caller_applicant: str | None = None       # RH Chat: the Job Applicant HR linked to the account
-    chat_message: str | None = None           # RH Chat: the Chat Message this run answers
-    persona: str | None = None                # RH Chat: "employee" / "applicant" (picked by intake, bound by code)
+    caller_applicant: str | None = None       # HR Chat: the Job Applicant HR linked to the account
+    chat_message: str | None = None           # HR Chat: the Chat Message this run answers
+    persona: str | None = None                # HR Chat: "employee" / "applicant" (picked by intake, bound by code)
     run_id: str = field(default_factory=lambda: uuid.uuid4().hex[:12])
     sources: dict[str, Source] = field(default_factory=dict)        # sha256 -> Source
     evaluations: dict[str, dict] = field(default_factory=dict)      # applicant -> evaluation

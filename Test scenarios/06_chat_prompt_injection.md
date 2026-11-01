@@ -24,7 +24,7 @@ Script: `scripts/s06_chat_injection.py` · about 1 minute (one model answer at t
 
 ## Show it live
 Chat as *Utilisateur*, paste the first attack. The reply is: *"Your message was held back by the security
-check, so the assistant did not read it. HR has been notified…"*. In RH AI → **Security checks**, the chat
+check, so the assistant did not read it. HR has been notified…"*. In HR AI → **Security checks**, the chat
 message is listed as quarantined; **Inspect** shows the matched rules.
 
 ## Expected

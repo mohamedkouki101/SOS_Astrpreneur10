@@ -142,7 +142,7 @@ class Session:
         rows = self.list("AI Action", ["name", "kind", "agent", "status", "subject", "creation"], filters, limit=1)
         return rows[0] if rows else None
 
-    # ------------------------------------------------ RH Chat
+    # ------------------------------------------------ HR Chat
 
     def chat_clear(self) -> None:
         self.method("hr_ai.chat.clear").raise_for_status()

@@ -22,17 +22,21 @@ scheduler_events = {"cron": {"* * * * *": ["hr_ai.ingest.sync_inbox_job"]}}
 # Released mail is sent to the agent service as a signed event (webhooks.py); failed deliveries are
 # retried by the same job.
 
-# Apps screen: the ERPNext tile is replaced by the RH Chat tile (boot data only; erpnext is untouched).
+# Apps screen: the ERPNext tile is replaced by the HR Chat tile (boot data only; erpnext is untouched).
 extend_bootinfo = "hr_ai.desk.extend_bootinfo"
 # Chat users (website users, no Desk) land on the chat page after login; everyone else is unchanged.
 get_website_user_home_page = "hr_ai.desk.home_page"
 
-# RH AI tile on the /desk apps screen -> decision page where HR allows or declines agent proposals.
+# Sign-in step in front of each apps-screen tile (hr_ai/app_gate.py): chat user for HR Chat, admin for the rest.
+app_include_js = "/assets/hr_ai/js/app_gate.js"
+app_include_css = "/assets/hr_ai/css/app_gate.css"
+
+# HR AI tile on the /desk apps screen -> decision page where HR allows or declines agent proposals.
 add_to_apps_screen = [
     {
         "name": "hr_ai",
         "logo": "/assets/hr_ai/images/hr-ai-logo.svg",
-        "title": "RH AI",
+        "title": "HR AI",
         "route": "/desk/rh-ai",
         "has_permission": "hr_ai.api.check_app_permission",
         "sequence_id": 3,

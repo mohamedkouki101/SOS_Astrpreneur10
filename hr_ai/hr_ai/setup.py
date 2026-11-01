@@ -1,5 +1,5 @@
 """Install / migrate hooks: approval key, the fields linking HR Flow records to the input security layer,
-and the chat (RH Chat) role and identity links.
+and the chat (HR Chat) role and identity links.
 
 Demo users (run once, passwords passed on the command line, never stored in git):
     bench --site frontend execute hr_ai.setup.setup_demo_users \
@@ -47,7 +47,7 @@ CUSTOM_FIELDS = {
     # Who a chat user is in HR Core. Set by HR (System Manager), never by the chat or the AI.
     # Kept on the User (not Employee.user_id) so the chat user never gains the Employee desk role.
     "User": [
-        {"fieldname": "rhflow_chat_section", "fieldtype": "Section Break", "label": "RH Chat identity",
+        {"fieldname": "rhflow_chat_section", "fieldtype": "Section Break", "label": "HR Chat identity",
          "insert_after": "user_type", "collapsible": 1},
         {"fieldname": "rhflow_chat_employee", "fieldtype": "Link", "options": "Employee",
          "label": "Chat: linked employee", "insert_after": "rhflow_chat_section"},
@@ -156,3 +156,37 @@ def setup_demo_users(chat_password: str, admin_password: str | None = None, empl
                                            "rhflow_chat_applicant": applicant})
     frappe.db.commit()
     return {"user": CHAT_USER, "login": CHAT_USERNAME, "employee": employee, "applicant": applicant}
+
+
+# Demo accounts for the sign-in step of the apps-screen tiles (hr_ai/app_gate.py). Fictional.
+GATE_USER = ("demo.user@hrflow.local", "demo.user", "Demo User")
+GATE_ADMIN = ("demo.admin@hrflow.local", "demo.admin", "Demo Admin")
+GATE_ADMIN_ROLES = ["System Manager", "HR Manager", "HR User"]
+
+
+def setup_gate_users(user_password: str, admin_password: str) -> dict:
+    """Create (or reset) the two fictional sign-in accounts. Passwords on the command line only:
+        bench --site frontend execute hr_ai.setup.setup_gate_users \\
+            --kwargs "{'user_password': '...', 'admin_password': '...'}"
+    demo.user: chat user (Website User), linked to the same fictional employee/applicant as the
+    chat demo user. demo.admin: Desk administrator (System Manager + HR Manager)."""
+    ensure_chat_role()
+    links = frappe.db.get_value("User", CHAT_USER, ["rhflow_chat_employee", "rhflow_chat_applicant"],
+                                as_dict=True) or {}
+    for (email, username, name), user_type, roles in (
+        (GATE_USER, "Website User", [CHAT_ROLE]),
+        (GATE_ADMIN, "System User", GATE_ADMIN_ROLES),
+    ):
+        user = frappe.get_doc("User", email) if frappe.db.exists("User", email) else frappe.get_doc(
+            {"doctype": "User", "email": email, "send_welcome_email": 0})
+        user.update({"first_name": name, "username": username, "user_type": user_type, "enabled": 1})
+        user.set("roles", [{"role": r} for r in roles])
+        user.flags.ignore_permissions = True
+        user.save() if not user.is_new() else user.insert()
+    frappe.db.set_value("User", GATE_USER[0], {"rhflow_chat_employee": links.get("rhflow_chat_employee"),
+                                               "rhflow_chat_applicant": links.get("rhflow_chat_applicant")})
+    update_password(GATE_USER[0], user_password)
+    update_password(GATE_ADMIN[0], admin_password)
+    frappe.db.set_single_value("System Settings", "allow_login_using_user_name", 1)
+    frappe.db.commit()
+    return {"user": GATE_USER[1], "admin": GATE_ADMIN[1], "links": links}

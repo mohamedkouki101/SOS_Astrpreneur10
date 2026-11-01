@@ -1,4 +1,4 @@
-# 04 · Employee self-service in RH Chat
+# 04 · Employee self-service in HR Chat
 
 **Story.** Khalil Ouali (employee HR-EMP-00007, logged in as website user *Utilisateur*) asks the HR
 assistant about his leave, the leave policy, a colleague's salary, and a work certificate. He gets answers
@@ -26,7 +26,7 @@ Private window → http://localhost:8001/chat, login `utilisateur@rhflow.local` 
 2. `Can I carry over unused casual leave to next year?`
 3. `What is the leave balance and the salary of my colleague Rim Sfaxi?`
 4. `I need a work certificate for my bank appointment next week, can HR prepare it?`
-   → in RH AI (Administrator), a new **HR request** card appears.
+   → in HR AI (Administrator), a new **HR request** card appears.
 
 ## Expected
 - Answer 1 gives the casual leave balance and says request HR-LAP-2026-00009 is still Open.
@@ -47,7 +47,7 @@ bot> I cannot provide information about your colleague Rim Sfaxi's leave balance
      available in your context. For such details, please contact HR directly.
 employee> I need a work certificate for my bank appointment next week, can HR prepare it?
 bot> HR has received your request for a work certificate and will prepare it ...
-RH AI card (AIA-2026-00042): RH Chat request from a employee (document) — The employee is requesting a work certificate ...
+HR AI card (AIA-2026-00042): HR Chat request from a employee (document) — The employee is requesting a work certificate ...
 employee approve -> 403 · employee Confirm -> 403 · HR allows -> Approved, "Decision recorded"
 ```
 

@@ -33,7 +33,7 @@ rhf graph              # Mermaid diagram of the orchestrator graph
 rhf audit-verify       # check the hash chain of the agent audit trail
 ```
 
-### Agent service (RH Chat + automatic inbox replies)
+### Agent service (HR Chat + automatic inbox replies)
 
 ```sh
 $HOME/.venvs/rhflow-agents/bin/python -m agents.integration.server   # 127.0.0.1:8200
@@ -41,7 +41,7 @@ $HOME/.venvs/rhflow-agents/bin/python -m agents.integration.server   # 127.0.0.1
 
 HR Core calls it with signed requests (`hr_ai/webhooks.py` -> `agents/integration/server.py`):
 HMAC-SHA256 over timestamp + event id + body, a 300 s replay window, and one run per event id.
-- `POST /chat`: an RH Chat message (page `/chat`). The text went through the input security layer first;
+- `POST /chat`: an HR Chat message (page `/chat`). The text went through the input security layer first;
   a held-back message never reaches this service. Intake (qwen, strict JSON) picks the persona, code binds
   it to the employee / job applicant HR linked to the account (User fields "Chat: linked ..."), then the HR
   Assistant answers with that persona's tools only. Requests become an `hr_request` AI Action for HR.

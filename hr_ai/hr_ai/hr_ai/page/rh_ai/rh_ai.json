@@ -4,7 +4,7 @@
  "docstatus": 0,
  "doctype": "Page",
  "idx": 0,
- "modified": "2026-10-31 12:00:00.000000",
+ "modified": "2026-11-01 12:00:00.000000",
  "modified_by": "Administrator",
  "module": "HR AI",
  "name": "rh-ai",
@@ -19,5 +19,5 @@
  "standard": "Yes",
  "style": null,
  "system_page": 0,
- "title": "RH AI Decisions"
+ "title": "HR AI Decisions"
 }

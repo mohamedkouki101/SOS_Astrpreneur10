@@ -125,7 +125,7 @@ class GrievanceTriagePayload(Strict):
 
 
 class HrRequestPayload(Strict):
-    """RH Chat: something an employee or applicant asked for that only HR can do (HR follows up)."""
+    """HR Chat: something an employee or applicant asked for that only HR can do (HR follows up)."""
     message: str = Field(pattern=r"^CHAT-\d{4}-\d{5,}$")
     persona: Literal["employee", "applicant"]
     category: Literal["leave", "interview", "application", "document", "payroll", "complaint", "other"]
@@ -212,7 +212,7 @@ PROPOSAL_KINDS_BY_AGENT: dict[str, set[str]] = {
     "performance": {"review_summary"},
     "conflict": {"grievance_triage"},
     "assistant": {"hr_request"},
-    # RH Chat, HR mode only (the person chatting is an HR Manager): changes confirmed in the chat.
+    # HR Chat, HR mode only (the person chatting is an HR Manager): changes confirmed in the chat.
     "operator": {"interview_update", "applicant_status", "leave_application", "leave_decision", "employee_update"},
 }
 

@@ -34,7 +34,7 @@ No scenario had to be hard-coded or faked: every result above comes from the rea
 
 | Layer (design rules) | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 | 11 | 12 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Interfaces: Desk RH AI page / RH Chat / REST, roles | ● | ● | ● | ● | ● | ● | ● | | ● | ● | ● | ● |
+| Interfaces: Desk HR AI page / HR Chat / REST, roles | ● | ● | ● | ● | ● | ● | ● | | ● | ● | ● | ● |
 | Authentication + role permissions (HR Core) | ● | ● | | ● | ● | ● | ● | | | | | ● |
 | Integration: signed webhooks (HMAC, replay, idempotent) | ● | ● | | ● | ● | | | ● | | | | ● |
 | Integration: scheduler / inbox sync (Mailpit) | ● | ● | | | | | | | | | ● | |
@@ -82,7 +82,7 @@ restarts it. S07 uses the backend console only to simulate a database attacker (
 
 ## Findings from the runs (worth knowing before the demo)
 
-1. **RH AI card hides the placeholders.** The `summary` field of an AI Action is cleaned by HR Core's HTML
+1. **HR AI card hides the placeholders.** The `summary` field of an AI Action is cleaned by HR Core's HTML
    filter, which removes `<SENDER>` and `<PERSON_1>` (they look like HTML tags). The card then shows
    `To: ` and `Hello ,` (and **Show real names** has nothing left to replace). The payload keeps them and the
    sent email is correct (S01). For the demo, open **Details / edit → Payload** to point at `<PERSON_1>` and

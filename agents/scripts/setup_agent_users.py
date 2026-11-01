@@ -34,7 +34,7 @@ READS: dict[str, list[str]] = {
     "payroll": ["Salary Slip", "Attendance"],
     "performance": ["Appraisal", "Goal", "Employee Performance Feedback"],
     "conflict": ["Employee Grievance"],
-    # RH Chat HR mode: finds records and prepares changes; the Execution Gateway applies them.
+    # HR Chat HR mode: finds records and prepares changes; the Execution Gateway applies them.
     "operator": ["Employee", "Job Applicant", "Job Opening", "Interview", "Leave Application", "Leave Ledger Entry",
                  "Department", "Designation", "Branch"],
 }

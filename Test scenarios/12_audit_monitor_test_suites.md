@@ -9,7 +9,7 @@ Script: `scripts/s12_audit_monitor_tests.py` · about 1 minute, no model
 | Suite | Command | Result (2026-11-01) |
 |---|---|---|
 | Agents + hr_ai guardrail tests: injection, bypass, disparity, duplicate webhook, input layer, PII, chat, orchestrator | `$P -m pytest -q tests` (repo root) | **67 passed** |
-| Guardrails service: policy, fairness, approval, gateway, audit storage, monitor, auth, RH Chat rules | `cd guardrails && $P -m pytest -q` | **362 passed** |
+| Guardrails service: policy, fairness, approval, gateway, audit storage, monitor, auth, HR Chat rules | `cd guardrails && $P -m pytest -q` | **362 passed** |
 | Input security layer: file types, extraction, hidden text, unicode, PII, scanner, signing, API contract | `cd input-security-layer && .venv/bin/python -m pytest -q` | **367 passed** |
 
 796 tests in total, all green.

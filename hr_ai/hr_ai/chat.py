@@ -1,4 +1,4 @@
-"""RH Chat: employees and job applicants talk to the HR Flow assistant in plain language.
+"""HR Chat: employees and job applicants talk to the HR Flow assistant in plain language.
 
     user types -> send() stores the message (status Checking) and queues process()
     process(): 1. INPUT SECURITY LAYER first (POST /v1/email, UPLOAD key): sanitize, mask PII, scan
@@ -8,7 +8,7 @@
                   identities linked to this account by HR; the agents fetch the masked envelope
                4. the reply is stored for the user; tokens from the user's OWN messages are shown back
                   with their real values (the agents never see them)
-Anything that would change data becomes an AI Action that HR approves in RH AI; the chat never acts.
+Anything that would change data becomes an AI Action that HR approves in HR AI; the chat never acts.
 """
 
 import json
@@ -43,7 +43,7 @@ AGENTS_DOWN_REPLY = "The assistant is unavailable right now. Your message was ch
 
 def _require_chat_user() -> str:
     if frappe.session.user == "Guest" or not CHAT_ROLES & set(frappe.get_roles()):
-        frappe.throw("RH Chat is not available for this account", frappe.PermissionError)
+        frappe.throw("HR Chat is not available for this account", frappe.PermissionError)
     return frappe.session.user
 
 
@@ -102,8 +102,8 @@ def decide(message: str, decision: str) -> dict:
         frappe.throw("Nothing to confirm", frappe.PermissionError)
     action = frappe.get_doc("AI Action", msg.ai_action)
     if action.kind == "hr_request":
-        frappe.throw("Requests from employees and applicants are decided in RH AI")
-    note = f"Decided in RH Chat ({message})"
+        frappe.throw("Requests from employees and applicants are decided in HR AI")
+    note = f"Decided in HR Chat ({message})"
     action.approve(note) if decision == "confirm" else action.reject(note)
     return {"status": action.status}
 
@@ -156,7 +156,7 @@ def process(name: str):
             "body": msg.content, "is_html": False, "sender_email": _sender(msg.user),
             "message_id": f"<{msg.name}@chat.rhflow.local>"})
     except IngestError as exc:
-        frappe.log_error(title=f"RH Chat {name}: input security layer call failed")
+        frappe.log_error(title=f"HR Chat {name}: input security layer call failed")
         return _reply(msg, "Error", LAYER_REFUSED_REPLY if exc.status and exc.status < 500 else LAYER_DOWN_REPLY)
     verdict = verdict_of(summary)
     _update(name, report_id=summary["report_id"], doc_id=summary["doc_id"], verdict=verdict)
@@ -180,7 +180,7 @@ def process(name: str):
     try:
         result = call_agents("/chat", event, timeout=600)
     except AgentsError:
-        frappe.log_error(title=f"RH Chat {name}: agent service unavailable")
+        frappe.log_error(title=f"HR Chat {name}: agent service unavailable")
         return _reply(msg, "Error", AGENTS_DOWN_REPLY)
     # New transaction: the AI Action the agent just proposed was committed by another request, and
     # this job's REPEATABLE READ snapshot (taken before the call) would not see it.

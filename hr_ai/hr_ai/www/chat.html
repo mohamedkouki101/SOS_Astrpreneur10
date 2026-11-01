@@ -1,6 +1,6 @@
 {% extends "templates/web.html" %}
 
-{% block title %}RH Chat{% endblock %}
+{% block title %}HR Chat{% endblock %}
 
 {% block content %}
 <style>
@@ -82,7 +82,7 @@
     <div class="rc-head">
       <img src="/assets/hr_ai/images/hr-chat-logo.svg" alt="">
       <div>
-        <h1>RH Chat</h1>
+        <h1>HR Chat</h1>
         <p>Ask HR anything about your job, your leave or your application.</p>
       </div>
       <div class="rc-spacer"></div>
@@ -209,7 +209,7 @@
       else if (s === "Executed") meta.appendChild(chip("✓ Applied" + (r.action_result ? ": " + r.action_result : ""), "ok"));
       else if (s === "Failed") meta.appendChild(chip("Not applied: " + (r.action_result || "error"), "bad"));
       else if (s === "Rejected") meta.appendChild(chip("Cancelled", "warn"));
-      else if (s === "Proposed") meta.appendChild(chip("Waiting for HR in RH AI", "warn"));
+      else if (s === "Proposed") meta.appendChild(chip("Waiting for HR in HR AI", "warn"));
       card.appendChild(meta);
     }
     return card;
