@@ -42,6 +42,8 @@ KNOWN_PLACES = {
 
 # A date ("2026-11-16", "16/11/2026", "16-11-2026") is never a phone number: HR messages are full of them.
 DATE_LIKE = re.compile(r"\d{4}[-/.]\d{1,2}[-/.]\d{1,2}|\d{1,2}[-/.]\d{1,2}[-/.]\d{2,4}")
+# Nor is the number part of an HR record id ("HR-INT-2026-0009", "HR-LAP-2026-00027", "HR-EMP-00007").
+RECORD_ID = re.compile(r"\b[A-Z]{2,}(?:-[A-Z]{2,})*(?:-\d+)+\b")
 
 # HR vocabulary the small NER models tag as names when capitalized ("Privilege Leave", "Sick Leave",
 # "Congé Annuel"). A candidate made only of these words is not a person. Real names are never in here.
@@ -139,6 +141,7 @@ def _block_tldextract_downloads() -> None:
 
 def _presidio_detections(text: str, language: str) -> list[_Detection]:
     detections = []
+    record_ids = [m.span() for m in RECORD_ID.finditer(text)]
     for result in _analyzer().analyze(text=text, language=language, entities=["PERSON", "PHONE_NUMBER"]):
         if result.score < MIN_PRESIDIO_SCORE:
             continue
@@ -162,7 +165,8 @@ def _presidio_detections(text: str, language: str) -> list[_Detection]:
                     or all(word.lower().strip(".,;:!?()\"'") in HR_TERMS for word in words)):
                 continue
             detections.append(_Detection(start, end, "PERSON", False))
-        elif not CURRENCY_AFTER.match(text, end) and not DATE_LIKE.fullmatch(value.strip()):
+        elif (not CURRENCY_AFTER.match(text, end) and not DATE_LIKE.fullmatch(value.strip())
+              and not any(a <= start and end <= b for a, b in record_ids)):
             detections.append(_Detection(start, end, "PHONE", False))
     return detections
 
