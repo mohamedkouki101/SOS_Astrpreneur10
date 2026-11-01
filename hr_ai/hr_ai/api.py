@@ -64,8 +64,12 @@ def _token_values(raw, subject: str, payload: dict) -> dict:
     return {k: str(v)[:200] for k, v in raw.items() if k in used and isinstance(v, str)}
 
 
+SUBJECT_DOCTYPES = {"email": "Inbound Email"}
+
+
 def _reference(subject: str, tokens: dict):
     doctype, _, name = (subject or "").partition("/")
+    doctype = SUBJECT_DOCTYPES.get(doctype, doctype)
     name = tokens.get(name, name)
     if doctype and name and frappe.db.exists("DocType", doctype) and frappe.db.exists(doctype, name):
         return doctype, name
@@ -92,9 +96,13 @@ def propose_action(action):
     if external_id and (existing := frappe.db.get_value("AI Action", {"external_id": external_id}, "name")):
         return {"name": existing, "status": frappe.db.get_value("AI Action", existing, "status"), "duplicate": True}
 
+    # No id from the agent: make one now and store it, so the proposal check and the
+    # pre-execution check send the guardrails the same external_id.
+    external_id = external_id or f"AIA-{frappe.generate_hash(length=10)}"
+
     tokens = _token_values(action.get("token_values"), subject, payload)
     ref_dt, ref_name = _reference(subject, tokens)
-    doc = frappe.get_doc({
+    record = {
         "doctype": "AI Action",
         "kind": kind,
         "agent": agent,
@@ -109,11 +117,22 @@ def propose_action(action):
         "run_id": str(action.get("run_id", ""))[:40],
         "status": "Proposed",
         "token_map": json.dumps(tokens, ensure_ascii=False, indent=1) if tokens else None,
-    })
+    }
+    _ask_guardrails(record)  # blocked proposals never reach the HR queue
+    doc = frappe.get_doc(record)
     doc.flags.ignore_permissions = True
     doc.flags.from_propose_action = True
     doc.insert()
     return {"name": doc.name, "status": doc.status}
+
+
+def _ask_guardrails(record: dict):
+    """Policy, fairness and token checks in the guardrails service. Fail closed."""
+    from hr_ai.guardrails_client import GuardrailsRefused, check
+    try:
+        check(record, frappe.conf)
+    except GuardrailsRefused as exc:
+        frappe.throw(str(exc), frappe.PermissionError)
 
 
 # ---------------------------------------------------------------- RH AI decision page (Desk app)
@@ -144,10 +163,39 @@ def review_queue(status: str = "Proposed", agent: str | None = None, limit: int 
                            limit_page_length=min(int(limit), 200))
     can_decide = bool(DECIDER_ROLES & set(frappe.get_roles()))
     if can_decide and rows:
-        maps = dict(frappe.get_list("AI Action", filters={"name": ["in", [r.name for r in rows]]},
-                                    fields=["name", "token_map"], as_list=True))
+        extra = {r[0]: r[1:] for r in frappe.get_list("AI Action", filters={"name": ["in", [r.name for r in rows]]},
+                                                      fields=["name", "token_map", "payload"], as_list=True)}
         for r in rows:
-            r["token_map"] = json.loads(maps.get(r.name) or "{}")
+            token_map, payload = extra.get(r.name, (None, None))
+            r["token_map"] = {**json.loads(token_map or "{}"), **_layer_display_map(payload)}
     counts = {s: len(frappe.get_list("AI Action", filters={"status": s}, pluck="name", limit_page_length=0))
               for s in statuses}
-    return {"rows": rows, "counts": counts, "can_decide": can_decide}
+    return {"rows": rows, "counts": counts, "can_decide": can_decide, "security_pending": _security_pending(can_decide)}
+
+
+def _layer_display_map(payload: str | None) -> dict:
+    """For HR deciders only: real values behind input-layer tokens, from the inspection report of the
+    source email (REPORT key, the dashboard's key) and the Inbound Email's restricted sender field."""
+    try:
+        p = json.loads(payload or "{}")
+        if not (p.get("doc_id") and p.get("email_id")):
+            return {}
+        inbound = frappe.db.get_value("Inbound Email", p["email_id"], ["report_id", "sender_email", "doc_id"], as_dict=True)
+        if not inbound or inbound.doc_id != p["doc_id"]:
+            return {}
+        from hr_ai.ingest import masked_values
+        return {**masked_values(inbound.report_id), "<SENDER>": inbound.sender_email}
+    except Exception:
+        return {}  # display convenience only: the page still works with placeholders
+
+
+def _security_pending(can_decide: bool) -> int | None:
+    """Quarantined documents waiting for an HR decision (None if the layer is unreachable)."""
+    if not can_decide:
+        return None
+    try:
+        from hr_ai.ingest import _call
+        return sum(1 for r in _call("GET", "/v1/reports", "hr_ai_ingest_report_key", timeout=10)
+                   if r.get("verdict") == "quarantined" and not r.get("decision"))
+    except Exception:
+        return None

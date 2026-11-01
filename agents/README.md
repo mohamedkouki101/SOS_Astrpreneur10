@@ -59,6 +59,13 @@ Runtime files go to `var/` (gitignored): `audit.jsonl`, `alerts.jsonl`, `outbox/
 - **One candidate per context.** Each CV is evaluated in its own isolated Qwen call; scores are computed by code.
 - **The Output Validator is code.** It checks schema, cited source hashes, that evidence quotes exist in the source, and that there are no injected instructions or unmasked contact data.
 
+## Input security layer
+`INPUT_LAYER=local` (default, used by the tests) runs the built-in stages 1-4 in `agents/ingest/`.
+`INPUT_LAYER=service` reads CVs and inbox emails only as signed envelopes from the input security layer
+(`agents/tools/input_layer.py`): signature, trust and chunk hashes are checked, quarantined documents are never
+used, and names the layer missed are masked again from the trusted record. Needs `INGEST_URL`,
+`INGEST_ENVELOPE_API_KEY` and `INGEST_SIGNING_KEY` in `.env`. See `docs/manual-test.md`.
+
 ## Tests
 
 ```sh

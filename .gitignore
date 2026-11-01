@@ -45,3 +45,6 @@ var/
 
 # local session handoff notes
 session.md
+
+# Input security layer: Evidence Store data (raw CVs and emails, PII token mappings)
+evidence/

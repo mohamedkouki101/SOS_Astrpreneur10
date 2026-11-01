@@ -1,0 +1,136 @@
+{
+  "version": "2026-10-31.1",
+  "agents": {
+    "recruitment_agent": {
+      "tools": [
+        "rank_candidate",
+        "update_applicant_status",
+        "schedule_interview",
+        "rank_shortlist"
+      ]
+    },
+    "comms_agent": {
+      "tools": [
+        "send_email",
+        "propose_interview_slots",
+        "inbox_digest"
+      ]
+    },
+    "hr_assistant": {
+      "tools": [
+        "answer_employee"
+      ]
+    },
+    "onboarding_agent": {
+      "tools": []
+    },
+    "leave_agent": {
+      "tools": []
+    },
+    "payroll_agent": {
+      "tools": []
+    },
+    "performance_agent": {
+      "tools": []
+    },
+    "conflict_agent": {
+      "tools": []
+    }
+  },
+  "tools": {
+    "rank_candidate": {
+      "description": "Record a score + justification for ONE applicant against ONE job opening",
+      "subject_doctypes": [
+        "Job Applicant"
+      ],
+      "rate_limit": {
+        "max": 200,
+        "window_seconds": 3600
+      }
+    },
+    "update_applicant_status": {
+      "description": "Move an applicant in the pipeline (e.g. Open -> Replied)",
+      "subject_doctypes": [
+        "Job Applicant"
+      ],
+      "rate_limit": {
+        "max": 100,
+        "window_seconds": 3600
+      }
+    },
+    "send_email": {
+      "description": "Send a reply to the person the action is about. Address resolved from Frappe by the gateway.",
+      "subject_doctypes": [
+        "Job Applicant",
+        "Employee"
+      ],
+      "max_recipients": 1,
+      "recipient_doctypes": [
+        "Job Applicant",
+        "Employee"
+      ],
+      "recipient_must_be_subject": true,
+      "rate_limit": {
+        "max": 30,
+        "window_seconds": 3600
+      }
+    },
+    "propose_interview_slots": {
+      "description": "Offer interview slots to one applicant",
+      "subject_doctypes": [
+        "Job Applicant"
+      ],
+      "max_recipients": 1,
+      "recipient_doctypes": [
+        "Job Applicant"
+      ],
+      "recipient_must_be_subject": true,
+      "rate_limit": {
+        "max": 30,
+        "window_seconds": 3600
+      }
+    },
+    "answer_employee": {
+      "description": "Answer an employee policy question, to that employee only",
+      "subject_doctypes": [
+        "Employee"
+      ],
+      "max_recipients": 1,
+      "recipient_doctypes": [
+        "Employee"
+      ],
+      "recipient_must_be_subject": true,
+      "rate_limit": {
+        "max": 60,
+        "window_seconds": 3600
+      }
+    },
+    "schedule_interview": {
+      "description": "Create a Frappe HR Interview for ONE applicant (agent-layer 'interview' kind)",
+      "subject_doctypes": [
+        "Job Applicant"
+      ],
+      "rate_limit": {
+        "max": 30,
+        "window_seconds": 3600
+      }
+    },
+    "rank_shortlist": {
+      "description": "Propose the ranked shortlist of ONE job opening (agent-layer 'ranking' kind). Decision only: nothing is written to Frappe",
+      "subject_doctypes": [
+        "Job Opening"
+      ],
+      "rate_limit": {
+        "max": 50,
+        "window_seconds": 3600
+      }
+    },
+    "inbox_digest": {
+      "description": "Summarise the HR inbox for HR (agent-layer 'digest' kind). Decision only: nothing is written or sent",
+      "rate_limit": {
+        "max": 30,
+        "window_seconds": 3600
+      }
+    }
+  }
+}

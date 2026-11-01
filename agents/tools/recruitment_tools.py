@@ -23,7 +23,7 @@ from agents.ingest import pipeline
 from agents.ingest.injection import rule_hits
 from agents.orchestrator import audit
 from agents.orchestrator.llm_client import make_llm
-from agents.tools import outbox
+from agents.tools import input_layer, outbox
 from agents.tools.common import client, dataset, ref, register_record, safe_tool, unref
 from agents.tools.platform_client import PlatformError
 from agents.validation.schemas import CandidateEvaluation
@@ -105,6 +105,14 @@ def _evaluate(applicant: str, llm=None) -> dict:
     known = {"PERSON": app.get("applicant_name") or "", "EMAIL": app.get("email_id") or "",
              "PHONE": app.get("phone_number") or ""}
 
+    if input_layer.enabled():
+        cv = _cv_from_layer(app, applicant, opening["name"])
+        if isinstance(cv, dict):            # quarantined / not inspected yet: no CV text reaches the model
+            if cv["status"] == "QUARANTINED":
+                ctx.evaluations[applicant] = cv
+            return cv
+        return _score_cv(ctx, applicant, opening, req, cv, llm)
+
     results = []
     if app.get("resume_attachment"):
         data = client().get_file(app["resume_attachment"])
@@ -123,7 +131,29 @@ def _evaluate(applicant: str, llm=None) -> dict:
         return {"applicant": applicant, "status": "NO_CV"}
 
     cv = results[0]
-    ctx.add_source(Source(source_id=cv.source_id, sha256=cv.sha256, text=cv.text, kind="cv"))
+    source = Source(source_id=cv.source_id, sha256=cv.sha256, text=cv.text, kind="cv")
+    ctx.add_source(source)
+    return _score_cv(ctx, applicant, opening, req, source, llm)
+
+
+def _cv_from_layer(app: dict, applicant: str, opening: str) -> Source | dict:
+    """The applicant's CV as released by the input security layer (cover letters are not used in this mode)."""
+    report_id, verdict = app.get("rhflow_ingest_report_id"), app.get("rhflow_ingest_verdict") or "unknown"
+    source_id = f"Job Applicant/{applicant}/cv"
+    if not report_id:
+        return {"applicant": applicant, "status": "NOT_INSPECTED",
+                "reason": "the CV has not been through the input security layer yet"}
+    envelope = input_layer.fetch(report_id)
+    if envelope is None:
+        return {"applicant": applicant, "opening": opening, "status": "QUARANTINED",
+                "reason": [f"held back by the input security layer (verdict: {verdict})"], "source": source_id}
+    known = {applicant: app.get("applicant_name"), "[EMAIL]": app.get("email_id"), "[PHONE]": app.get("phone_number")}
+    source = input_layer.to_source(source_id, envelope, "cv", {"applicant": applicant}, known)
+    current().add_source(source)
+    return source
+
+
+def _score_cv(ctx, applicant: str, opening: dict, req: dict, cv: Source, llm=None) -> dict:
     skills = req["required"] + req["nice_to_have"]
     model = (llm or make_llm()).with_structured_output(CandidateEvaluation, method="json_schema")
     evaluation: CandidateEvaluation = model.invoke([

@@ -70,6 +70,8 @@ def validate_proposal(agent: str, kind: str, subject: str, payload: dict, source
     except PydanticError as exc:
         raise ValidationError(f"payload off-schema: {exc.errors()[0]['msg']} at {exc.errors()[0]['loc']}") from exc
     clean = model.model_dump(mode="json")
+    if kind == "email_reply" and clean.get("doc_id") is None:
+        clean.pop("doc_id", None)   # local-pipeline replies keep their original shape
 
     if not source_hashes:
         raise ValidationError("proposal cites no source hash")

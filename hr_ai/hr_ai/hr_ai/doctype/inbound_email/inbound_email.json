@@ -1,0 +1,48 @@
+{
+ "actions": [],
+ "autoname": "IN-.YYYY.-.#####",
+ "creation": "2026-11-01 12:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "verdict", "released_to_ai", "received_on", "column_break_1", "job_applicant", "mailpit_id",
+  "section_layer", "report_id", "doc_id", "attachments",
+  "section_restricted", "sender_email", "subject", "message_id"
+ ],
+ "fields": [
+  {"fieldname": "verdict", "fieldtype": "Select", "label": "Security verdict", "options": "\nclean\nsuspicious\nquarantined\nreleased\nrejected\nerror", "read_only": 1, "in_list_view": 1, "in_standard_filter": 1},
+  {"fieldname": "released_to_ai", "fieldtype": "Check", "label": "Released to the AI", "read_only": 1, "in_list_view": 1},
+  {"fieldname": "received_on", "fieldtype": "Datetime", "label": "Received on", "read_only": 1, "in_list_view": 1},
+  {"fieldname": "column_break_1", "fieldtype": "Column Break"},
+  {"fieldname": "job_applicant", "fieldtype": "Link", "label": "Job Applicant", "options": "Job Applicant", "read_only": 1},
+  {"fieldname": "mailpit_id", "fieldtype": "Data", "label": "Mailbox message ID", "read_only": 1, "unique": 1},
+  {"fieldname": "section_layer", "fieldtype": "Section Break", "label": "Input security layer"},
+  {"fieldname": "report_id", "fieldtype": "Data", "label": "Inspection report", "read_only": 1},
+  {"fieldname": "doc_id", "fieldtype": "Data", "label": "Document hash (SHA-256)", "read_only": 1},
+  {"fieldname": "attachments", "fieldtype": "Code", "options": "JSON", "label": "Attachments (inspected separately)", "read_only": 1},
+  {"fieldname": "section_restricted", "fieldtype": "Section Break", "label": "Original sender (HR only, never sent to the AI)", "permlevel": 1},
+  {"fieldname": "sender_email", "fieldtype": "Data", "label": "Sender", "read_only": 1, "permlevel": 1},
+  {"fieldname": "subject", "fieldtype": "Data", "label": "Subject", "read_only": 1, "permlevel": 1},
+  {"fieldname": "message_id", "fieldtype": "Data", "label": "Message-ID", "read_only": 1, "permlevel": 1}
+ ],
+ "in_create": 1,
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-11-01 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "HR AI",
+ "name": "Inbound Email",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {"role": "System Manager", "read": 1, "report": 1},
+  {"role": "HR Manager", "read": 1, "report": 1},
+  {"role": "HR User", "read": 1, "report": 1},
+  {"role": "System Manager", "permlevel": 1, "read": 1},
+  {"role": "HR Manager", "permlevel": 1, "read": 1}
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

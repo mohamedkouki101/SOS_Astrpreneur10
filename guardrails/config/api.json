@@ -1,0 +1,26 @@
+{
+  "version": "2026-10-31.1",
+  "agent_accounts": {
+    "svc.recruitment@hr-ai.test": "recruitment_agent",
+    "svc.comms@hr-ai.test": "comms_agent",
+    "svc.assistant@hr-ai.test": "hr_assistant",
+    "agent.recruitment@rhflow.local": "recruitment_agent",
+    "agent.comms@rhflow.local": "comms_agent",
+    "agent.assistant@rhflow.local": "hr_assistant",
+    "agent.onboarding@rhflow.local": "onboarding_agent",
+    "agent.leave@rhflow.local": "leave_agent",
+    "agent.payroll@rhflow.local": "payroll_agent",
+    "agent.performance@rhflow.local": "performance_agent",
+    "agent.conflict@rhflow.local": "conflict_agent"
+  },
+  "ingest_accounts": [
+    "svc.ingest@hr-ai.test"
+  ],
+  "cors_origins": [
+    "http://localhost:8080",
+    "http://localhost:5173"
+  ],
+  "max_body_bytes": 262144,
+  "max_json_depth": 20,
+  "rate_limit_per_minute": 120
+}

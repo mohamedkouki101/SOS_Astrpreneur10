@@ -2,12 +2,17 @@
 
 Flow: HR clicks Approve -> on_update hook enqueues execute(name) -> checks -> handler -> Executed | Failed.
 Checks before acting: status is Approved (so a second run is a no-op), the payload still matches
-action_hash, and the approval token is valid for (name, action_hash, approver).
-Pseudonyms ([PERSON_1], [EMAIL_1], [APPLICANT_1]) are resolved back to real values ONLY here.
+action_hash, the approval token is valid for (name, action_hash, approver), and the guardrails
+service still allows the action (policy, fairness, token values; rules or records may have
+changed since approval). Guardrails unreachable -> Failed (fail closed).
+Pseudonyms are resolved back to real values ONLY here:
+- <PERSON_1>-style tokens from the input security layer: POST /v1/resolve (RESOLVER key held only here),
+  scoped to the document (doc_id) the proposal was built from;
+- [PERSON_1]-style tokens from the agents' local pipeline: the token_map stored on the AI Action;
+- "<SENDER>": the original sender of the inbox email, read from the Inbound Email record (HR-only field).
 
 TEST MODE: every email goes to the address in site config `hr_ai_test_recipient`, never to the
 (fictional) applicant. Without that setting, emails are refused.
-TODO (security pass): policy.py re-check (default-deny), fairness, hr_ai audit log, monitor alerts.
 """
 
 import html
@@ -20,6 +25,7 @@ from frappe.utils import now_datetime
 from hr_ai.approval import canonical_hash, verify
 
 TOKEN = re.compile(r"\[[A-Z]+_\d+\]")
+LAYER_TOKEN = re.compile(r"<[A-Z_]+_[1-9][0-9]{0,3}>")
 
 
 def on_update(doc, method=None):
@@ -66,6 +72,11 @@ def _check(doc):
         raise ExecutionError("Integrity check failed: payload does not match the approved action hash")
     if not verify(doc.name, doc.action_hash, doc.approver, doc.approval_token):
         raise ExecutionError("Approval token is missing or invalid")
+    from hr_ai.guardrails_client import GuardrailsRefused, check
+    try:
+        check({**doc.as_dict(), "external_id": doc.external_id or doc.name}, frappe.conf)
+    except GuardrailsRefused as exc:
+        raise ExecutionError(str(exc)) from None
 
 
 def _finish(doc, status, message, result_doctype=None, result_name=None):
@@ -80,12 +91,28 @@ def _finish(doc, status, message, result_doctype=None, result_name=None):
     frappe.db.commit()
 
 
-def _real(text: str, tokens: dict) -> str:
-    """Replace pseudonyms with the real values recorded for this action."""
-    missing = sorted({t for t in TOKEN.findall(text or "") if t not in tokens})
+def _real(text: str, tokens: dict, doc_id: str | None = None) -> str:
+    """Replace pseudonyms with their real values (see module docstring)."""
+    text = text or ""
+    missing = sorted({t for t in TOKEN.findall(text) if t not in tokens})
     if missing:
         raise ExecutionError(f"No real value recorded for {', '.join(missing)}")
-    return TOKEN.sub(lambda m: tokens[m.group(0)], text or "")
+    text = TOKEN.sub(lambda m: tokens[m.group(0)], text)
+    layer_tokens = sorted(set(LAYER_TOKEN.findall(text)))
+    if layer_tokens:
+        if not doc_id:
+            raise ExecutionError("Proposal has input-layer tokens but no doc_id to resolve them")
+        from hr_ai.ingest import IngestError, resolve_token
+        values = {}
+        for token in layer_tokens:
+            try:
+                values[token] = resolve_token(doc_id, token)
+            except IngestError as exc:
+                raise ExecutionError(f"Token resolver: {exc}") from None
+            if values[token] is None:
+                raise ExecutionError(f"{token} cannot be resolved (document not released or unknown)")
+        text = LAYER_TOKEN.sub(lambda m: values.get(m.group(0), m.group(0)), text)
+    return text
 
 
 # ---------------------------------------------------------------- handlers
@@ -95,9 +122,19 @@ def _send_email(doc, p, tokens):
     test_to = frappe.conf.get("hr_ai_test_recipient")
     if not test_to:
         raise ExecutionError("Test mode: set site config hr_ai_test_recipient before sending emails")
-    intended = _real(p["to"], tokens)
-    subject = _real(p["subject"], tokens)
-    body = _real(p["body"], tokens)
+    doc_id = p.get("doc_id")
+    if p["to"] == "<SENDER>":
+        # Reply to an inbox email: the recipient is the original sender, never chosen by the model.
+        inbound = frappe.db.get_value("Inbound Email", p.get("email_id"), ["sender_email", "doc_id"], as_dict=True)
+        if not inbound or not inbound.sender_email:
+            raise ExecutionError("Original email not found: the recipient cannot be determined")
+        if doc_id != inbound.doc_id:
+            raise ExecutionError("The proposal's doc_id does not match the original email")
+        intended = inbound.sender_email
+    else:
+        intended = _real(p["to"], tokens)
+    subject = _real(p["subject"], tokens, doc_id)
+    body = _real(p["body"], tokens, doc_id)
     message = (
         f"<p style='color:#888'>[RH Flow test mode] Intended recipient: {html.escape(intended)} "
         f"(AI Action {doc.name})</p>"

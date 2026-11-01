@@ -1,0 +1,43 @@
+{
+  "version": "2026-10-31.1",
+
+  "protected_keys": [
+    "age", "birth", "dob", "date of birth", "birth date", "birthday", "year of birth",
+    "gender", "sex", "pronouns",
+    "nationality", "citizenship", "ethnicity", "race", "origin", "national origin",
+    "religion", "faith",
+    "marital status", "civil status", "family status", "children", "pregnancy", "maternity",
+    "disability", "handicap", "health",
+    "photo", "picture", "image", "avatar", "headshot"
+  ],
+
+  "protected_terms": [
+    "age", "aged", "years old", "young", "younger", "youthful", "old", "older", "elderly",
+    "born in", "retirement age",
+    "male", "female", "man", "woman", "men", "women", "gender", "girl", "boy",
+    "mother", "father", "pregnant", "pregnancy", "maternity", "paternity",
+    "married", "unmarried", "divorced", "widowed", "children", "kids",
+    "nationality", "citizen", "foreigner", "ethnic", "ethnicity", "race", "racial",
+    "religion", "religious", "muslim", "christian", "jewish", "hijab", "veil",
+    "disability", "disabled", "handicapped", "wheelchair",
+    "attractive", "appearance", "looks",
+    "âge", "jeune", "vieux", "femme", "homme", "enceinte", "marié", "mariée",
+    "nationalité", "étranger", "étrangère", "religieux", "religieuse", "handicapé"
+  ],
+
+  "text_scan_tools": ["rank_candidate", "rank_shortlist", "update_applicant_status"],
+
+  "scored_tools": {
+    "rank_candidate": {
+      "score_min": 0,
+      "score_max": 100,
+      "min_criteria": 1,
+      "min_justification_chars": 20
+    }
+  },
+
+  "disparity": {
+    "threshold": 0.8,
+    "min_group_size": 5
+  }
+}

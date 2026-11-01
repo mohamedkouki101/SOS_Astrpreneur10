@@ -1,0 +1,10 @@
+{
+  "_comment": "Job-related scoring criteria per Job Opening (trusted source: agents cannot supply their own). Unknown job opening = no criterion accepted. HR-OPN-2026-* = openings on the team Frappe; HR-OPN-0001 = fake Frappe demo.",
+  "HR-OPN-0001": ["python_experience", "sql", "rest_apis", "communication", "education_relevant"],
+  "HR-OPN-2026-0001": ["python_experience", "rest_apis", "sql", "system_design", "communication", "education_relevant"],
+  "HR-OPN-2026-0002": ["sql", "data_visualization", "statistics", "python_or_r", "communication", "education_relevant"],
+  "HR-OPN-2026-0003": ["hr_operations", "labour_law", "recruitment_experience", "hr_software", "communication"],
+  "HR-OPN-2026-0004": ["sales_experience", "negotiation", "crm_tools", "communication", "languages"],
+  "HR-OPN-2026-0005": ["digital_campaigns", "seo_sem", "analytics_tools", "content_creation", "communication"],
+  "HR-OPN-2026-0006": ["accounting_standards", "erp_accounting", "tax_reporting", "reconciliation", "education_relevant"]
+}

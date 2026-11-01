@@ -1,0 +1,18 @@
+# Only requirements.txt and ingest/ are copied; keep everything else out of the build.
+.env
+.env.*
+!.env.example
+.venv/
+evidence/
+.git/
+.gitignore
+tests/
+pytest.ini
+requirements-dev.txt
+NOTES.md
+CLAUDE.md
+.claude/
+*.zip
+**/__pycache__/
+**/*.pyc
+.pytest_cache/
