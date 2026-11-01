@@ -11,7 +11,8 @@
     "agent.leave@rhflow.local": "leave_agent",
     "agent.payroll@rhflow.local": "payroll_agent",
     "agent.performance@rhflow.local": "performance_agent",
-    "agent.conflict@rhflow.local": "conflict_agent"
+    "agent.conflict@rhflow.local": "conflict_agent",
+    "agent.operator@rhflow.local": "hr_operator"
   },
   "ingest_accounts": [
     "svc.ingest@hr-ai.test"

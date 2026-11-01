@@ -93,7 +93,7 @@ def test_full_lifecycle_is_audited(db):
     assert sub.details["model"] == "claude-sonnet-5-5"
     assert sub.details["prompt_version"] == "comms-v1"
     assert sub.details["source_hashes"] == ["sha256:src"]
-    assert sub.details["policy_version"] == "2026-10-31.1"
+    assert sub.details["policy_version"] == "2026-11-01.1"
 
 
 def test_blocked_injection_is_audited_with_rule(db):

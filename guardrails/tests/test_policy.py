@@ -48,7 +48,7 @@ def rules(decision):
 def test_valid_email_to_subject_is_allowed(engine):
     d = engine.evaluate(action())
     assert d.allowed, d.reasons
-    assert d.policy_version == "2026-10-31.1"
+    assert d.policy_version == "2026-11-01.1"
 
 
 def test_rank_candidate_allowed_for_recruitment_agent(engine):
