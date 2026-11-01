@@ -25,7 +25,7 @@
     "nationalité", "étranger", "étrangère", "religieux", "religieuse", "handicapé"
   ],
 
-  "text_scan_tools": ["rank_candidate", "update_applicant_status"],
+  "text_scan_tools": ["rank_candidate", "rank_shortlist", "update_applicant_status"],
 
   "scored_tools": {
     "rank_candidate": {

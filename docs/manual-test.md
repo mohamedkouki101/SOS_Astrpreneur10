@@ -92,3 +92,32 @@ Steps:
 4. **Release** a quarantined item: the agent now gets it as `suspicious` with the hidden instruction removed. **Reject**: the agent never gets it (404). Decisions are permanent, so test them on a copy, not on the demo email.
 
 Agent API users get 403 on every security endpoint, and they cannot read the sender's address (HR-only field).
+
+## Variant: with the guardrails service (`guardrails/`, port 8100)
+`hr_ai` asks the guardrails at two moments (guardrails/INTEGRATION.md, option A):
+
+| When | In `hr_ai` | If blocked |
+|---|---|---|
+| A proposal arrives | `api.propose_action`, before the record is stored | the agent gets the refusal and rule names; nothing reaches the HR queue |
+| Right before acting | `executor.execute`, after the hash and approval-token checks | the action becomes **Failed** with "Blocked by guardrails: …" |
+
+Fail closed: if the guardrails are not configured, unreachable or refuse the credentials, every proposal is refused
+and every approved action fails. Start them before running the agents.
+
+Setup, once:
+1. Start the service: `cd guardrails && ./venv/Scripts/python -m uvicorn guardrails.settings:create_app_from_env --factory --host 0.0.0.0 --port 8100` (needs `guardrails/.env`, see `example.env`).
+2. The guardrails gateway user (`FRAPPE_GATEWAY_API_KEY`) needs the **HR Manager** role: it reads the HR-only sender of an Inbound Email to check `<SENDER>` replies.
+3. Create an HR Manager API user for `hr_ai` (not an agent account), then, from `~/frappe_docker`:
+   ```bash
+   docker compose -p hr -f hr.yml exec backend bench --site frontend set-config hr_ai_guardrails_url http://host.docker.internal:8100
+   docker compose -p hr -f hr.yml exec backend bench --site frontend set-config hr_ai_guardrails_api_key <KEY>
+   docker compose -p hr -f hr.yml exec backend bench --site frontend set-config hr_ai_guardrails_api_secret <SECRET>
+   ```
+   Check that the backend container reaches the URL: `docker compose -p hr -f hr.yml exec backend curl -s http://host.docker.internal:8100/health`. If not, use the host's WSL IP instead.
+
+What to try:
+- **Normal flow:** run Step 2. Replies to `<SENDER>`, interviews, status changes, rankings and the digest are allowed and appear in the queue as before.
+- **Injected recipient:** a reply whose `[EMAIL_1]` points to an address that isn't a Job Applicant or Employee is refused with `recipient_unknown`.
+- **Bias:** a ranking or status reason that mentions age, gender, origin… is refused with `protected_term_in_text`.
+- **Wrong agent:** comms proposing a ranking is refused with `tool_not_allowed`. Stub agents (leave, payroll…) are refused by default.
+- **Guardrails down:** stop the service and approve an action: it becomes Failed, "fail closed".

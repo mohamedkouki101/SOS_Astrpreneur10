@@ -17,6 +17,9 @@ translating. Security rules applied here:
         injected value cannot hide behind "[EMAIL_1]" or "[PERSON_1]".
   - Unknown agents / kinds are passed through unchanged: the default-deny
     Policy Engine then refuses them.
+  - Replies to an inbox email ("to": "<SENDER>"): the address is NOT taken from
+    the proposal; it is read from the Inbound Email record in Frappe, then must
+    belong to a known applicant / employee like any other recipient.
 """
 from __future__ import annotations
 
@@ -34,6 +37,9 @@ HEX64 = re.compile(r"^(sha256:)?([0-9a-f]{64})$")
 ACTION_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.:\-]{0,63}$")
 KNOWN_FIELDS = {"kind", "agent", "subject", "reference_doctype", "reference_name", "summary",
                 "payload", "source_hashes", "token_map", "action_hash", "external_id", "run_id"}
+SENDER = "<SENDER>"  # input-layer placeholder: "the person who wrote this inbox email"
+DOC_ID = re.compile(r"^sha256:[0-9a-f]{64}$")
+MIN_JUSTIFICATION = 20  # same minimum as fairness.json for scored tools
 
 
 class AgentLayerError(ValueError):
@@ -47,6 +53,7 @@ class DirectoryUnavailable(Exception):
 class Directory(Protocol):
     def find_person(self, email: str) -> RecordRef | None: ...
     def person_values(self, ref: RecordRef) -> set[str]: ...
+    def inbound_sender(self, email_id: str) -> tuple[str, str] | None: ...
 
 
 class FrappeDirectory:
@@ -74,6 +81,18 @@ class FrappeDirectory:
             return person_values(ref.doctype, self.frappe.get_doc(ref.doctype, ref.name))
         except (FrappeError, FrappeUnavailable) as e:
             raise DirectoryUnavailable(str(e)) from None
+
+    def inbound_sender(self, email_id: str) -> tuple[str, str] | None:
+        """(sender address, doc_id) of an Inbound Email, or None if it does not exist.
+        sender_email is an HR-only field: the gateway user needs the HR Manager role."""
+        try:
+            rows = self.frappe.list_docs("Inbound Email", [["name", "=", email_id]],
+                                         ["sender_email", "doc_id"], limit=1)
+        except (FrappeError, FrappeUnavailable) as e:
+            raise DirectoryUnavailable(str(e)) from None
+        if not rows or not rows[0].get("sender_email"):
+            return None
+        return str(rows[0]["sender_email"]), str(rows[0].get("doc_id") or "")
 
 
 @dataclass(frozen=True)
@@ -157,6 +176,14 @@ class AgentLayerAdapter:
                 subject, payload = self._email_reply(out, reference, problems)
             elif out.kind == "interview":
                 subject, payload = self._interview(out, reference, problems)
+            elif out.kind == "applicant_status":
+                subject, payload = self._applicant_status(out, reference, problems)
+            elif out.kind == "ranking":
+                subject, payload = self._ranking(out, reference, problems)
+            elif out.kind == "digest":
+                # Read by HR only: nothing is sent or written, so there is no recipient to verify.
+                subject = RecordRef("(none)", out.subject or out.external_id)
+                payload = dict(out.payload)
             else:
                 subject = reference or RecordRef("(none)", out.subject or out.external_id)
                 payload = dict(out.payload)
@@ -188,16 +215,25 @@ class AgentLayerAdapter:
         missing = {"to", "subject", "body"} - set(p)
         if missing:
             raise AgentLayerError(f"email_reply payload misses {sorted(missing)}")
-        extra = set(p) - {"email_id", "to", "subject", "body"}
+        extra = set(p) - {"email_id", "to", "subject", "body", "doc_id"}
         if extra:
             problems.append(Violation("agent_output_malformed", f"unexpected payload keys {sorted(extra)}"))
+        # hr_ai references the Inbound Email being answered. That is the conversation,
+        # not the person: the action's subject is the recipient's own record.
+        if reference is not None and reference.doctype == "Inbound Email":
+            reference = None
         to = str(p["to"]).strip()
-        if TOKEN_KEY.match(to) and to not in out.token_map:
-            problems.append(Violation("unresolved_token", f"{to} is not in the token_map"))
-        address = out.token_map.get(to, to)
+        if to == SENDER:
+            address = self._sender_address(p, problems)
+        else:
+            if TOKEN_KEY.match(to) and to not in out.token_map:
+                problems.append(Violation("unresolved_token", f"{to} is not in the token_map"))
+            address = out.token_map.get(to, to)
 
-        recipient: Any = address  # stays a raw string unless Frappe knows the person
-        if EMAIL_RE.match(address):
+        recipient: Any = address or "(unknown)"  # stays a raw string unless Frappe knows the person
+        if address is None:
+            pass  # already reported by _sender_address
+        elif EMAIL_RE.match(address):
             ref = self.directory.find_person(address)
             if ref is None:
                 problems.append(Violation("recipient_unknown",
@@ -217,6 +253,79 @@ class AgentLayerAdapter:
         if p.get("email_id"):
             payload["inbound_email"] = str(p["email_id"])
         return subject, payload
+
+    def _sender_address(self, p, problems) -> str | None:
+        """Address behind "<SENDER>", read from Frappe, never from the proposal."""
+        email_id, doc_id = str(p.get("email_id") or ""), str(p.get("doc_id") or "")
+        if not email_id or not DOC_ID.match(doc_id):
+            problems.append(Violation("agent_output_malformed",
+                                      "a <SENDER> reply needs the email_id and doc_id of the inbox email"))
+            return None
+        found = self.directory.inbound_sender(email_id)
+        if found is None:
+            problems.append(Violation("recipient_unknown", f"inbox email '{email_id}' not found in Frappe"))
+            return None
+        address, stored_doc_id = found
+        if stored_doc_id != doc_id:
+            problems.append(Violation("subject_mismatch",
+                                      "the proposal's doc_id does not match the inbox email it answers"))
+        return address
+
+    def _applicant_status(self, out, reference, problems):
+        p = out.payload
+        if not {"status", "reason"} <= set(p):
+            raise AgentLayerError("applicant_status payload needs status and reason")
+        if "applicant" in p and not isinstance(p["applicant"], str):
+            raise AgentLayerError("applicant_status payload applicant must be a string")
+        extra = set(p) - {"applicant", "status", "reason"}
+        if extra:
+            problems.append(Violation("agent_output_malformed", f"unexpected payload keys {sorted(extra)}"))
+        if reference is None or reference.doctype != "Job Applicant":
+            problems.append(Violation("subject_mismatch", "a status change must reference a Job Applicant"))
+            reference = reference or RecordRef("(none)", out.subject or out.external_id)
+        # hr_ai repeats the applicant in the payload: it must be the referenced record.
+        if "applicant" in p and out.token_map.get(p["applicant"], p["applicant"]) != reference.name:
+            problems.append(Violation("subject_mismatch",
+                                      "payload applicant does not match the referenced Job Applicant"))
+        payload = {"status": p["status"], "reason": p["reason"]}
+        if out.token_map:
+            self._check_tokens(out.token_map, reference, problems, extra_allowed={reference.name.lower()})
+        return reference, payload
+
+    def _ranking(self, out, reference, problems):
+        """hr_ai ranks a whole opening at once. Nothing is written to Frappe for a
+        ranking (HR's decision is recorded), so the checks are on what HR reads:
+        one entry per applicant, scores 0-100, a job-related justification each."""
+        p = out.payload
+        entries = p.get("entries")
+        if not isinstance(p.get("opening"), str) or not isinstance(entries, list) or not entries:
+            raise AgentLayerError("ranking payload needs an opening and a non-empty entries list")
+        if reference is None or reference.doctype != "Job Opening" or reference.name != p["opening"]:
+            problems.append(Violation("subject_mismatch", "a ranking must reference its Job Opening"))
+            reference = reference or RecordRef("(none)", out.subject or out.external_id)
+        checked, seen = [], set()
+        for i, e in enumerate(entries, 1):
+            if not isinstance(e, Mapping):
+                raise AgentLayerError("ranking entries must be objects")
+            applicant, score, why = e.get("applicant"), e.get("score"), e.get("justification")
+            if not isinstance(applicant, str) or not applicant:
+                raise AgentLayerError(f"ranking entry {i}: applicant must be a non-empty string")
+            if applicant in seen:
+                problems.append(Violation("agent_output_malformed", f"entry {i}: applicant ranked twice"))
+            seen.add(applicant)
+            if isinstance(score, bool) or not isinstance(score, (int, float)) or not 0 <= score <= 100:
+                problems.append(Violation("score_out_of_range", f"entry {i}: score must be 0-100"))
+            if not isinstance(why, str) or not why.strip():
+                problems.append(Violation("justification_missing", f"entry {i} has no justification"))
+            elif len(why.strip()) < MIN_JUSTIFICATION:
+                problems.append(Violation("justification_too_short", f"entry {i}: justification too short"))
+            # Applicant ids are left out on purpose: the fairness text scan reads every
+            # string, and an address like "x.man@..." would look like a protected term.
+            checked.append({"rank": e.get("rank"), "score": score, "justification": why})
+        payload = {"job_opening": p["opening"], "entries": checked}
+        if p.get("note"):
+            payload["note"] = p["note"]
+        return reference, payload
 
     def _interview(self, out, reference, problems):
         p = out.payload

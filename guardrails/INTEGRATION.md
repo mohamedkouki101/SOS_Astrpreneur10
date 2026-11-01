@@ -94,11 +94,12 @@ Mapping from `hr_ai.api.propose_action` input: `id` → `external_id`, `token_va
 
 | `kind` | Agent | Guardrails tool | Status |
 |---|---|---|---|
-| `email_reply` | comms | `send_email` | ✅ supported |
+| `email_reply` | comms | `send_email` | ✅ supported, including replies to `<SENDER>` (address read from the Inbound Email in Frappe, never from the proposal) |
 | `interview` | recruitment | `schedule_interview` | ✅ supported (creates a Frappe HR `Interview`) |
-| `ranking` | recruitment | `rank_candidate` | ⚠️ **format differs**: `hr_ai` sends a list (`opening`, `entries[]` with `rank`, `score`, `justification`, `evidence[]`); the guardrails expect one candidate (`job_opening`, `score`, `criteria[]`). Adapter update planned |
-| `applicant_status` | recruitment | `update_applicant_status` | ⚠️ payload has an extra `applicant` field; adapter update planned |
-| `digest`, `leave_decision`, `review_summary`, `grievance_triage`, `onboarding_tasks`, `welcome_email`, `payroll_reply` | various | none yet | ❌ denied by default (no policy entry). Decision-only kinds need an explicit policy rule |
+| `ranking` | recruitment | `rank_shortlist` | ✅ supported: the whole list for one Job Opening; each entry needs a score 0-100 and a justification of 20+ characters, scanned for protected terms. Decision only (nothing written) |
+| `applicant_status` | recruitment | `update_applicant_status` | ✅ supported: the payload's `applicant` must be the referenced Job Applicant |
+| `digest` | comms | `inbox_digest` | ✅ supported. Decision only (nothing sent or written) |
+| `leave_decision`, `review_summary`, `grievance_triage`, `onboarding_tasks`, `welcome_email`, `payroll_reply` | stub agents | none yet | ❌ denied by default (no policy entry) |
 | any other | | | ❌ denied (default-deny) |
 
 ### 3.3 Security rules applied to agent output
@@ -117,7 +118,11 @@ So the guardrails:
 5. **Each Frappe account is bound to one agent.** `agent.comms@rhflow.local` proposing as `recruitment`
    → `403 agent_impersonation` + critical alert.
 
-### 3.4 Option A (recommended): `hr_ai` asks the guardrails before acting
+### 3.4 Option A (recommended, **implemented**): `hr_ai` asks the guardrails before acting
+
+Implemented in `hr_ai/hr_ai/guardrails_client.py`, called from `api.propose_action` and `executor._check`.
+Site config: `hr_ai_guardrails_url`, `hr_ai_guardrails_api_key`, `hr_ai_guardrails_api_secret`
+(setup in `docs/manual-test.md`). End-to-end test: `tests/test_hr_ai_bridge.py`. The sketch below was the proposal.
 
 Smallest change to working code. `hr_ai` keeps its queue, Desk page and executor, and calls the
 guardrails at the two moments that matter. This fills the TODO at the top of `hr_ai/executor.py`
@@ -250,6 +255,8 @@ With option A (3.4), HR keeps approving in the `hr_ai` Desk page; the dashboard 
 | What | Why |
 |---|---|
 | A gateway user (e.g. `guardrails.gateway@…`) with an API key, roles allowing the writes below | the **only** writer: Communication (email), Job Applicant (`applicant_rating`, `status`), Comment, Interview |
+| The gateway user also needs **HR Manager** read on Inbound Email | to read the HR-only sender of a `<SENDER>` reply (section 3.2) |
+| An HR Manager API user for `hr_ai` (not an agent) | `hr_ai` calls `/agent-actions/check` with it (section 3.4) |
 | HR users with **HR Manager** | approvers |
 | One user per agent with its agent role | proposers (already exist: `agent.*@rhflow.local`) |
 | An ingest user listed in `ingest_accounts` | `POST /input-flags` |
@@ -301,9 +308,9 @@ Submitting (`POST /agent-actions`) always records the proposal: `201` with `"sta
 
 | # | Item | Owner |
 |---|---|---|
-| 1 | Choose option A or B (section 3.4 / 3.5) | team |
-| 2 | Adapter support for `ranking` (list format) and `applicant_status` (`applicant` field) | guardrails |
-| 3 | Policy entries for decision-only kinds (`digest`, `leave_decision`, …) | guardrails + agent layer |
+| 1 | ~~Choose option A or B~~: option A, implemented (3.4) | done |
+| 2 | ~~Adapter support for `ranking` and `applicant_status`~~ | done |
+| 3 | ~~Policy entry for `digest`~~ done; stub kinds (`leave_decision`, …) stay denied until their agents exist | guardrails + agent layer |
 | 4 | One token format and one masking pipeline; use `/v1/resolve` in the gateway | team |
 | 5 | Outgoing Email Account on Frappe (test recipient mode exists in `hr_ai`) | Frappe owner |
 | 6 | AI Actions `AIA-2026-00001` / `00003` have no `token_map`: old pipeline or bug? | agent layer |

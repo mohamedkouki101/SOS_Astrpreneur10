@@ -178,7 +178,7 @@ def test_interview_by_comms_agent_is_blocked(svc, adapter):
 
 
 def test_unknown_kind_is_denied_by_default(svc, adapter):
-    rec, _ = submit(svc, adapter, mutate(EMAIL_REPLY, kind="digest", external_id="AIA-x1"))
+    rec, _ = submit(svc, adapter, mutate(EMAIL_REPLY, kind="leave_decision", external_id="AIA-x1"))
     assert rec.status is Status.BLOCKED and "tool_not_allowed" in rules(rec)
 
 
@@ -233,3 +233,147 @@ def test_json_string_and_object_fields_both_accepted():
 def test_malformed_agent_output_refused(bad):
     with pytest.raises(AgentLayerError):
         AgentOutput.parse(bad)
+
+
+# --- hr_ai formats: <SENDER> replies, applicant status, ranking list, digest ------------
+
+DOC = "sha256:" + H1
+SENDER_REPLY = {   # reply to an inbox email processed by the input security layer
+    "kind": "email_reply", "agent": "comms", "subject": "email/IN-2026-00004",
+    "reference_doctype": "Inbound Email", "reference_name": "IN-2026-00004",
+    "payload": {"email_id": "IN-2026-00004", "to": "<SENDER>", "doc_id": DOC,
+                "subject": "Re: Sales Representative", "body": "Dear <PERSON_1>,\n\nThank you for your email."},
+    "source_hashes": [H1], "external_id": "AIA-sender0001",
+}
+STATUS = {
+    "kind": "applicant_status", "agent": "recruitment", "subject": "Job Applicant/cyrine.jlassi.sr2@example.com",
+    "reference_doctype": "Job Applicant", "reference_name": "cyrine.jlassi.sr2@example.com",
+    "payload": {"applicant": "cyrine.jlassi.sr2@example.com", "status": "Shortlisted",
+                "reason": "Meets 4/5 required skills for the Sales Representative opening."},
+    "source_hashes": [H1], "external_id": "AIA-status0001",
+}
+RANKING = {
+    "kind": "ranking", "agent": "recruitment", "subject": "Job Opening/HR-OPN-2026-0004",
+    "reference_doctype": "Job Opening", "reference_name": "HR-OPN-2026-0004",
+    "payload": {"opening": "HR-OPN-2026-0004", "note": "", "quarantined": ["mal.actor@example.com"],
+                "entries": [
+                    {"applicant": "cyrine.jlassi.sr2@example.com", "rank": 1, "score": 82.5,
+                     "justification": "4/5 required skills (crm_tools, negotiation); 3 years of experience.",
+                     "evidence": [{"source_hash": H1, "quote": "CRM: HubSpot"}]},
+                    {"applicant": "salma.man@example.com", "rank": 2, "score": 61,
+                     "justification": "3/5 required skills (negotiation); 2 years of experience.",
+                     "evidence": [{"source_hash": H2, "quote": "Negotiation"}]}]},
+    "source_hashes": [H1, H2], "external_id": "AIA-rank0001",
+}
+DIGEST = {
+    "kind": "digest", "agent": "comms", "subject": "inbox/digest",
+    "payload": {"items": [{"email_id": "IN-2026-00004", "priority": "high", "category": "candidate",
+                           "summary": "<SENDER> asks about the Sales Representative opening."}]},
+    "source_hashes": [H1], "external_id": "AIA-digest0001",
+}
+
+
+@pytest.fixture
+def inbox(frappe):
+    frappe.docs[("Inbound Email", "IN-2026-00004")] = {
+        "sender_email": "cyrine.jlassi.sr2@example.com", "doc_id": DOC}
+    return frappe
+
+
+def test_sender_reply_reads_the_address_from_the_inbox_email(svc, adapter, inbox):
+    rec, tr = submit(svc, adapter, SENDER_REPLY)
+    assert rec.status is Status.PROPOSED, rec.violations
+    assert tr.action.payload["recipients"] == [{"doctype": "Job Applicant", "name": "cyrine.jlassi.sr2@example.com"}]
+    assert tr.action.subject.doctype == "Job Applicant"   # the person, not the Inbound Email
+
+
+def test_sender_reply_to_an_unknown_sender_is_blocked(svc, adapter, inbox):
+    inbox.docs[("Inbound Email", "IN-2026-00004")]["sender_email"] = "stranger@evil-mail.test"
+    rec, _ = submit(svc, adapter, SENDER_REPLY)
+    assert rec.status is Status.BLOCKED and "recipient_unknown" in rules(rec)
+
+
+def test_sender_reply_for_a_missing_email_is_blocked(svc, adapter, frappe):
+    rec, _ = submit(svc, adapter, SENDER_REPLY)
+    assert rec.status is Status.BLOCKED and "recipient_unknown" in rules(rec)
+
+
+def test_sender_reply_with_another_documents_id_is_blocked(svc, adapter, inbox):
+    rec, _ = submit(svc, adapter, mutate(SENDER_REPLY, payload={"doc_id": "sha256:" + H2}))
+    assert rec.status is Status.BLOCKED and "subject_mismatch" in rules(rec)
+
+
+def test_sender_reply_without_doc_id_is_blocked(svc, adapter, inbox):
+    record = copy.deepcopy(SENDER_REPLY)
+    del record["payload"]["doc_id"]
+    rec, _ = submit(svc, adapter, record)
+    assert rec.status is Status.BLOCKED and "agent_output_malformed" in rules(rec)
+
+
+def test_applicant_status_is_allowed(svc, adapter):
+    rec, tr = submit(svc, adapter, STATUS)
+    assert rec.status is Status.PROPOSED, rec.violations
+    assert tr.action.tool == "update_applicant_status"
+    assert tr.action.payload == {"status": "Shortlisted", "reason": STATUS["payload"]["reason"]}
+
+
+def test_applicant_status_for_another_applicant_is_blocked(svc, adapter):
+    rec, _ = submit(svc, adapter, mutate(STATUS, payload={"applicant": "imen.baccouche.dm7@example.com"}))
+    assert rec.status is Status.BLOCKED and "subject_mismatch" in rules(rec)
+
+
+def test_applicant_status_with_protected_reason_is_blocked(svc, adapter):
+    rec, _ = submit(svc, adapter, mutate(STATUS, payload={"reason": "Rejected: she is too old for the team."}))
+    assert rec.status is Status.BLOCKED and "protected_term_in_text" in rules(rec)
+
+
+def test_ranking_list_is_allowed(svc, adapter):
+    rec, tr = submit(svc, adapter, RANKING)
+    assert rec.status is Status.PROPOSED, rec.violations   # "salma.man@" is not a protected term
+    assert (tr.action.tool, tr.action.subject.doctype) == ("rank_shortlist", "Job Opening")
+    assert [e["rank"] for e in tr.action.payload["entries"]] == [1, 2]
+
+
+@pytest.mark.parametrize("entry, rule", [
+    ({"justification": ""}, "justification_missing"),
+    ({"justification": "good"}, "justification_too_short"),
+    ({"score": 140}, "score_out_of_range"),
+    ({"justification": "Strong profile, and young enough to grow with us."}, "protected_term_in_text"),
+])
+def test_bad_ranking_entry_is_blocked(svc, adapter, entry, rule):
+    record = copy.deepcopy(RANKING)
+    record["payload"]["entries"][1].update(entry)
+    rec, _ = submit(svc, adapter, record)
+    assert rec.status is Status.BLOCKED and rule in rules(rec)
+
+
+def test_ranking_for_another_opening_is_blocked(svc, adapter):
+    rec, _ = submit(svc, adapter, mutate(RANKING, reference_name="HR-OPN-2026-0001"))
+    assert rec.status is Status.BLOCKED and "subject_mismatch" in rules(rec)
+
+
+def test_ranking_by_comms_agent_is_blocked(svc, adapter):
+    rec, _ = submit(svc, adapter, mutate(RANKING, agent="comms"))
+    assert rec.status is Status.BLOCKED and "tool_not_allowed" in rules(rec)
+
+
+def test_digest_is_allowed_for_comms_only(svc, adapter):
+    rec, _ = submit(svc, adapter, DIGEST)
+    assert rec.status is Status.PROPOSED, rec.violations
+    rec, _ = submit(svc, adapter, mutate(DIGEST, agent="recruitment", external_id="AIA-digest0002"))
+    assert rec.status is Status.BLOCKED and "tool_not_allowed" in rules(rec)
+
+
+@pytest.mark.parametrize("applicant", [["a@example.com"], {"x": 1}, None, ""])
+def test_ranking_entry_with_a_non_string_applicant_is_rejected(adapter, applicant):
+    """A list or object as applicant used to crash the check (HTTP 500); now a clean 422."""
+    record = copy.deepcopy(RANKING)
+    record["payload"]["entries"][0]["applicant"] = applicant
+    with pytest.raises(AgentLayerError):
+        adapter.translate(AgentOutput.parse(record))
+
+
+@pytest.mark.parametrize("applicant", [["a@example.com"], {"x": 1}, 42])
+def test_applicant_status_with_a_non_string_applicant_is_rejected(adapter, applicant):
+    with pytest.raises(AgentLayerError):
+        adapter.translate(AgentOutput.parse(mutate(STATUS, payload={"applicant": applicant})))
