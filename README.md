@@ -1,126 +1,175 @@
-# HR AI MVP — Secure AI HR System
+# RH Flow — Secure AI HR System
 
-AI agents that take over daily HR-team work (resume screening and ranking, inbox digest, draft replies, follow-ups, interview scheduling, employee questions), built **on top of** an open-source HR platform used as the system of record (HR Core). Our code lives in our own app (`hr_ai`) and a separate agent service (`agents/`), never inside the platform itself.
+AI agents for the **HR / recruitment team**: screen and rank resumes, triage the HR inbox, draft replies,
+propose interview slots. They are built on top of an open-source HR platform (Frappe v16 + ERPNext + HRMS,
+branded **RH Flow**), which stays the system of record. Our code lives in our own app (`hr_ai`) and in
+separate services. Upstream platform code is never patched.
 
-**Golden rule: the agent executes, the human decides about people.** Nothing is sent or recorded without human approval.
+**Golden rule: the agent executes, the human decides about people.** Agents only read and propose.
+Nothing is sent or recorded until a human approves it.
 
-Hackathon MVP (17 h, 5-minute demo). Fictional data only. The demo shows a prompt-injection attempt being blocked.
+Hackathon project (Astropreneur 2.0, SUP'COM, ~17 h). **Fictional data only.**
 
-> Source of truth: [`CLAUDE.md`](CLAUDE.md). Details: [`docs/`](docs/).
+> What is not done, simplified or assumed: [`LIMITATIONS.md`](LIMITATIONS.md).
+
+---
 
 ## Architecture
 
-Requests flow top to bottom: Users → Interfaces → **[trust boundary: authentication]** → Secure Integration Layer → Agentic AI Layer → **[trust boundary: enforcement]** → Guardrails & Execution Control → HR Core.
-
-Resumes and emails come from an **Untrusted Input Zone** and reach the AI layer only through a fixed 4-stage pipeline (Sanitizer → PII mask → Injection scan → Provenance tag). The external LLM is untrusted and only ever sees PII-masked context. Agents can read HR Core through scoped read-only REST tokens, and their only output is structured JSON proposals. A deterministic validator checks those proposals, then a default-deny policy engine, fairness checks and a human approver. Only then does the **Execution Gateway**, the sole holder of write credentials, apply them. Every step is written to a hash-chained audit log.
-
 ```mermaid
 flowchart TB
-  USERS["HR Team / Manager / Employee"] --> UI["Desk / Chat / PWA"] --> GW["API Gateway"]
-  RES["Resumes PDF/DOCX"] --> SAN
-  MAIL["Emails (IMAP pull)"] --> SAN
-  SAN["1 Sanitizer"] --> PII["2 PII mask"] --> INJ["3 Injection scan"] --> PROV["4 Provenance tag"] --> CB["Context Builder"] --> ORCH
-  GW -->|chat| ORCH["Orchestrator"]
-  GW --> REST["REST API (scoped)"]
-  HOOKS["Webhooks"] -->|signed events| ORCH
-  SCHED["Scheduler"] -->|triggers| ORCH
-  ORCH -->|PII-masked context| LLM["External LLM"]
-  ORCH -->|read-only| REST
-  REST --> FW["HR Core + MariaDB"]
-  ORCH --> AGENTS["Agents"] --> VAL["Output Validator"]
-  VAL -->|validated JSON action| POL["Policy Engine"] --> BIAS["Fairness checks"] --> HITL["Human approval"] --> EXEC["Execution Gateway"]
-  EXEC -->|approved only| FW
-  POL --> AUDIT["Audit log"]
-  HITL --> AUDIT
-  EXEC --> AUDIT
-  AUDIT --> MON["Monitor"]
+  CV["CV upload (recruiter, RH Flow)"] --> ISL
+  MAIL["HR inbox (Mailpit)"] -->|hr_ai sync, every minute| ISL
+  subgraph ISL["Input security layer :8090"]
+    S1["1 Sanitizer"] --> S2["2 PII mask"] --> S3["3 Injection scan"] --> S4["4 Provenance + HMAC signature"]
+  end
+  ISL -->|quarantined| SEC["HR: Security checks tab (release / reject)"]
+  ISL -->|signed, masked envelopes| AG["Agents (LangGraph + qwen3:8b, local)"]
+  AG -->|read-only REST, one user per agent| RHF["RH Flow (Frappe + HRMS)"]
+  AG -->|propose_action| Q["AI Action queue (hr_ai)"]
+  Q -->|check 1: on proposal| GR["Guardrails :8100 (policy, fairness)"]
+  Q --> HUM["HR approves in the RH AI page"]
+  HUM --> EX["Execution Gateway (hr_ai)"]
+  EX -->|check 2: right before acting| GR
+  EX -->|resolve tokens, gateway key only| ISL
+  EX -->|approved only| RHF
 ```
 
-## Component → folder map
+Request path in one sentence: untrusted content is sanitized, masked, scanned and signed **before** any agent
+sees it; agents can only read and propose; a deterministic policy/fairness service checks every proposal;
+a human approves; only the Execution Gateway writes, after re-checking everything.
 
-| Component | Folder / file | Runs in |
-|---|---|---|
-| Webhooks, Scheduler hooks | `hr_ai/hr_ai/hooks.py`, `webhooks.py` | HR Core (in-process) |
-| AI Action queue + `propose_action` | `hr_ai/hr_ai/ai_action/`, `api.py` | HR Core (in-process) |
-| Policy Engine | `hr_ai/hr_ai/policy.py` | HR Core (in-process) |
-| Fairness checks | `hr_ai/hr_ai/fairness.py` | HR Core (in-process) |
-| Human approval | `hr_ai/hr_ai/approval.py` | HR Core (in-process) |
-| Execution Gateway | `hr_ai/hr_ai/executor.py` | HR Core (in-process) |
-| Audit Log / Monitor | `hr_ai/hr_ai/audit.py`, `monitor.py` | HR Core (in-process) |
-| Mail ingestion + stages 1–4 | `agents/ingest/` | Agent service |
-| Context Builder | `agents/context/` | Agent service |
-| Orchestrator, budgets, LLM client | `agents/orchestrator/` | Agent service |
-| Agents (Recruitment, Comms, Assistant, stubs) | `agents/agents/` | Agent service |
-| Output Validator + schemas | `agents/validation/` | Agent service |
-| Read-only REST client, tool allowlists | `agents/tools/` | Agent service |
-| Signed webhook receiver | `agents/integration/` (assumed folder) | Agent service |
-| API Gateway, Secrets Manager | TODO | TODO |
-| Fictional data | `data/` | — |
-| Guardrail tests | `tests/guardrails/` | — |
+### Trust boundaries
 
-## Data flows
-
-- **Inbound content:** CV/email → Sanitizer → PII mask → Injection scan (hit → quarantine + alert) → Provenance tag → Context Builder → Orchestrator. Raw originals are stored in HR Core.
-- **User requests:** User → Desk/Chat/PWA → API Gateway → Orchestrator (chat) or scoped REST API → HR Core.
-- **Triggers:** HR Core doc_events → HMAC-signed webhook → agent receiver (verify, dedupe, enqueue) → Orchestrator. Scheduler → Orchestrator (IMAP pull, reminders, digest).
-- **Agent reads:** REST only, using a per-agent read-only service user. Agents never connect to MariaDB.
-- **LLM calls:** Orchestrator → External LLM with PII-masked context. The trusted system prompt is kept separate from data, and responses are treated as untrusted.
-- **Proposal path:** Agent → Output Validator → `propose_action` (AI Action = Proposed) → Policy Engine → Fairness → Human approval (token bound to `action_hash`) → Execution Gateway (verify, re-check policy, idempotent) → HR Core. Policy, approval and execution are audited.
-
-## Security principles
-
-- The agents have no write credentials. Only the Execution Gateway writes, and only for approved actions whose approval matches the action hash.
-- Resumes, emails and tool outputs are **data**. They always pass stages 1–4 (even in tests) and are never put in the system prompt.
-- PII is masked before any scoring or LLM call. Scoring uses job-related criteria only, with protected attributes blind and a disparity test.
-- One candidate per context, per-agent tool allowlists, step/token budgets.
-- The Output Validator is deterministic code, not an LLM.
-- The Policy Engine is default-deny.
-- Webhooks are HMAC-signed, replay-protected and idempotent.
-- No secrets in prompts, logs or git. Use `.env`, which is gitignored; see `.env.example`.
-- The Audit Log is append-only and hash-chained, and entries are never updated or deleted.
-- Each guardrail has its own test: injection, bypass, disparity, duplicate webhook.
-
-More: [`docs/security.md`](docs/security.md).
-
-## How our code connects to HR Core
-
-- **`hr_ai` (in-process):** a custom app running inside HR Core. It uses plain Python calls and hooks, with no network hop. `hooks.py` registers `doc_events` and `scheduler_events`, and whitelisted methods become `POST /api/method/hr_ai.api.<fn>`. The app must be built into the Docker image.
-- **`agents/` (out-of-process):** REST only (`/api/resource/<DocType>`, `Authorization: token KEY:SECRET`), with one least-privilege service user per agent. Proposals are submitted via `propose_action`.
-- **HR Core → agents:** a signed webhook (Webhook DocType or a hook). The receiver verifies the HMAC, rejects replays, dedupes on the key "doc name + event id", enqueues the event and returns fast.
-- **UI:** Custom Fields, Workflows, Workspaces, Client Scripts and Desk pages from `hr_ai`. Upstream platform code is never patched.
-
-Contracts: [`docs/contracts.md`](docs/contracts.md).
-
-## Technology choices
-
-| Item | Status |
+| Boundary | Enforced by |
 |---|---|
-| System of record | Open-source HR platform, v16 (Docker, kept outside this repo) |
-| `hr_ai` language | Python |
-| PII masking | Presidio (named in CLAUDE.md) |
-| Agent service language/framework | TODO |
-| LLM provider and model | TODO |
-| Malware scanner | TODO |
-| Injection classifier | TODO |
-| Vector store (Q&A) | TODO |
-| Secrets Manager | TODO |
-| Approval-signing key management | TODO |
-| Audit Log storage, Monitor alert channel | TODO |
-| Calendar source | TODO (demo: JSON of free slots) |
+| Hostile files / emails → AI | Input security layer: magic-byte type check, sandboxed extraction, hidden-text removal, PII masking, injection scan, signed envelope |
+| AI → business data | Agents hold read-only credentials (PUT/POST/DELETE return 403); their only output is a **Proposed** AI Action |
+| Proposal → execution | Guardrails service (default-deny policy, fairness) + human approval bound to the action hash |
+| Execution → HR Core | Execution Gateway is the only writer; re-checks hash, token and guardrails; idempotent; fails closed |
 
-## Current status
+---
 
-- **Done:** HR Core running in Docker. Architecture designed. Repository skeleton and docs created; every module file is a placeholder.
-- **Not built:** `hr_ai` app, AI Action queue, webhooks, agent service, security pipeline, mail ingestion, fictional data, tests.
-- **Next:** see [`docs/build-plan.md`](docs/build-plan.md).
+## Components
 
-## Open questions
+| Folder | What it is | Runs | Port |
+|---|---|---|---|
+| [`input-security-layer/`](input-security-layer/) | Untrusted Input Zone: sanitizer, PII masking (Presidio EN + FR), injection scanner, provenance + signature, evidence store, inspection reports | FastAPI, Docker (non-root, read-only FS) | 8090 |
+| [`guardrails/`](guardrails/) | Policy Engine (default-deny), fairness checks, approval tokens, gateway logic, hash-chained audit log, monitor | FastAPI, Python 3.11 | 8100 |
+| [`hr_ai/`](hr_ai/) | Frappe app inside RH Flow: AI Action queue, **RH AI** decision page, Inbound Email, Execution Gateway, bridges to the two services | In-process in Frappe | 8001 |
+| [`agents/`](agents/) | 9 LangGraph agents (Orchestrator + 8 specialists), qwen3:8b via Ollama, read-only tools, deterministic Output Validator | Python 3.12 (WSL) | — |
+| [`tests/`](tests/) | Cross-layer guardrail tests (injection, bypass, disparity, PII, input layer) | pytest | — |
+| [`docs/`](docs/) | Architecture, agents, security, contracts, [manual end-to-end test](docs/manual-test.md), [demo script](docs/demo-script.md) | — | — |
+| [`Test scenarios/`](Test%20scenarios/) | 12 end-to-end scenarios (story + HTTP script with PASS / FAIL checks) run on the live stack | Python, WSL | — |
 
-Copied from CLAUDE.md §11, unresolved:
+Demo agents: **Recruitment** (ranking, status, interviews), **Comms** (inbox digest, replies), **HR Assistant**
+(policy Q&A). Leave, Onboarding, Payroll, Performance and Conflict exist as minimal stubs and are **denied by
+the policy engine** by default.
 
-- Manager role: user rule is Desk view-only, but the diagram says "Manager / HR approves in Desk". Confirm.
-- Outgoing replies need real names/emails but PII is masked: where does de-tokenization happen, and who may do it?
-- Where are raw originals and the PII token map stored?
-- Not chosen yet: agent service language/framework, LLM provider and model, malware scanner, injection classifier, vector store, Secrets Manager, approval-signing key management.
-- Audit Log storage and Monitor alert channel unspecified. Calendar source for scheduling unspecified.
-- Licensing: the upstream HR platform is GPL v3. Check implications of distributing the modified product.
+---
+
+## Security features (what the jury can check)
+
+**Input security layer** (`input-security-layer/`)
+- Real file type from magic bytes (PDF, DOCX only); size, page, zip-entry, zip-ratio limits; macros rejected.
+- Text extracted in a child process with a timeout (plus memory/CPU limits on Linux): a malicious file can only kill the child.
+- Hidden text removed and **counted as a signal**: white text, tiny fonts, off-page text, DOCX hidden runs, `display:none`.
+- Unicode NFKC, zero-width and bidi control characters stripped; links defanged and never fetched.
+- PII: names, emails, phones (incl. +216), CIN → document-scoped tokens (`<PERSON_1>`). Age, birth date, gender,
+  marital status, nationality, religion, photo → `[REMOVED]`.
+- Injection scanner (FR + EN rules + structural signals) → `clean` / `suspicious` (spans neutralized) / `quarantined`
+  (nothing reaches the AI; HR reviews). Any instruction hidden in invisible text is quarantined.
+- Envelope signed with HMAC-SHA256 over canonical JSON; `doc_id` and every `chunk_id` are SHA-256 hashes that the agents recompute.
+- Evidence store: write-once, paths only from hashes (never from the uploaded filename), raw bytes re-hashed on read, files 0600.
+- Four separate API keys (upload / report / envelope / resolver); token resolution only with the gateway key.
+
+**Agents** (`agents/`)
+- Read-only Frappe user per agent; tool allowlist per agent; step, token and proposal budgets.
+- Untrusted content wrapped as data, never in the system prompt; one candidate per model call; scores computed by code.
+- Deterministic Output Validator: schema, cited source hashes, evidence quotes must exist in the source, no unmasked contact data.
+
+**Guardrails + Execution Gateway** (`guardrails/`, `hr_ai/`)
+- Default-deny policy: agent registered, tool on its allowlist, recipients must be Frappe **records** (a raw
+  `attacker@evil.com` cannot be expressed), rate limits.
+- Fairness: no protected attribute or term in payloads or justifications (EN + FR), scores must be job-related and sourced, four-fifths disparity test.
+- Approval token = HMAC over (action, action hash, approver). Any edit changes the hash and voids the approval.
+- Gateway re-checks hash, token and guardrails right before acting; already-executed actions are a no-op; guardrails unreachable = refused (fail closed).
+- Pseudonyms are resolved to real values **only** in the gateway, after approval.
+- Test mode: every outgoing email goes to `hr_ai_test_recipient`, never to a (fictional) candidate.
+- Guardrails audit log: append-only (SQLite triggers) and hash-chained; `verify_chain()` finds tampering. The agents keep their own hash-chained trail (`rhf audit-verify`).
+
+---
+
+## Running it
+
+Full step-by-step walkthrough (inbox → agent → approval → email sent, plus the attack being quarantined):
+**[`docs/manual-test.md`](docs/manual-test.md)**.
+
+Prerequisites
+- Docker (on Windows via WSL2) with the Frappe stack: compose project `hr`, site `frontend`, network `hr_frappe_network`, RH Flow on http://localhost:8001.
+- `hr_ai` installed on the site.
+- Mailpit (test mail server, http://localhost:8025).
+- Ollama with `qwen3:8b` (http://localhost:11434).
+
+Start the services
+
+```bash
+# 1. Input security layer (needs input-security-layer/.env, see .env.example)
+docker compose -f input-security-layer/compose.ingest.yml up -d --build
+
+# 2. Guardrails (needs guardrails/.env, see example.env)
+cd guardrails && ./venv/Scripts/python -m uvicorn guardrails.settings:create_app_from_env --factory --host 0.0.0.0 --port 8100
+
+# 3. Agents (WSL; needs .env, see .env.example; per-agent users from agents/scripts/setup_agent_users.py)
+P=$HOME/.venvs/rhflow-agents/bin/python
+$P -m agents.scripts.demo_scenario --reset          # 3 fictional emails, one is an attack
+$P -m agents.cli run comms "List the new emails in the HR inbox and draft a reply to the candidate."
+```
+
+Then open RH Flow → **RH AI** (`/desk/rh-ai`): review the proposal, open **Security checks** to inspect the
+quarantined attack, **Allow** the reply and watch it arrive in Mailpit.
+
+The recorded demo ([`docs/demo-script.md`](docs/demo-script.md)) and the 12 [`Test scenarios/`](Test%20scenarios/)
+were run on the team's full live stack, which also includes an agent HTTP service (port 8200), RH Chat, signed
+webhooks, a guardrails compose file and qwen3:14b. **That part of the code is not in this repository yet**, so
+scenarios 04, 05, 06 and 08 and the demo script's setup do not run from a clean clone. See
+[`LIMITATIONS.md`](LIMITATIONS.md).
+
+Secrets live only in `.env` files and Frappe site config (`bench set-config`), all gitignored. The repository
+only holds `.env.example` / `example.env` with variable names.
+
+---
+
+## Tests
+
+| Suite | Command | Result (2026-11-01) |
+|---|---|---|
+| Input security layer | `cd input-security-layer && pytest -q` | 355 passed, 1 skipped (file-permission check, Linux only) |
+| Guardrails | `cd guardrails && ./venv/Scripts/python -m pytest -q` | 333 passed |
+| Agents + cross-layer | `pytest -q tests` (repo root) | 33 passed, 8 skipped (7 need the synthetic dataset via `DATASET_DIR`, 1 webhook receiver not built) |
+
+All tests run offline: a scripted fake LLM stands in for Qwen and a fake Frappe stands in for RH Flow where needed.
+The guardrails also ship a self-contained demo: `cd guardrails && ./venv/Scripts/python scripts/demo.py --start --step`.
+
+Total measured on this repository: **721 passed**, 9 skipped. (`Test scenarios/README.md` reports 796 tests on the
+live stack, which includes code not pushed yet.)
+
+End-to-end scenarios on the live stack: `bash "Test scenarios/scripts/run_all.sh" fast` (6 scenarios without the
+model, ~3 min) or without `fast` (all 12, ~30 min). Last full run 2026-11-01: 12/12 green.
+
+---
+
+## Contracts
+
+- Ingest envelope (schema `1.1`): `input-security-layer/ingest/contract.py`; API guide: [`input-security-layer/INTEGRATION.md`](input-security-layer/INTEGRATION.md).
+- Guardrails API and rule codes: [`guardrails/INTEGRATION.md`](guardrails/INTEGRATION.md).
+- Agents, tools and budgets: [`docs/agents.md`](docs/agents.md).
+
+## Team
+
+| Area | Folder |
+|---|---|
+| Input security layer (Untrusted Input Zone) | `input-security-layer/` |
+| Guardrails & execution control | `guardrails/` |
+| Agents, `hr_ai` app, RH Flow integration | `agents/`, `hr_ai/` |
+| Interface / theme, test data and demo scenarios | RH Flow UI, `data/` |

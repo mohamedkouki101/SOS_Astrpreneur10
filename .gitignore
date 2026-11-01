@@ -48,3 +48,7 @@ session.md
 
 # Input security layer: Evidence Store data (raw CVs and emails, PII token mappings)
 evidence/
+
+# Local working notes and tool settings (never committed)
+CLAUDE.md
+.claude/
