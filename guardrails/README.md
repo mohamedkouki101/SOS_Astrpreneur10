@@ -7,6 +7,8 @@ only component allowed to write to Frappe.
 > Team decision (2026-10-31): implemented as a standalone service instead of
 > inside the `hr_ai` Frappe app (CLAUDE.md §9), for faster iteration.
 
+**Integrating another layer (agents / `hr_ai`, ingest service, HR interface)?** See [INTEGRATION.md](INTEGRATION.md).
+
 ## Status
 | Component | State |
 |---|---|
