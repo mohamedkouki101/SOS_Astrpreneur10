@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:7f34b39d10d711550366257524e14a220c359c77d3a772285a9f474c1b34a047",
+  "candidate_ref": "hmac:ff286253e5804d6060f1faf54a157d6f4a5acbec3a309976725ad3bc43246349",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:03:10Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PHONE_2>",
+      "<PHONE_3>",
+      "<PERSON_1>"
+    ],
+    "protected_removed": [
+      "BIRTH_DATE",
+      "GENDER",
+      "MARITAL_STATUS",
+      "NATIONALITY"
+    ]
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:8d1cfc65d04bad18daf967a4bf98d81ceb2b6fbaef04a6d210d46ab41369fd9b",
+      "section": "other",
+      "text": "EMNA GHARBI\n<EMAIL_1>  |  <PHONE_1>  |  Tunis, Tunisia\nTarget role: HR Generalist\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]"
+    },
+    {
+      "chunk_id": "sha256:f63d1cd0f0bb0eb76711721a81f426791c52ec0f9c21a7f73487fd9bf727e267",
+      "section": "summary",
+      "text": "PROFILE\n2 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:b5c55e34db1b7d62b7d2b09086b3efc5287325032c9ca8b9d8ec1f13d6f0db00",
+      "section": "experience",
+      "text": "EXPERIENCE\n<PHONE_2>  Associate - Medina Retail (fictional)\n  - Worked with Docker, REST APIs, Arabic.\n  - Owned quarterly objectives.\n<PHONE_3>  Associate - Byrsa Consulting (fictional)\n  - Worked with Recruitment, Excel, Docker.\n  - Delivered quarterly objectives."
+    },
+    {
+      "chunk_id": "sha256:cf9eb6895f3c4a9e969f91bd84e375c2682b07731795deb5718c5fe2bdc2a1e5",
+      "section": "education",
+      "text": "EDUCATION\nBachelor in Literature - Sfax Engineering School (fictional)"
+    },
+    {
+      "chunk_id": "sha256:ba32cd1572f7fa281dc9f6e42b858eacbd2cd7c1953379ab1e83e4177e78c703",
+      "section": "skills",
+      "text": "SKILLS\nRecruitment, <PERSON_1>, Excel, REST APIs, Docker, Arabic, French"
+    },
+    {
+      "chunk_id": "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:def6008b7d2dba1bdb3d5f3d659c567f5152b933fc728501e33da9cd42578604"
+}

@@ -1,0 +1,126 @@
+{
+  "report_version": "1.0",
+  "report_id": "sha256:37efd6e6350ae9d757a9452bafcdc66d0b301dffbc38193bb5f83ba433a19d70",
+  "doc_id": "sha256:ca76c12ed50936ec4eb4c338ded7176d193fe0c0e46aa1fece46c1a87be9a51a",
+  "received_at": "2026-11-01T00:02:22Z",
+  "source": {
+    "type": "upload_cv",
+    "file_type": "pdf",
+    "size_bytes": 1941
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "status": "accepted",
+  "rejection": null,
+  "verdict": "clean",
+  "risk_score_bp": 0,
+  "language": "en",
+  "reasons": [],
+  "stages": [
+    {
+      "stage": "file_check",
+      "status": "pass",
+      "detail": "Real type: PDF (1 KB)",
+      "ms": 81
+    },
+    {
+      "stage": "extraction",
+      "status": "pass",
+      "detail": "21 text spans read in an isolated process",
+      "ms": 1311
+    },
+    {
+      "stage": "hidden_text",
+      "status": "pass",
+      "detail": "Nothing hidden",
+      "ms": 0
+    },
+    {
+      "stage": "unicode",
+      "status": "pass",
+      "detail": "0 invisible character(s) removed",
+      "ms": 0
+    },
+    {
+      "stage": "pii",
+      "status": "pass",
+      "detail": "5 identifier(s) masked, 0 protected attribute(s) removed",
+      "ms": 30
+    },
+    {
+      "stage": "injection",
+      "status": "pass",
+      "detail": "Clean (score 0)",
+      "ms": 0
+    },
+    {
+      "stage": "chunking",
+      "status": "pass",
+      "detail": "6 chunk(s), each with its SHA-256 id",
+      "ms": 0
+    },
+    {
+      "stage": "signing",
+      "status": "pass",
+      "detail": "Envelope signed (HMAC-SHA256)",
+      "ms": 0
+    }
+  ],
+  "text": {
+    "original": "SLIM FERCHICHI\nslim.ferchichi.da8@example.com  |  +216 29 875 555  |  Nabeul, Tunisia\nTarget role: Data Analyst\nPROFILE\n7 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2025-2026  Analyst - Sahel Foods (fictional)\n  - Worked with IFRS, Arabic, Recruitment.\n  - Owned customer-facing processes.\n2021-2025  Analyst - Djerba Travel (fictional)\n  - Worked with Machine Learning, French, Data Analysis.\n  - Improved a key internal project.\n2019-2021  Analyst - Kairouan Textiles (fictional)\n  - Worked with Recruitment, French, Arabic.\n  - Owned customer-facing processes.\nEDUCATION\nBachelor in Statistics - Sfax Engineering School (fictional)\nSKILLS\nData Analysis, Power BI, Excel, Statistics, Machine Learning, Recruitment, IFRS, React, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "cleaned": "SLIM FERCHICHI\nslim.ferchichi.da8@example.com  |  +216 29 875 555  |  Nabeul, Tunisia\nTarget role: Data Analyst\nPROFILE\n7 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2025-2026  Analyst - Sahel Foods (fictional)\n  - Worked with IFRS, Arabic, Recruitment.\n  - Owned customer-facing processes.\n2021-2025  Analyst - Djerba Travel (fictional)\n  - Worked with Machine Learning, French, Data Analysis.\n  - Improved a key internal project.\n2019-2021  Analyst - Kairouan Textiles (fictional)\n  - Worked with Recruitment, French, Arabic.\n  - Owned customer-facing processes.\nEDUCATION\nBachelor in Statistics - Sfax Engineering School (fictional)\nSKILLS\nData Analysis, Power BI, Excel, Statistics, Machine Learning, Recruitment, IFRS, React, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "masked": "SLIM FERCHICHI\n<EMAIL_1>  |  <PHONE_1>  |  Nabeul, Tunisia\nTarget role: Data Analyst\nPROFILE\n7 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n<PHONE_2>  Analyst - Sahel Foods (fictional)\n  - Worked with IFRS, Arabic, Recruitment.\n  - Owned customer-facing processes.\n<PHONE_3>  Analyst - Djerba Travel (fictional)\n  - Worked with Machine Learning, French, Data Analysis.\n  - Improved a key internal project.\n<PHONE_4>  Analyst - Kairouan Textiles (fictional)\n  - Worked with Recruitment, French, Arabic.\n  - Owned customer-facing processes.\nEDUCATION\nBachelor in Statistics - Sfax Engineering School (fictional)\nSKILLS\nData Analysis, Power BI, Excel, Statistics, Machine Learning, Recruitment, IFRS, React, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "sent": "SLIM FERCHICHI\n<EMAIL_1>  |  <PHONE_1>  |  Nabeul, Tunisia\nTarget role: Data Analyst\n\nPROFILE\n7 years of professional experience. Fictional candidate generated for a demo.\n\nEXPERIENCE\n<PHONE_2>  Analyst - Sahel Foods (fictional)\n  - Worked with IFRS, Arabic, Recruitment.\n  - Owned customer-facing processes.\n<PHONE_3>  Analyst - Djerba Travel (fictional)\n  - Worked with Machine Learning, French, Data Analysis.\n  - Improved a key internal project.\n<PHONE_4>  Analyst - Kairouan Textiles (fictional)\n  - Worked with Recruitment, French, Arabic.\n  - Owned customer-facing processes.\n\nEDUCATION\nBachelor in Statistics - Sfax Engineering School (fictional)\n\nSKILLS\nData Analysis, Power BI, Excel, Statistics, Machine Learning, Recruitment, IFRS, React, Arabic, French\n\nLANGUAGES\nArabic (native), French (fluent)"
+  },
+  "removed": [],
+  "masked": [
+    {
+      "token": "<EMAIL_1>",
+      "entity": "EMAIL",
+      "original": "slim.ferchichi.da8@example.com",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_1>",
+      "entity": "PHONE",
+      "original": "+216 29 875 555",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_2>",
+      "entity": "PHONE",
+      "original": "2025-2026",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_3>",
+      "entity": "PHONE",
+      "original": "2021-2025",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_4>",
+      "entity": "PHONE",
+      "original": "2019-2021",
+      "count": 1
+    }
+  ],
+  "protected_removed": [],
+  "injection_matches": [],
+  "hashes": {
+    "doc_id": "sha256:ca76c12ed50936ec4eb4c338ded7176d193fe0c0e46aa1fece46c1a87be9a51a",
+    "chunk_ids": [
+      "sha256:c1e1d42b75252ee3129d5b7bbc32bb6dddc6d60f73e5490f37cf2b5978171490",
+      "sha256:f8e80555a35a148d6ccf5e67cb8f621aa050d0110721c0d4787635483c50565b",
+      "sha256:a0e52b8e3576ed749b4d1431cdf25f71fdcfa4d8b6f534683c321cc8c2108f7b",
+      "sha256:5a58f8951045c5f5bccc51b16d5784bc7350f0d9803449d95ca1761e3ff7303e",
+      "sha256:3b2525ef6134bf6793003cdd28d57e2a4c77729922d654b8f750f6125d96419c",
+      "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1"
+    ],
+    "signature": "hmac-sha256:186e113002515c29d566cb12466cb60f61548d58b7d32a89b9f1fc41c2927c42"
+  },
+  "released_to_ai": true,
+  "decision": null
+}

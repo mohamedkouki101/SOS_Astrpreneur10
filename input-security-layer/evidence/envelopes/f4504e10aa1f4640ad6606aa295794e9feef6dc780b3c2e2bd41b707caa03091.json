@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:6999945cc4b4bd4dd7cc69b2136fb90d58961805aae6fe08ba32b8673aec7195",
+  "candidate_ref": "hmac:90a20ee1ab07696c704f400216ea924be4ac946dd8419002b7611f68a1157ad9",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:01:46Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PHONE_2>",
+      "<PHONE_3>",
+      "<PHONE_4>"
+    ],
+    "protected_removed": []
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:392ea9c910841b423ad8aae3c02b213ecea63e54bc0f357ffe336f2f8abd132f",
+      "section": "other",
+      "text": "MARIEM NASRI\n<EMAIL_1>  |  <PHONE_1>  |  Tunis, Tunisia\nTarget role: Accountant"
+    },
+    {
+      "chunk_id": "sha256:3390e1bbcdd62b6427c733c603d3c38a5bc3b9a4a69167baca59ba7514c93b2a",
+      "section": "summary",
+      "text": "PROFILE\n6 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:54d90a7519798ec9a300e6d21116ba7eed0bec713614f9ffa5a0a6e5f30cca8a",
+      "section": "experience",
+      "text": "EXPERIENCE\n<PHONE_2>  Accountant - Carthage Logistics (fictional)\n  - Worked with Power BI, Payroll, Excel.\n  - Improved customer-facing processes.\n<PHONE_3>  Accountant - Kairouan Textiles (fictional)\n  - Worked with Power BI, French, Digital Marketing.\n  - Delivered customer-facing processes.\n<PHONE_4>  Accountant - Byrsa Consulting (fictional)\n  - Worked with Payroll, Tax Compliance, Digital Marketing.\n  - Improved a key internal project."
+    },
+    {
+      "chunk_id": "sha256:ab6e5ba633d18a80f03fd4de592f2e8e839109dcc8cef43abd5caae296ab3d66",
+      "section": "education",
+      "text": "EDUCATION\nBachelor in Biology - Sousse Business Institute (fictional)"
+    },
+    {
+      "chunk_id": "sha256:7bb490429bb2b479598ea5096aa601531e2d1de3b9ea1df60087ae25b9cd24a9",
+      "section": "skills",
+      "text": "SKILLS\nAccounting, IFRS, Tax Compliance, Excel, Payroll, Power BI, Data Analysis, Digital Marketing, Arabic, French"
+    },
+    {
+      "chunk_id": "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:c2f8d918cbd9823f7b059920b03bc7593cdea94a9ac891505718037c02f1e620"
+}

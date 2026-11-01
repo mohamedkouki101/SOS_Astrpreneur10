@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:5ee77cfd07cc4ca6b2e33edb88af9740f31cba20e2fb084748884a25801c6cb2",
+  "candidate_ref": "hmac:ddbd1ca3ca77d259056f3c2f61f5ff45c207696abfc43f6ade8a1600c557834f",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:04:01Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PERSON_1>"
+    ],
+    "protected_removed": [
+      "BIRTH_DATE",
+      "GENDER",
+      "MARITAL_STATUS",
+      "NATIONALITY"
+    ]
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:a78d956bab67e2b7de4d24b914af89e8c4e1f3b995f8ecb9a7e174e5bc92c6e8",
+      "section": "other",
+      "text": "SIRINE HADDAD\n<EMAIL_1>  |  <PHONE_1>  |  Bizerte, Tunisia\nTarget role: Sales Representative\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]"
+    },
+    {
+      "chunk_id": "sha256:6a040f429944e1fd884f900f9a11faedf9f077c0ab875211e9f9128d48258717",
+      "section": "summary",
+      "text": "PROFILE\n0 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:e6ca6c96a24209353e4f2225d7457447b8dd32da3c9038cda8a773f945f48870",
+      "section": "experience",
+      "text": "EXPERIENCE\n  Internship (3 months) - <PERSON_1> (fictional)"
+    },
+    {
+      "chunk_id": "sha256:cdd374470845ad328a7e0401ea3ff8d06784915efb23c96a0893451b3d7367ad",
+      "section": "education",
+      "text": "EDUCATION\nMaster in Literature - University of Tunis (fictional campus)"
+    },
+    {
+      "chunk_id": "sha256:25a562a7e67b7904810a1c8d5d70a133d9a78ced13bb4fa4129b8b87c113f374",
+      "section": "skills",
+      "text": "SKILLS\nProspecting, French, Excel, Tax Compliance, Arabic"
+    },
+    {
+      "chunk_id": "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:323421767a3620bbbff7d2dce9a396b5685bdc5b0fe787d24a1106dfd20af783"
+}

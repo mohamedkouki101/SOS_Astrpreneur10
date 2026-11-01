@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:2e8838548292216aa0f7a24254ef3c46a2b3bcf23b8b0e93f818120806b19f5b",
+  "candidate_ref": "hmac:b40f77144e88f5fa0cfa38c4138468c74bd866463afe484c3ad0fa42204424af",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:02:12Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PHONE_2>",
+      "<PHONE_3>"
+    ],
+    "protected_removed": [
+      "BIRTH_DATE",
+      "GENDER",
+      "MARITAL_STATUS",
+      "NATIONALITY"
+    ]
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:45c0a5339b4967fb3e564effe624849e3e4d2bf7ac319562cc83e1f6ae2bc080",
+      "section": "other",
+      "text": "SAMI ELLOUZE\n<EMAIL_1>  |  <PHONE_1>  |  Tunis, Tunisia\nTarget role: Data Analyst\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]"
+    },
+    {
+      "chunk_id": "sha256:886deb8f2f93363fee393606817e797c665fd2291f4f0782e9c6aaf5d6ca6b77",
+      "section": "summary",
+      "text": "PROFILE\n5 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:e765f1aabb13ac87a02d6085cbe8bf57f4f519754724fc4ce135fa18a1125305",
+      "section": "experience",
+      "text": "EXPERIENCE\n<PHONE_2>  Analyst - Djerba Travel (fictional)\n  - Worked with Statistics, Python, Linux.\n  - Improved team reporting.\n<PHONE_3>  Analyst - Sahel Foods (fictional)\n  - Worked with Excel, Python, Arabic.\n  - Delivered team reporting."
+    },
+    {
+      "chunk_id": "sha256:ca8b1d6a09b47741a574eaf56318dc24831fd943dd69287a37795723f8c2a447",
+      "section": "education",
+      "text": "EDUCATION\nBachelor in Statistics - Monastir Faculty of Sciences (fictional)"
+    },
+    {
+      "chunk_id": "sha256:6e1173c8814bad8eb7c14d9394f61bd8ba252864fd78e597fddb652e23b9cd60",
+      "section": "skills",
+      "text": "SKILLS\nSQL, Excel, Statistics, Python, Linux, Arabic, French"
+    },
+    {
+      "chunk_id": "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:2cc50f76c594e26077e0c7b4194fa21e6faba4d7d521d37799b8ef119415737a"
+}

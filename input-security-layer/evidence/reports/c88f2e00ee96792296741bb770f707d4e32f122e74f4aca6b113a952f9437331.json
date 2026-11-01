@@ -1,0 +1,94 @@
+{
+  "report_version": "1.0",
+  "report_id": "sha256:c88f2e00ee96792296741bb770f707d4e32f122e74f4aca6b113a952f9437331",
+  "doc_id": "sha256:ab9d524e629ed04c78b93058beb4d577fc0024711277607158c645da7146001f",
+  "received_at": "2026-11-01T00:04:08Z",
+  "source": {
+    "type": "email_body",
+    "file_type": "email",
+    "size_bytes": 208
+  },
+  "job_opening": null,
+  "status": "accepted",
+  "rejection": null,
+  "verdict": "clean",
+  "risk_score_bp": 0,
+  "language": "en",
+  "reasons": [],
+  "stages": [
+    {
+      "stage": "file_check",
+      "status": "pass",
+      "detail": "Email body (plain text)",
+      "ms": 224
+    },
+    {
+      "stage": "extraction",
+      "status": "pass",
+      "detail": "Plain text",
+      "ms": 0
+    },
+    {
+      "stage": "hidden_text",
+      "status": "pass",
+      "detail": "Nothing hidden",
+      "ms": 0
+    },
+    {
+      "stage": "unicode",
+      "status": "pass",
+      "detail": "0 invisible character(s) removed",
+      "ms": 0
+    },
+    {
+      "stage": "pii",
+      "status": "pass",
+      "detail": "1 identifier(s) masked, 0 protected attribute(s) removed",
+      "ms": 42
+    },
+    {
+      "stage": "injection",
+      "status": "pass",
+      "detail": "Clean (score 0)",
+      "ms": 0
+    },
+    {
+      "stage": "chunking",
+      "status": "pass",
+      "detail": "1 chunk(s), each with its SHA-256 id",
+      "ms": 0
+    },
+    {
+      "stage": "signing",
+      "status": "pass",
+      "detail": "Envelope signed (HMAC-SHA256)",
+      "ms": 0
+    }
+  ],
+  "text": {
+    "original": "Hello,\r\nI applied for the Data Analyst role last week. Could you tell me about the next steps and the expected timeline?\r\nThank you,\r\nDorra Mansouri\r\n",
+    "cleaned": "Hello,\nI applied for the Data Analyst role last week. Could you tell me about the next steps and the expected timeline?\nThank you,\nDorra Mansouri\n",
+    "masked": "Hello,\nI applied for the Data Analyst role last week. Could you tell me about the next steps and the expected timeline?\nThank you,\n<PERSON_1>\n",
+    "sent": "Hello,\nI applied for the Data Analyst role last week. Could you tell me about the next steps and the expected timeline?\nThank you,\n<PERSON_1>"
+  },
+  "removed": [],
+  "masked": [
+    {
+      "token": "<PERSON_1>",
+      "entity": "PERSON",
+      "original": "Dorra Mansouri",
+      "count": 1
+    }
+  ],
+  "protected_removed": [],
+  "injection_matches": [],
+  "hashes": {
+    "doc_id": "sha256:ab9d524e629ed04c78b93058beb4d577fc0024711277607158c645da7146001f",
+    "chunk_ids": [
+      "sha256:c068fbc593b216a0f94a0f932edfdf5a5be05fcede98cbccf41a6fd456a326ad"
+    ],
+    "signature": "hmac-sha256:5243ffa0e5711c74709c4f53dc5e8acf64a4f1de1d814202ba3c5587e29364d6"
+  },
+  "released_to_ai": true,
+  "decision": null
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:916dd05d1a63ca7adeae716c8144210dc1948aec87cad0bee5ecb4cf0d56f0b4",
+  "candidate_ref": "hmac:605df373467aeac1a3ede9d6fb60ffdcc6461ef33c847460fdc3b7ddd7d45887",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:03:24Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PHONE_2>",
+      "<PHONE_3>",
+      "<PERSON_1>",
+      "<PHONE_4>"
+    ],
+    "protected_removed": []
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:3f22861e06bf43202aff27f4f5a0463c28f21f864d377a71d990aa13a21086da",
+      "section": "other",
+      "text": "SARRA LAHMAR\n<EMAIL_1>  |  <PHONE_1>  |  Bizerte, Tunisia\nTarget role: Senior Python Developer"
+    },
+    {
+      "chunk_id": "sha256:5dd8dd27f4f302ca53dbefc47a62dec65b1769669b88c0100146d8ac328acf2a",
+      "section": "summary",
+      "text": "PROFILE\n10 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:fd19abe1782ec2e0f73332d397e566c2624713ed970a6972a201d42e788ab08d",
+      "section": "experience",
+      "text": "EXPERIENCE\n<PHONE_2>  Software Developer - Djerba Travel (fictional)\n  - Worked with French, Social Media, Recruitment.\n  - Delivered customer-facing processes.\n<PHONE_3>  Software Developer - <PERSON_1> (fictional)\n  - Worked with Social Media, Linux, Communication.\n  - Improved quarterly objectives.\n<PHONE_4>  Software Developer - Hannibal Bank (fictional)\n  - Worked with Python, French, Linux.\n  - Delivered a key internal project."
+    },
+    {
+      "chunk_id": "sha256:d71ab2b13aab671ca7c9c24529c3b9b57bca1ac8fd97d1ac0374f19c0dc4cbf3",
+      "section": "education",
+      "text": "EDUCATION\nBachelor in Computer Science - Sousse Business Institute (fictional)"
+    },
+    {
+      "chunk_id": "sha256:ae94af98db31630afe2b9a1c4d7dd8147af37a3d813017b7d554de79d6bd1cc2",
+      "section": "skills",
+      "text": "SKILLS\nPython, SQL, REST APIs, Git, Linux, Social Media, Recruitment, Communication, Arabic, French"
+    },
+    {
+      "chunk_id": "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:0b65116944c37de858d088bc15d1c82e59bf5ba9325657c9c83d336ff7f97fec"
+}

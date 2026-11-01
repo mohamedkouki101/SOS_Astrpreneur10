@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:af814208876f45252f995c5dab05b2252b20c9dd0f751d9c236f3d458c113b8a",
+  "candidate_ref": "hmac:3bd7e93995bc8ecb7cf0ad0b1ce808f182ec6ccf099a418ad877af118cac96b0",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:03:33Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PHONE_2>",
+      "<PHONE_3>",
+      "<PHONE_4>"
+    ],
+    "protected_removed": []
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:417cdeb8b3210ead03edf0883888395463ab7ad8ce635e4b0b6b97a6ae4869c1",
+      "section": "other",
+      "text": "SALMA RIAHI\n<EMAIL_1>  |  <PHONE_1>  |  Tunis, Tunisia\nTarget role: Senior Python Developer"
+    },
+    {
+      "chunk_id": "sha256:a3d70af230067fb5b6f2683233788d61d1b2de25ffa41898290fafd3555f485c",
+      "section": "summary",
+      "text": "PROFILE\n11 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:e5542372987558d9e4dd3ff5a260e95a82e242cf19f8a042f56caccec2974ff6",
+      "section": "experience",
+      "text": "EXPERIENCE\n<PHONE_2>  Software Developer - Jasmine Telecom (fictional)\n  - Worked with Docker, React, French.\n  - Improved customer-facing processes.\n<PHONE_3>  Software Developer - Sahel Foods (fictional)\n  - Worked with Arabic, Git, REST APIs.\n  - Supported customer-facing processes.\n<PHONE_4>  Software Developer - Carthage Logistics (fictional)\n  - Worked with Data Analysis, SQL, Arabic.\n  - Improved customer-facing processes."
+    },
+    {
+      "chunk_id": "sha256:12c558b4509aa370fa225c30c613f75179d1f3d48e19911afd589c6f93056651",
+      "section": "education",
+      "text": "EDUCATION\nBachelor in Computer Science - Carthage Tech Institute (fictional)"
+    },
+    {
+      "chunk_id": "sha256:897a56d100ba8b79ed363d8f1f452222c9ca6665a266ce50699ab3d6f3bb38a7",
+      "section": "skills",
+      "text": "SKILLS\nPython, SQL, REST APIs, Docker, Git, React, Agile/Scrum, English, Data Analysis, French, Arabic"
+    },
+    {
+      "chunk_id": "sha256:88b8257187b8e75e3bbd8a1eb6e11058ad9ebf4b28fd55d67285c1527dc80a8d",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent), English (professional)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:37319d7beaddad429e7009192d14e323397d8abac73de3ef1ebdc76b02081a95"
+}

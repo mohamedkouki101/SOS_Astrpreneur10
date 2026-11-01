@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:08c8180f804d99fe4f64458f08f47157842d09aeffcd3bcc02cf4ba2ab5b37f2",
+  "candidate_ref": "hmac:065e7f7521cd43f3dc6ec747d1c777133fb42a796e748d921b0aee168e9f69c3",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:03:48Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PERSON_1>"
+    ],
+    "protected_removed": [
+      "BIRTH_DATE",
+      "GENDER",
+      "MARITAL_STATUS",
+      "NATIONALITY"
+    ]
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:61748281d6b7c6bebbc84ca91990c28e137a5c9940b3e7dcea8e90616c22605b",
+      "section": "other",
+      "text": "ANIS MZOUGHI\n<EMAIL_1>  |  <PHONE_1>  |  Sfax, Tunisia\nTarget role: Sales Representative\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]"
+    },
+    {
+      "chunk_id": "sha256:6a040f429944e1fd884f900f9a11faedf9f077c0ab875211e9f9128d48258717",
+      "section": "summary",
+      "text": "PROFILE\n0 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:e6ca6c96a24209353e4f2225d7457447b8dd32da3c9038cda8a773f945f48870",
+      "section": "experience",
+      "text": "EXPERIENCE\n  Internship (3 months) - <PERSON_1> (fictional)"
+    },
+    {
+      "chunk_id": "sha256:83cd6f4f6c1b8b42d7a353706d63fa66625dd3548e4cc0ab1259392369cf0c59",
+      "section": "education",
+      "text": "EDUCATION\nMaster in Biology - Sfax Engineering School (fictional)"
+    },
+    {
+      "chunk_id": "sha256:8a8eae1cdd8a8d8c1a917b6a9a693e579e6a80e1efba0dcd9fff23eae7285f1c",
+      "section": "skills",
+      "text": "SKILLS\nDigital Marketing, Agile/Scrum, Arabic, French"
+    },
+    {
+      "chunk_id": "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:e9604bc580b3454f230b29e95297c60c30499fbee0e3826d80d5b0c11c599093"
+}

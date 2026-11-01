@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:52b3e0af9e1a5aed44e6677eb26fa9f73f0bcb92f1b6f8301d61ce807e315dd1",
+  "candidate_ref": "hmac:5b3ac8ec12b9526d48a0b951410bab2d4f48df13d54666243c9cd8b56c8051f5",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:02:50Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PHONE_2>",
+      "<PHONE_3>",
+      "<PERSON_1>"
+    ],
+    "protected_removed": []
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:d8cfa632496e66c3c1b6c8fc4cf52c841898dda26f599ef84fa92fd0caf7dc3b",
+      "section": "other",
+      "text": "MOLKA HAMDI\n<EMAIL_1>  |  <PHONE_1>  |  Tunis, Tunisia\nTarget role: Digital Marketing Specialist"
+    },
+    {
+      "chunk_id": "sha256:f8e80555a35a148d6ccf5e67cb8f621aa050d0110721c0d4787635483c50565b",
+      "section": "summary",
+      "text": "PROFILE\n7 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:b15dd668aa66a625871ca86f1dc36622352a76aaf36a922b2a82ea6668918fc8",
+      "section": "experience",
+      "text": "EXPERIENCE\n<PHONE_2>  Marketing Specialist - Byrsa Consulting (fictional)\n  - Worked with Social Media, Arabic, Communication.\n  - Delivered a key internal project.\n<PHONE_3>  Marketing Specialist - Djerba Travel (fictional)\n  - Worked with <PERSON_1>, English, SEO.\n  - Supported customer-facing processes."
+    },
+    {
+      "chunk_id": "sha256:eef8d87a3a1612e727e75def661f627790e5c5a3dca15f3ec9c49faebfbd4367",
+      "section": "education",
+      "text": "EDUCATION\nMaster in Marketing - Monastir Faculty of Sciences (fictional)"
+    },
+    {
+      "chunk_id": "sha256:c65492c4f10e2a05cce7ad5e679e65888e120b571ae8ad62058a32da81428cff",
+      "section": "skills",
+      "text": "SKILLS\nDigital Marketing, SEO, <PERSON_1>, Social Media, English, Communication, Accounting, Arabic, French"
+    },
+    {
+      "chunk_id": "sha256:88b8257187b8e75e3bbd8a1eb6e11058ad9ebf4b28fd55d67285c1527dc80a8d",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent), English (professional)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:5c006992ad15fdf7c5e72f9455ea44551ebff017f34c7e66877c71b3f9b81397"
+}

@@ -1,0 +1,131 @@
+{
+  "report_version": "1.0",
+  "report_id": "sha256:1b1413b81b04ddfbcef33555d3cc353d44cbe57719540144def3cd5642c21685",
+  "doc_id": "sha256:5ee77cfd07cc4ca6b2e33edb88af9740f31cba20e2fb084748884a25801c6cb2",
+  "received_at": "2026-11-01T00:04:01Z",
+  "source": {
+    "type": "upload_cv",
+    "file_type": "pdf",
+    "size_bytes": 1547
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "status": "accepted",
+  "rejection": null,
+  "verdict": "clean",
+  "risk_score_bp": 0,
+  "language": "en",
+  "reasons": [],
+  "stages": [
+    {
+      "stage": "file_check",
+      "status": "pass",
+      "detail": "Real type: PDF (1 KB)",
+      "ms": 211
+    },
+    {
+      "stage": "extraction",
+      "status": "pass",
+      "detail": "15 text spans read in an isolated process",
+      "ms": 1578
+    },
+    {
+      "stage": "hidden_text",
+      "status": "pass",
+      "detail": "Nothing hidden",
+      "ms": 0
+    },
+    {
+      "stage": "unicode",
+      "status": "pass",
+      "detail": "0 invisible character(s) removed",
+      "ms": 0
+    },
+    {
+      "stage": "pii",
+      "status": "pass",
+      "detail": "3 identifier(s) masked, 4 protected attribute(s) removed",
+      "ms": 26
+    },
+    {
+      "stage": "injection",
+      "status": "pass",
+      "detail": "Clean (score 0)",
+      "ms": 0
+    },
+    {
+      "stage": "chunking",
+      "status": "pass",
+      "detail": "6 chunk(s), each with its SHA-256 id",
+      "ms": 0
+    },
+    {
+      "stage": "signing",
+      "status": "pass",
+      "detail": "Envelope signed (HMAC-SHA256)",
+      "ms": 0
+    }
+  ],
+  "text": {
+    "original": "SIRINE HADDAD\nsirine.haddad.sr13@example.com  |  +216 26 766 737  |  Bizerte, Tunisia\nTarget role: Sales Representative\nDate of birth: 1985-10-20   Nationality: Tunisian   Marital status: Married\nGender: Female\nPROFILE\n0 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n  Internship (3 months) - Atlas Soft (fictional)\nEDUCATION\nMaster in Literature - University of Tunis (fictional campus)\nSKILLS\nProspecting, French, Excel, Tax Compliance, Arabic\nLANGUAGES\nArabic (native), French (fluent)",
+    "cleaned": "SIRINE HADDAD\nsirine.haddad.sr13@example.com  |  +216 26 766 737  |  Bizerte, Tunisia\nTarget role: Sales Representative\nDate of birth: 1985-10-20   Nationality: Tunisian   Marital status: Married\nGender: Female\nPROFILE\n0 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n  Internship (3 months) - Atlas Soft (fictional)\nEDUCATION\nMaster in Literature - University of Tunis (fictional campus)\nSKILLS\nProspecting, French, Excel, Tax Compliance, Arabic\nLANGUAGES\nArabic (native), French (fluent)",
+    "masked": "SIRINE HADDAD\n<EMAIL_1>  |  <PHONE_1>  |  Bizerte, Tunisia\nTarget role: Sales Representative\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]\nPROFILE\n0 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n  Internship (3 months) - <PERSON_1> (fictional)\nEDUCATION\nMaster in Literature - University of Tunis (fictional campus)\nSKILLS\nProspecting, French, Excel, Tax Compliance, Arabic\nLANGUAGES\nArabic (native), French (fluent)",
+    "sent": "SIRINE HADDAD\n<EMAIL_1>  |  <PHONE_1>  |  Bizerte, Tunisia\nTarget role: Sales Representative\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]\n\nPROFILE\n0 years of professional experience. Fictional candidate generated for a demo.\n\nEXPERIENCE\n  Internship (3 months) - <PERSON_1> (fictional)\n\nEDUCATION\nMaster in Literature - University of Tunis (fictional campus)\n\nSKILLS\nProspecting, French, Excel, Tax Compliance, Arabic\n\nLANGUAGES\nArabic (native), French (fluent)"
+  },
+  "removed": [],
+  "masked": [
+    {
+      "token": "<EMAIL_1>",
+      "entity": "EMAIL",
+      "original": "sirine.haddad.sr13@example.com",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_1>",
+      "entity": "PHONE",
+      "original": "+216 26 766 737",
+      "count": 1
+    },
+    {
+      "token": "<PERSON_1>",
+      "entity": "PERSON",
+      "original": "Atlas Soft",
+      "count": 1
+    }
+  ],
+  "protected_removed": [
+    {
+      "attribute": "BIRTH_DATE",
+      "original": "1985-10-20"
+    },
+    {
+      "attribute": "NATIONALITY",
+      "original": "Tunisian"
+    },
+    {
+      "attribute": "MARITAL_STATUS",
+      "original": "Married"
+    },
+    {
+      "attribute": "GENDER",
+      "original": "Female"
+    }
+  ],
+  "injection_matches": [],
+  "hashes": {
+    "doc_id": "sha256:5ee77cfd07cc4ca6b2e33edb88af9740f31cba20e2fb084748884a25801c6cb2",
+    "chunk_ids": [
+      "sha256:a78d956bab67e2b7de4d24b914af89e8c4e1f3b995f8ecb9a7e174e5bc92c6e8",
+      "sha256:6a040f429944e1fd884f900f9a11faedf9f077c0ab875211e9f9128d48258717",
+      "sha256:e6ca6c96a24209353e4f2225d7457447b8dd32da3c9038cda8a773f945f48870",
+      "sha256:cdd374470845ad328a7e0401ea3ff8d06784915efb23c96a0893451b3d7367ad",
+      "sha256:25a562a7e67b7904810a1c8d5d70a133d9a78ced13bb4fa4129b8b87c113f374",
+      "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1"
+    ],
+    "signature": "hmac-sha256:323421767a3620bbbff7d2dce9a396b5685bdc5b0fe787d24a1106dfd20af783"
+  },
+  "released_to_ai": true,
+  "decision": null
+}

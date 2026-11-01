@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:a98b96574beae57da672d4520c927d9470264ab4438ba409354417a713dabff9",
+  "candidate_ref": "hmac:861c853e020e16084fd4697534e7aba51dd813a49cec3c53df4050467e7ebbed",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:03:38Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PHONE_2>",
+      "<PERSON_1>"
+    ],
+    "protected_removed": []
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:4a1ead9e661a0908c91190fd8283256f2551911d69926c1e9175c2f259b4e9a3",
+      "section": "other",
+      "text": "LEILA ZOUARI\n<EMAIL_1>  |  <PHONE_1>  |  Gabes, Tunisia\nTarget role: Senior Python Developer"
+    },
+    {
+      "chunk_id": "sha256:a956b9244fc0be918f05a8317a80465ade86e51fc4b1856a34b92057a85d7484",
+      "section": "summary",
+      "text": "PROFILE\n1 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:b4e4c5b35bff42f3d09aa50fcb701c305460f2f0f5ffd32e383d92044b6fa369",
+      "section": "experience",
+      "text": "EXPERIENCE\n<PHONE_2>  Software Developer - <PERSON_1> (fictional)\n  - Worked with French, Arabic, Statistics.\n  - Supported a key internal project."
+    },
+    {
+      "chunk_id": "sha256:d22a2bfe521562644ec79098745fbf84bd1faf218592b74651a2613b4b7e7b06",
+      "section": "education",
+      "text": "EDUCATION\nMaster in Computer Science - University of Tunis (fictional campus)"
+    },
+    {
+      "chunk_id": "sha256:a932db7f6cd5fca032085700a8f90f63733a6b20f68db0a3a6a0e3b7edb2d7ff",
+      "section": "skills",
+      "text": "SKILLS\nLinux, English, Statistics, JavaScript, Arabic, French"
+    },
+    {
+      "chunk_id": "sha256:88b8257187b8e75e3bbd8a1eb6e11058ad9ebf4b28fd55d67285c1527dc80a8d",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent), English (professional)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:ad64584d348314b094639f0693160484af0e2ec78c1b9a39e3390aed6a7088c4"
+}

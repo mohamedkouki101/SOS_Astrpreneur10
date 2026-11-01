@@ -1,0 +1,143 @@
+{
+  "report_version": "1.0",
+  "report_id": "sha256:5a752c35543be6f69909d8d916c2c883848f5012962f3194f4c0884891ecad1d",
+  "doc_id": "sha256:e70423678b5ff3ec8ecb15c86069acf8030d93aff72c121fa40b5abacd2e7318",
+  "received_at": "2026-11-01T00:03:37Z",
+  "source": {
+    "type": "upload_cv",
+    "file_type": "pdf",
+    "size_bytes": 1904
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "status": "accepted",
+  "rejection": null,
+  "verdict": "clean",
+  "risk_score_bp": 0,
+  "language": "en",
+  "reasons": [],
+  "stages": [
+    {
+      "stage": "file_check",
+      "status": "pass",
+      "detail": "Real type: PDF (1 KB)",
+      "ms": 84
+    },
+    {
+      "stage": "extraction",
+      "status": "pass",
+      "detail": "20 text spans read in an isolated process",
+      "ms": 736
+    },
+    {
+      "stage": "hidden_text",
+      "status": "pass",
+      "detail": "Nothing hidden",
+      "ms": 0
+    },
+    {
+      "stage": "unicode",
+      "status": "pass",
+      "detail": "0 invisible character(s) removed",
+      "ms": 0
+    },
+    {
+      "stage": "pii",
+      "status": "pass",
+      "detail": "5 identifier(s) masked, 4 protected attribute(s) removed",
+      "ms": 27
+    },
+    {
+      "stage": "injection",
+      "status": "pass",
+      "detail": "Clean (score 0)",
+      "ms": 0
+    },
+    {
+      "stage": "chunking",
+      "status": "pass",
+      "detail": "6 chunk(s), each with its SHA-256 id",
+      "ms": 0
+    },
+    {
+      "stage": "signing",
+      "status": "pass",
+      "detail": "Envelope signed (HMAC-SHA256)",
+      "ms": 0
+    }
+  ],
+  "text": {
+    "original": "MARIEM BELHAJ\nmariem.belhaj.py12@example.com  |  +216 26 335 935  |  Nabeul, Tunisia\nTarget role: Senior Python Developer\nDate of birth: 1989-02-01   Nationality: Tunisian   Marital status: Married\nGender: Female\nPROFILE\n6 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2022-2026  Software Developer - Carthage Logistics (fictional)\n  - Worked with Arabic, French, Linux.\n  - Improved quarterly objectives.\n2020-2022  Software Developer - Medina Retail (fictional)\n  - Worked with Linux, French, Customer Support.\n  - Owned customer-facing processes.\nEDUCATION\nEngineering Degree in Computer Science - University of Tunis (fictional campus)\nSKILLS\nPython, SQL, Git, React, Linux, Customer Support, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "cleaned": "MARIEM BELHAJ\nmariem.belhaj.py12@example.com  |  +216 26 335 935  |  Nabeul, Tunisia\nTarget role: Senior Python Developer\nDate of birth: 1989-02-01   Nationality: Tunisian   Marital status: Married\nGender: Female\nPROFILE\n6 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2022-2026  Software Developer - Carthage Logistics (fictional)\n  - Worked with Arabic, French, Linux.\n  - Improved quarterly objectives.\n2020-2022  Software Developer - Medina Retail (fictional)\n  - Worked with Linux, French, Customer Support.\n  - Owned customer-facing processes.\nEDUCATION\nEngineering Degree in Computer Science - University of Tunis (fictional campus)\nSKILLS\nPython, SQL, Git, React, Linux, Customer Support, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "masked": "MARIEM BELHAJ\n<EMAIL_1>  |  <PHONE_1>  |  Nabeul, Tunisia\nTarget role: Senior Python Developer\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]\nPROFILE\n6 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n<PHONE_2>  Software Developer - Carthage Logistics (fictional)\n  - Worked with Arabic, French, Linux.\n  - Improved quarterly objectives.\n<PHONE_3>  Software Developer - Medina Retail (fictional)\n  - Worked with Linux, French, <PERSON_1>.\n  - Owned <PERSON_1>-facing processes.\nEDUCATION\nEngineering Degree in Computer Science - University of Tunis (fictional campus)\nSKILLS\nPython, SQL, Git, React, Linux, <PERSON_1>, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "sent": "MARIEM BELHAJ\n<EMAIL_1>  |  <PHONE_1>  |  Nabeul, Tunisia\nTarget role: Senior Python Developer\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]\n\nPROFILE\n6 years of professional experience. Fictional candidate generated for a demo.\n\nEXPERIENCE\n<PHONE_2>  Software Developer - Carthage Logistics (fictional)\n  - Worked with Arabic, French, Linux.\n  - Improved quarterly objectives.\n<PHONE_3>  Software Developer - Medina Retail (fictional)\n  - Worked with Linux, French, <PERSON_1>.\n  - Owned <PERSON_1>-facing processes.\n\nEDUCATION\nEngineering Degree in Computer Science - University of Tunis (fictional campus)\n\nSKILLS\nPython, SQL, Git, React, Linux, <PERSON_1>, Arabic, French\n\nLANGUAGES\nArabic (native), French (fluent)"
+  },
+  "removed": [],
+  "masked": [
+    {
+      "token": "<EMAIL_1>",
+      "entity": "EMAIL",
+      "original": "mariem.belhaj.py12@example.com",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_1>",
+      "entity": "PHONE",
+      "original": "+216 26 335 935",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_2>",
+      "entity": "PHONE",
+      "original": "2022-2026",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_3>",
+      "entity": "PHONE",
+      "original": "2020-2022",
+      "count": 1
+    },
+    {
+      "token": "<PERSON_1>",
+      "entity": "PERSON",
+      "original": "Customer Support",
+      "count": 3
+    }
+  ],
+  "protected_removed": [
+    {
+      "attribute": "BIRTH_DATE",
+      "original": "1989-02-01"
+    },
+    {
+      "attribute": "NATIONALITY",
+      "original": "Tunisian"
+    },
+    {
+      "attribute": "MARITAL_STATUS",
+      "original": "Married"
+    },
+    {
+      "attribute": "GENDER",
+      "original": "Female"
+    }
+  ],
+  "injection_matches": [],
+  "hashes": {
+    "doc_id": "sha256:e70423678b5ff3ec8ecb15c86069acf8030d93aff72c121fa40b5abacd2e7318",
+    "chunk_ids": [
+      "sha256:c2f1d896095dc0dfa26fea14855af782afcee6d8b99a667fe1f4bf1785d64021",
+      "sha256:3390e1bbcdd62b6427c733c603d3c38a5bc3b9a4a69167baca59ba7514c93b2a",
+      "sha256:d3d432db4fb06b20346626b9f47bf7b4ceafc94e01904d2154501c669095eb7c",
+      "sha256:cb620339d52b3db03e4c171c1487d68481c49f05732f7f31128d585e2a4a11ca",
+      "sha256:3f369b6fe48cc3543cdb334b4b80e63b0988309098939de212db8bf7f234825f",
+      "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1"
+    ],
+    "signature": "hmac-sha256:0d6cfcdd96aeca083a5340316cbb146d24756da3e18f3e47b43abb5b5e9e2aef"
+  },
+  "released_to_ai": true,
+  "decision": null
+}

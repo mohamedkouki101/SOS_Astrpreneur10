@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:41d04d62416636743641fe1b36ba8e941e58b17bcf2485b2d64563595a1186df",
+  "candidate_ref": "hmac:2e0cbe7b100f1141b81bc93bff324399a14e40bd9a7666e733b23e7a0ca13ad5",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:02:11Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>"
+    ],
+    "protected_removed": []
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:a899c412aff5577a76d7db5f4fdbc2722faec8d1514e19d834ff0f7c181db75f",
+      "section": "other",
+      "text": "KARIM KAROUI\n<EMAIL_1>  |  <PHONE_1>  |  Monastir, Tunisia\nTarget role: Data Analyst"
+    },
+    {
+      "chunk_id": "sha256:6a040f429944e1fd884f900f9a11faedf9f077c0ab875211e9f9128d48258717",
+      "section": "summary",
+      "text": "PROFILE\n0 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:68ccd160f4c900da8ea0f6d7c68302c08c5d222e247a26c571479936d445bdd2",
+      "section": "experience",
+      "text": "EXPERIENCE\n  Internship (3 months) - Hannibal Bank (fictional)"
+    },
+    {
+      "chunk_id": "sha256:cf9eb6895f3c4a9e969f91bd84e375c2682b07731795deb5718c5fe2bdc2a1e5",
+      "section": "education",
+      "text": "EDUCATION\nBachelor in Literature - Sfax Engineering School (fictional)"
+    },
+    {
+      "chunk_id": "sha256:642844956095cf2a17006f4c1ef0258ee73e3c84e299ecc425c4ba2b9d42c1d3",
+      "section": "skills",
+      "text": "SKILLS\nData Analysis, Power BI, Excel, Python, Linux, Arabic, French"
+    },
+    {
+      "chunk_id": "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:5cc0f12f665e1afa4f72393c432e03ef4431bd9b125a0ce32ffcc00b9e3ff213"
+}

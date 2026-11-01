@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:d95ea72ef5c80fc394d7e2013e1f4bb86327356f661df682f64d4e984048cd0d",
+  "candidate_ref": "hmac:a28a4b774f47a18e6edc34679a3a8e4488a2c0a8f3dd71ac3131eceec2849e04",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:02:52Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PHONE_2>",
+      "<PHONE_3>"
+    ],
+    "protected_removed": [
+      "BIRTH_DATE",
+      "GENDER",
+      "MARITAL_STATUS",
+      "NATIONALITY"
+    ]
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:848213925d9fc1ac0b76f64303864706ea518119db0c9e75e7b645b1401a6525",
+      "section": "other",
+      "text": "EMNA NASRI\n<EMAIL_1>  |  <PHONE_1>  |  Nabeul, Tunisia\nTarget role: Digital Marketing Specialist\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]"
+    },
+    {
+      "chunk_id": "sha256:cf9dad3f58c7c756a7223e247101a893a5df02a6d55ae7c67d6dd6e4d8472241",
+      "section": "summary",
+      "text": "PROFILE\n4 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:c52bccee362e5407677ed16c76f0fd28e80160cc834a0a68035602282417795c",
+      "section": "experience",
+      "text": "EXPERIENCE\n<PHONE_2>  Marketing Specialist - Carthage Logistics (fictional)\n  - Worked with Leadership, Sales Negotiation, Arabic.\n  - Supported customer-facing processes.\n<PHONE_3>  Marketing Specialist - Hannibal Bank (fictional)\n  - Worked with Sales Negotiation, Leadership, French.\n  - Improved team reporting."
+    },
+    {
+      "chunk_id": "sha256:bfba19e10d83264becf644e534eb7a4fb6472990afd341dff78339f5b07c9d7d",
+      "section": "education",
+      "text": "EDUCATION\nMaster in Literature - Monastir Faculty of Sciences (fictional)"
+    },
+    {
+      "chunk_id": "sha256:b47e5dab8c2bd52e43868f83287ca6f0e861f59e6de90a63fae8978bbdc7c241",
+      "section": "skills",
+      "text": "SKILLS\nDigital Marketing, Leadership, Sales Negotiation, Arabic, French"
+    },
+    {
+      "chunk_id": "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:01d1972b4dd3be579aa882675439e14c60eabaaf4d0327141e45c62da0ba36af"
+}

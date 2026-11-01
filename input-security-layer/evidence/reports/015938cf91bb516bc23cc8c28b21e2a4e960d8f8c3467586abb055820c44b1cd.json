@@ -1,0 +1,120 @@
+{
+  "report_version": "1.0",
+  "report_id": "sha256:015938cf91bb516bc23cc8c28b21e2a4e960d8f8c3467586abb055820c44b1cd",
+  "doc_id": "sha256:9423c2c10adf604a3b5471738e0222308c5b8c8ba0a38de37e9e3ae9016ce7f3",
+  "received_at": "2026-11-01T00:03:47Z",
+  "source": {
+    "type": "upload_cv",
+    "file_type": "pdf",
+    "size_bytes": 1777
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "status": "accepted",
+  "rejection": null,
+  "verdict": "clean",
+  "risk_score_bp": 0,
+  "language": "en",
+  "reasons": [],
+  "stages": [
+    {
+      "stage": "file_check",
+      "status": "pass",
+      "detail": "Real type: PDF (1 KB)",
+      "ms": 91
+    },
+    {
+      "stage": "extraction",
+      "status": "pass",
+      "detail": "18 text spans read in an isolated process",
+      "ms": 474
+    },
+    {
+      "stage": "hidden_text",
+      "status": "pass",
+      "detail": "Nothing hidden",
+      "ms": 0
+    },
+    {
+      "stage": "unicode",
+      "status": "pass",
+      "detail": "0 invisible character(s) removed",
+      "ms": 0
+    },
+    {
+      "stage": "pii",
+      "status": "pass",
+      "detail": "4 identifier(s) masked, 0 protected attribute(s) removed",
+      "ms": 22
+    },
+    {
+      "stage": "injection",
+      "status": "pass",
+      "detail": "Clean (score 0)",
+      "ms": 0
+    },
+    {
+      "stage": "chunking",
+      "status": "pass",
+      "detail": "6 chunk(s), each with its SHA-256 id",
+      "ms": 0
+    },
+    {
+      "stage": "signing",
+      "status": "pass",
+      "detail": "Envelope signed (HMAC-SHA256)",
+      "ms": 0
+    }
+  ],
+  "text": {
+    "original": "RAMI OUALI\nrami.ouali.sr6@example.com  |  +216 22 847 816  |  Bizerte, Tunisia\nTarget role: Sales Representative\nPROFILE\n2 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2025-2026  Sales Representative - Hannibal Bank (fictional)\n  - Worked with Communication, Sales Negotiation, Accounting.\n  - Improved quarterly objectives.\n2024-2025  Sales Representative - Sahel Foods (fictional)\n  - Worked with Sales Negotiation, Excel, Communication.\n  - Delivered customer-facing processes.\nEDUCATION\nBachelor in Literature - Carthage Tech Institute (fictional)\nSKILLS\nSales Negotiation, Communication, Excel, Accounting, JavaScript, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "cleaned": "RAMI OUALI\nrami.ouali.sr6@example.com  |  +216 22 847 816  |  Bizerte, Tunisia\nTarget role: Sales Representative\nPROFILE\n2 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2025-2026  Sales Representative - Hannibal Bank (fictional)\n  - Worked with Communication, Sales Negotiation, Accounting.\n  - Improved quarterly objectives.\n2024-2025  Sales Representative - Sahel Foods (fictional)\n  - Worked with Sales Negotiation, Excel, Communication.\n  - Delivered customer-facing processes.\nEDUCATION\nBachelor in Literature - Carthage Tech Institute (fictional)\nSKILLS\nSales Negotiation, Communication, Excel, Accounting, JavaScript, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "masked": "RAMI OUALI\n<EMAIL_1>  |  <PHONE_1>  |  Bizerte, Tunisia\nTarget role: Sales Representative\nPROFILE\n2 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n<PHONE_2>  Sales Representative - Hannibal Bank (fictional)\n  - Worked with Communication, Sales Negotiation, Accounting.\n  - Improved quarterly objectives.\n<PHONE_3>  Sales Representative - Sahel Foods (fictional)\n  - Worked with Sales Negotiation, Excel, Communication.\n  - Delivered customer-facing processes.\nEDUCATION\nBachelor in Literature - Carthage Tech Institute (fictional)\nSKILLS\nSales Negotiation, Communication, Excel, Accounting, JavaScript, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "sent": "RAMI OUALI\n<EMAIL_1>  |  <PHONE_1>  |  Bizerte, Tunisia\nTarget role: Sales Representative\n\nPROFILE\n2 years of professional experience. Fictional candidate generated for a demo.\n\nEXPERIENCE\n<PHONE_2>  Sales Representative - Hannibal Bank (fictional)\n  - Worked with Communication, Sales Negotiation, Accounting.\n  - Improved quarterly objectives.\n<PHONE_3>  Sales Representative - Sahel Foods (fictional)\n  - Worked with Sales Negotiation, Excel, Communication.\n  - Delivered customer-facing processes.\n\nEDUCATION\nBachelor in Literature - Carthage Tech Institute (fictional)\n\nSKILLS\nSales Negotiation, Communication, Excel, Accounting, JavaScript, Arabic, French\n\nLANGUAGES\nArabic (native), French (fluent)"
+  },
+  "removed": [],
+  "masked": [
+    {
+      "token": "<EMAIL_1>",
+      "entity": "EMAIL",
+      "original": "rami.ouali.sr6@example.com",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_1>",
+      "entity": "PHONE",
+      "original": "+216 22 847 816",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_2>",
+      "entity": "PHONE",
+      "original": "2025-2026",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_3>",
+      "entity": "PHONE",
+      "original": "2024-2025",
+      "count": 1
+    }
+  ],
+  "protected_removed": [],
+  "injection_matches": [],
+  "hashes": {
+    "doc_id": "sha256:9423c2c10adf604a3b5471738e0222308c5b8c8ba0a38de37e9e3ae9016ce7f3",
+    "chunk_ids": [
+      "sha256:7506cdb332213942c44f9484f8bbb59e8d65ac3dd56303762aedcaeb3da0a0c0",
+      "sha256:f63d1cd0f0bb0eb76711721a81f426791c52ec0f9c21a7f73487fd9bf727e267",
+      "sha256:4f23a0cac98c8b005d339223fc1944e77bb7d7ec61a96a164790cbd8e55fa0a4",
+      "sha256:705f576cc29a8514bce1a54f5ba441f4848fd95ff1a45c97a2e32a138b5df556",
+      "sha256:ffb10cb4cf581dde288772091e8251ac00ce941684337a2cf7fc481e3b13d2b3",
+      "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1"
+    ],
+    "signature": "hmac-sha256:fb108dc8d372973d84a4d4a6ea37f6b27aa9aea1100b582a5110be4b9ce6b733"
+  },
+  "released_to_ai": true,
+  "decision": null
+}

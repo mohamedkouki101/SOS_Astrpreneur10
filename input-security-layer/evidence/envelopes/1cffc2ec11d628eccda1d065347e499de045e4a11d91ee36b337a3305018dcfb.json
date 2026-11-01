@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:6dcf04231f6921db55a7a560f8c56cfba599cf14971f21ebb808cc1d61e4b681",
+  "candidate_ref": "hmac:e286f6c1629bc3dfc25267a2163eddddd6484884d4be2bfb6601923df57f9ff3",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:03:29Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PHONE_2>",
+      "<PHONE_3>",
+      "<PHONE_4>"
+    ],
+    "protected_removed": []
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:80a9835b94a7ab7e8f88ee058728821390ccab44a75a9f797f64a799eb1fc47f",
+      "section": "other",
+      "text": "WALID HAMDI\n<EMAIL_1>  |  <PHONE_1>  |  Tunis, Tunisia\nTarget role: Senior Python Developer"
+    },
+    {
+      "chunk_id": "sha256:f8e80555a35a148d6ccf5e67cb8f621aa050d0110721c0d4787635483c50565b",
+      "section": "summary",
+      "text": "PROFILE\n7 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:19de2d6be57bc9534f82c3bdd069d46cd5927d2f3204775d9ff5647e0ffb46df",
+      "section": "experience",
+      "text": "EXPERIENCE\n<PHONE_2>  Software Developer - Medina Retail (fictional)\n  - Worked with Git, Project Management, Data Analysis.\n  - Owned customer-facing processes.\n<PHONE_3>  Software Developer - Byrsa Consulting (fictional)\n  - Worked with Git, Data Analysis, SQL.\n  - Improved customer-facing processes.\n<PHONE_4>  Software Developer - Sahel Foods (fictional)\n  - Worked with REST APIs, Python, SQL.\n  - Supported a key internal project."
+    },
+    {
+      "chunk_id": "sha256:2603f92603a11acab117f57b35e5d12da2499f359f1cfb6133292f5f582a2183",
+      "section": "education",
+      "text": "EDUCATION\nMaster in Computer Science - Sfax Engineering School (fictional)"
+    },
+    {
+      "chunk_id": "sha256:ecdb5d5af121418b3c8263b5c1e7413a6898553170132e8f441d0446152f2265",
+      "section": "skills",
+      "text": "SKILLS\nPython, SQL, REST APIs, Docker, Git, React, Data Analysis, Project Management, Arabic, French"
+    },
+    {
+      "chunk_id": "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:34926144527263ceef00a42579e91dfd0bd152c4f9b4ae72e102d3ae7f95275f"
+}

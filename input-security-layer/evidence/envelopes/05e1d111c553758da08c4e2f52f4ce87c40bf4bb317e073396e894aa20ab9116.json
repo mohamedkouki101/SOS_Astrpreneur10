@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:6a281c2dd6f2ca27a850d3cf0ddbe1342daac4bf1ab22825a002e8627ea457ee",
+  "candidate_ref": "hmac:bbefaf2240fea12a25fbc4dab23af81dcc704317cf93e9177296e83628e47096",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:02:01Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PHONE_2>",
+      "<PHONE_3>",
+      "<PHONE_4>",
+      "<PHONE_5>"
+    ],
+    "protected_removed": [
+      "GENDER",
+      "MARITAL_STATUS",
+      "NATIONALITY"
+    ]
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:9cd8df61fbdde6bf3b2a3d36c72a5c82fcc16a854b0d49aac32072d619d7200a",
+      "section": "other",
+      "text": "SALMA AYARI\n<EMAIL_1>  |  <PHONE_1>  |  Monastir, Tunisia\nTarget role: Accountant\nDate of birth: <PHONE_2>   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]"
+    },
+    {
+      "chunk_id": "sha256:3390e1bbcdd62b6427c733c603d3c38a5bc3b9a4a69167baca59ba7514c93b2a",
+      "section": "summary",
+      "text": "PROFILE\n6 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:cb41965dbf0d66bba34be099db6bf5d572fe4d846bfed4b549f35b79d2aaacba",
+      "section": "experience",
+      "text": "EXPERIENCE\n<PHONE_3>  Accountant - Hannibal Bank (fictional)\n  - Worked with IFRS, Excel, Tax Compliance.\n  - Supported team reporting.\n<PHONE_4>  Accountant - Carthage Logistics (fictional)\n  - Worked with Accounting, French, Tax Compliance.\n  - Improved quarterly objectives.\n<PHONE_5>  Accountant - Djerba Travel (fictional)\n  - Worked with French, Accounting, JavaScript.\n  - Owned customer-facing processes."
+    },
+    {
+      "chunk_id": "sha256:9d404f8f5c5d026a07c351169d8b5f18c385253c73534ad560123e5071037f23",
+      "section": "education",
+      "text": "EDUCATION\nMaster in History - Sousse Business Institute (fictional)"
+    },
+    {
+      "chunk_id": "sha256:f54e3f0d08d8fa231f947f2936498a32463fd558be8388a2816ef21c535ba256",
+      "section": "skills",
+      "text": "SKILLS\nAccounting, IFRS, Tax Compliance, Excel, JavaScript, Python, Arabic, French"
+    },
+    {
+      "chunk_id": "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:2b5c8bb02c2f48b00aabcafcfc7d7336ef4540851b75810ec870adf2de653bc0"
+}

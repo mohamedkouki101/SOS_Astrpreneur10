@@ -1,0 +1,137 @@
+{
+  "report_version": "1.0",
+  "report_id": "sha256:28a49f45574f218dd1029df6fd626fa6d3a1e79bb7e6f097c1959262137b1bb7",
+  "doc_id": "sha256:1b16fff0d5f11052c722d411da7c678c4cabe2d76086aa347d30dd698ec8b976",
+  "received_at": "2026-11-01T00:02:19Z",
+  "source": {
+    "type": "upload_cv",
+    "file_type": "pdf",
+    "size_bytes": 1728
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "status": "accepted",
+  "rejection": null,
+  "verdict": "clean",
+  "risk_score_bp": 0,
+  "language": "en",
+  "reasons": [],
+  "stages": [
+    {
+      "stage": "file_check",
+      "status": "pass",
+      "detail": "Real type: PDF (1 KB)",
+      "ms": 124
+    },
+    {
+      "stage": "extraction",
+      "status": "pass",
+      "detail": "17 text spans read in an isolated process",
+      "ms": 965
+    },
+    {
+      "stage": "hidden_text",
+      "status": "pass",
+      "detail": "Nothing hidden",
+      "ms": 0
+    },
+    {
+      "stage": "unicode",
+      "status": "pass",
+      "detail": "0 invisible character(s) removed",
+      "ms": 0
+    },
+    {
+      "stage": "pii",
+      "status": "pass",
+      "detail": "4 identifier(s) masked, 4 protected attribute(s) removed",
+      "ms": 28
+    },
+    {
+      "stage": "injection",
+      "status": "pass",
+      "detail": "Clean (score 0)",
+      "ms": 0
+    },
+    {
+      "stage": "chunking",
+      "status": "pass",
+      "detail": "6 chunk(s), each with its SHA-256 id",
+      "ms": 0
+    },
+    {
+      "stage": "signing",
+      "status": "pass",
+      "detail": "Envelope signed (HMAC-SHA256)",
+      "ms": 0
+    }
+  ],
+  "text": {
+    "original": "RANIA MZOUGHI\nrania.mzoughi.da6@example.com  |  +216 25 726 873  |  Monastir, Tunisia\nTarget role: Data Analyst\nDate of birth: 1978-03-04   Nationality: Tunisian   Marital status: Married\nGender: Female\nPROFILE\n3 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2023-2026  Analyst - Djerba Travel (fictional)\n  - Worked with Machine Learning, Arabic, Statistics.\n  - Delivered a key internal project.\nEDUCATION\nEngineering Degree in Statistics - Carthage Tech Institute (fictional)\nSKILLS\nSQL, Data Analysis, Power BI, Excel, Statistics, Machine Learning, Git, Sales Negotiation, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "cleaned": "RANIA MZOUGHI\nrania.mzoughi.da6@example.com  |  +216 25 726 873  |  Monastir, Tunisia\nTarget role: Data Analyst\nDate of birth: 1978-03-04   Nationality: Tunisian   Marital status: Married\nGender: Female\nPROFILE\n3 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2023-2026  Analyst - Djerba Travel (fictional)\n  - Worked with Machine Learning, Arabic, Statistics.\n  - Delivered a key internal project.\nEDUCATION\nEngineering Degree in Statistics - Carthage Tech Institute (fictional)\nSKILLS\nSQL, Data Analysis, Power BI, Excel, Statistics, Machine Learning, Git, Sales Negotiation, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "masked": "RANIA MZOUGHI\n<EMAIL_1>  |  <PHONE_1>  |  Monastir, Tunisia\nTarget role: Data Analyst\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]\nPROFILE\n3 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n<PHONE_2>  Analyst - Djerba Travel (fictional)\n  - Worked with <PERSON_1>, Arabic, Statistics.\n  - Delivered a key internal project.\nEDUCATION\nEngineering Degree in Statistics - Carthage Tech Institute (fictional)\nSKILLS\nSQL, Data Analysis, Power BI, Excel, Statistics, <PERSON_1>, Git, Sales Negotiation, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "sent": "RANIA MZOUGHI\n<EMAIL_1>  |  <PHONE_1>  |  Monastir, Tunisia\nTarget role: Data Analyst\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]\n\nPROFILE\n3 years of professional experience. Fictional candidate generated for a demo.\n\nEXPERIENCE\n<PHONE_2>  Analyst - Djerba Travel (fictional)\n  - Worked with <PERSON_1>, Arabic, Statistics.\n  - Delivered a key internal project.\n\nEDUCATION\nEngineering Degree in Statistics - Carthage Tech Institute (fictional)\n\nSKILLS\nSQL, Data Analysis, Power BI, Excel, Statistics, <PERSON_1>, Git, Sales Negotiation, Arabic, French\n\nLANGUAGES\nArabic (native), French (fluent)"
+  },
+  "removed": [],
+  "masked": [
+    {
+      "token": "<EMAIL_1>",
+      "entity": "EMAIL",
+      "original": "rania.mzoughi.da6@example.com",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_1>",
+      "entity": "PHONE",
+      "original": "+216 25 726 873",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_2>",
+      "entity": "PHONE",
+      "original": "2023-2026",
+      "count": 1
+    },
+    {
+      "token": "<PERSON_1>",
+      "entity": "PERSON",
+      "original": "Machine Learning",
+      "count": 2
+    }
+  ],
+  "protected_removed": [
+    {
+      "attribute": "BIRTH_DATE",
+      "original": "1978-03-04"
+    },
+    {
+      "attribute": "NATIONALITY",
+      "original": "Tunisian"
+    },
+    {
+      "attribute": "MARITAL_STATUS",
+      "original": "Married"
+    },
+    {
+      "attribute": "GENDER",
+      "original": "Female"
+    }
+  ],
+  "injection_matches": [],
+  "hashes": {
+    "doc_id": "sha256:1b16fff0d5f11052c722d411da7c678c4cabe2d76086aa347d30dd698ec8b976",
+    "chunk_ids": [
+      "sha256:72dc13de8b7d5aac892627df44b66b62e9fd9685dd19b8428b62994388db3fa4",
+      "sha256:a0f4f70f444ad03e5569f51126a243e708856811552c89fdf6c505fb7255b679",
+      "sha256:0971c1dee609095224a4cd7f51382012f6335a52360577b0307554d102daa4c1",
+      "sha256:8c06c3b89fbc05958170e532bc908764f5b7cbb0f87ba04792adf58cf407a7e3",
+      "sha256:5e80a095b5da1069219534f2c6b823b2510113770f213ad7437fc9bdaf2aded0",
+      "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1"
+    ],
+    "signature": "hmac-sha256:89b1404fe1e4041e7e4eddda412d0c7217b91efd360e1c3b3ec8306003dfde72"
+  },
+  "released_to_ai": true,
+  "decision": null
+}

@@ -1,0 +1,151 @@
+{
+  "report_version": "1.0",
+  "report_id": "sha256:774b72ae1d271e979b8a49f8cf59384cc4f45937b984f5ab4c0728cd19c0cc61",
+  "doc_id": "sha256:b5995646884ba169e2784d786028e40ab650982f3bd9a9d626022aaf81519954",
+  "received_at": "2026-11-01T00:03:32Z",
+  "source": {
+    "type": "upload_cv",
+    "file_type": "pdf",
+    "size_bytes": 2065
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "status": "accepted",
+  "rejection": null,
+  "verdict": "clean",
+  "risk_score_bp": 0,
+  "language": "en",
+  "reasons": [],
+  "stages": [
+    {
+      "stage": "file_check",
+      "status": "pass",
+      "detail": "Real type: PDF (2 KB)",
+      "ms": 65
+    },
+    {
+      "stage": "extraction",
+      "status": "pass",
+      "detail": "23 text spans read in an isolated process",
+      "ms": 851
+    },
+    {
+      "stage": "hidden_text",
+      "status": "pass",
+      "detail": "Nothing hidden",
+      "ms": 0
+    },
+    {
+      "stage": "unicode",
+      "status": "pass",
+      "detail": "0 invisible character(s) removed",
+      "ms": 0
+    },
+    {
+      "stage": "pii",
+      "status": "pass",
+      "detail": "7 identifier(s) masked, 3 protected attribute(s) removed",
+      "ms": 39
+    },
+    {
+      "stage": "injection",
+      "status": "pass",
+      "detail": "Clean (score 0)",
+      "ms": 0
+    },
+    {
+      "stage": "chunking",
+      "status": "pass",
+      "detail": "6 chunk(s), each with its SHA-256 id",
+      "ms": 0
+    },
+    {
+      "stage": "signing",
+      "status": "pass",
+      "detail": "Envelope signed (HMAC-SHA256)",
+      "ms": 0
+    }
+  ],
+  "text": {
+    "original": "MARIEM ABIDI\nmariem.abidi.py8@example.com  |  +216 29 408 283  |  Bizerte, Tunisia\nTarget role: Senior Python Developer\nDate of birth: 2003-10-30   Nationality: Tunisian   Marital status: Single\nGender: Female\nPROFILE\n12 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2022-2026  Software Developer - Kairouan Textiles (fictional)\n  - Worked with Arabic, REST APIs, SQL.\n  - Supported customer-facing processes.\n2020-2022  Software Developer - Jasmine Telecom (fictional)\n  - Worked with French, Docker, Arabic.\n  - Improved a key internal project.\n2018-2020  Software Developer - Byrsa Consulting (fictional)\n  - Worked with Linux, REST APIs, SQL.\n  - Owned team reporting.\nEDUCATION\nBachelor in Biology - Sfax Engineering School (fictional)\nSKILLS\nSQL, REST APIs, Docker, Git, Linux, Machine Learning, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "cleaned": "MARIEM ABIDI\nmariem.abidi.py8@example.com  |  +216 29 408 283  |  Bizerte, Tunisia\nTarget role: Senior Python Developer\nDate of birth: 2003-10-30   Nationality: Tunisian   Marital status: Single\nGender: Female\nPROFILE\n12 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2022-2026  Software Developer - Kairouan Textiles (fictional)\n  - Worked with Arabic, REST APIs, SQL.\n  - Supported customer-facing processes.\n2020-2022  Software Developer - Jasmine Telecom (fictional)\n  - Worked with French, Docker, Arabic.\n  - Improved a key internal project.\n2018-2020  Software Developer - Byrsa Consulting (fictional)\n  - Worked with Linux, REST APIs, SQL.\n  - Owned team reporting.\nEDUCATION\nBachelor in Biology - Sfax Engineering School (fictional)\nSKILLS\nSQL, REST APIs, Docker, Git, Linux, Machine Learning, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "masked": "MARIEM ABIDI\n<EMAIL_1>  |  <PHONE_1>  |  Bizerte, Tunisia\nTarget role: Senior Python Developer\nDate of birth: <PHONE_2>   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]\nPROFILE\n12 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n<PHONE_3>  Software Developer - Kairouan Textiles (fictional)\n  - Worked with Arabic, REST APIs, SQL.\n  - Supported customer-facing processes.\n<PHONE_4>  Software Developer - Jasmine Telecom (fictional)\n  - Worked with French, Docker, Arabic.\n  - Improved a key internal project.\n<PHONE_5>  Software Developer - Byrsa Consulting (fictional)\n  - Worked with Linux, REST APIs, SQL.\n  - Owned team reporting.\nEDUCATION\nBachelor in Biology - Sfax Engineering School (fictional)\nSKILLS\nSQL, REST APIs, Docker, Git, Linux, <PERSON_1>, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "sent": "MARIEM ABIDI\n<EMAIL_1>  |  <PHONE_1>  |  Bizerte, Tunisia\nTarget role: Senior Python Developer\nDate of birth: <PHONE_2>   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]\n\nPROFILE\n12 years of professional experience. Fictional candidate generated for a demo.\n\nEXPERIENCE\n<PHONE_3>  Software Developer - Kairouan Textiles (fictional)\n  - Worked with Arabic, REST APIs, SQL.\n  - Supported customer-facing processes.\n<PHONE_4>  Software Developer - Jasmine Telecom (fictional)\n  - Worked with French, Docker, Arabic.\n  - Improved a key internal project.\n<PHONE_5>  Software Developer - Byrsa Consulting (fictional)\n  - Worked with Linux, REST APIs, SQL.\n  - Owned team reporting.\n\nEDUCATION\nBachelor in Biology - Sfax Engineering School (fictional)\n\nSKILLS\nSQL, REST APIs, Docker, Git, Linux, <PERSON_1>, Arabic, French\n\nLANGUAGES\nArabic (native), French (fluent)"
+  },
+  "removed": [],
+  "masked": [
+    {
+      "token": "<EMAIL_1>",
+      "entity": "EMAIL",
+      "original": "mariem.abidi.py8@example.com",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_1>",
+      "entity": "PHONE",
+      "original": "+216 29 408 283",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_2>",
+      "entity": "PHONE",
+      "original": "2003-10-30",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_3>",
+      "entity": "PHONE",
+      "original": "2022-2026",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_4>",
+      "entity": "PHONE",
+      "original": "2020-2022",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_5>",
+      "entity": "PHONE",
+      "original": "2018-2020",
+      "count": 1
+    },
+    {
+      "token": "<PERSON_1>",
+      "entity": "PERSON",
+      "original": "Machine Learning",
+      "count": 1
+    }
+  ],
+  "protected_removed": [
+    {
+      "attribute": "NATIONALITY",
+      "original": "Tunisian"
+    },
+    {
+      "attribute": "MARITAL_STATUS",
+      "original": "Single"
+    },
+    {
+      "attribute": "GENDER",
+      "original": "Female"
+    }
+  ],
+  "injection_matches": [],
+  "hashes": {
+    "doc_id": "sha256:b5995646884ba169e2784d786028e40ab650982f3bd9a9d626022aaf81519954",
+    "chunk_ids": [
+      "sha256:c61ada3a298b5396e0b597a800b5503cb894cbe83d3d674c5dabde28c0f0c5b7",
+      "sha256:242252183c277334324382cb1cf36c1fe97ffff01d26e62115df3f036707d888",
+      "sha256:a6cb974e19c116c6262376fc8130170f52ad0abdd8021c0b9b62e87ea6c4c995",
+      "sha256:67b9bfee4f1a63ca7199b7adbc9dbc0f9e31dadddbd7f04af080d24bf84a57a6",
+      "sha256:60a39be5fcd084e511b858b12a54d8106a085cb3eaab9de3dd924afb49bdd047",
+      "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1"
+    ],
+    "signature": "hmac-sha256:a8422d416376655464331ff439d44598ff11ec835cdcc57341c5c135c28eaaf2"
+  },
+  "released_to_ai": true,
+  "decision": null
+}

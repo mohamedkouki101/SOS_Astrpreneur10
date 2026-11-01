@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:b170051ad90498ac6d8ba75f9aff9edccc24de8a2a6b05bdae2a3d15d940974d",
+  "candidate_ref": "hmac:71aeb16a45c424a54c4ba8ca912bafb08261aaee8e855da8fad1913bf01d696b",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:03:01Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>"
+    ],
+    "protected_removed": [
+      "BIRTH_DATE",
+      "GENDER",
+      "MARITAL_STATUS",
+      "NATIONALITY"
+    ]
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:16c4ab35b9d497796e708024b61c7940f4888824552fbd7fafe95f21f3f2ed44",
+      "section": "other",
+      "text": "SALMA HAMDI\n<EMAIL_1>  |  <PHONE_1>  |  Kairouan, Tunisia\nTarget role: HR Generalist\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]"
+    },
+    {
+      "chunk_id": "sha256:6a040f429944e1fd884f900f9a11faedf9f077c0ab875211e9f9128d48258717",
+      "section": "summary",
+      "text": "PROFILE\n0 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:59c70201cd6bd48badfa6078a89a6cd913fc4493ada0ece5f566324933a43e40",
+      "section": "experience",
+      "text": "EXPERIENCE\n  Internship (3 months) - Byrsa Consulting (fictional)"
+    },
+    {
+      "chunk_id": "sha256:ad19fe8a172677b8f40b13e0b29822f79c0031844ef37a1da13c4ed512db90fe",
+      "section": "education",
+      "text": "EDUCATION\nEngineering Degree in Literature - Carthage Tech Institute (fictional)"
+    },
+    {
+      "chunk_id": "sha256:a20fc94868583796537c41d7319124c723e37eac3276c6ffc6f7f92ffa42f0cf",
+      "section": "skills",
+      "text": "SKILLS\nLabour Law, Payroll, Arabic, French"
+    },
+    {
+      "chunk_id": "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:85568993f2b83cf142ee7a16bffa61b22c35250dc03052ef97a78a289fa4c465"
+}

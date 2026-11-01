@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:5ea8e6a88f88caefa5dba517073bfe06da42500a2d7048ad255857cea85aebac",
+  "candidate_ref": "hmac:fb24680aef79c8c0ea443fea9ae74d6ba4ebc2a176c00725cf704891745894b2",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:01:41Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PHONE_2>",
+      "<PHONE_3>",
+      "<PHONE_4>"
+    ],
+    "protected_removed": []
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:d326237791210f7f338b9956a2cf68a3eb87f28d0598428d820a03ad2b140985",
+      "section": "other",
+      "text": "EMNA SASSI\n<EMAIL_1>  |  <PHONE_1>  |  Gabes, Tunisia\nTarget role: Accountant"
+    },
+    {
+      "chunk_id": "sha256:3390e1bbcdd62b6427c733c603d3c38a5bc3b9a4a69167baca59ba7514c93b2a",
+      "section": "summary",
+      "text": "PROFILE\n6 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:34c7f460136984461134f9dc9d95bc3331bbb68d4cb4100ac5de2b2701a02699",
+      "section": "experience",
+      "text": "EXPERIENCE\n<PHONE_2>  Accountant - Atlas Soft (fictional)\n  - Worked with Tax Compliance, Accounting, French.\n  - Delivered quarterly objectives.\n<PHONE_3>  Accountant - Kairouan Textiles (fictional)\n  - Worked with Tax Compliance, Accounting, Power BI.\n  - Improved a key internal project.\n<PHONE_4>  Accountant - Sahel Foods (fictional)\n  - Worked with Tax Compliance, French, Data Analysis.\n  - Owned customer-facing processes."
+    },
+    {
+      "chunk_id": "sha256:4515f8686d8efb358844019127827c9ccc645d3d52fc7efe572a84cb4a57a1fa",
+      "section": "education",
+      "text": "EDUCATION\nEngineering Degree in Literature - Sousse Business Institute (fictional)"
+    },
+    {
+      "chunk_id": "sha256:121209054468aed0e548ae62a8036dedb0bc25219024215e485c5ed1f7a1a335",
+      "section": "skills",
+      "text": "SKILLS\nAccounting, IFRS, Tax Compliance, Power BI, Data Analysis, Arabic, French"
+    },
+    {
+      "chunk_id": "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:211efd3329d74bc8aae3946eab2fd5c18ef6e8a9bb64bc9dfbda8d0f2a1d15b0"
+}

@@ -1,0 +1,149 @@
+{
+  "report_version": "1.0",
+  "report_id": "sha256:829978eb6cc0598c72fae0bf8e74410add6b07483272dbd6cab61772d99a51ef",
+  "doc_id": "sha256:8cfd50189bef04a009c64e5b7009441ea9dbfcd3e57fc9fa0079e7bf8da13168",
+  "received_at": "2026-11-01T00:02:56Z",
+  "source": {
+    "type": "upload_cv",
+    "file_type": "pdf",
+    "size_bytes": 1931
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "status": "accepted",
+  "rejection": null,
+  "verdict": "clean",
+  "risk_score_bp": 0,
+  "language": "en",
+  "reasons": [],
+  "stages": [
+    {
+      "stage": "file_check",
+      "status": "pass",
+      "detail": "Real type: PDF (1 KB)",
+      "ms": 158
+    },
+    {
+      "stage": "extraction",
+      "status": "pass",
+      "detail": "20 text spans read in an isolated process",
+      "ms": 1612
+    },
+    {
+      "stage": "hidden_text",
+      "status": "pass",
+      "detail": "Nothing hidden",
+      "ms": 0
+    },
+    {
+      "stage": "unicode",
+      "status": "pass",
+      "detail": "0 invisible character(s) removed",
+      "ms": 0
+    },
+    {
+      "stage": "pii",
+      "status": "pass",
+      "detail": "6 identifier(s) masked, 4 protected attribute(s) removed",
+      "ms": 27
+    },
+    {
+      "stage": "injection",
+      "status": "pass",
+      "detail": "Clean (score 0)",
+      "ms": 0
+    },
+    {
+      "stage": "chunking",
+      "status": "pass",
+      "detail": "6 chunk(s), each with its SHA-256 id",
+      "ms": 0
+    },
+    {
+      "stage": "signing",
+      "status": "pass",
+      "detail": "Envelope signed (HMAC-SHA256)",
+      "ms": 0
+    }
+  ],
+  "text": {
+    "original": "ANIS KAMMOUN\nanis.kammoun.dm14@example.com  |  +216 23 393 179  |  Gabes, Tunisia\nTarget role: Digital Marketing Specialist\nDate of birth: 1991-05-11   Nationality: Moroccan   Marital status: Single\nGender: Male\nPROFILE\n3 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2025-2026  Marketing Specialist - Sahel Foods (fictional)\n  - Worked with English, Arabic, SEO.\n  - Owned team reporting.\n2023-2025  Marketing Specialist - Jasmine Telecom (fictional)\n  - Worked with Labour Law, Arabic, Digital Marketing.\n  - Delivered customer-facing processes.\nEDUCATION\nMaster in Marketing - Carthage Tech Institute (fictional)\nSKILLS\nDigital Marketing, SEO, Content Writing, English, French, Agile/Scrum, Labour Law, Arabic\nLANGUAGES\nArabic (native), French (fluent), English (professional)",
+    "cleaned": "ANIS KAMMOUN\nanis.kammoun.dm14@example.com  |  +216 23 393 179  |  Gabes, Tunisia\nTarget role: Digital Marketing Specialist\nDate of birth: 1991-05-11   Nationality: Moroccan   Marital status: Single\nGender: Male\nPROFILE\n3 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2025-2026  Marketing Specialist - Sahel Foods (fictional)\n  - Worked with English, Arabic, SEO.\n  - Owned team reporting.\n2023-2025  Marketing Specialist - Jasmine Telecom (fictional)\n  - Worked with Labour Law, Arabic, Digital Marketing.\n  - Delivered customer-facing processes.\nEDUCATION\nMaster in Marketing - Carthage Tech Institute (fictional)\nSKILLS\nDigital Marketing, SEO, Content Writing, English, French, Agile/Scrum, Labour Law, Arabic\nLANGUAGES\nArabic (native), French (fluent), English (professional)",
+    "masked": "ANIS KAMMOUN\n<EMAIL_1>  |  <PHONE_1>  |  Gabes, Tunisia\nTarget role: Digital Marketing Specialist\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]\nPROFILE\n3 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n<PHONE_2>  Marketing Specialist - Sahel Foods (fictional)\n  - Worked with English, Arabic, SEO.\n  - Owned team reporting.\n<PHONE_3>  Marketing Specialist - Jasmine Telecom (fictional)\n  - Worked with <PERSON_1>, Arabic, Digital Marketing.\n  - Delivered customer-facing processes.\nEDUCATION\nMaster in Marketing - Carthage Tech Institute (fictional)\nSKILLS\nDigital Marketing, SEO, <PERSON_2>, English, French, Agile/Scrum, <PERSON_1>, Arabic\nLANGUAGES\nArabic (native), French (fluent), English (professional)",
+    "sent": "ANIS KAMMOUN\n<EMAIL_1>  |  <PHONE_1>  |  Gabes, Tunisia\nTarget role: Digital Marketing Specialist\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]\n\nPROFILE\n3 years of professional experience. Fictional candidate generated for a demo.\n\nEXPERIENCE\n<PHONE_2>  Marketing Specialist - Sahel Foods (fictional)\n  - Worked with English, Arabic, SEO.\n  - Owned team reporting.\n<PHONE_3>  Marketing Specialist - Jasmine Telecom (fictional)\n  - Worked with <PERSON_1>, Arabic, Digital Marketing.\n  - Delivered customer-facing processes.\n\nEDUCATION\nMaster in Marketing - Carthage Tech Institute (fictional)\n\nSKILLS\nDigital Marketing, SEO, <PERSON_2>, English, French, Agile/Scrum, <PERSON_1>, Arabic\n\nLANGUAGES\nArabic (native), French (fluent), English (professional)"
+  },
+  "removed": [],
+  "masked": [
+    {
+      "token": "<EMAIL_1>",
+      "entity": "EMAIL",
+      "original": "anis.kammoun.dm14@example.com",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_1>",
+      "entity": "PHONE",
+      "original": "+216 23 393 179",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_2>",
+      "entity": "PHONE",
+      "original": "2025-2026",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_3>",
+      "entity": "PHONE",
+      "original": "2023-2025",
+      "count": 1
+    },
+    {
+      "token": "<PERSON_1>",
+      "entity": "PERSON",
+      "original": "Labour Law",
+      "count": 2
+    },
+    {
+      "token": "<PERSON_2>",
+      "entity": "PERSON",
+      "original": "Content Writing",
+      "count": 1
+    }
+  ],
+  "protected_removed": [
+    {
+      "attribute": "BIRTH_DATE",
+      "original": "1991-05-11"
+    },
+    {
+      "attribute": "NATIONALITY",
+      "original": "Moroccan"
+    },
+    {
+      "attribute": "MARITAL_STATUS",
+      "original": "Single"
+    },
+    {
+      "attribute": "GENDER",
+      "original": "Male"
+    }
+  ],
+  "injection_matches": [],
+  "hashes": {
+    "doc_id": "sha256:8cfd50189bef04a009c64e5b7009441ea9dbfcd3e57fc9fa0079e7bf8da13168",
+    "chunk_ids": [
+      "sha256:c23a4c0cc0afec2cede139a43075679fcf3a868c382f9fd0d947e01f33586c41",
+      "sha256:a0f4f70f444ad03e5569f51126a243e708856811552c89fdf6c505fb7255b679",
+      "sha256:10d03e154ab0cb92bef72008b4d23d0450ac082878bb1c782ef8ca631d531052",
+      "sha256:f8df2a066c96b6fa7fe07a0333065d7bc36743eeba524b540a789f249406b1a4",
+      "sha256:82e200e4ba05d12566d73aff138d0849cf52216fad24937d9ca13cfe9fe0a62d",
+      "sha256:88b8257187b8e75e3bbd8a1eb6e11058ad9ebf4b28fd55d67285c1527dc80a8d"
+    ],
+    "signature": "hmac-sha256:1e3a1fc18ccc23306d3ff80dc889f7bb30f7e6f3f3bdc34cae497d65993a3c03"
+  },
+  "released_to_ai": true,
+  "decision": null
+}

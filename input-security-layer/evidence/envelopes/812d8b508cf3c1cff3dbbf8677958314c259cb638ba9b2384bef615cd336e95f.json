@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:31ebd949a328e2b0057878ceefc541decdd4bf40528799dfe0a7561b0223901e",
+  "candidate_ref": "hmac:85fe6154f2d42a51c3759b28f89768b0f2d6b9d712e98d5aa1e7fa0f4a2c0ae6",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:01:54Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PHONE_2>",
+      "<PERSON_1>",
+      "<PHONE_3>"
+    ],
+    "protected_removed": [
+      "BIRTH_DATE",
+      "GENDER",
+      "MARITAL_STATUS",
+      "NATIONALITY"
+    ]
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:a4a9572872f9087824f827033e6f5f0bb3dabb64550a40fc1a2a61f53b0de2aa",
+      "section": "other",
+      "text": "RANIA TLILI\n<EMAIL_1>  |  <PHONE_1>  |  Gabes, Tunisia\nTarget role: Accountant\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]"
+    },
+    {
+      "chunk_id": "sha256:a0f4f70f444ad03e5569f51126a243e708856811552c89fdf6c505fb7255b679",
+      "section": "summary",
+      "text": "PROFILE\n3 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:3209d5434c2898491bed69122d8b32e66e107bd304cea3a5722ef231cc653b10",
+      "section": "experience",
+      "text": "EXPERIENCE\n<PHONE_2>  Accountant - Sahel Foods (fictional)\n  - Worked with <PERSON_1>, Accounting, French.\n  - Delivered a key internal project.\n<PHONE_3>  Accountant - Atlas Soft (fictional)\n  - Worked with Arabic, Accounting, <PERSON_1>.\n  - Improved team reporting."
+    },
+    {
+      "chunk_id": "sha256:b9bcc2a45aa7824501bd54bdb84a140e0e1841a34f8888dacd0a348bf6aeced2",
+      "section": "education",
+      "text": "EDUCATION\nBachelor in History - Sousse Business Institute (fictional)"
+    },
+    {
+      "chunk_id": "sha256:165cde94d39c44025b6e4475fb55149a62cb1883770e9b5e403d63a18f272742",
+      "section": "skills",
+      "text": "SKILLS\nAccounting, <PERSON_1>, Arabic, French"
+    },
+    {
+      "chunk_id": "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:587a573a723833f494b3e29bd53f5790554be309be94ccdb8568a96e02390c94"
+}

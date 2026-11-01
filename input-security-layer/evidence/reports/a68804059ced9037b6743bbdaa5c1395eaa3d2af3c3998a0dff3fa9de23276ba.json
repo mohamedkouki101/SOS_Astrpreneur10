@@ -1,0 +1,114 @@
+{
+  "report_version": "1.0",
+  "report_id": "sha256:a68804059ced9037b6743bbdaa5c1395eaa3d2af3c3998a0dff3fa9de23276ba",
+  "doc_id": "sha256:a4dbf1f5be66c0779abb5a99728a492e1eb0470fc07358f00c8f57d9d9df4f1d",
+  "received_at": "2026-11-01T00:01:47Z",
+  "source": {
+    "type": "upload_cv",
+    "file_type": "pdf",
+    "size_bytes": 1503
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "status": "accepted",
+  "rejection": null,
+  "verdict": "clean",
+  "risk_score_bp": 0,
+  "language": "en",
+  "reasons": [],
+  "stages": [
+    {
+      "stage": "file_check",
+      "status": "pass",
+      "detail": "Real type: PDF (1 KB)",
+      "ms": 44
+    },
+    {
+      "stage": "extraction",
+      "status": "pass",
+      "detail": "15 text spans read in an isolated process",
+      "ms": 662
+    },
+    {
+      "stage": "hidden_text",
+      "status": "pass",
+      "detail": "Nothing hidden",
+      "ms": 0
+    },
+    {
+      "stage": "unicode",
+      "status": "pass",
+      "detail": "0 invisible character(s) removed",
+      "ms": 0
+    },
+    {
+      "stage": "pii",
+      "status": "pass",
+      "detail": "3 identifier(s) masked, 0 protected attribute(s) removed",
+      "ms": 19
+    },
+    {
+      "stage": "injection",
+      "status": "pass",
+      "detail": "Clean (score 0)",
+      "ms": 0
+    },
+    {
+      "stage": "chunking",
+      "status": "pass",
+      "detail": "6 chunk(s), each with its SHA-256 id",
+      "ms": 0
+    },
+    {
+      "stage": "signing",
+      "status": "pass",
+      "detail": "Envelope signed (HMAC-SHA256)",
+      "ms": 0
+    }
+  ],
+  "text": {
+    "original": "HATEM MANSOURI\nhatem.mansouri.ac3@example.com  |  +216 22 187 632  |  Kairouan, Tunisia\nTarget role: Accountant\nPROFILE\n1 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2025-2026  Accountant - Djerba Travel (fictional)\n  - Worked with Accounting, French, Arabic.\n  - Delivered team reporting.\nEDUCATION\nMaster in Biology - Monastir Faculty of Sciences (fictional)\nSKILLS\nAccounting, Agile/Scrum, Recruitment, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "cleaned": "HATEM MANSOURI\nhatem.mansouri.ac3@example.com  |  +216 22 187 632  |  Kairouan, Tunisia\nTarget role: Accountant\nPROFILE\n1 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2025-2026  Accountant - Djerba Travel (fictional)\n  - Worked with Accounting, French, Arabic.\n  - Delivered team reporting.\nEDUCATION\nMaster in Biology - Monastir Faculty of Sciences (fictional)\nSKILLS\nAccounting, Agile/Scrum, Recruitment, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "masked": "HATEM MANSOURI\n<EMAIL_1>  |  <PHONE_1>  |  Kairouan, Tunisia\nTarget role: Accountant\nPROFILE\n1 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n<PHONE_2>  Accountant - Djerba Travel (fictional)\n  - Worked with Accounting, French, Arabic.\n  - Delivered team reporting.\nEDUCATION\nMaster in Biology - Monastir Faculty of Sciences (fictional)\nSKILLS\nAccounting, Agile/Scrum, Recruitment, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "sent": "HATEM MANSOURI\n<EMAIL_1>  |  <PHONE_1>  |  Kairouan, Tunisia\nTarget role: Accountant\n\nPROFILE\n1 years of professional experience. Fictional candidate generated for a demo.\n\nEXPERIENCE\n<PHONE_2>  Accountant - Djerba Travel (fictional)\n  - Worked with Accounting, French, Arabic.\n  - Delivered team reporting.\n\nEDUCATION\nMaster in Biology - Monastir Faculty of Sciences (fictional)\n\nSKILLS\nAccounting, Agile/Scrum, Recruitment, Arabic, French\n\nLANGUAGES\nArabic (native), French (fluent)"
+  },
+  "removed": [],
+  "masked": [
+    {
+      "token": "<EMAIL_1>",
+      "entity": "EMAIL",
+      "original": "hatem.mansouri.ac3@example.com",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_1>",
+      "entity": "PHONE",
+      "original": "+216 22 187 632",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_2>",
+      "entity": "PHONE",
+      "original": "2025-2026",
+      "count": 1
+    }
+  ],
+  "protected_removed": [],
+  "injection_matches": [],
+  "hashes": {
+    "doc_id": "sha256:a4dbf1f5be66c0779abb5a99728a492e1eb0470fc07358f00c8f57d9d9df4f1d",
+    "chunk_ids": [
+      "sha256:586c71150eab39cb737b9b7b5ed90769251de9352e898919aaaa25123b7e9efc",
+      "sha256:a956b9244fc0be918f05a8317a80465ade86e51fc4b1856a34b92057a85d7484",
+      "sha256:2fbe095c6c3f94f1ea2ee1409c6408930fa9b946cb8352d94dc828fdb24e7daa",
+      "sha256:9c8c52d5334aa42a42f11b64696328839b30ea16a77d1fbc105065087c3e640c",
+      "sha256:fd05db9f0aafdd83d99f23eb52d2cdf08bba71e7b2ee9cc28070e48483d7e6c1",
+      "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1"
+    ],
+    "signature": "hmac-sha256:1e2d817c1f4880c61c4486b8a451ec1f542884d1b472be983db6145fb2678a1b"
+  },
+  "released_to_ai": true,
+  "decision": null
+}

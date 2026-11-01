@@ -1,0 +1,114 @@
+{
+  "report_version": "1.0",
+  "report_id": "sha256:74054ed91eae8cd894d7c2fa106e090f4e9383ca21ac5a24c6d030291d93d80b",
+  "doc_id": "sha256:e81d33f01bc5d5ea88a6ca53c8fc06c810187b515cd1ca776d827471078e390d",
+  "received_at": "2026-11-01T00:02:25Z",
+  "source": {
+    "type": "upload_cv",
+    "file_type": "pdf",
+    "size_bytes": 1513
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "status": "accepted",
+  "rejection": null,
+  "verdict": "clean",
+  "risk_score_bp": 0,
+  "language": "en",
+  "reasons": [],
+  "stages": [
+    {
+      "stage": "file_check",
+      "status": "pass",
+      "detail": "Real type: PDF (1 KB)",
+      "ms": 162
+    },
+    {
+      "stage": "extraction",
+      "status": "pass",
+      "detail": "15 text spans read in an isolated process",
+      "ms": 1427
+    },
+    {
+      "stage": "hidden_text",
+      "status": "pass",
+      "detail": "Nothing hidden",
+      "ms": 0
+    },
+    {
+      "stage": "unicode",
+      "status": "pass",
+      "detail": "0 invisible character(s) removed",
+      "ms": 0
+    },
+    {
+      "stage": "pii",
+      "status": "pass",
+      "detail": "3 identifier(s) masked, 0 protected attribute(s) removed",
+      "ms": 36
+    },
+    {
+      "stage": "injection",
+      "status": "pass",
+      "detail": "Clean (score 0)",
+      "ms": 0
+    },
+    {
+      "stage": "chunking",
+      "status": "pass",
+      "detail": "6 chunk(s), each with its SHA-256 id",
+      "ms": 0
+    },
+    {
+      "stage": "signing",
+      "status": "pass",
+      "detail": "Envelope signed (HMAC-SHA256)",
+      "ms": 0
+    }
+  ],
+  "text": {
+    "original": "ANIS OUALI\nanis.ouali.da10@example.com  |  +216 21 623 161  |  Gabes, Tunisia\nTarget role: Data Analyst\nPROFILE\n1 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2025-2026  Analyst - Medina Retail (fictional)\n  - Worked with Arabic, French, Sales Negotiation.\n  - Supported team reporting.\nEDUCATION\nMaster in Literature - Sousse Business Institute (fictional)\nSKILLS\nProject Management, Recruitment, Sales Negotiation, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "cleaned": "ANIS OUALI\nanis.ouali.da10@example.com  |  +216 21 623 161  |  Gabes, Tunisia\nTarget role: Data Analyst\nPROFILE\n1 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2025-2026  Analyst - Medina Retail (fictional)\n  - Worked with Arabic, French, Sales Negotiation.\n  - Supported team reporting.\nEDUCATION\nMaster in Literature - Sousse Business Institute (fictional)\nSKILLS\nProject Management, Recruitment, Sales Negotiation, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "masked": "ANIS OUALI\n<EMAIL_1>  |  <PHONE_1>  |  Gabes, Tunisia\nTarget role: Data Analyst\nPROFILE\n1 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n<PHONE_2>  Analyst - Medina Retail (fictional)\n  - Worked with Arabic, French, Sales Negotiation.\n  - Supported team reporting.\nEDUCATION\nMaster in Literature - Sousse Business Institute (fictional)\nSKILLS\nProject Management, Recruitment, Sales Negotiation, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "sent": "ANIS OUALI\n<EMAIL_1>  |  <PHONE_1>  |  Gabes, Tunisia\nTarget role: Data Analyst\n\nPROFILE\n1 years of professional experience. Fictional candidate generated for a demo.\n\nEXPERIENCE\n<PHONE_2>  Analyst - Medina Retail (fictional)\n  - Worked with Arabic, French, Sales Negotiation.\n  - Supported team reporting.\n\nEDUCATION\nMaster in Literature - Sousse Business Institute (fictional)\n\nSKILLS\nProject Management, Recruitment, Sales Negotiation, Arabic, French\n\nLANGUAGES\nArabic (native), French (fluent)"
+  },
+  "removed": [],
+  "masked": [
+    {
+      "token": "<EMAIL_1>",
+      "entity": "EMAIL",
+      "original": "anis.ouali.da10@example.com",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_1>",
+      "entity": "PHONE",
+      "original": "+216 21 623 161",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_2>",
+      "entity": "PHONE",
+      "original": "2025-2026",
+      "count": 1
+    }
+  ],
+  "protected_removed": [],
+  "injection_matches": [],
+  "hashes": {
+    "doc_id": "sha256:e81d33f01bc5d5ea88a6ca53c8fc06c810187b515cd1ca776d827471078e390d",
+    "chunk_ids": [
+      "sha256:d319565173f1c0542a001e5d17cf90d4737a415fac4f00893221d73af3fa4b82",
+      "sha256:a956b9244fc0be918f05a8317a80465ade86e51fc4b1856a34b92057a85d7484",
+      "sha256:6bc48e5a6c9af879b0635a60e613ec0b0c7d49536a7401ce790e41f7c06c176d",
+      "sha256:dc450e5f70c452a6075b079a4df0bf9b74e46b37b0d6d70d817b6ac8d9469492",
+      "sha256:f0884cdeda3a90d65568d99628a3b96a5e769ed6cee511a5fbf8f740d93d3d5b",
+      "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1"
+    ],
+    "signature": "hmac-sha256:4b7ff53e5cf7d7e2c228a305549c10a1b651ff6f13e79a414a654b1af1e1eee2"
+  },
+  "released_to_ai": true,
+  "decision": null
+}

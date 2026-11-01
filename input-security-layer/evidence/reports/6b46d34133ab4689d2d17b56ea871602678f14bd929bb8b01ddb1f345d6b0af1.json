@@ -1,0 +1,137 @@
+{
+  "report_version": "1.0",
+  "report_id": "sha256:6b46d34133ab4689d2d17b56ea871602678f14bd929bb8b01ddb1f345d6b0af1",
+  "doc_id": "sha256:d95ea72ef5c80fc394d7e2013e1f4bb86327356f661df682f64d4e984048cd0d",
+  "received_at": "2026-11-01T00:02:52Z",
+  "source": {
+    "type": "upload_cv",
+    "file_type": "pdf",
+    "size_bytes": 1908
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "status": "accepted",
+  "rejection": null,
+  "verdict": "clean",
+  "risk_score_bp": 0,
+  "language": "en",
+  "reasons": [],
+  "stages": [
+    {
+      "stage": "file_check",
+      "status": "pass",
+      "detail": "Real type: PDF (1 KB)",
+      "ms": 179
+    },
+    {
+      "stage": "extraction",
+      "status": "pass",
+      "detail": "20 text spans read in an isolated process",
+      "ms": 1697
+    },
+    {
+      "stage": "hidden_text",
+      "status": "pass",
+      "detail": "Nothing hidden",
+      "ms": 0
+    },
+    {
+      "stage": "unicode",
+      "status": "pass",
+      "detail": "0 invisible character(s) removed",
+      "ms": 0
+    },
+    {
+      "stage": "pii",
+      "status": "pass",
+      "detail": "4 identifier(s) masked, 4 protected attribute(s) removed",
+      "ms": 53
+    },
+    {
+      "stage": "injection",
+      "status": "pass",
+      "detail": "Clean (score 0)",
+      "ms": 0
+    },
+    {
+      "stage": "chunking",
+      "status": "pass",
+      "detail": "6 chunk(s), each with its SHA-256 id",
+      "ms": 0
+    },
+    {
+      "stage": "signing",
+      "status": "pass",
+      "detail": "Envelope signed (HMAC-SHA256)",
+      "ms": 0
+    }
+  ],
+  "text": {
+    "original": "EMNA NASRI\nemna.nasri.dm12@example.com  |  +216 25 666 303  |  Nabeul, Tunisia\nTarget role: Digital Marketing Specialist\nDate of birth: 1985-01-21   Nationality: Libyan   Marital status: Single\nGender: Female\nPROFILE\n4 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2023-2026  Marketing Specialist - Carthage Logistics (fictional)\n  - Worked with Leadership, Sales Negotiation, Arabic.\n  - Supported customer-facing processes.\n2022-2023  Marketing Specialist - Hannibal Bank (fictional)\n  - Worked with Sales Negotiation, Leadership, French.\n  - Improved team reporting.\nEDUCATION\nMaster in Literature - Monastir Faculty of Sciences (fictional)\nSKILLS\nDigital Marketing, Leadership, Sales Negotiation, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "cleaned": "EMNA NASRI\nemna.nasri.dm12@example.com  |  +216 25 666 303  |  Nabeul, Tunisia\nTarget role: Digital Marketing Specialist\nDate of birth: 1985-01-21   Nationality: Libyan   Marital status: Single\nGender: Female\nPROFILE\n4 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2023-2026  Marketing Specialist - Carthage Logistics (fictional)\n  - Worked with Leadership, Sales Negotiation, Arabic.\n  - Supported customer-facing processes.\n2022-2023  Marketing Specialist - Hannibal Bank (fictional)\n  - Worked with Sales Negotiation, Leadership, French.\n  - Improved team reporting.\nEDUCATION\nMaster in Literature - Monastir Faculty of Sciences (fictional)\nSKILLS\nDigital Marketing, Leadership, Sales Negotiation, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "masked": "EMNA NASRI\n<EMAIL_1>  |  <PHONE_1>  |  Nabeul, Tunisia\nTarget role: Digital Marketing Specialist\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]\nPROFILE\n4 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n<PHONE_2>  Marketing Specialist - Carthage Logistics (fictional)\n  - Worked with Leadership, Sales Negotiation, Arabic.\n  - Supported customer-facing processes.\n<PHONE_3>  Marketing Specialist - Hannibal Bank (fictional)\n  - Worked with Sales Negotiation, Leadership, French.\n  - Improved team reporting.\nEDUCATION\nMaster in Literature - Monastir Faculty of Sciences (fictional)\nSKILLS\nDigital Marketing, Leadership, Sales Negotiation, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "sent": "EMNA NASRI\n<EMAIL_1>  |  <PHONE_1>  |  Nabeul, Tunisia\nTarget role: Digital Marketing Specialist\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]\n\nPROFILE\n4 years of professional experience. Fictional candidate generated for a demo.\n\nEXPERIENCE\n<PHONE_2>  Marketing Specialist - Carthage Logistics (fictional)\n  - Worked with Leadership, Sales Negotiation, Arabic.\n  - Supported customer-facing processes.\n<PHONE_3>  Marketing Specialist - Hannibal Bank (fictional)\n  - Worked with Sales Negotiation, Leadership, French.\n  - Improved team reporting.\n\nEDUCATION\nMaster in Literature - Monastir Faculty of Sciences (fictional)\n\nSKILLS\nDigital Marketing, Leadership, Sales Negotiation, Arabic, French\n\nLANGUAGES\nArabic (native), French (fluent)"
+  },
+  "removed": [],
+  "masked": [
+    {
+      "token": "<EMAIL_1>",
+      "entity": "EMAIL",
+      "original": "emna.nasri.dm12@example.com",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_1>",
+      "entity": "PHONE",
+      "original": "+216 25 666 303",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_2>",
+      "entity": "PHONE",
+      "original": "2023-2026",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_3>",
+      "entity": "PHONE",
+      "original": "2022-2023",
+      "count": 1
+    }
+  ],
+  "protected_removed": [
+    {
+      "attribute": "BIRTH_DATE",
+      "original": "1985-01-21"
+    },
+    {
+      "attribute": "NATIONALITY",
+      "original": "Libyan"
+    },
+    {
+      "attribute": "MARITAL_STATUS",
+      "original": "Single"
+    },
+    {
+      "attribute": "GENDER",
+      "original": "Female"
+    }
+  ],
+  "injection_matches": [],
+  "hashes": {
+    "doc_id": "sha256:d95ea72ef5c80fc394d7e2013e1f4bb86327356f661df682f64d4e984048cd0d",
+    "chunk_ids": [
+      "sha256:848213925d9fc1ac0b76f64303864706ea518119db0c9e75e7b645b1401a6525",
+      "sha256:cf9dad3f58c7c756a7223e247101a893a5df02a6d55ae7c67d6dd6e4d8472241",
+      "sha256:c52bccee362e5407677ed16c76f0fd28e80160cc834a0a68035602282417795c",
+      "sha256:bfba19e10d83264becf644e534eb7a4fb6472990afd341dff78339f5b07c9d7d",
+      "sha256:b47e5dab8c2bd52e43868f83287ca6f0e861f59e6de90a63fae8978bbdc7c241",
+      "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1"
+    ],
+    "signature": "hmac-sha256:01d1972b4dd3be579aa882675439e14c60eabaaf4d0327141e45c62da0ba36af"
+  },
+  "released_to_ai": true,
+  "decision": null
+}

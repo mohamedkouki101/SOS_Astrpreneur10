@@ -1,0 +1,126 @@
+{
+  "report_version": "1.0",
+  "report_id": "sha256:d016ff99f11a1ce551e99b3ce230d4830de3e15d0add3048f55b49dafbf6ef51",
+  "doc_id": "sha256:ead9ac7af0a705bf9f4d801bdf27411e8a835139c5e6c4f5da395a3e0018f794",
+  "received_at": "2026-11-01T00:02:48Z",
+  "source": {
+    "type": "upload_cv",
+    "file_type": "pdf",
+    "size_bytes": 1739
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "status": "accepted",
+  "rejection": null,
+  "verdict": "clean",
+  "risk_score_bp": 0,
+  "language": "en",
+  "reasons": [],
+  "stages": [
+    {
+      "stage": "file_check",
+      "status": "pass",
+      "detail": "Real type: PDF (1 KB)",
+      "ms": 172
+    },
+    {
+      "stage": "extraction",
+      "status": "pass",
+      "detail": "18 text spans read in an isolated process",
+      "ms": 1854
+    },
+    {
+      "stage": "hidden_text",
+      "status": "pass",
+      "detail": "Nothing hidden",
+      "ms": 0
+    },
+    {
+      "stage": "unicode",
+      "status": "pass",
+      "detail": "0 invisible character(s) removed",
+      "ms": 0
+    },
+    {
+      "stage": "pii",
+      "status": "pass",
+      "detail": "5 identifier(s) masked, 0 protected attribute(s) removed",
+      "ms": 36
+    },
+    {
+      "stage": "injection",
+      "status": "pass",
+      "detail": "Clean (score 0)",
+      "ms": 0
+    },
+    {
+      "stage": "chunking",
+      "status": "pass",
+      "detail": "6 chunk(s), each with its SHA-256 id",
+      "ms": 0
+    },
+    {
+      "stage": "signing",
+      "status": "pass",
+      "detail": "Envelope signed (HMAC-SHA256)",
+      "ms": 0
+    }
+  ],
+  "text": {
+    "original": "RANIA AYARI\nrania.ayari.dm10@example.com  |  +216 29 898 624  |  Kairouan, Tunisia\nTarget role: Digital Marketing Specialist\nPROFILE\n4 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2023-2026  Marketing Specialist - Hannibal Bank (fictional)\n  - Worked with SEO, Arabic, Content Writing.\n  - Owned team reporting.\n2022-2023  Marketing Specialist - Djerba Travel (fictional)\n  - Worked with Agile/Scrum, French, Content Writing.\n  - Improved a key internal project.\nEDUCATION\nMaster in Biology - Sousse Business Institute (fictional)\nSKILLS\nSEO, Content Writing, French, Prospecting, Agile/Scrum, Arabic\nLANGUAGES\nArabic (native), French (fluent)",
+    "cleaned": "RANIA AYARI\nrania.ayari.dm10@example.com  |  +216 29 898 624  |  Kairouan, Tunisia\nTarget role: Digital Marketing Specialist\nPROFILE\n4 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2023-2026  Marketing Specialist - Hannibal Bank (fictional)\n  - Worked with SEO, Arabic, Content Writing.\n  - Owned team reporting.\n2022-2023  Marketing Specialist - Djerba Travel (fictional)\n  - Worked with Agile/Scrum, French, Content Writing.\n  - Improved a key internal project.\nEDUCATION\nMaster in Biology - Sousse Business Institute (fictional)\nSKILLS\nSEO, Content Writing, French, Prospecting, Agile/Scrum, Arabic\nLANGUAGES\nArabic (native), French (fluent)",
+    "masked": "RANIA AYARI\n<EMAIL_1>  |  <PHONE_1>  |  Kairouan, Tunisia\nTarget role: Digital Marketing Specialist\nPROFILE\n4 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n<PHONE_2>  Marketing Specialist - Hannibal Bank (fictional)\n  - Worked with SEO, Arabic, <PERSON_1>.\n  - Owned team reporting.\n<PHONE_3>  Marketing Specialist - Djerba Travel (fictional)\n  - Worked with Agile/Scrum, French, <PERSON_1>.\n  - Improved a key internal project.\nEDUCATION\nMaster in Biology - Sousse Business Institute (fictional)\nSKILLS\nSEO, <PERSON_1>, French, Prospecting, Agile/Scrum, Arabic\nLANGUAGES\nArabic (native), French (fluent)",
+    "sent": "RANIA AYARI\n<EMAIL_1>  |  <PHONE_1>  |  Kairouan, Tunisia\nTarget role: Digital Marketing Specialist\n\nPROFILE\n4 years of professional experience. Fictional candidate generated for a demo.\n\nEXPERIENCE\n<PHONE_2>  Marketing Specialist - Hannibal Bank (fictional)\n  - Worked with SEO, Arabic, <PERSON_1>.\n  - Owned team reporting.\n<PHONE_3>  Marketing Specialist - Djerba Travel (fictional)\n  - Worked with Agile/Scrum, French, <PERSON_1>.\n  - Improved a key internal project.\n\nEDUCATION\nMaster in Biology - Sousse Business Institute (fictional)\n\nSKILLS\nSEO, <PERSON_1>, French, Prospecting, Agile/Scrum, Arabic\n\nLANGUAGES\nArabic (native), French (fluent)"
+  },
+  "removed": [],
+  "masked": [
+    {
+      "token": "<EMAIL_1>",
+      "entity": "EMAIL",
+      "original": "rania.ayari.dm10@example.com",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_1>",
+      "entity": "PHONE",
+      "original": "+216 29 898 624",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_2>",
+      "entity": "PHONE",
+      "original": "2023-2026",
+      "count": 1
+    },
+    {
+      "token": "<PERSON_1>",
+      "entity": "PERSON",
+      "original": "Content Writing",
+      "count": 3
+    },
+    {
+      "token": "<PHONE_3>",
+      "entity": "PHONE",
+      "original": "2022-2023",
+      "count": 1
+    }
+  ],
+  "protected_removed": [],
+  "injection_matches": [],
+  "hashes": {
+    "doc_id": "sha256:ead9ac7af0a705bf9f4d801bdf27411e8a835139c5e6c4f5da395a3e0018f794",
+    "chunk_ids": [
+      "sha256:876c948a9e1a5e5b6cd65281d87c846877d4b6ca778f601e3d2f7fbea3276d27",
+      "sha256:cf9dad3f58c7c756a7223e247101a893a5df02a6d55ae7c67d6dd6e4d8472241",
+      "sha256:79d38e24d6d91ea9c03c2cd380ee1cfbf689e4d43067aa4a6fcba1e38fdc17d6",
+      "sha256:ebf58f69b8ead07a9eba5530bf720df2f627f470b48f9b9d488833a07809e9c3",
+      "sha256:c09aabf52e2c4ed7b81e2186a0799b119018bb676d64de1f5f3562e01af0d0df",
+      "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1"
+    ],
+    "signature": "hmac-sha256:fffdf517bdfba2bce75e89ff428f2a4dc83be7cf54982aff68da2eb9912d81a1"
+  },
+  "released_to_ai": true,
+  "decision": null
+}

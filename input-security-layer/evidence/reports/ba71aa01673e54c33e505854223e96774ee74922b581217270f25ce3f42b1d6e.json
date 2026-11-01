@@ -1,0 +1,137 @@
+{
+  "report_version": "1.0",
+  "report_id": "sha256:ba71aa01673e54c33e505854223e96774ee74922b581217270f25ce3f42b1d6e",
+  "doc_id": "sha256:2e8838548292216aa0f7a24254ef3c46a2b3bcf23b8b0e93f818120806b19f5b",
+  "received_at": "2026-11-01T00:02:12Z",
+  "source": {
+    "type": "upload_cv",
+    "file_type": "pdf",
+    "size_bytes": 1814
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "status": "accepted",
+  "rejection": null,
+  "verdict": "clean",
+  "risk_score_bp": 0,
+  "language": "en",
+  "reasons": [],
+  "stages": [
+    {
+      "stage": "file_check",
+      "status": "pass",
+      "detail": "Real type: PDF (1 KB)",
+      "ms": 52
+    },
+    {
+      "stage": "extraction",
+      "status": "pass",
+      "detail": "20 text spans read in an isolated process",
+      "ms": 1044
+    },
+    {
+      "stage": "hidden_text",
+      "status": "pass",
+      "detail": "Nothing hidden",
+      "ms": 0
+    },
+    {
+      "stage": "unicode",
+      "status": "pass",
+      "detail": "0 invisible character(s) removed",
+      "ms": 0
+    },
+    {
+      "stage": "pii",
+      "status": "pass",
+      "detail": "4 identifier(s) masked, 4 protected attribute(s) removed",
+      "ms": 27
+    },
+    {
+      "stage": "injection",
+      "status": "pass",
+      "detail": "Clean (score 0)",
+      "ms": 0
+    },
+    {
+      "stage": "chunking",
+      "status": "pass",
+      "detail": "6 chunk(s), each with its SHA-256 id",
+      "ms": 0
+    },
+    {
+      "stage": "signing",
+      "status": "pass",
+      "detail": "Envelope signed (HMAC-SHA256)",
+      "ms": 0
+    }
+  ],
+  "text": {
+    "original": "SAMI ELLOUZE\nsami.ellouze.da1@example.com  |  +216 26 147 396  |  Tunis, Tunisia\nTarget role: Data Analyst\nDate of birth: 1998-11-17   Nationality: Algerian   Marital status: Married\nGender: Male\nPROFILE\n5 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2024-2026  Analyst - Djerba Travel (fictional)\n  - Worked with Statistics, Python, Linux.\n  - Improved team reporting.\n2021-2024  Analyst - Sahel Foods (fictional)\n  - Worked with Excel, Python, Arabic.\n  - Delivered team reporting.\nEDUCATION\nBachelor in Statistics - Monastir Faculty of Sciences (fictional)\nSKILLS\nSQL, Excel, Statistics, Python, Linux, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "cleaned": "SAMI ELLOUZE\nsami.ellouze.da1@example.com  |  +216 26 147 396  |  Tunis, Tunisia\nTarget role: Data Analyst\nDate of birth: 1998-11-17   Nationality: Algerian   Marital status: Married\nGender: Male\nPROFILE\n5 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2024-2026  Analyst - Djerba Travel (fictional)\n  - Worked with Statistics, Python, Linux.\n  - Improved team reporting.\n2021-2024  Analyst - Sahel Foods (fictional)\n  - Worked with Excel, Python, Arabic.\n  - Delivered team reporting.\nEDUCATION\nBachelor in Statistics - Monastir Faculty of Sciences (fictional)\nSKILLS\nSQL, Excel, Statistics, Python, Linux, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "masked": "SAMI ELLOUZE\n<EMAIL_1>  |  <PHONE_1>  |  Tunis, Tunisia\nTarget role: Data Analyst\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]\nPROFILE\n5 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n<PHONE_2>  Analyst - Djerba Travel (fictional)\n  - Worked with Statistics, Python, Linux.\n  - Improved team reporting.\n<PHONE_3>  Analyst - Sahel Foods (fictional)\n  - Worked with Excel, Python, Arabic.\n  - Delivered team reporting.\nEDUCATION\nBachelor in Statistics - Monastir Faculty of Sciences (fictional)\nSKILLS\nSQL, Excel, Statistics, Python, Linux, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "sent": "SAMI ELLOUZE\n<EMAIL_1>  |  <PHONE_1>  |  Tunis, Tunisia\nTarget role: Data Analyst\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]\n\nPROFILE\n5 years of professional experience. Fictional candidate generated for a demo.\n\nEXPERIENCE\n<PHONE_2>  Analyst - Djerba Travel (fictional)\n  - Worked with Statistics, Python, Linux.\n  - Improved team reporting.\n<PHONE_3>  Analyst - Sahel Foods (fictional)\n  - Worked with Excel, Python, Arabic.\n  - Delivered team reporting.\n\nEDUCATION\nBachelor in Statistics - Monastir Faculty of Sciences (fictional)\n\nSKILLS\nSQL, Excel, Statistics, Python, Linux, Arabic, French\n\nLANGUAGES\nArabic (native), French (fluent)"
+  },
+  "removed": [],
+  "masked": [
+    {
+      "token": "<EMAIL_1>",
+      "entity": "EMAIL",
+      "original": "sami.ellouze.da1@example.com",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_1>",
+      "entity": "PHONE",
+      "original": "+216 26 147 396",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_2>",
+      "entity": "PHONE",
+      "original": "2024-2026",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_3>",
+      "entity": "PHONE",
+      "original": "2021-2024",
+      "count": 1
+    }
+  ],
+  "protected_removed": [
+    {
+      "attribute": "BIRTH_DATE",
+      "original": "1998-11-17"
+    },
+    {
+      "attribute": "NATIONALITY",
+      "original": "Algerian"
+    },
+    {
+      "attribute": "MARITAL_STATUS",
+      "original": "Married"
+    },
+    {
+      "attribute": "GENDER",
+      "original": "Male"
+    }
+  ],
+  "injection_matches": [],
+  "hashes": {
+    "doc_id": "sha256:2e8838548292216aa0f7a24254ef3c46a2b3bcf23b8b0e93f818120806b19f5b",
+    "chunk_ids": [
+      "sha256:45c0a5339b4967fb3e564effe624849e3e4d2bf7ac319562cc83e1f6ae2bc080",
+      "sha256:886deb8f2f93363fee393606817e797c665fd2291f4f0782e9c6aaf5d6ca6b77",
+      "sha256:e765f1aabb13ac87a02d6085cbe8bf57f4f519754724fc4ce135fa18a1125305",
+      "sha256:ca8b1d6a09b47741a574eaf56318dc24831fd943dd69287a37795723f8c2a447",
+      "sha256:6e1173c8814bad8eb7c14d9394f61bd8ba252864fd78e597fddb652e23b9cd60",
+      "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1"
+    ],
+    "signature": "hmac-sha256:2cc50f76c594e26077e0c7b4194fa21e6faba4d7d521d37799b8ef119415737a"
+  },
+  "released_to_ai": true,
+  "decision": null
+}

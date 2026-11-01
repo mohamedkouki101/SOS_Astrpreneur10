@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:ef3c3cb1008f9bce7b17beb1c98e98196253b59668f4ac001fcafcf48307e6ce",
+  "candidate_ref": "hmac:85d35744283d53265a2a3db1cb9b23d45781d0915675ee230204b585e0fac34c",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:01:59Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PHONE_2>",
+      "<PHONE_3>"
+    ],
+    "protected_removed": []
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:f286839953ca6f568a1cf0004e4ad2af4d59aba7ff0781358c7b06108e5b49bf",
+      "section": "other",
+      "text": "NOUR BOUZID\n<EMAIL_1>  |  <PHONE_1>  |  Sousse, Tunisia\nTarget role: Accountant"
+    },
+    {
+      "chunk_id": "sha256:886deb8f2f93363fee393606817e797c665fd2291f4f0782e9c6aaf5d6ca6b77",
+      "section": "summary",
+      "text": "PROFILE\n5 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:3832e58f1e7b513a35ee46971152294705c1eab0ffd302e987cc4e82fe312351",
+      "section": "experience",
+      "text": "EXPERIENCE\n<PHONE_2>  Accountant - Carthage Logistics (fictional)\n  - Worked with Payroll, Tax Compliance, IFRS.\n  - Delivered a key internal project.\n<PHONE_3>  Accountant - Jasmine Telecom (fictional)\n  - Worked with Excel, French, Tax Compliance.\n  - Delivered quarterly objectives."
+    },
+    {
+      "chunk_id": "sha256:50053327125ae516bc322c66537bd7682b46e61f72e971df6d87f2a2ddd865ec",
+      "section": "education",
+      "text": "EDUCATION\nMaster in Accounting - Carthage Tech Institute (fictional)"
+    },
+    {
+      "chunk_id": "sha256:ade56efb763eb3b5f8e6460806394a0a8f67964afb08edc8e435e1fffaa5eea4",
+      "section": "skills",
+      "text": "SKILLS\nAccounting, IFRS, Tax Compliance, Excel, Payroll, Power BI, English, Project Management, Arabic, French"
+    },
+    {
+      "chunk_id": "sha256:88b8257187b8e75e3bbd8a1eb6e11058ad9ebf4b28fd55d67285c1527dc80a8d",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent), English (professional)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:48dfe2b71272d54fdc1d64fe1a74db0a3299c398ff70ad85e64e343917e9e0f3"
+}

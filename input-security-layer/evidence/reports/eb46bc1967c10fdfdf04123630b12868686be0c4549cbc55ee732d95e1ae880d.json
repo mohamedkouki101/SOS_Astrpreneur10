@@ -1,0 +1,145 @@
+{
+  "report_version": "1.0",
+  "report_id": "sha256:eb46bc1967c10fdfdf04123630b12868686be0c4549cbc55ee732d95e1ae880d",
+  "doc_id": "sha256:5876dd6b2b02f6813d790a75b0c4beb14c31e700193da51f97870eb1a2ac327c",
+  "received_at": "2026-11-01T00:03:04Z",
+  "source": {
+    "type": "upload_cv",
+    "file_type": "pdf",
+    "size_bytes": 1892
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "status": "accepted",
+  "rejection": null,
+  "verdict": "clean",
+  "risk_score_bp": 0,
+  "language": "en",
+  "reasons": [],
+  "stages": [
+    {
+      "stage": "file_check",
+      "status": "pass",
+      "detail": "Real type: PDF (1 KB)",
+      "ms": 146
+    },
+    {
+      "stage": "extraction",
+      "status": "pass",
+      "detail": "20 text spans read in an isolated process",
+      "ms": 1446
+    },
+    {
+      "stage": "hidden_text",
+      "status": "pass",
+      "detail": "Nothing hidden",
+      "ms": 0
+    },
+    {
+      "stage": "unicode",
+      "status": "pass",
+      "detail": "0 invisible character(s) removed",
+      "ms": 0
+    },
+    {
+      "stage": "pii",
+      "status": "pass",
+      "detail": "6 identifier(s) masked, 3 protected attribute(s) removed",
+      "ms": 52
+    },
+    {
+      "stage": "injection",
+      "status": "pass",
+      "detail": "Clean (score 0)",
+      "ms": 0
+    },
+    {
+      "stage": "chunking",
+      "status": "pass",
+      "detail": "6 chunk(s), each with its SHA-256 id",
+      "ms": 0
+    },
+    {
+      "stage": "signing",
+      "status": "pass",
+      "detail": "Envelope signed (HMAC-SHA256)",
+      "ms": 0
+    }
+  ],
+  "text": {
+    "original": "MEHDI TRABELSI\nmehdi.trabelsi.hr4@example.com  |  +216 21 559 450  |  Gabes, Tunisia\nTarget role: HR Generalist\nDate of birth: 2002-01-15   Nationality: Tunisian   Marital status: Single\nGender: Male\nPROFILE\n7 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2022-2026  Associate - Kairouan Textiles (fictional)\n  - Worked with Recruitment, Labour Law, Onboarding.\n  - Supported quarterly objectives.\n2019-2022  Associate - Byrsa Consulting (fictional)\n  - Worked with Communication, Arabic, French.\n  - Owned quarterly objectives.\nEDUCATION\nBachelor in Human Resources - Carthage Tech Institute (fictional)\nSKILLS\nRecruitment, Labour Law, Payroll, Onboarding, Communication, Excel, CRM, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "cleaned": "MEHDI TRABELSI\nmehdi.trabelsi.hr4@example.com  |  +216 21 559 450  |  Gabes, Tunisia\nTarget role: HR Generalist\nDate of birth: 2002-01-15   Nationality: Tunisian   Marital status: Single\nGender: Male\nPROFILE\n7 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2022-2026  Associate - Kairouan Textiles (fictional)\n  - Worked with Recruitment, Labour Law, Onboarding.\n  - Supported quarterly objectives.\n2019-2022  Associate - Byrsa Consulting (fictional)\n  - Worked with Communication, Arabic, French.\n  - Owned quarterly objectives.\nEDUCATION\nBachelor in Human Resources - Carthage Tech Institute (fictional)\nSKILLS\nRecruitment, Labour Law, Payroll, Onboarding, Communication, Excel, CRM, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "masked": "MEHDI TRABELSI\n<EMAIL_1>  |  <PHONE_1>  |  Gabes, Tunisia\nTarget role: HR Generalist\nDate of birth: <PHONE_2>   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]\nPROFILE\n7 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n<PHONE_3>  Associate - Kairouan Textiles (fictional)\n  - Worked with Recruitment, <PERSON_1>, Onboarding.\n  - Supported quarterly objectives.\n<PHONE_4>  Associate - Byrsa Consulting (fictional)\n  - Worked with Communication, Arabic, French.\n  - Owned quarterly objectives.\nEDUCATION\nBachelor in Human Resources - Carthage Tech Institute (fictional)\nSKILLS\nRecruitment, <PERSON_1>, Payroll, Onboarding, Communication, Excel, CRM, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "sent": "MEHDI TRABELSI\n<EMAIL_1>  |  <PHONE_1>  |  Gabes, Tunisia\nTarget role: HR Generalist\nDate of birth: <PHONE_2>   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]\n\nPROFILE\n7 years of professional experience. Fictional candidate generated for a demo.\n\nEXPERIENCE\n<PHONE_3>  Associate - Kairouan Textiles (fictional)\n  - Worked with Recruitment, <PERSON_1>, Onboarding.\n  - Supported quarterly objectives.\n<PHONE_4>  Associate - Byrsa Consulting (fictional)\n  - Worked with Communication, Arabic, French.\n  - Owned quarterly objectives.\n\nEDUCATION\nBachelor in Human Resources - Carthage Tech Institute (fictional)\n\nSKILLS\nRecruitment, <PERSON_1>, Payroll, Onboarding, Communication, Excel, CRM, Arabic, French\n\nLANGUAGES\nArabic (native), French (fluent)"
+  },
+  "removed": [],
+  "masked": [
+    {
+      "token": "<EMAIL_1>",
+      "entity": "EMAIL",
+      "original": "mehdi.trabelsi.hr4@example.com",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_1>",
+      "entity": "PHONE",
+      "original": "+216 21 559 450",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_2>",
+      "entity": "PHONE",
+      "original": "2002-01-15",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_3>",
+      "entity": "PHONE",
+      "original": "2022-2026",
+      "count": 1
+    },
+    {
+      "token": "<PERSON_1>",
+      "entity": "PERSON",
+      "original": "Labour Law",
+      "count": 2
+    },
+    {
+      "token": "<PHONE_4>",
+      "entity": "PHONE",
+      "original": "2019-2022",
+      "count": 1
+    }
+  ],
+  "protected_removed": [
+    {
+      "attribute": "NATIONALITY",
+      "original": "Tunisian"
+    },
+    {
+      "attribute": "MARITAL_STATUS",
+      "original": "Single"
+    },
+    {
+      "attribute": "GENDER",
+      "original": "Male"
+    }
+  ],
+  "injection_matches": [],
+  "hashes": {
+    "doc_id": "sha256:5876dd6b2b02f6813d790a75b0c4beb14c31e700193da51f97870eb1a2ac327c",
+    "chunk_ids": [
+      "sha256:dc4ac45a144c129dc058ddc47acd0d516664c02c89312368fcc31e9c70dbe99d",
+      "sha256:f8e80555a35a148d6ccf5e67cb8f621aa050d0110721c0d4787635483c50565b",
+      "sha256:9a2530e660fcfee51afbe23d8c91929478725e3d756b6cd2963eaee28c37fe46",
+      "sha256:836e924485191ff514954aa6c1ea27ddac58616fffbf5e9215fc582599251a2e",
+      "sha256:0bcf65f2d78af0df56935986cd3ffcffa67ef375ec12ba18fb0ec0b662a602da",
+      "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1"
+    ],
+    "signature": "hmac-sha256:9ba53862193863dca17bd3c34314f9d9de103e7fcde3f37782a9fd3a26980a72"
+  },
+  "released_to_ai": true,
+  "decision": null
+}

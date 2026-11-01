@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:65c6bd431c568c885b53481b1dc54c68a85f8ebda44ad404cfd9009a475d1891",
+  "candidate_ref": "hmac:6038587f649eaeb13545ed31d09b3c4ef83504f8eb7f9fd97ec4191fc00cfbbc",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:01:52Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PHONE_2>",
+      "<PHONE_3>"
+    ],
+    "protected_removed": []
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:8256a6890a9d5a0f381fd9e30e5f2842b49902d57a46e5b8010f9455849d6e7b",
+      "section": "other",
+      "text": "ZIED GHARBI\n<EMAIL_1>  |  <PHONE_1>  |  Bizerte, Tunisia\nTarget role: Accountant"
+    },
+    {
+      "chunk_id": "sha256:886deb8f2f93363fee393606817e797c665fd2291f4f0782e9c6aaf5d6ca6b77",
+      "section": "summary",
+      "text": "PROFILE\n5 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:d3f62d0e23b4f738d5431db496a31c9bb17d105432d7b16ab8c39c6210be44d2",
+      "section": "experience",
+      "text": "EXPERIENCE\n<PHONE_2>  Accountant - Kairouan Textiles (fictional)\n  - Worked with English, Social Media, French.\n  - Supported customer-facing processes.\n<PHONE_3>  Accountant - Hannibal Bank (fictional)\n  - Worked with English, French, IFRS.\n  - Supported quarterly objectives."
+    },
+    {
+      "chunk_id": "sha256:53cb07cdb925aa26b64e00667f5c1dfec253ab1f9a1a95c7c57701f60cc7a19f",
+      "section": "education",
+      "text": "EDUCATION\nBachelor in History - Sfax Engineering School (fictional)"
+    },
+    {
+      "chunk_id": "sha256:7edd99831eaf94aabd80c10d47d2f9971295f65fbea74b6a63d5b93bd83c72e9",
+      "section": "skills",
+      "text": "SKILLS\nIFRS, Tax Compliance, Excel, English, Onboarding, Social Media, Arabic, French"
+    },
+    {
+      "chunk_id": "sha256:88b8257187b8e75e3bbd8a1eb6e11058ad9ebf4b28fd55d67285c1527dc80a8d",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent), English (professional)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:d79b4f9f8b2257b2f30f8cfbd945c2098269d3b998deef9668c7447f5eae5939"
+}

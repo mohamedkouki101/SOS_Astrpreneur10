@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:ab9d524e629ed04c78b93058beb4d577fc0024711277607158c645da7146001f",
+  "candidate_ref": "hmac:f3131746c3a1665eeea74b598d468eaf63956091680f819de2afa8c2f3a26d15",
+  "source": {
+    "type": "email_body",
+    "message_id": "<demo-000@bara3am.example>",
+    "in_reply_to": null,
+    "file_ext": null,
+    "received_at": "2026-11-01T00:04:08Z",
+    "sender_ref": "hmac:f3131746c3a1665eeea74b598d468eaf63956091680f819de2afa8c2f3a26d15"
+  },
+  "job_opening": null,
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<PERSON_1>"
+    ],
+    "protected_removed": []
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:c068fbc593b216a0f94a0f932edfdf5a5be05fcede98cbccf41a6fd456a326ad",
+      "section": "email_body",
+      "text": "Hello,\nI applied for the Data Analyst role last week. Could you tell me about the next steps and the expected timeline?\nThank you,\n<PERSON_1>"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:5243ffa0e5711c74709c4f53dc5e8acf64a4f1de1d814202ba3c5587e29364d6"
+}

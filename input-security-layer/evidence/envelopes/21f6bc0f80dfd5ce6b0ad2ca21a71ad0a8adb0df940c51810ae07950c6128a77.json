@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:809a9c6cec35c75ee33b9b18d799fe3336b88e5af5b8c96366a8e58889493a8d",
+  "candidate_ref": "hmac:49e135e84cf4d8a6861f21fe764fb0171af974ae58f426470bcd0864ce119940",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:04:03Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>"
+    ],
+    "protected_removed": [
+      "BIRTH_DATE",
+      "GENDER",
+      "MARITAL_STATUS",
+      "NATIONALITY"
+    ]
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:ac2e9703176e238636523614f2d2eb3ed8a4835725ea3cef134e2942432eba12",
+      "section": "other",
+      "text": "OUSSEMA MEJRI\n<EMAIL_1>  |  <PHONE_1>  |  Sfax, Tunisia\nTarget role: Sales Representative\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]"
+    },
+    {
+      "chunk_id": "sha256:6a040f429944e1fd884f900f9a11faedf9f077c0ab875211e9f9128d48258717",
+      "section": "summary",
+      "text": "PROFILE\n0 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:80194aa889fbb6055f1d71f6fedbcd2bdba757cb638a48f5dd13fa8d5b51ef61",
+      "section": "experience",
+      "text": "EXPERIENCE\n  Internship (3 months) - Medina Retail (fictional)"
+    },
+    {
+      "chunk_id": "sha256:e8610b93ee8ab936d01d1bd3804a8bb7cde5d9cd43ac3b4e857f9fdafbc7f6c2",
+      "section": "education",
+      "text": "EDUCATION\nMaster in Business - Monastir Faculty of Sciences (fictional)"
+    },
+    {
+      "chunk_id": "sha256:5177fa5af7ba00008e9d86ffc4c3b54c94c66a412bb21af860846088ba76c3e1",
+      "section": "skills",
+      "text": "SKILLS\nSales Negotiation, Prospecting, REST APIs, Arabic, French"
+    },
+    {
+      "chunk_id": "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:2ccfc8aaee04703916dbe427cf3991f21064cbcc1ff80d620259295ed4a41a2d"
+}

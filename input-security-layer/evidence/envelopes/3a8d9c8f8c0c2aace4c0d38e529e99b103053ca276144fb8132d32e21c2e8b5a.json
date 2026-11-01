@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:7204d817631a06684acdc603d7564ebc08c27152a1c2e89a92fd713286a51b66",
+  "candidate_ref": "hmac:e6aee42f87b75bba7e726c0e61a3c2c16b23cff40a982e5e3b003db621fdc2a8",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:02:33Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<PERSON_1>",
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PHONE_2>",
+      "<PHONE_3>",
+      "<PHONE_4>",
+      "<PHONE_5>",
+      "<PERSON_2>"
+    ],
+    "protected_removed": [
+      "GENDER",
+      "MARITAL_STATUS",
+      "NATIONALITY"
+    ]
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:a25d69d3a568ce90ad684db7b92a7a39d14f3c9a7905475be5381a8e263f3622",
+      "section": "other",
+      "text": "<PERSON_1>\n<EMAIL_1>  |  <PHONE_1>  |  Bizerte, Tunisia\nTarget role: Digital Marketing Specialist\nDate of birth: <PHONE_2>   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]"
+    },
+    {
+      "chunk_id": "sha256:886deb8f2f93363fee393606817e797c665fd2291f4f0782e9c6aaf5d6ca6b77",
+      "section": "summary",
+      "text": "PROFILE\n5 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:6d4e5229df5840057f6bdf1a2e3dcb75ffb9b7bb843a74a7f4f1f6153afd9c53",
+      "section": "experience",
+      "text": "EXPERIENCE\n<PHONE_3>  Marketing Specialist - Djerba Travel (fictional)\n  - Worked with SEO, Data Analysis, REST APIs.\n  - Improved quarterly objectives.\n<PHONE_4>  Marketing Specialist - Carthage Logistics (fictional)\n  - Worked with French, Digital Marketing, Data Analysis.\n  - Owned team reporting.\n<PHONE_5>  Marketing Specialist - Kairouan Textiles (fictional)\n  - Worked with <PERSON_2>, English, French.\n  - Improved a key internal project."
+    },
+    {
+      "chunk_id": "sha256:dabfed127aebc351ff22ba2e04751d40633ef7eb6623bbe7c99a9bce4a99cdb8",
+      "section": "education",
+      "text": "EDUCATION\nEngineering Degree in Marketing - Sousse Business Institute (fictional)"
+    },
+    {
+      "chunk_id": "sha256:ecce10d93f6aaccb1bd09666cc5d1e24f31132c3df2437281d7959d6565da0cf",
+      "section": "skills",
+      "text": "SKILLS\nDigital Marketing, SEO, <PERSON_2>, Social Media, English, Data Analysis, REST APIs, Arabic, French"
+    },
+    {
+      "chunk_id": "sha256:88b8257187b8e75e3bbd8a1eb6e11058ad9ebf4b28fd55d67285c1527dc80a8d",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent), English (professional)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:4a00aa0599acd0a03555fcad014f50d2cbc4cf10f07293ef0f32bc4e2e5e626e"
+}

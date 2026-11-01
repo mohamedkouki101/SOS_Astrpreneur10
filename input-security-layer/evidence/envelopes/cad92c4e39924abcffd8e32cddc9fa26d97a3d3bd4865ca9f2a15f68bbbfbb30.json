@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:c9c5d5fe1cf1d211a2a3dc30bf34343a41a86913db10712d8e9c61da04a26d07",
+  "candidate_ref": "hmac:b5905b7bc24499ac30dbf630e3b34efd1c1f7353f57fc4a736e1452d8ecce23d",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:03:12Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PHONE_2>",
+      "<PHONE_3>",
+      "<PERSON_1>"
+    ],
+    "protected_removed": []
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:eefc37cb653398ab787bba908a7f228ce56d99f839a3485dde63be6e940cd9b8",
+      "section": "other",
+      "text": "CYRINE SAIDI\n<EMAIL_1>  |  <PHONE_1>  |  Sousse, Tunisia\nTarget role: HR Generalist"
+    },
+    {
+      "chunk_id": "sha256:f63d1cd0f0bb0eb76711721a81f426791c52ec0f9c21a7f73487fd9bf727e267",
+      "section": "summary",
+      "text": "PROFILE\n2 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:4ddb59046211ec7130b5636ce84958fbd13bf3aa388c07333b0eeb1adb1ab66c",
+      "section": "experience",
+      "text": "EXPERIENCE\n<PHONE_2>  Associate - Atlas Soft (fictional)\n  - Worked with Arabic, Social Media, French.\n  - Improved team reporting.\n<PHONE_3>  Associate - Byrsa Consulting (fictional)\n  - Worked with <PERSON_1>, Arabic, Recruitment.\n  - Owned a key internal project."
+    },
+    {
+      "chunk_id": "sha256:57bcc89b307a5deadfe544ea96c04bd02b9dee594af08b3cbfd8352ae5e5f9b8",
+      "section": "education",
+      "text": "EDUCATION\nEngineering Degree in Human Resources - Carthage Tech Institute (fictional)"
+    },
+    {
+      "chunk_id": "sha256:4af2fcce92395abca907e47a64d1fa321fc28ed8ea18705687c5f987bb8486b6",
+      "section": "skills",
+      "text": "SKILLS\nRecruitment, <PERSON_1>, Digital Marketing, Social Media, Arabic, French"
+    },
+    {
+      "chunk_id": "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:dcb2247beb3b6e88da171473697e35a4f07ed8f20334e6abe3c1ce5f3810c2c8"
+}

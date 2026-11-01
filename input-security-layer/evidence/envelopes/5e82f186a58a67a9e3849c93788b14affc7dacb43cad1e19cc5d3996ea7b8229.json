@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:63f437bcdfb3f6f4bfb4f84304649896264db07de8c42dbd459715681dc7ae76",
+  "candidate_ref": "hmac:b00cde8c9e2208b99d79efa033e43536bf746f485044ec010a34e728f6c1e5b4",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:01:48Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PHONE_2>"
+    ],
+    "protected_removed": []
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:a5589780b5c7190b0c6b2783383e1d2166ce5c47de056b8113162445785c99ea",
+      "section": "other",
+      "text": "MARIEM MASMOUDI\n<EMAIL_1>  |  <PHONE_1>  |  Ariana, Tunisia\nTarget role: Accountant"
+    },
+    {
+      "chunk_id": "sha256:a0f4f70f444ad03e5569f51126a243e708856811552c89fdf6c505fb7255b679",
+      "section": "summary",
+      "text": "PROFILE\n3 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:45300d9c53ed3b7254b065f62c1de5ce7ead1661a54a8389351bbfa9baa28f28",
+      "section": "experience",
+      "text": "EXPERIENCE\n<PHONE_2>  Accountant - Djerba Travel (fictional)\n  - Worked with French, SQL, Arabic.\n  - Owned a key internal project."
+    },
+    {
+      "chunk_id": "sha256:6f2e1e542175c9c8e01555005d59690d0a4794f5cc66399667c9eadc10dcb951",
+      "section": "education",
+      "text": "EDUCATION\nBachelor in Literature - University of Tunis (fictional campus)"
+    },
+    {
+      "chunk_id": "sha256:3d997adc79a3c59f0afa7d3115566eb77da52fd9870f894133f97f22f3ad2164",
+      "section": "skills",
+      "text": "SKILLS\nSQL, Arabic, French"
+    },
+    {
+      "chunk_id": "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:d1700111250491c3cf3783027f22f86bd681c1865ff6c90ae364483b32061fe7"
+}

@@ -1,0 +1,131 @@
+{
+  "report_version": "1.0",
+  "report_id": "sha256:1c586a918ac66e50742d62105799d928444a94978ec6de7b9107353968ed9021",
+  "doc_id": "sha256:a9cf25c5785a6041ca1b296eaea65258624b087a8abdaed01d5d23445a0b8c83",
+  "received_at": "2026-11-01T00:03:26Z",
+  "source": {
+    "type": "upload_cv",
+    "file_type": "pdf",
+    "size_bytes": 1702
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "status": "accepted",
+  "rejection": null,
+  "verdict": "clean",
+  "risk_score_bp": 0,
+  "language": "en",
+  "reasons": [],
+  "stages": [
+    {
+      "stage": "file_check",
+      "status": "pass",
+      "detail": "Real type: PDF (1 KB)",
+      "ms": 134
+    },
+    {
+      "stage": "extraction",
+      "status": "pass",
+      "detail": "17 text spans read in an isolated process",
+      "ms": 1335
+    },
+    {
+      "stage": "hidden_text",
+      "status": "pass",
+      "detail": "Nothing hidden",
+      "ms": 0
+    },
+    {
+      "stage": "unicode",
+      "status": "pass",
+      "detail": "0 invisible character(s) removed",
+      "ms": 0
+    },
+    {
+      "stage": "pii",
+      "status": "pass",
+      "detail": "3 identifier(s) masked, 4 protected attribute(s) removed",
+      "ms": 29
+    },
+    {
+      "stage": "injection",
+      "status": "pass",
+      "detail": "Clean (score 0)",
+      "ms": 0
+    },
+    {
+      "stage": "chunking",
+      "status": "pass",
+      "detail": "6 chunk(s), each with its SHA-256 id",
+      "ms": 0
+    },
+    {
+      "stage": "signing",
+      "status": "pass",
+      "detail": "Envelope signed (HMAC-SHA256)",
+      "ms": 0
+    }
+  ],
+  "text": {
+    "original": "AMIRA DRIDI\namira.dridi.py4@example.com  |  +216 21 913 911  |  Bizerte, Tunisia\nTarget role: Senior Python Developer\nDate of birth: 1985-04-16   Nationality: Tunisian   Marital status: Single\nGender: Female\nPROFILE\n1 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2025-2026  Software Developer - Kairouan Textiles (fictional)\n  - Worked with SQL, Arabic, Agile/Scrum.\n  - Improved quarterly objectives.\nEDUCATION\nBachelor in History - Sfax Engineering School (fictional)\nSKILLS\nSQL, REST APIs, Agile/Scrum, SEO, Digital Marketing, Project Management, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "cleaned": "AMIRA DRIDI\namira.dridi.py4@example.com  |  +216 21 913 911  |  Bizerte, Tunisia\nTarget role: Senior Python Developer\nDate of birth: 1985-04-16   Nationality: Tunisian   Marital status: Single\nGender: Female\nPROFILE\n1 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2025-2026  Software Developer - Kairouan Textiles (fictional)\n  - Worked with SQL, Arabic, Agile/Scrum.\n  - Improved quarterly objectives.\nEDUCATION\nBachelor in History - Sfax Engineering School (fictional)\nSKILLS\nSQL, REST APIs, Agile/Scrum, SEO, Digital Marketing, Project Management, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "masked": "AMIRA DRIDI\n<EMAIL_1>  |  <PHONE_1>  |  Bizerte, Tunisia\nTarget role: Senior Python Developer\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]\nPROFILE\n1 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n<PHONE_2>  Software Developer - Kairouan Textiles (fictional)\n  - Worked with SQL, Arabic, Agile/Scrum.\n  - Improved quarterly objectives.\nEDUCATION\nBachelor in History - Sfax Engineering School (fictional)\nSKILLS\nSQL, REST APIs, Agile/Scrum, SEO, Digital Marketing, Project Management, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "sent": "AMIRA DRIDI\n<EMAIL_1>  |  <PHONE_1>  |  Bizerte, Tunisia\nTarget role: Senior Python Developer\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]\n\nPROFILE\n1 years of professional experience. Fictional candidate generated for a demo.\n\nEXPERIENCE\n<PHONE_2>  Software Developer - Kairouan Textiles (fictional)\n  - Worked with SQL, Arabic, Agile/Scrum.\n  - Improved quarterly objectives.\n\nEDUCATION\nBachelor in History - Sfax Engineering School (fictional)\n\nSKILLS\nSQL, REST APIs, Agile/Scrum, SEO, Digital Marketing, Project Management, Arabic, French\n\nLANGUAGES\nArabic (native), French (fluent)"
+  },
+  "removed": [],
+  "masked": [
+    {
+      "token": "<EMAIL_1>",
+      "entity": "EMAIL",
+      "original": "amira.dridi.py4@example.com",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_1>",
+      "entity": "PHONE",
+      "original": "+216 21 913 911",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_2>",
+      "entity": "PHONE",
+      "original": "2025-2026",
+      "count": 1
+    }
+  ],
+  "protected_removed": [
+    {
+      "attribute": "BIRTH_DATE",
+      "original": "1985-04-16"
+    },
+    {
+      "attribute": "NATIONALITY",
+      "original": "Tunisian"
+    },
+    {
+      "attribute": "MARITAL_STATUS",
+      "original": "Single"
+    },
+    {
+      "attribute": "GENDER",
+      "original": "Female"
+    }
+  ],
+  "injection_matches": [],
+  "hashes": {
+    "doc_id": "sha256:a9cf25c5785a6041ca1b296eaea65258624b087a8abdaed01d5d23445a0b8c83",
+    "chunk_ids": [
+      "sha256:20721035f9d58925f56ae445100dce3d9159afdb3894c008c8865cfcd08d4905",
+      "sha256:a956b9244fc0be918f05a8317a80465ade86e51fc4b1856a34b92057a85d7484",
+      "sha256:3b80e7296e9fbba813e84a2c1ba50145f6413cc1f85ee5a78693d748543f2e71",
+      "sha256:53cb07cdb925aa26b64e00667f5c1dfec253ab1f9a1a95c7c57701f60cc7a19f",
+      "sha256:de64c4ffb693b9ac13c628fde9d7e1522de7b632f7734df5f7d37974113a9e08",
+      "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1"
+    ],
+    "signature": "hmac-sha256:4fee9a0ee5bab1ade87d8b1fcfccbfc4a46b8bb38e674aa9e9217c912e6907e3"
+  },
+  "released_to_ai": true,
+  "decision": null
+}

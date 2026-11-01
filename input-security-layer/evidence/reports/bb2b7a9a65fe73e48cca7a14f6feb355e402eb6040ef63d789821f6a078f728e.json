@@ -1,0 +1,143 @@
+{
+  "report_version": "1.0",
+  "report_id": "sha256:bb2b7a9a65fe73e48cca7a14f6feb355e402eb6040ef63d789821f6a078f728e",
+  "doc_id": "sha256:3968d75ef646c8e6a80acaea6a636636504b3ab252b34727e8a50b76ba9c7db4",
+  "received_at": "2026-11-01T00:03:28Z",
+  "source": {
+    "type": "upload_cv",
+    "file_type": "pdf",
+    "size_bytes": 2033
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "status": "accepted",
+  "rejection": null,
+  "verdict": "clean",
+  "risk_score_bp": 0,
+  "language": "en",
+  "reasons": [],
+  "stages": [
+    {
+      "stage": "file_check",
+      "status": "pass",
+      "detail": "Real type: PDF (1 KB)",
+      "ms": 85
+    },
+    {
+      "stage": "extraction",
+      "status": "pass",
+      "detail": "23 text spans read in an isolated process",
+      "ms": 1200
+    },
+    {
+      "stage": "hidden_text",
+      "status": "pass",
+      "detail": "Nothing hidden",
+      "ms": 0
+    },
+    {
+      "stage": "unicode",
+      "status": "pass",
+      "detail": "0 invisible character(s) removed",
+      "ms": 0
+    },
+    {
+      "stage": "pii",
+      "status": "pass",
+      "detail": "5 identifier(s) masked, 4 protected attribute(s) removed",
+      "ms": 29
+    },
+    {
+      "stage": "injection",
+      "status": "pass",
+      "detail": "Clean (score 0)",
+      "ms": 0
+    },
+    {
+      "stage": "chunking",
+      "status": "pass",
+      "detail": "6 chunk(s), each with its SHA-256 id",
+      "ms": 0
+    },
+    {
+      "stage": "signing",
+      "status": "pass",
+      "detail": "Envelope signed (HMAC-SHA256)",
+      "ms": 0
+    }
+  ],
+  "text": {
+    "original": "IMEN MABROUK\nimen.mabrouk.py5@example.com  |  +216 23 429 263  |  Monastir, Tunisia\nTarget role: Senior Python Developer\nDate of birth: 1995-09-22   Nationality: Moroccan   Marital status: Single\nGender: Female\nPROFILE\n3 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2025-2026  Software Developer - Medina Retail (fictional)\n  - Worked with REST APIs, Arabic, French.\n  - Improved quarterly objectives.\n2024-2025  Software Developer - Medina Retail (fictional)\n  - Worked with Python, Payroll, Arabic.\n  - Improved team reporting.\n2023-2024  Software Developer - Sahel Foods (fictional)\n  - Worked with Payroll, French, Python.\n  - Delivered a key internal project.\nEDUCATION\nMaster in Literature - Sfax Engineering School (fictional)\nSKILLS\nPython, REST APIs, Payroll, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "cleaned": "IMEN MABROUK\nimen.mabrouk.py5@example.com  |  +216 23 429 263  |  Monastir, Tunisia\nTarget role: Senior Python Developer\nDate of birth: 1995-09-22   Nationality: Moroccan   Marital status: Single\nGender: Female\nPROFILE\n3 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2025-2026  Software Developer - Medina Retail (fictional)\n  - Worked with REST APIs, Arabic, French.\n  - Improved quarterly objectives.\n2024-2025  Software Developer - Medina Retail (fictional)\n  - Worked with Python, Payroll, Arabic.\n  - Improved team reporting.\n2023-2024  Software Developer - Sahel Foods (fictional)\n  - Worked with Payroll, French, Python.\n  - Delivered a key internal project.\nEDUCATION\nMaster in Literature - Sfax Engineering School (fictional)\nSKILLS\nPython, REST APIs, Payroll, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "masked": "IMEN MABROUK\n<EMAIL_1>  |  <PHONE_1>  |  Monastir, Tunisia\nTarget role: Senior Python Developer\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]\nPROFILE\n3 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n<PHONE_2>  Software Developer - Medina Retail (fictional)\n  - Worked with REST APIs, Arabic, French.\n  - Improved quarterly objectives.\n<PHONE_3>  Software Developer - Medina Retail (fictional)\n  - Worked with Python, Payroll, Arabic.\n  - Improved team reporting.\n<PHONE_4>  Software Developer - Sahel Foods (fictional)\n  - Worked with Payroll, French, Python.\n  - Delivered a key internal project.\nEDUCATION\nMaster in Literature - Sfax Engineering School (fictional)\nSKILLS\nPython, REST APIs, Payroll, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "sent": "IMEN MABROUK\n<EMAIL_1>  |  <PHONE_1>  |  Monastir, Tunisia\nTarget role: Senior Python Developer\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]\n\nPROFILE\n3 years of professional experience. Fictional candidate generated for a demo.\n\nEXPERIENCE\n<PHONE_2>  Software Developer - Medina Retail (fictional)\n  - Worked with REST APIs, Arabic, French.\n  - Improved quarterly objectives.\n<PHONE_3>  Software Developer - Medina Retail (fictional)\n  - Worked with Python, Payroll, Arabic.\n  - Improved team reporting.\n<PHONE_4>  Software Developer - Sahel Foods (fictional)\n  - Worked with Payroll, French, Python.\n  - Delivered a key internal project.\n\nEDUCATION\nMaster in Literature - Sfax Engineering School (fictional)\n\nSKILLS\nPython, REST APIs, Payroll, Arabic, French\n\nLANGUAGES\nArabic (native), French (fluent)"
+  },
+  "removed": [],
+  "masked": [
+    {
+      "token": "<EMAIL_1>",
+      "entity": "EMAIL",
+      "original": "imen.mabrouk.py5@example.com",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_1>",
+      "entity": "PHONE",
+      "original": "+216 23 429 263",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_2>",
+      "entity": "PHONE",
+      "original": "2025-2026",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_3>",
+      "entity": "PHONE",
+      "original": "2024-2025",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_4>",
+      "entity": "PHONE",
+      "original": "2023-2024",
+      "count": 1
+    }
+  ],
+  "protected_removed": [
+    {
+      "attribute": "BIRTH_DATE",
+      "original": "1995-09-22"
+    },
+    {
+      "attribute": "NATIONALITY",
+      "original": "Moroccan"
+    },
+    {
+      "attribute": "MARITAL_STATUS",
+      "original": "Single"
+    },
+    {
+      "attribute": "GENDER",
+      "original": "Female"
+    }
+  ],
+  "injection_matches": [],
+  "hashes": {
+    "doc_id": "sha256:3968d75ef646c8e6a80acaea6a636636504b3ab252b34727e8a50b76ba9c7db4",
+    "chunk_ids": [
+      "sha256:99e7bc0440a74b82a0b63e905b850f471ac42a95331533b5c367b4b70de733fb",
+      "sha256:a0f4f70f444ad03e5569f51126a243e708856811552c89fdf6c505fb7255b679",
+      "sha256:754c003618709e8c13fb591d983411ae2ecc1c6224ddf0d746097502942889a8",
+      "sha256:f9131ab72b44306b20c57864056729d098452abfc76742baac7ec1d3b05234a7",
+      "sha256:3f10b0e28a619a4a25f77af7771e8bcc045f921d37c5f5f5f9e9900510a4e44a",
+      "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1"
+    ],
+    "signature": "hmac-sha256:48f6b197bf488f2e283de87fbdf4325d7aa9f2cd1c6f477f3630dca6ce815bf8"
+  },
+  "released_to_ai": true,
+  "decision": null
+}

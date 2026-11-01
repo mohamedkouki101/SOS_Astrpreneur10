@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:90be63c9ef43f2e5e1fd19091b022e05a12bf7ca7c43b72d62de3f20ac40273f",
+  "candidate_ref": "hmac:52f029fb731b3c3043b57f74e6c19c73e409ddaa4501660d1d5198f7a2163446",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:02:17Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PHONE_2>",
+      "<PERSON_1>",
+      "<PHONE_3>"
+    ],
+    "protected_removed": [
+      "BIRTH_DATE",
+      "GENDER",
+      "MARITAL_STATUS",
+      "NATIONALITY"
+    ]
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:d93c21f4cb064408ead8386ab464320a970bb5dc2ef7cbb7f57e3771ce152abb",
+      "section": "other",
+      "text": "IMEN OUALI\n<EMAIL_1>  |  <PHONE_1>  |  Bizerte, Tunisia\nTarget role: Data Analyst\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]"
+    },
+    {
+      "chunk_id": "sha256:a0f4f70f444ad03e5569f51126a243e708856811552c89fdf6c505fb7255b679",
+      "section": "summary",
+      "text": "PROFILE\n3 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:c3879888b8697c42d181f77f26cfa06e79ea971f72b39cba3793511698fac838",
+      "section": "experience",
+      "text": "EXPERIENCE\n<PHONE_2>  Analyst - Byrsa Consulting (fictional)\n  - Worked with <PERSON_1>, Data Analysis, Arabic.\n  - Supported quarterly objectives.\n<PHONE_3>  Analyst - Djerba Travel (fictional)\n  - Worked with Excel, Statistics, Data Analysis.\n  - Owned customer-facing processes."
+    },
+    {
+      "chunk_id": "sha256:8f8be57eb0b1456306fae5a2823cf71348de041306fbd16d0c8c65ac32ed9c11",
+      "section": "education",
+      "text": "EDUCATION\nMaster in Statistics - Sousse Business Institute (fictional)"
+    },
+    {
+      "chunk_id": "sha256:34e19cc428b4ab584df2c43251d056fbc9fedb5fa0a1e7de2c938258d6324233",
+      "section": "skills",
+      "text": "SKILLS\nData Analysis, Excel, Statistics, <PERSON_1>, Onboarding, Communication, French, Arabic"
+    },
+    {
+      "chunk_id": "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:6e217cba064465d1fafc2e288df8f89466c0a76a8ff9de32f9ed32762d484e8e"
+}

@@ -1,0 +1,145 @@
+{
+  "report_version": "1.0",
+  "report_id": "sha256:19206a3ef5223cc86b6f03999a0228fdf6e0a39852d9e1a6d5593f01fc6f868a",
+  "doc_id": "sha256:a7cd3cbad9e055a2fa5936c31635472488601d2359ba58b39105b8db7c830df1",
+  "received_at": "2026-11-01T00:03:20Z",
+  "source": {
+    "type": "upload_cv",
+    "file_type": "pdf",
+    "size_bytes": 2101
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "status": "accepted",
+  "rejection": null,
+  "verdict": "clean",
+  "risk_score_bp": 0,
+  "language": "en",
+  "reasons": [],
+  "stages": [
+    {
+      "stage": "file_check",
+      "status": "pass",
+      "detail": "Real type: PDF (2 KB)",
+      "ms": 110
+    },
+    {
+      "stage": "extraction",
+      "status": "pass",
+      "detail": "23 text spans read in an isolated process",
+      "ms": 865
+    },
+    {
+      "stage": "hidden_text",
+      "status": "pass",
+      "detail": "Nothing hidden",
+      "ms": 0
+    },
+    {
+      "stage": "unicode",
+      "status": "pass",
+      "detail": "0 invisible character(s) removed",
+      "ms": 0
+    },
+    {
+      "stage": "pii",
+      "status": "pass",
+      "detail": "6 identifier(s) masked, 3 protected attribute(s) removed",
+      "ms": 29
+    },
+    {
+      "stage": "injection",
+      "status": "pass",
+      "detail": "Clean (score 0)",
+      "ms": 0
+    },
+    {
+      "stage": "chunking",
+      "status": "pass",
+      "detail": "6 chunk(s), each with its SHA-256 id",
+      "ms": 0
+    },
+    {
+      "stage": "signing",
+      "status": "pass",
+      "detail": "Envelope signed (HMAC-SHA256)",
+      "ms": 0
+    }
+  ],
+  "text": {
+    "original": "NESRINE LAHMAR\nnesrine.lahmar.py0@example.com  |  +216 25 869 498  |  Sousse, Tunisia\nTarget role: Senior Python Developer\nDate of birth: 2002-07-22   Nationality: Moroccan   Marital status: Married\nGender: Female\nPROFILE\n7 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2022-2026  Software Developer - Hannibal Bank (fictional)\n  - Worked with Sales Negotiation, Arabic, Python.\n  - Supported customer-facing processes.\n2021-2022  Software Developer - Carthage Logistics (fictional)\n  - Worked with Python, Payroll, French.\n  - Supported quarterly objectives.\n2019-2021  Software Developer - Jasmine Telecom (fictional)\n  - Worked with Payroll, Sales Negotiation, Arabic.\n  - Improved a key internal project.\nEDUCATION\nEngineering Degree in Literature - Monastir Faculty of Sciences (fictional)\nSKILLS\nPython, Payroll, Arabic, Sales Negotiation, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "cleaned": "NESRINE LAHMAR\nnesrine.lahmar.py0@example.com  |  +216 25 869 498  |  Sousse, Tunisia\nTarget role: Senior Python Developer\nDate of birth: 2002-07-22   Nationality: Moroccan   Marital status: Married\nGender: Female\nPROFILE\n7 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2022-2026  Software Developer - Hannibal Bank (fictional)\n  - Worked with Sales Negotiation, Arabic, Python.\n  - Supported customer-facing processes.\n2021-2022  Software Developer - Carthage Logistics (fictional)\n  - Worked with Python, Payroll, French.\n  - Supported quarterly objectives.\n2019-2021  Software Developer - Jasmine Telecom (fictional)\n  - Worked with Payroll, Sales Negotiation, Arabic.\n  - Improved a key internal project.\nEDUCATION\nEngineering Degree in Literature - Monastir Faculty of Sciences (fictional)\nSKILLS\nPython, Payroll, Arabic, Sales Negotiation, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "masked": "NESRINE LAHMAR\n<EMAIL_1>  |  <PHONE_1>  |  Sousse, Tunisia\nTarget role: Senior Python Developer\nDate of birth: <PHONE_2>   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]\nPROFILE\n7 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n<PHONE_3>  Software Developer - Hannibal Bank (fictional)\n  - Worked with Sales Negotiation, Arabic, Python.\n  - Supported customer-facing processes.\n<PHONE_4>  Software Developer - Carthage Logistics (fictional)\n  - Worked with Python, Payroll, French.\n  - Supported quarterly objectives.\n<PHONE_5>  Software Developer - Jasmine Telecom (fictional)\n  - Worked with Payroll, Sales Negotiation, Arabic.\n  - Improved a key internal project.\nEDUCATION\nEngineering Degree in Literature - Monastir Faculty of Sciences (fictional)\nSKILLS\nPython, Payroll, Arabic, Sales Negotiation, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "sent": "NESRINE LAHMAR\n<EMAIL_1>  |  <PHONE_1>  |  Sousse, Tunisia\nTarget role: Senior Python Developer\nDate of birth: <PHONE_2>   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]\n\nPROFILE\n7 years of professional experience. Fictional candidate generated for a demo.\n\nEXPERIENCE\n<PHONE_3>  Software Developer - Hannibal Bank (fictional)\n  - Worked with Sales Negotiation, Arabic, Python.\n  - Supported customer-facing processes.\n<PHONE_4>  Software Developer - Carthage Logistics (fictional)\n  - Worked with Python, Payroll, French.\n  - Supported quarterly objectives.\n<PHONE_5>  Software Developer - Jasmine Telecom (fictional)\n  - Worked with Payroll, Sales Negotiation, Arabic.\n  - Improved a key internal project.\n\nEDUCATION\nEngineering Degree in Literature - Monastir Faculty of Sciences (fictional)\n\nSKILLS\nPython, Payroll, Arabic, Sales Negotiation, French\n\nLANGUAGES\nArabic (native), French (fluent)"
+  },
+  "removed": [],
+  "masked": [
+    {
+      "token": "<EMAIL_1>",
+      "entity": "EMAIL",
+      "original": "nesrine.lahmar.py0@example.com",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_1>",
+      "entity": "PHONE",
+      "original": "+216 25 869 498",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_2>",
+      "entity": "PHONE",
+      "original": "2002-07-22",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_3>",
+      "entity": "PHONE",
+      "original": "2022-2026",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_4>",
+      "entity": "PHONE",
+      "original": "2021-2022",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_5>",
+      "entity": "PHONE",
+      "original": "2019-2021",
+      "count": 1
+    }
+  ],
+  "protected_removed": [
+    {
+      "attribute": "NATIONALITY",
+      "original": "Moroccan"
+    },
+    {
+      "attribute": "MARITAL_STATUS",
+      "original": "Married"
+    },
+    {
+      "attribute": "GENDER",
+      "original": "Female"
+    }
+  ],
+  "injection_matches": [],
+  "hashes": {
+    "doc_id": "sha256:a7cd3cbad9e055a2fa5936c31635472488601d2359ba58b39105b8db7c830df1",
+    "chunk_ids": [
+      "sha256:3f8bc3c695bb7a7da60225fd3d0ecd997f2805f6aa9af073212795f5c34d6dae",
+      "sha256:f8e80555a35a148d6ccf5e67cb8f621aa050d0110721c0d4787635483c50565b",
+      "sha256:54e642d5c582fa2fefa64ec59d8679f3515b2856fa610636df35a1241b483b1e",
+      "sha256:8f6ca6357e0e0eb836e1b979354573fb32fe5837fc2c0c47e3f3ce807f041916",
+      "sha256:2c0c1d8dbc2e0404678ba72a688015d2a60fb301428f32214440ecf026064df6",
+      "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1"
+    ],
+    "signature": "hmac-sha256:28fea4bad9b70af8aad70597de262ec0311e9bcaab37f5127e0ab1fc7e2d0a58"
+  },
+  "released_to_ai": true,
+  "decision": null
+}

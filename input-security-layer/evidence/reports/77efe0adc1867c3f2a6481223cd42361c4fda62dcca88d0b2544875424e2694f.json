@@ -1,0 +1,108 @@
+{
+  "report_version": "1.0",
+  "report_id": "sha256:77efe0adc1867c3f2a6481223cd42361c4fda62dcca88d0b2544875424e2694f",
+  "doc_id": "sha256:5437d728b63c2202dfd1435568072a96a2606f0ae6f0f9514fa2afc110db91dd",
+  "received_at": "2026-11-01T00:02:40Z",
+  "source": {
+    "type": "upload_cv",
+    "file_type": "pdf",
+    "size_bytes": 1382
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "status": "accepted",
+  "rejection": null,
+  "verdict": "clean",
+  "risk_score_bp": 0,
+  "language": "en",
+  "reasons": [],
+  "stages": [
+    {
+      "stage": "file_check",
+      "status": "pass",
+      "detail": "Real type: PDF (1 KB)",
+      "ms": 98
+    },
+    {
+      "stage": "extraction",
+      "status": "pass",
+      "detail": "13 text spans read in an isolated process",
+      "ms": 977
+    },
+    {
+      "stage": "hidden_text",
+      "status": "pass",
+      "detail": "Nothing hidden",
+      "ms": 0
+    },
+    {
+      "stage": "unicode",
+      "status": "pass",
+      "detail": "0 invisible character(s) removed",
+      "ms": 0
+    },
+    {
+      "stage": "pii",
+      "status": "pass",
+      "detail": "2 identifier(s) masked, 0 protected attribute(s) removed",
+      "ms": 18
+    },
+    {
+      "stage": "injection",
+      "status": "pass",
+      "detail": "Clean (score 0)",
+      "ms": 0
+    },
+    {
+      "stage": "chunking",
+      "status": "pass",
+      "detail": "6 chunk(s), each with its SHA-256 id",
+      "ms": 0
+    },
+    {
+      "stage": "signing",
+      "status": "pass",
+      "detail": "Envelope signed (HMAC-SHA256)",
+      "ms": 0
+    }
+  ],
+  "text": {
+    "original": "SARRA FERCHICHI\nsarra.ferchichi.dm6@example.com  |  +216 22 950 346  |  Nabeul, Tunisia\nTarget role: Digital Marketing Specialist\nPROFILE\n0 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n  Internship (3 months) - Medina Retail (fictional)\nEDUCATION\nBachelor in History - Carthage Tech Institute (fictional)\nSKILLS\nFrench, Python, Arabic\nLANGUAGES\nArabic (native), French (fluent)",
+    "cleaned": "SARRA FERCHICHI\nsarra.ferchichi.dm6@example.com  |  +216 22 950 346  |  Nabeul, Tunisia\nTarget role: Digital Marketing Specialist\nPROFILE\n0 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n  Internship (3 months) - Medina Retail (fictional)\nEDUCATION\nBachelor in History - Carthage Tech Institute (fictional)\nSKILLS\nFrench, Python, Arabic\nLANGUAGES\nArabic (native), French (fluent)",
+    "masked": "SARRA FERCHICHI\n<EMAIL_1>  |  <PHONE_1>  |  Nabeul, Tunisia\nTarget role: Digital Marketing Specialist\nPROFILE\n0 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n  Internship (3 months) - Medina Retail (fictional)\nEDUCATION\nBachelor in History - Carthage Tech Institute (fictional)\nSKILLS\nFrench, Python, Arabic\nLANGUAGES\nArabic (native), French (fluent)",
+    "sent": "SARRA FERCHICHI\n<EMAIL_1>  |  <PHONE_1>  |  Nabeul, Tunisia\nTarget role: Digital Marketing Specialist\n\nPROFILE\n0 years of professional experience. Fictional candidate generated for a demo.\n\nEXPERIENCE\n  Internship (3 months) - Medina Retail (fictional)\n\nEDUCATION\nBachelor in History - Carthage Tech Institute (fictional)\n\nSKILLS\nFrench, Python, Arabic\n\nLANGUAGES\nArabic (native), French (fluent)"
+  },
+  "removed": [],
+  "masked": [
+    {
+      "token": "<EMAIL_1>",
+      "entity": "EMAIL",
+      "original": "sarra.ferchichi.dm6@example.com",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_1>",
+      "entity": "PHONE",
+      "original": "+216 22 950 346",
+      "count": 1
+    }
+  ],
+  "protected_removed": [],
+  "injection_matches": [],
+  "hashes": {
+    "doc_id": "sha256:5437d728b63c2202dfd1435568072a96a2606f0ae6f0f9514fa2afc110db91dd",
+    "chunk_ids": [
+      "sha256:539dc39ba25eb24b359b1472581abca23c7baba404fcac8cf5c5095c8cf8e88a",
+      "sha256:6a040f429944e1fd884f900f9a11faedf9f077c0ab875211e9f9128d48258717",
+      "sha256:80194aa889fbb6055f1d71f6fedbcd2bdba757cb638a48f5dd13fa8d5b51ef61",
+      "sha256:5cd1fe9476c1b1756ab09f020156cb1a1e26fc22d32fa40add51605dfb4271c6",
+      "sha256:15c5d8f9b4e557a7575b34836446a036d8865073d06c08237dcf300a1d056d90",
+      "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1"
+    ],
+    "signature": "hmac-sha256:f356e790abcbfa6902b49628a70057301052ad44d789b2d202bb67569bf37d17"
+  },
+  "released_to_ai": true,
+  "decision": null
+}

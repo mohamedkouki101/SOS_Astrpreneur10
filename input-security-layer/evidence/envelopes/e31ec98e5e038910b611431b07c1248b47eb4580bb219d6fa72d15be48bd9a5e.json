@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:cc016ff46d2a570afa7ceb869ac895b19e22bd1d0a14f4239931c2c6ac6df184",
+  "candidate_ref": "hmac:0c0fc1b386975dc12f419e9e15d41551ccdb390877e056ee0aac9995eb0fbf30",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:03:46Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PHONE_2>"
+    ],
+    "protected_removed": [
+      "BIRTH_DATE",
+      "GENDER",
+      "MARITAL_STATUS",
+      "NATIONALITY"
+    ]
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:5d446c46819c588e60cbea03287e8dac526185f14b684a453bed9a7ecfaa073d",
+      "section": "other",
+      "text": "MOLKA MZOUGHI\n<EMAIL_1>  |  <PHONE_1>  |  Sousse, Tunisia\nTarget role: Sales Representative\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]"
+    },
+    {
+      "chunk_id": "sha256:a956b9244fc0be918f05a8317a80465ade86e51fc4b1856a34b92057a85d7484",
+      "section": "summary",
+      "text": "PROFILE\n1 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:4a13cb09473de65f3946283206ab509a3df5ab0756316cad8a41dd9784ba42d3",
+      "section": "experience",
+      "text": "EXPERIENCE\n<PHONE_2>  Sales Representative - Kairouan Textiles (fictional)\n  - Worked with Docker, IFRS, Arabic.\n  - Improved team reporting."
+    },
+    {
+      "chunk_id": "sha256:e11ad10cadb81b4df71cc3dc4e0da67fc5906dcd79bedaf199982ca0f84509a8",
+      "section": "education",
+      "text": "EDUCATION\nBachelor in History - Monastir Faculty of Sciences (fictional)"
+    },
+    {
+      "chunk_id": "sha256:53b82102b6883ae3fdabb6a3a8b80dd22c42133c8aa9479d3d73838489c110fa",
+      "section": "skills",
+      "text": "SKILLS\nCommunication, French, English, Agile/Scrum, Docker, IFRS, Arabic"
+    },
+    {
+      "chunk_id": "sha256:88b8257187b8e75e3bbd8a1eb6e11058ad9ebf4b28fd55d67285c1527dc80a8d",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent), English (professional)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:844032a8736046658bf98b78610f8f6a77754f05818d64ebdc51633ca9de1914"
+}

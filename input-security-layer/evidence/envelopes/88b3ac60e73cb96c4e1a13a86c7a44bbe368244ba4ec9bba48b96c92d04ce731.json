@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:be079c511600ce5667389c40caffa9a136d1a7b8cf227497b5c9a1cd215c644c",
+  "candidate_ref": "hmac:3cfd8b7d9486779be6a1f706dd5db0eb09920b8248e0412b6000e855594c5712",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:03:17Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PHONE_2>",
+      "<PHONE_3>",
+      "<PERSON_1>"
+    ],
+    "protected_removed": []
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:63522e1cd232ff6c813153499f24f515fe0fd263c6d8eea4391c2060a3767603",
+      "section": "other",
+      "text": "BILEL TRABELSI\n<EMAIL_1>  |  <PHONE_1>  |  Bizerte, Tunisia\nTarget role: HR Generalist"
+    },
+    {
+      "chunk_id": "sha256:3390e1bbcdd62b6427c733c603d3c38a5bc3b9a4a69167baca59ba7514c93b2a",
+      "section": "summary",
+      "text": "PROFILE\n6 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:f315b42b17afe165b3d4b9881450e6c5fdf880b3b43805113aae13f6c888b306",
+      "section": "experience",
+      "text": "EXPERIENCE\n<PHONE_2>  Associate - Djerba Travel (fictional)\n  - Worked with Recruitment, Onboarding, Payroll.\n  - Owned team reporting.\n<PHONE_3>  Associate - Jasmine Telecom (fictional)\n  - Worked with <PERSON_1>, English, Onboarding.\n  - Owned customer-facing processes."
+    },
+    {
+      "chunk_id": "sha256:8e56ecd893a930fea4a08e5e07f0725faeb2c1ece03be72dba0c9f3beae7a37f",
+      "section": "education",
+      "text": "EDUCATION\nMaster in Human Resources - University of Tunis (fictional campus)"
+    },
+    {
+      "chunk_id": "sha256:0d384bf2ce408cdfc19ca548d3a58c50d0f28b69b050bc4b00a8d121cadae6df",
+      "section": "skills",
+      "text": "SKILLS\nRecruitment, <PERSON_1>, Payroll, Onboarding, Communication, Excel, English, Statistics, Project Management,"
+    },
+    {
+      "chunk_id": "sha256:88b8257187b8e75e3bbd8a1eb6e11058ad9ebf4b28fd55d67285c1527dc80a8d",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent), English (professional)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:c922bf31c8d17a355300fb5107184e5abe01dc743eee2baae9e878086783fa32"
+}

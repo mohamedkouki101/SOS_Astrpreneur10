@@ -1,0 +1,108 @@
+{
+  "report_version": "1.0",
+  "report_id": "sha256:bbaffd50aa069419a11335d592bd4e8393188021850214f2a35fdc634f5cb070",
+  "doc_id": "sha256:2b609e8e9256ca23a093ed52c8b2f682c7beb99a1ee920e24413a9acb600dc17",
+  "received_at": "2026-11-01T00:03:16Z",
+  "source": {
+    "type": "upload_cv",
+    "file_type": "pdf",
+    "size_bytes": 1379
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "status": "accepted",
+  "rejection": null,
+  "verdict": "clean",
+  "risk_score_bp": 0,
+  "language": "en",
+  "reasons": [],
+  "stages": [
+    {
+      "stage": "file_check",
+      "status": "pass",
+      "detail": "Real type: PDF (1 KB)",
+      "ms": 79
+    },
+    {
+      "stage": "extraction",
+      "status": "pass",
+      "detail": "13 text spans read in an isolated process",
+      "ms": 656
+    },
+    {
+      "stage": "hidden_text",
+      "status": "pass",
+      "detail": "Nothing hidden",
+      "ms": 0
+    },
+    {
+      "stage": "unicode",
+      "status": "pass",
+      "detail": "0 invisible character(s) removed",
+      "ms": 0
+    },
+    {
+      "stage": "pii",
+      "status": "pass",
+      "detail": "2 identifier(s) masked, 0 protected attribute(s) removed",
+      "ms": 16
+    },
+    {
+      "stage": "injection",
+      "status": "pass",
+      "detail": "Clean (score 0)",
+      "ms": 0
+    },
+    {
+      "stage": "chunking",
+      "status": "pass",
+      "detail": "6 chunk(s), each with its SHA-256 id",
+      "ms": 0
+    },
+    {
+      "stage": "signing",
+      "status": "pass",
+      "detail": "Envelope signed (HMAC-SHA256)",
+      "ms": 0
+    }
+  ],
+  "text": {
+    "original": "AMINE TOUMI\namine.toumi.hr12@example.com  |  +216 26 538 217  |  Tunis, Tunisia\nTarget role: HR Generalist\nPROFILE\n0 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n  Internship (3 months) - Djerba Travel (fictional)\nEDUCATION\nMaster in History - Monastir Faculty of Sciences (fictional)\nSKILLS\nRecruitment, JavaScript, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "cleaned": "AMINE TOUMI\namine.toumi.hr12@example.com  |  +216 26 538 217  |  Tunis, Tunisia\nTarget role: HR Generalist\nPROFILE\n0 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n  Internship (3 months) - Djerba Travel (fictional)\nEDUCATION\nMaster in History - Monastir Faculty of Sciences (fictional)\nSKILLS\nRecruitment, JavaScript, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "masked": "AMINE TOUMI\n<EMAIL_1>  |  <PHONE_1>  |  Tunis, Tunisia\nTarget role: HR Generalist\nPROFILE\n0 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n  Internship (3 months) - Djerba Travel (fictional)\nEDUCATION\nMaster in History - Monastir Faculty of Sciences (fictional)\nSKILLS\nRecruitment, JavaScript, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "sent": "AMINE TOUMI\n<EMAIL_1>  |  <PHONE_1>  |  Tunis, Tunisia\nTarget role: HR Generalist\n\nPROFILE\n0 years of professional experience. Fictional candidate generated for a demo.\n\nEXPERIENCE\n  Internship (3 months) - Djerba Travel (fictional)\n\nEDUCATION\nMaster in History - Monastir Faculty of Sciences (fictional)\n\nSKILLS\nRecruitment, JavaScript, Arabic, French\n\nLANGUAGES\nArabic (native), French (fluent)"
+  },
+  "removed": [],
+  "masked": [
+    {
+      "token": "<EMAIL_1>",
+      "entity": "EMAIL",
+      "original": "amine.toumi.hr12@example.com",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_1>",
+      "entity": "PHONE",
+      "original": "+216 26 538 217",
+      "count": 1
+    }
+  ],
+  "protected_removed": [],
+  "injection_matches": [],
+  "hashes": {
+    "doc_id": "sha256:2b609e8e9256ca23a093ed52c8b2f682c7beb99a1ee920e24413a9acb600dc17",
+    "chunk_ids": [
+      "sha256:4b2424400bfadcb531a3dfea1dfea530aa9051063c39c24ca1d566577ea4baeb",
+      "sha256:6a040f429944e1fd884f900f9a11faedf9f077c0ab875211e9f9128d48258717",
+      "sha256:13314602b2966a4abac83aeb76fe9a089d7332a43a3d45b79426aa181cff1677",
+      "sha256:2b69a81d176e256e52aba7d96aec3dacb6abef5e9d1d8a233265126141b4144d",
+      "sha256:e69e955d5b9597d8a8353800f1ae019bc58481abbd3aeff0cacf11c2b3e0d358",
+      "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1"
+    ],
+    "signature": "hmac-sha256:aeeb8bfb87e8819eb8e5eea8100a1c04b132eb8fc5903eb0ff6b9a3250f9f34d"
+  },
+  "released_to_ai": true,
+  "decision": null
+}

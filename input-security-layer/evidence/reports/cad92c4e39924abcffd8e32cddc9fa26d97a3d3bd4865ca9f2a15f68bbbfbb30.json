@@ -1,0 +1,126 @@
+{
+  "report_version": "1.0",
+  "report_id": "sha256:cad92c4e39924abcffd8e32cddc9fa26d97a3d3bd4865ca9f2a15f68bbbfbb30",
+  "doc_id": "sha256:c9c5d5fe1cf1d211a2a3dc30bf34343a41a86913db10712d8e9c61da04a26d07",
+  "received_at": "2026-11-01T00:03:12Z",
+  "source": {
+    "type": "upload_cv",
+    "file_type": "pdf",
+    "size_bytes": 1736
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "status": "accepted",
+  "rejection": null,
+  "verdict": "clean",
+  "risk_score_bp": 0,
+  "language": "en",
+  "reasons": [],
+  "stages": [
+    {
+      "stage": "file_check",
+      "status": "pass",
+      "detail": "Real type: PDF (1 KB)",
+      "ms": 125
+    },
+    {
+      "stage": "extraction",
+      "status": "pass",
+      "detail": "18 text spans read in an isolated process",
+      "ms": 1295
+    },
+    {
+      "stage": "hidden_text",
+      "status": "pass",
+      "detail": "Nothing hidden",
+      "ms": 0
+    },
+    {
+      "stage": "unicode",
+      "status": "pass",
+      "detail": "0 invisible character(s) removed",
+      "ms": 0
+    },
+    {
+      "stage": "pii",
+      "status": "pass",
+      "detail": "5 identifier(s) masked, 0 protected attribute(s) removed",
+      "ms": 47
+    },
+    {
+      "stage": "injection",
+      "status": "pass",
+      "detail": "Clean (score 0)",
+      "ms": 0
+    },
+    {
+      "stage": "chunking",
+      "status": "pass",
+      "detail": "6 chunk(s), each with its SHA-256 id",
+      "ms": 0
+    },
+    {
+      "stage": "signing",
+      "status": "pass",
+      "detail": "Envelope signed (HMAC-SHA256)",
+      "ms": 0
+    }
+  ],
+  "text": {
+    "original": "CYRINE SAIDI\ncyrine.saidi.hr9@example.com  |  +216 20 743 363  |  Sousse, Tunisia\nTarget role: HR Generalist\nPROFILE\n2 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2025-2026  Associate - Atlas Soft (fictional)\n  - Worked with Arabic, Social Media, French.\n  - Improved team reporting.\n2024-2025  Associate - Byrsa Consulting (fictional)\n  - Worked with Machine Learning, Arabic, Recruitment.\n  - Owned a key internal project.\nEDUCATION\nEngineering Degree in Human Resources - Carthage Tech Institute (fictional)\nSKILLS\nRecruitment, Machine Learning, Digital Marketing, Social Media, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "cleaned": "CYRINE SAIDI\ncyrine.saidi.hr9@example.com  |  +216 20 743 363  |  Sousse, Tunisia\nTarget role: HR Generalist\nPROFILE\n2 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2025-2026  Associate - Atlas Soft (fictional)\n  - Worked with Arabic, Social Media, French.\n  - Improved team reporting.\n2024-2025  Associate - Byrsa Consulting (fictional)\n  - Worked with Machine Learning, Arabic, Recruitment.\n  - Owned a key internal project.\nEDUCATION\nEngineering Degree in Human Resources - Carthage Tech Institute (fictional)\nSKILLS\nRecruitment, Machine Learning, Digital Marketing, Social Media, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "masked": "CYRINE SAIDI\n<EMAIL_1>  |  <PHONE_1>  |  Sousse, Tunisia\nTarget role: HR Generalist\nPROFILE\n2 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n<PHONE_2>  Associate - Atlas Soft (fictional)\n  - Worked with Arabic, Social Media, French.\n  - Improved team reporting.\n<PHONE_3>  Associate - Byrsa Consulting (fictional)\n  - Worked with <PERSON_1>, Arabic, Recruitment.\n  - Owned a key internal project.\nEDUCATION\nEngineering Degree in Human Resources - Carthage Tech Institute (fictional)\nSKILLS\nRecruitment, <PERSON_1>, Digital Marketing, Social Media, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "sent": "CYRINE SAIDI\n<EMAIL_1>  |  <PHONE_1>  |  Sousse, Tunisia\nTarget role: HR Generalist\n\nPROFILE\n2 years of professional experience. Fictional candidate generated for a demo.\n\nEXPERIENCE\n<PHONE_2>  Associate - Atlas Soft (fictional)\n  - Worked with Arabic, Social Media, French.\n  - Improved team reporting.\n<PHONE_3>  Associate - Byrsa Consulting (fictional)\n  - Worked with <PERSON_1>, Arabic, Recruitment.\n  - Owned a key internal project.\n\nEDUCATION\nEngineering Degree in Human Resources - Carthage Tech Institute (fictional)\n\nSKILLS\nRecruitment, <PERSON_1>, Digital Marketing, Social Media, Arabic, French\n\nLANGUAGES\nArabic (native), French (fluent)"
+  },
+  "removed": [],
+  "masked": [
+    {
+      "token": "<EMAIL_1>",
+      "entity": "EMAIL",
+      "original": "cyrine.saidi.hr9@example.com",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_1>",
+      "entity": "PHONE",
+      "original": "+216 20 743 363",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_2>",
+      "entity": "PHONE",
+      "original": "2025-2026",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_3>",
+      "entity": "PHONE",
+      "original": "2024-2025",
+      "count": 1
+    },
+    {
+      "token": "<PERSON_1>",
+      "entity": "PERSON",
+      "original": "Machine Learning",
+      "count": 2
+    }
+  ],
+  "protected_removed": [],
+  "injection_matches": [],
+  "hashes": {
+    "doc_id": "sha256:c9c5d5fe1cf1d211a2a3dc30bf34343a41a86913db10712d8e9c61da04a26d07",
+    "chunk_ids": [
+      "sha256:eefc37cb653398ab787bba908a7f228ce56d99f839a3485dde63be6e940cd9b8",
+      "sha256:f63d1cd0f0bb0eb76711721a81f426791c52ec0f9c21a7f73487fd9bf727e267",
+      "sha256:4ddb59046211ec7130b5636ce84958fbd13bf3aa388c07333b0eeb1adb1ab66c",
+      "sha256:57bcc89b307a5deadfe544ea96c04bd02b9dee594af08b3cbfd8352ae5e5f9b8",
+      "sha256:4af2fcce92395abca907e47a64d1fa321fc28ed8ea18705687c5f987bb8486b6",
+      "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1"
+    ],
+    "signature": "hmac-sha256:dcb2247beb3b6e88da171473697e35a4f07ed8f20334e6abe3c1ce5f3810c2c8"
+  },
+  "released_to_ai": true,
+  "decision": null
+}

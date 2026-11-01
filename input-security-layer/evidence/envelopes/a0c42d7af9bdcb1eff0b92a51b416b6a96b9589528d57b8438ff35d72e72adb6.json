@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:67ea4ba9dc3a0ff939b163af6e2754b13dc77881fb6d111ea9036b700c63ff6b",
+  "candidate_ref": "hmac:4b80d2379f1cc22523e4766da76872ea63b2aa2c314a0700fb761f92c6ddf802",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:03:02Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PHONE_2>",
+      "<PERSON_1>",
+      "<PHONE_3>",
+      "<PHONE_4>"
+    ],
+    "protected_removed": []
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:14056883068e311c3d5d1669c80894e96622a0590d46cf5653dc4fc7ca529cc8",
+      "section": "other",
+      "text": "BILEL FOURATI\n<EMAIL_1>  |  <PHONE_1>  |  Bizerte, Tunisia\nTarget role: HR Generalist"
+    },
+    {
+      "chunk_id": "sha256:a3d70af230067fb5b6f2683233788d61d1b2de25ffa41898290fafd3555f485c",
+      "section": "summary",
+      "text": "PROFILE\n11 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:4617241dd099da6cb651ce38a9d88cb4d0d302b40cdd1367cb91bafdcc6d60b5",
+      "section": "experience",
+      "text": "EXPERIENCE\n<PHONE_2>  Associate - Atlas Soft (fictional)\n  - Worked with Communication, Onboarding, <PERSON_1>.\n  - Improved a key internal project.\n<PHONE_3>  Associate - Sahel Foods (fictional)\n  - Worked with Payroll, English, <PERSON_1>.\n  - Owned team reporting.\n<PHONE_4>  Associate - Medina Retail (fictional)\n  - Worked with <PERSON_1>, Excel, Payroll.\n  - Supported customer-facing processes."
+    },
+    {
+      "chunk_id": "sha256:836e924485191ff514954aa6c1ea27ddac58616fffbf5e9215fc582599251a2e",
+      "section": "education",
+      "text": "EDUCATION\nBachelor in Human Resources - Carthage Tech Institute (fictional)"
+    },
+    {
+      "chunk_id": "sha256:2e55e3167d085a87af434b9a1c801b2e9181c7c749d0f78671978d39f8b300ae",
+      "section": "skills",
+      "text": "SKILLS\nRecruitment, <PERSON_1>, Payroll, Onboarding, Communication, Excel, English, Accounting, REST APIs, Tax Co"
+    },
+    {
+      "chunk_id": "sha256:88b8257187b8e75e3bbd8a1eb6e11058ad9ebf4b28fd55d67285c1527dc80a8d",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent), English (professional)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:e18e095b40e7e0694b49fc4618bcd87c363f65d8e9501ede860e50130b972b7f"
+}

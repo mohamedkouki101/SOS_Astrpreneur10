@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:3968d75ef646c8e6a80acaea6a636636504b3ab252b34727e8a50b76ba9c7db4",
+  "candidate_ref": "hmac:686d406d8d7be12df6f87cc2e814a2f7b0426abf515111f8891a069c9021b1c0",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:03:28Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PHONE_2>",
+      "<PHONE_3>",
+      "<PHONE_4>"
+    ],
+    "protected_removed": [
+      "BIRTH_DATE",
+      "GENDER",
+      "MARITAL_STATUS",
+      "NATIONALITY"
+    ]
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:99e7bc0440a74b82a0b63e905b850f471ac42a95331533b5c367b4b70de733fb",
+      "section": "other",
+      "text": "IMEN MABROUK\n<EMAIL_1>  |  <PHONE_1>  |  Monastir, Tunisia\nTarget role: Senior Python Developer\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]"
+    },
+    {
+      "chunk_id": "sha256:a0f4f70f444ad03e5569f51126a243e708856811552c89fdf6c505fb7255b679",
+      "section": "summary",
+      "text": "PROFILE\n3 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:754c003618709e8c13fb591d983411ae2ecc1c6224ddf0d746097502942889a8",
+      "section": "experience",
+      "text": "EXPERIENCE\n<PHONE_2>  Software Developer - Medina Retail (fictional)\n  - Worked with REST APIs, Arabic, French.\n  - Improved quarterly objectives.\n<PHONE_3>  Software Developer - Medina Retail (fictional)\n  - Worked with Python, Payroll, Arabic.\n  - Improved team reporting.\n<PHONE_4>  Software Developer - Sahel Foods (fictional)\n  - Worked with Payroll, French, Python.\n  - Delivered a key internal project."
+    },
+    {
+      "chunk_id": "sha256:f9131ab72b44306b20c57864056729d098452abfc76742baac7ec1d3b05234a7",
+      "section": "education",
+      "text": "EDUCATION\nMaster in Literature - Sfax Engineering School (fictional)"
+    },
+    {
+      "chunk_id": "sha256:3f10b0e28a619a4a25f77af7771e8bcc045f921d37c5f5f5f9e9900510a4e44a",
+      "section": "skills",
+      "text": "SKILLS\nPython, REST APIs, Payroll, Arabic, French"
+    },
+    {
+      "chunk_id": "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:48f6b197bf488f2e283de87fbdf4325d7aa9f2cd1c6f477f3630dca6ce815bf8"
+}

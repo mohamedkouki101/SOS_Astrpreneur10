@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:241169e85189325573bd5187f20233dceecda5f06899c5c073f9e788e9addc5b",
+  "candidate_ref": "hmac:8703a97d36a2314b32e3612a0180bb0d8670bcfb0e56fac6e5eb6b9ecd378fe5",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:01:55Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<PERSON_1>",
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PHONE_2>",
+      "<PHONE_3>",
+      "<PHONE_4>"
+    ],
+    "protected_removed": []
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:c117bc3b94997f693360a695fcd0a994ba8229967510b81f695866916be810e6",
+      "section": "other",
+      "text": "<PERSON_1>\n<EMAIL_1>  |  <PHONE_1>  |  Ariana, Tunisia\nTarget role: Accountant"
+    },
+    {
+      "chunk_id": "sha256:13ce5867635a3d9501ae69e6399280693b1ea4165ee23f8b19395f239ce6dbd9",
+      "section": "summary",
+      "text": "PROFILE\n9 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:74df20c4dbbf6930ca0d2445e2ae04d886b8c982c81f6e4899cd72d91942c125",
+      "section": "experience",
+      "text": "EXPERIENCE\n<PHONE_2>  Accountant - Djerba Travel (fictional)\n  - Worked with Arabic, IFRS, Onboarding.\n  - Owned team reporting.\n<PHONE_3>  Accountant - Hannibal Bank (fictional)\n  - Worked with Accounting, Payroll, English.\n  - Improved a key internal project.\n<PHONE_4>  Accountant - Carthage Logistics (fictional)\n  - Worked with Payroll, French, Tax Compliance.\n  - Delivered quarterly objectives."
+    },
+    {
+      "chunk_id": "sha256:f4a9b4e3fff65c6da8064e9f46808e06b2f94a0a51e2bb3e4b1e66f8ddaaa0af",
+      "section": "education",
+      "text": "EDUCATION\nMaster in Accounting - University of Tunis (fictional campus)"
+    },
+    {
+      "chunk_id": "sha256:676401b9b188d37d6f57c13dfc124f08190f55a0f8505ee6cb4e36047c1700fe",
+      "section": "skills",
+      "text": "SKILLS\nAccounting, IFRS, Tax Compliance, Payroll, English, Onboarding, Arabic, French"
+    },
+    {
+      "chunk_id": "sha256:88b8257187b8e75e3bbd8a1eb6e11058ad9ebf4b28fd55d67285c1527dc80a8d",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent), English (professional)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:10be7df3816d55db63bdf012965feed27b191a4ccc59555c94f74adc40a6f8d5"
+}

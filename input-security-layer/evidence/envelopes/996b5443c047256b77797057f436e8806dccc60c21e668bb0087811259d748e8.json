@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:ce97926015b124f8d8dc5bd448de86c01db370ec664cb4f84d0993f55ae7be79",
+  "candidate_ref": "hmac:14da6ba751e1f19ac09882848e03504f79a95ce3ae01a321ce55f9fa12b5283c",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:03:00Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PHONE_2>",
+      "<PERSON_1>"
+    ],
+    "protected_removed": [
+      "BIRTH_DATE",
+      "GENDER",
+      "MARITAL_STATUS",
+      "NATIONALITY"
+    ]
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:7ff5233753743aa1a1b7f1d1b0eb5d0d47aaf941c3732a07e48becde7f2a55be",
+      "section": "other",
+      "text": "WAFA GHARBI\n<EMAIL_1>  |  <PHONE_1>  |  Monastir, Tunisia\nTarget role: HR Generalist\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]"
+    },
+    {
+      "chunk_id": "sha256:f63d1cd0f0bb0eb76711721a81f426791c52ec0f9c21a7f73487fd9bf727e267",
+      "section": "summary",
+      "text": "PROFILE\n2 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:7011711a38ccf69cb3f0b6d7fb6367e7efad4991301326fd84022b338677e9af",
+      "section": "experience",
+      "text": "EXPERIENCE\n<PHONE_2>  Associate - Djerba Travel (fictional)\n  - Worked with Communication, Excel, <PERSON_1>.\n  - Improved team reporting."
+    },
+    {
+      "chunk_id": "sha256:2b69a81d176e256e52aba7d96aec3dacb6abef5e9d1d8a233265126141b4144d",
+      "section": "education",
+      "text": "EDUCATION\nMaster in History - Monastir Faculty of Sciences (fictional)"
+    },
+    {
+      "chunk_id": "sha256:7e2124bf4ce4dc467196407defcde8d5507bf0c585259d8e408ba7028ca53200",
+      "section": "skills",
+      "text": "SKILLS\nRecruitment, <PERSON_1>, Payroll, Onboarding, Communication, Excel, Project Management, Leadership, Python"
+    },
+    {
+      "chunk_id": "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:01cc21cbd9a594b0fb7f3942239327117b927ebef76875bb8fe23a10af02bd33"
+}

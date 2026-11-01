@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:fcdbaa892f6e7ba0f82b5641c9216899d538e600262aeec6f62694d985007587",
+  "candidate_ref": "hmac:52c67e9dfa240793d41c2d0a5d3932386ad8b2f7bb49ffc2f7c8416c66663763",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:02:27Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PHONE_2>",
+      "<PERSON_1>",
+      "<PHONE_3>",
+      "<PERSON_2>",
+      "<PHONE_4>"
+    ],
+    "protected_removed": []
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:f3bd2d952beead04fce17438c2678e5760a43d728036025b8427c8403b46135a",
+      "section": "other",
+      "text": "WALID BEN SALAH\n<EMAIL_1>  |  <PHONE_1>  |  Bizerte, Tunisia\nTarget role: Data Analyst"
+    },
+    {
+      "chunk_id": "sha256:a9bfe431a5f49a83048ecb3ef90555427c4cd7e33da825935381b948d68bf00c",
+      "section": "summary",
+      "text": "PROFILE\n8 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:17c86cb51442554bcbdd1a5944355bbdfaff73fdcde74e7270864f3bf1ada88a",
+      "section": "experience",
+      "text": "EXPERIENCE\n<PHONE_2>  Analyst - Hannibal Bank (fictional)\n  - Worked with French, <PERSON_1>, Excel.\n  - Improved customer-facing processes.\n<PHONE_3>  Analyst - <PERSON_2> (fictional)\n  - Worked with Agile/Scrum, Excel, Arabic.\n  - Improved customer-facing processes.\n<PHONE_4>  Analyst - Kairouan Textiles (fictional)\n  - Worked with Excel, Arabic, Agile/Scrum.\n  - Supported a key internal project."
+    },
+    {
+      "chunk_id": "sha256:ca8b1d6a09b47741a574eaf56318dc24831fd943dd69287a37795723f8c2a447",
+      "section": "education",
+      "text": "EDUCATION\nBachelor in Statistics - Monastir Faculty of Sciences (fictional)"
+    },
+    {
+      "chunk_id": "sha256:3557987c660d797831cb3f0ab7b9fc199dc323921389d40092eda98cf81a06c7",
+      "section": "skills",
+      "text": "SKILLS\nSQL, Data Analysis, Power BI, Excel, <PERSON_1>, Agile/Scrum, Arabic, French"
+    },
+    {
+      "chunk_id": "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:902bff53208b743ba10013ebf883faaa1edc42255a75240bc8c1eeca7a8d6159"
+}

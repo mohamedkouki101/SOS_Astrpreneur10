@@ -1,0 +1,131 @@
+{
+  "report_version": "1.0",
+  "report_id": "sha256:22c85147fbf4887fdfaea27f200bc66d8375080ce5b85cbe4eca6a5c54e65eeb",
+  "doc_id": "sha256:84e3f3d00616815640b61272741d1e7d30a4fa39f79127c5e05b50cba5a0ebf4",
+  "received_at": "2026-11-01T00:03:43Z",
+  "source": {
+    "type": "upload_cv",
+    "file_type": "pdf",
+    "size_bytes": 1689
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "status": "accepted",
+  "rejection": null,
+  "verdict": "clean",
+  "risk_score_bp": 0,
+  "language": "en",
+  "reasons": [],
+  "stages": [
+    {
+      "stage": "file_check",
+      "status": "pass",
+      "detail": "Real type: PDF (1 KB)",
+      "ms": 111
+    },
+    {
+      "stage": "extraction",
+      "status": "pass",
+      "detail": "17 text spans read in an isolated process",
+      "ms": 811
+    },
+    {
+      "stage": "hidden_text",
+      "status": "pass",
+      "detail": "Nothing hidden",
+      "ms": 0
+    },
+    {
+      "stage": "unicode",
+      "status": "pass",
+      "detail": "0 invisible character(s) removed",
+      "ms": 0
+    },
+    {
+      "stage": "pii",
+      "status": "pass",
+      "detail": "3 identifier(s) masked, 4 protected attribute(s) removed",
+      "ms": 20
+    },
+    {
+      "stage": "injection",
+      "status": "pass",
+      "detail": "Clean (score 0)",
+      "ms": 0
+    },
+    {
+      "stage": "chunking",
+      "status": "pass",
+      "detail": "6 chunk(s), each with its SHA-256 id",
+      "ms": 0
+    },
+    {
+      "stage": "signing",
+      "status": "pass",
+      "detail": "Envelope signed (HMAC-SHA256)",
+      "ms": 0
+    }
+  ],
+  "text": {
+    "original": "IMEN AYARI\nimen.ayari.sr3@example.com  |  +216 20 943 875  |  Sousse, Tunisia\nTarget role: Sales Representative\nDate of birth: 1977-01-23   Nationality: Moroccan   Marital status: Single\nGender: Female\nPROFILE\n1 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2025-2026  Sales Representative - Jasmine Telecom (fictional)\n  - Worked with Social Media, English, Arabic.\n  - Improved team reporting.\nEDUCATION\nEngineering Degree in Literature - Monastir Faculty of Sciences (fictional)\nSKILLS\nFrench, English, Social Media, Arabic\nLANGUAGES\nArabic (native), French (fluent), English (professional)",
+    "cleaned": "IMEN AYARI\nimen.ayari.sr3@example.com  |  +216 20 943 875  |  Sousse, Tunisia\nTarget role: Sales Representative\nDate of birth: 1977-01-23   Nationality: Moroccan   Marital status: Single\nGender: Female\nPROFILE\n1 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2025-2026  Sales Representative - Jasmine Telecom (fictional)\n  - Worked with Social Media, English, Arabic.\n  - Improved team reporting.\nEDUCATION\nEngineering Degree in Literature - Monastir Faculty of Sciences (fictional)\nSKILLS\nFrench, English, Social Media, Arabic\nLANGUAGES\nArabic (native), French (fluent), English (professional)",
+    "masked": "IMEN AYARI\n<EMAIL_1>  |  <PHONE_1>  |  Sousse, Tunisia\nTarget role: Sales Representative\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]\nPROFILE\n1 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n<PHONE_2>  Sales Representative - Jasmine Telecom (fictional)\n  - Worked with Social Media, English, Arabic.\n  - Improved team reporting.\nEDUCATION\nEngineering Degree in Literature - Monastir Faculty of Sciences (fictional)\nSKILLS\nFrench, English, Social Media, Arabic\nLANGUAGES\nArabic (native), French (fluent), English (professional)",
+    "sent": "IMEN AYARI\n<EMAIL_1>  |  <PHONE_1>  |  Sousse, Tunisia\nTarget role: Sales Representative\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]\n\nPROFILE\n1 years of professional experience. Fictional candidate generated for a demo.\n\nEXPERIENCE\n<PHONE_2>  Sales Representative - Jasmine Telecom (fictional)\n  - Worked with Social Media, English, Arabic.\n  - Improved team reporting.\n\nEDUCATION\nEngineering Degree in Literature - Monastir Faculty of Sciences (fictional)\n\nSKILLS\nFrench, English, Social Media, Arabic\n\nLANGUAGES\nArabic (native), French (fluent), English (professional)"
+  },
+  "removed": [],
+  "masked": [
+    {
+      "token": "<EMAIL_1>",
+      "entity": "EMAIL",
+      "original": "imen.ayari.sr3@example.com",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_1>",
+      "entity": "PHONE",
+      "original": "+216 20 943 875",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_2>",
+      "entity": "PHONE",
+      "original": "2025-2026",
+      "count": 1
+    }
+  ],
+  "protected_removed": [
+    {
+      "attribute": "BIRTH_DATE",
+      "original": "1977-01-23"
+    },
+    {
+      "attribute": "NATIONALITY",
+      "original": "Moroccan"
+    },
+    {
+      "attribute": "MARITAL_STATUS",
+      "original": "Single"
+    },
+    {
+      "attribute": "GENDER",
+      "original": "Female"
+    }
+  ],
+  "injection_matches": [],
+  "hashes": {
+    "doc_id": "sha256:84e3f3d00616815640b61272741d1e7d30a4fa39f79127c5e05b50cba5a0ebf4",
+    "chunk_ids": [
+      "sha256:82336b6e08907988c36c923bc794436b912ce467ef63232107cce33238bc14f6",
+      "sha256:a956b9244fc0be918f05a8317a80465ade86e51fc4b1856a34b92057a85d7484",
+      "sha256:0986e2cb4b0e8a721e4532c689cb21356057ddfbcaa5b713e0980e94d2bdbef6",
+      "sha256:8f6ca6357e0e0eb836e1b979354573fb32fe5837fc2c0c47e3f3ce807f041916",
+      "sha256:8044d1bc58b7ebb1313885a3276ae2c10ace4db9d522eabc61f0f5ea8e12e015",
+      "sha256:88b8257187b8e75e3bbd8a1eb6e11058ad9ebf4b28fd55d67285c1527dc80a8d"
+    ],
+    "signature": "hmac-sha256:ea75fe3a1fed832e327fc91bc61481b95069fa1dad9790bf4ef47e8faa4692a8"
+  },
+  "released_to_ai": true,
+  "decision": null
+}

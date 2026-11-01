@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:b5995646884ba169e2784d786028e40ab650982f3bd9a9d626022aaf81519954",
+  "candidate_ref": "hmac:1fe2dc08064c532b9b96495aa7dfbce9f624d84a8c38db4f1e18d5418c56d080",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:03:32Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PHONE_2>",
+      "<PHONE_3>",
+      "<PHONE_4>",
+      "<PHONE_5>",
+      "<PERSON_1>"
+    ],
+    "protected_removed": [
+      "GENDER",
+      "MARITAL_STATUS",
+      "NATIONALITY"
+    ]
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:c61ada3a298b5396e0b597a800b5503cb894cbe83d3d674c5dabde28c0f0c5b7",
+      "section": "other",
+      "text": "MARIEM ABIDI\n<EMAIL_1>  |  <PHONE_1>  |  Bizerte, Tunisia\nTarget role: Senior Python Developer\nDate of birth: <PHONE_2>   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]"
+    },
+    {
+      "chunk_id": "sha256:242252183c277334324382cb1cf36c1fe97ffff01d26e62115df3f036707d888",
+      "section": "summary",
+      "text": "PROFILE\n12 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:a6cb974e19c116c6262376fc8130170f52ad0abdd8021c0b9b62e87ea6c4c995",
+      "section": "experience",
+      "text": "EXPERIENCE\n<PHONE_3>  Software Developer - Kairouan Textiles (fictional)\n  - Worked with Arabic, REST APIs, SQL.\n  - Supported customer-facing processes.\n<PHONE_4>  Software Developer - Jasmine Telecom (fictional)\n  - Worked with French, Docker, Arabic.\n  - Improved a key internal project.\n<PHONE_5>  Software Developer - Byrsa Consulting (fictional)\n  - Worked with Linux, REST APIs, SQL.\n  - Owned team reporting."
+    },
+    {
+      "chunk_id": "sha256:67b9bfee4f1a63ca7199b7adbc9dbc0f9e31dadddbd7f04af080d24bf84a57a6",
+      "section": "education",
+      "text": "EDUCATION\nBachelor in Biology - Sfax Engineering School (fictional)"
+    },
+    {
+      "chunk_id": "sha256:60a39be5fcd084e511b858b12a54d8106a085cb3eaab9de3dd924afb49bdd047",
+      "section": "skills",
+      "text": "SKILLS\nSQL, REST APIs, Docker, Git, Linux, <PERSON_1>, Arabic, French"
+    },
+    {
+      "chunk_id": "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:a8422d416376655464331ff439d44598ff11ec835cdcc57341c5c135c28eaaf2"
+}

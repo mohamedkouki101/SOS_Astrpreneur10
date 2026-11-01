@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:9b2016551ecb900964658907a4e5c5cd113d6efd81cfeaa892ba95dddb1e5f06",
+  "candidate_ref": "hmac:fd2d608b59ba1364b416ed274d80ec87764172eec05e6315054aeb5bca255da0",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:02:45Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>",
+      "<PHONE_2>",
+      "<PERSON_1>"
+    ],
+    "protected_removed": [
+      "BIRTH_DATE",
+      "GENDER",
+      "MARITAL_STATUS",
+      "NATIONALITY"
+    ]
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:beec0f08ad725ececa2b44b7b0ad12f72ff98602da6972b5b8c00a9716ed16c9",
+      "section": "other",
+      "text": "FARES CHEBBI\n<EMAIL_1>  |  <PHONE_1>  |  Ariana, Tunisia\nTarget role: Digital Marketing Specialist\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]"
+    },
+    {
+      "chunk_id": "sha256:f63d1cd0f0bb0eb76711721a81f426791c52ec0f9c21a7f73487fd9bf727e267",
+      "section": "summary",
+      "text": "PROFILE\n2 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:147bb6f640a837d77f4584b874c73fa37809f51916b131bb406390f88f05b813",
+      "section": "experience",
+      "text": "EXPERIENCE\n<PHONE_2>  Marketing Specialist - Djerba Travel (fictional)\n  - Worked with Arabic, French, Social Media.\n  - Improved team reporting."
+    },
+    {
+      "chunk_id": "sha256:f7335d7b6403ed575652f7f26782de62b65d6510da7d9fc8c49c0039fa786932",
+      "section": "education",
+      "text": "EDUCATION\nEngineering Degree in Marketing - Carthage Tech Institute (fictional)"
+    },
+    {
+      "chunk_id": "sha256:a0dfe23fd2f8b1a4e229ebc26667f0dae71200a96a7fabed05f2c6969e2ea718",
+      "section": "skills",
+      "text": "SKILLS\n<PERSON_1>, Social Media, English, French, Payroll, Arabic"
+    },
+    {
+      "chunk_id": "sha256:88b8257187b8e75e3bbd8a1eb6e11058ad9ebf4b28fd55d67285c1527dc80a8d",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent), English (professional)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:d3d8e263303f599774711eae8b37c98cd7250c0bd07f647d8756d0f1d7460b6f"
+}

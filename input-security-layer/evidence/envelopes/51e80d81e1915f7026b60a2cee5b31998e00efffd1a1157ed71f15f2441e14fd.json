@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:cffa57550ddc60243c609125297f9a6cd59917175636394d4b6dda7a971a08f4",
+  "candidate_ref": "hmac:275c823c9b1db4116c8297c6809510ec7018a8932b922c530213368fe1366f70",
+  "source": {
+    "type": "upload_cv",
+    "message_id": null,
+    "in_reply_to": null,
+    "file_ext": "pdf",
+    "received_at": "2026-11-01T00:03:16Z",
+    "sender_ref": null
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "clean",
+    "risk_score_bp": 0,
+    "signals": []
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [
+      "<EMAIL_1>",
+      "<PHONE_1>"
+    ],
+    "protected_removed": []
+  },
+  "chunks": [
+    {
+      "chunk_id": "sha256:9ed10345dabcfa91a23f068bef30f57bcce537d55c4737c048aaed3f99799dcb",
+      "section": "other",
+      "text": "AMINE BEN SALAH\n<EMAIL_1>  |  <PHONE_1>  |  Gabes, Tunisia\nTarget role: HR Generalist"
+    },
+    {
+      "chunk_id": "sha256:6a040f429944e1fd884f900f9a11faedf9f077c0ab875211e9f9128d48258717",
+      "section": "summary",
+      "text": "PROFILE\n0 years of professional experience. Fictional candidate generated for a demo."
+    },
+    {
+      "chunk_id": "sha256:896b1f90b7baa91e46c2c79802a60d62d0ca8bc18041ffe92adb1b43648a747a",
+      "section": "experience",
+      "text": "EXPERIENCE\n  Internship (3 months) - Carthage Logistics (fictional)"
+    },
+    {
+      "chunk_id": "sha256:cdd374470845ad328a7e0401ea3ff8d06784915efb23c96a0893451b3d7367ad",
+      "section": "education",
+      "text": "EDUCATION\nMaster in Literature - University of Tunis (fictional campus)"
+    },
+    {
+      "chunk_id": "sha256:73187cbb270f9f3647b90f0e7a0d636aa89cc1c8968ff90f7abd23aa4fd5839d",
+      "section": "skills",
+      "text": "SKILLS\nLabour Law, Onboarding, English, Leadership, Machine Learning, Arabic, French"
+    },
+    {
+      "chunk_id": "sha256:88b8257187b8e75e3bbd8a1eb6e11058ad9ebf4b28fd55d67285c1527dc80a8d",
+      "section": "languages",
+      "text": "LANGUAGES\nArabic (native), French (fluent), English (professional)"
+    }
+  ],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:0a432f43f118f37f85a13a5d747241bdae035d182b179972f85b57cc044d1e63"
+}

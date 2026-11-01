@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.1",
+  "doc_id": "sha256:cc4d48d311d090718db83b0d20ad3fb9d84b8259628deb1955424a042a885631",
+  "candidate_ref": "hmac:7a1f7b11aaef806f5710c880421070326d15a51f8e6c9d750ed671c82addb17c",
+  "source": {
+    "type": "email_body",
+    "message_id": "<demo-attack-001@bara3am-security.example>",
+    "in_reply_to": null,
+    "file_ext": null,
+    "received_at": "2026-11-01T00:04:07Z",
+    "sender_ref": "hmac:7a1f7b11aaef806f5710c880421070326d15a51f8e6c9d750ed671c82addb17c"
+  },
+  "job_opening": null,
+  "language": "en",
+  "trust": "untrusted",
+  "scan": {
+    "verdict": "quarantined",
+    "risk_score_bp": 6000,
+    "signals": [
+      "hidden_text_removed:1",
+      "hidden_rule:ignore_previous_en"
+    ]
+  },
+  "pii": {
+    "masked": true,
+    "token_scope": "doc",
+    "tokens": [],
+    "protected_removed": []
+  },
+  "chunks": [],
+  "pipeline_version": "ingest-1.1",
+  "signature": "hmac-sha256:fd565e529be2af5670a2b1a2447f86bfbe40e8293401d33f4f435c93bf85b77d"
+}

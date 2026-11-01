@@ -1,0 +1,131 @@
+{
+  "report_version": "1.0",
+  "report_id": "sha256:a575715d34166581f58fd269cf1d18d99b57e0d8a36f5a8f00f4e2b03647905f",
+  "doc_id": "sha256:73c7cb86d94e3feb1627a3c930f36c5daf543171b2967f51d2bca42e4f9a6b4b",
+  "received_at": "2026-11-01T00:02:31Z",
+  "source": {
+    "type": "upload_cv",
+    "file_type": "pdf",
+    "size_bytes": 1654
+  },
+  "job_opening": {
+    "id": "HR-OPN-2026-0001",
+    "origin": "recruiter_upload"
+  },
+  "status": "accepted",
+  "rejection": null,
+  "verdict": "clean",
+  "risk_score_bp": 0,
+  "language": "en",
+  "reasons": [],
+  "stages": [
+    {
+      "stage": "file_check",
+      "status": "pass",
+      "detail": "Real type: PDF (1 KB)",
+      "ms": 83
+    },
+    {
+      "stage": "extraction",
+      "status": "pass",
+      "detail": "17 text spans read in an isolated process",
+      "ms": 1033
+    },
+    {
+      "stage": "hidden_text",
+      "status": "pass",
+      "detail": "Nothing hidden",
+      "ms": 0
+    },
+    {
+      "stage": "unicode",
+      "status": "pass",
+      "detail": "0 invisible character(s) removed",
+      "ms": 0
+    },
+    {
+      "stage": "pii",
+      "status": "pass",
+      "detail": "3 identifier(s) masked, 4 protected attribute(s) removed",
+      "ms": 24
+    },
+    {
+      "stage": "injection",
+      "status": "pass",
+      "detail": "Clean (score 0)",
+      "ms": 0
+    },
+    {
+      "stage": "chunking",
+      "status": "pass",
+      "detail": "6 chunk(s), each with its SHA-256 id",
+      "ms": 0
+    },
+    {
+      "stage": "signing",
+      "status": "pass",
+      "detail": "Envelope signed (HMAC-SHA256)",
+      "ms": 0
+    }
+  ],
+  "text": {
+    "original": "SARRA MANSOURI\nsarra.mansouri.da14@example.com  |  +216 20 685 897  |  Monastir, Tunisia\nTarget role: Data Analyst\nDate of birth: 1975-08-12   Nationality: Tunisian   Marital status: Single\nGender: Female\nPROFILE\n2 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2024-2026  Analyst - Sahel Foods (fictional)\n  - Worked with REST APIs, Prospecting, Data Analysis.\n  - Owned team reporting.\nEDUCATION\nBachelor in Biology - Sousse Business Institute (fictional)\nSKILLS\nData Analysis, Prospecting, REST APIs, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "cleaned": "SARRA MANSOURI\nsarra.mansouri.da14@example.com  |  +216 20 685 897  |  Monastir, Tunisia\nTarget role: Data Analyst\nDate of birth: 1975-08-12   Nationality: Tunisian   Marital status: Single\nGender: Female\nPROFILE\n2 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n2024-2026  Analyst - Sahel Foods (fictional)\n  - Worked with REST APIs, Prospecting, Data Analysis.\n  - Owned team reporting.\nEDUCATION\nBachelor in Biology - Sousse Business Institute (fictional)\nSKILLS\nData Analysis, Prospecting, REST APIs, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "masked": "SARRA MANSOURI\n<EMAIL_1>  |  <PHONE_1>  |  Monastir, Tunisia\nTarget role: Data Analyst\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]\nPROFILE\n2 years of professional experience. Fictional candidate generated for a demo.\nEXPERIENCE\n<PHONE_2>  Analyst - Sahel Foods (fictional)\n  - Worked with REST APIs, Prospecting, Data Analysis.\n  - Owned team reporting.\nEDUCATION\nBachelor in Biology - Sousse Business Institute (fictional)\nSKILLS\nData Analysis, Prospecting, REST APIs, Arabic, French\nLANGUAGES\nArabic (native), French (fluent)",
+    "sent": "SARRA MANSOURI\n<EMAIL_1>  |  <PHONE_1>  |  Monastir, Tunisia\nTarget role: Data Analyst\nDate of birth: [REMOVED]   Nationality: [REMOVED]   Marital status: [REMOVED]\nGender: [REMOVED]\n\nPROFILE\n2 years of professional experience. Fictional candidate generated for a demo.\n\nEXPERIENCE\n<PHONE_2>  Analyst - Sahel Foods (fictional)\n  - Worked with REST APIs, Prospecting, Data Analysis.\n  - Owned team reporting.\n\nEDUCATION\nBachelor in Biology - Sousse Business Institute (fictional)\n\nSKILLS\nData Analysis, Prospecting, REST APIs, Arabic, French\n\nLANGUAGES\nArabic (native), French (fluent)"
+  },
+  "removed": [],
+  "masked": [
+    {
+      "token": "<EMAIL_1>",
+      "entity": "EMAIL",
+      "original": "sarra.mansouri.da14@example.com",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_1>",
+      "entity": "PHONE",
+      "original": "+216 20 685 897",
+      "count": 1
+    },
+    {
+      "token": "<PHONE_2>",
+      "entity": "PHONE",
+      "original": "2024-2026",
+      "count": 1
+    }
+  ],
+  "protected_removed": [
+    {
+      "attribute": "BIRTH_DATE",
+      "original": "1975-08-12"
+    },
+    {
+      "attribute": "NATIONALITY",
+      "original": "Tunisian"
+    },
+    {
+      "attribute": "MARITAL_STATUS",
+      "original": "Single"
+    },
+    {
+      "attribute": "GENDER",
+      "original": "Female"
+    }
+  ],
+  "injection_matches": [],
+  "hashes": {
+    "doc_id": "sha256:73c7cb86d94e3feb1627a3c930f36c5daf543171b2967f51d2bca42e4f9a6b4b",
+    "chunk_ids": [
+      "sha256:06a6c343d23bdf7f28a6193153d1730c4b2585cb38745a6a14539f4e70499c10",
+      "sha256:f63d1cd0f0bb0eb76711721a81f426791c52ec0f9c21a7f73487fd9bf727e267",
+      "sha256:6fd8c16a73ee7fbb6f1b8a05101aa79148f72ccc65e4a469471c230d0a7c1cdf",
+      "sha256:ab6e5ba633d18a80f03fd4de592f2e8e839109dcc8cef43abd5caae296ab3d66",
+      "sha256:4c392e9ff69b6b058908eca52773bf3d069b6fa6fcaf2cbb05424f706d7f69be",
+      "sha256:0041e69a0e0e5691e95fa4de57666a09baa270cfba71d4eb2af778aa399c44d1"
+    ],
+    "signature": "hmac-sha256:de30e82ca080df7fff74e410c6ccdb11723f25cb327384791bc939194d277cb5"
+  },
+  "released_to_ai": true,
+  "decision": null
+}
