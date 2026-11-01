@@ -362,3 +362,18 @@ def test_digest_is_allowed_for_comms_only(svc, adapter):
     assert rec.status is Status.PROPOSED, rec.violations
     rec, _ = submit(svc, adapter, mutate(DIGEST, agent="recruitment", external_id="AIA-digest0002"))
     assert rec.status is Status.BLOCKED and "tool_not_allowed" in rules(rec)
+
+
+@pytest.mark.parametrize("applicant", [["a@example.com"], {"x": 1}, None, ""])
+def test_ranking_entry_with_a_non_string_applicant_is_rejected(adapter, applicant):
+    """A list or object as applicant used to crash the check (HTTP 500); now a clean 422."""
+    record = copy.deepcopy(RANKING)
+    record["payload"]["entries"][0]["applicant"] = applicant
+    with pytest.raises(AgentLayerError):
+        adapter.translate(AgentOutput.parse(record))
+
+
+@pytest.mark.parametrize("applicant", [["a@example.com"], {"x": 1}, 42])
+def test_applicant_status_with_a_non_string_applicant_is_rejected(adapter, applicant):
+    with pytest.raises(AgentLayerError):
+        adapter.translate(AgentOutput.parse(mutate(STATUS, payload={"applicant": applicant})))

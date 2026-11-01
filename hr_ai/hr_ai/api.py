@@ -96,6 +96,10 @@ def propose_action(action):
     if external_id and (existing := frappe.db.get_value("AI Action", {"external_id": external_id}, "name")):
         return {"name": existing, "status": frappe.db.get_value("AI Action", existing, "status"), "duplicate": True}
 
+    # No id from the agent: make one now and store it, so the proposal check and the
+    # pre-execution check send the guardrails the same external_id.
+    external_id = external_id or f"AIA-{frappe.generate_hash(length=10)}"
+
     tokens = _token_values(action.get("token_values"), subject, payload)
     ref_dt, ref_name = _reference(subject, tokens)
     record = {
@@ -125,9 +129,8 @@ def propose_action(action):
 def _ask_guardrails(record: dict):
     """Policy, fairness and token checks in the guardrails service. Fail closed."""
     from hr_ai.guardrails_client import GuardrailsRefused, check
-    external_id = record["external_id"] or f"AIA-{frappe.generate_hash(length=10)}"
     try:
-        check({**record, "external_id": external_id}, frappe.conf)
+        check(record, frappe.conf)
     except GuardrailsRefused as exc:
         frappe.throw(str(exc), frappe.PermissionError)
 

@@ -275,6 +275,8 @@ class AgentLayerAdapter:
         p = out.payload
         if not {"status", "reason"} <= set(p):
             raise AgentLayerError("applicant_status payload needs status and reason")
+        if "applicant" in p and not isinstance(p["applicant"], str):
+            raise AgentLayerError("applicant_status payload applicant must be a string")
         extra = set(p) - {"applicant", "status", "reason"}
         if extra:
             problems.append(Violation("agent_output_malformed", f"unexpected payload keys {sorted(extra)}"))
@@ -306,6 +308,8 @@ class AgentLayerAdapter:
             if not isinstance(e, Mapping):
                 raise AgentLayerError("ranking entries must be objects")
             applicant, score, why = e.get("applicant"), e.get("score"), e.get("justification")
+            if not isinstance(applicant, str) or not applicant:
+                raise AgentLayerError(f"ranking entry {i}: applicant must be a non-empty string")
             if applicant in seen:
                 problems.append(Violation("agent_output_malformed", f"entry {i}: applicant ranked twice"))
             seen.add(applicant)
