@@ -19,6 +19,7 @@ AGENT_NAMES = (
     "payroll",
     "performance",
     "conflict",
+    "operator",
 )
 
 

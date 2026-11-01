@@ -58,7 +58,7 @@
    "fieldtype": "Select",
    "label": "Persona (decided by the agent)",
    "read_only": 1,
-   "options": "\nemployee\napplicant\nunknown",
+   "options": "\nemployee\napplicant\nunknown\nhr",
    "in_list_view": 1
   },
   {

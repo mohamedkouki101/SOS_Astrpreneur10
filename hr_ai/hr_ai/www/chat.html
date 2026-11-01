@@ -48,6 +48,14 @@
   .rc-chip.warn { background: var(--rc-warn-bg); color: var(--rc-warn); }
   .rc-chip.bad { background: var(--rc-bad-bg); color: var(--rc-bad); }
   .rc-chip.info { background: var(--rc-info-bg); color: var(--rc-info); }
+  .rc-card-change { margin-top: 8px; border: 1px solid var(--rc-line); border-radius: 12px; padding: 10px 12px;
+                    background: var(--rc-card); font-size: 13.5px; color: var(--rc-text); white-space: pre-wrap; max-width: 100%; }
+  .rc-card-change b { display: block; font-size: 12px; color: var(--rc-muted); margin-bottom: 4px; font-weight: 600; }
+  .rc-actions { display: flex; gap: 8px; margin-top: 10px; }
+  .rc-actions button { border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1px solid var(--rc-line); }
+  .rc-actions .yes { background: var(--rc-me); color: #fff; border-color: var(--rc-me); }
+  .rc-actions .no { background: transparent; color: var(--rc-text); }
+  .rc-actions button:disabled { opacity: .5; cursor: default; }
   .rc-form { display: flex; gap: 10px; padding: 14px 16px; border-top: 1px solid var(--rc-line); }
   .rc-form textarea { flex: 1; resize: none; border: 1px solid var(--rc-line); border-radius: 10px; padding: 10px 12px;
                       font: inherit; font-size: 14.5px; background: var(--rc-card); color: var(--rc-text); min-height: 46px; max-height: 160px; }
@@ -123,7 +131,7 @@
 
   function render(rows) {
     if (since) rows = rows.filter(r => r.creation > since);
-    const key = JSON.stringify(rows.map(r => [r.name, r.status]));
+    const key = JSON.stringify(rows.map(r => [r.name, r.status, r.action_status, r.action_result]));
     if (key === lastKey) return;
     lastKey = key;
     list.replaceChildren();
@@ -156,7 +164,14 @@
       } else {
         if (r.persona === "employee") meta.appendChild(chip("Answered as: employee", "info"));
         if (r.persona === "applicant") meta.appendChild(chip("Answered as: job applicant", "info"));
-        if (r.ai_action) meta.appendChild(chip("Request " + r.ai_action + " sent to HR for approval", "warn"));
+        if (r.persona === "hr") meta.appendChild(chip("HR mode", "info"));
+        if (r.ai_action && r.action_summary !== undefined) {
+          row.appendChild(changeCard(r));
+        } else if (r.ai_action) {
+          const st = { Proposed: ["sent to HR for approval", "warn"], Approved: ["approved by HR", "ok"],
+                       Executed: ["done by HR", "ok"], Rejected: ["declined by HR", "bad"], Failed: ["could not be applied", "bad"] }[r.action_status] || ["sent to HR", "warn"];
+          meta.appendChild(chip("Request " + r.ai_action + " " + st[0], st[1]));
+        }
       }
       if (meta.childNodes.length) row.appendChild(meta);
       list.appendChild(row);
@@ -164,14 +179,45 @@
     list.scrollTop = list.scrollHeight;
   }
 
+  function changeCard(r) {
+    const card = document.createElement("div"); card.className = "rc-card-change";
+    const title = document.createElement("b"); title.textContent = "Change prepared (" + r.ai_action + ")";
+    const body = document.createElement("div"); body.textContent = r.action_summary;
+    card.append(title, body);
+    const s = r.action_status;
+    if (r.can_confirm) {
+      const bar = document.createElement("div"); bar.className = "rc-actions";
+      const yes = document.createElement("button"); yes.className = "yes"; yes.type = "button"; yes.textContent = "Confirm";
+      const no = document.createElement("button"); no.className = "no"; no.type = "button"; no.textContent = "Cancel";
+      const go = async (decision) => {
+        yes.disabled = no.disabled = true;
+        try { await api("POST", "hr_ai.chat.decide", { message: r.name, decision }); }
+        catch (e) { showError(e.message); yes.disabled = no.disabled = false; }
+        refresh();
+      };
+      yes.onclick = () => go("confirm"); no.onclick = () => go("cancel");
+      bar.append(yes, no); card.appendChild(bar);
+    } else {
+      const meta = document.createElement("div"); meta.className = "rc-meta";
+      if (s === "Approved") { const c = chip("Confirmed, applying", "info"); c.classList.add("rc-dots"); meta.appendChild(c); }
+      else if (s === "Executed") meta.appendChild(chip("✓ Applied" + (r.action_result ? ": " + r.action_result : ""), "ok"));
+      else if (s === "Failed") meta.appendChild(chip("Not applied: " + (r.action_result || "error"), "bad"));
+      else if (s === "Rejected") meta.appendChild(chip("Cancelled", "warn"));
+      else if (s === "Proposed") meta.appendChild(chip("Waiting for HR in RH AI", "warn"));
+      card.appendChild(meta);
+    }
+    return card;
+  }
+
   async function refresh() {
     try {
       const rows = await api("GET", "hr_ai.chat.history");
       render(rows);
       const pending = rows.some(r => r.direction === "In" && (r.status === "Checking" || r.status === "Thinking"));
+      const applying = rows.some(r => r.action_status === "Approved" && r.action_summary !== undefined);
       busy = pending; sendBtn.disabled = pending;
       clearTimeout(timer);
-      if (pending) timer = setTimeout(refresh, 2000);
+      if (pending || applying) timer = setTimeout(refresh, 2000);
     } catch (e) { showError(e.message); }
   }
 

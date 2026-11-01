@@ -27,12 +27,16 @@ READS: dict[str, list[str]] = {
     "orchestrator": ["Leave Application", "Job Applicant"],
     "recruitment": ["Job Opening", "Job Applicant", "Interview"],
     "comms": ["Job Applicant", "Job Opening", "Inbound Email"],
-    "assistant": ["Employee", "Leave Ledger Entry", "Holiday List", "Job Applicant", "Job Opening", "Interview"],
+    "assistant": ["Employee", "Leave Ledger Entry", "Holiday List", "Job Applicant", "Job Opening", "Interview",
+                  "Leave Application"],
     "leave": ["Leave Application", "Leave Ledger Entry", "Holiday List", "Employee"],
     "onboarding": ["Employee", "Employee Onboarding Template"],
     "payroll": ["Salary Slip", "Attendance"],
     "performance": ["Appraisal", "Goal", "Employee Performance Feedback"],
     "conflict": ["Employee Grievance"],
+    # RH Chat HR mode: finds records and prepares changes; the Execution Gateway applies them.
+    "operator": ["Employee", "Job Applicant", "Job Opening", "Interview", "Leave Application", "Leave Ledger Entry",
+                 "Department", "Designation", "Branch"],
 }
 
 
@@ -48,7 +52,10 @@ def main() -> int:
         return http.get(f"/api/resource/{doctype}/{name}").status_code == 200
 
     env_lines: dict[str, str] = {}
+    only = set(sys.argv[1:])   # e.g. `setup_agent_users.py operator` to (re)create one agent only
     for agent, doctypes in READS.items():
+        if only and agent not in only:
+            continue
         title = agent.capitalize()
         role, user = f"RH Flow Agent {title}", f"agent.{agent}@rhflow.local"
         if not exists("Role", role):

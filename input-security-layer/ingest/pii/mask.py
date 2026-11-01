@@ -40,6 +40,9 @@ KNOWN_PLACES = {
     "la goulette", "la manouba", "el menzah", "el kef", "el mourouj", "menzel bourguiba",
 }
 
+# A date ("2026-11-16", "16/11/2026", "16-11-2026") is never a phone number: HR messages are full of them.
+DATE_LIKE = re.compile(r"\d{4}[-/.]\d{1,2}[-/.]\d{1,2}|\d{1,2}[-/.]\d{1,2}[-/.]\d{2,4}")
+
 # HR vocabulary the small NER models tag as names when capitalized ("Privilege Leave", "Sick Leave",
 # "Congé Annuel"). A candidate made only of these words is not a person. Real names are never in here.
 HR_TERMS = {
@@ -159,7 +162,7 @@ def _presidio_detections(text: str, language: str) -> list[_Detection]:
                     or all(word.lower().strip(".,;:!?()\"'") in HR_TERMS for word in words)):
                 continue
             detections.append(_Detection(start, end, "PERSON", False))
-        elif not CURRENCY_AFTER.match(text, end):
+        elif not CURRENCY_AFTER.match(text, end) and not DATE_LIKE.fullmatch(value.strip()):
             detections.append(_Detection(start, end, "PHONE", False))
     return detections
 

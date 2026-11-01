@@ -21,6 +21,8 @@ KINDS_BY_AGENT = {
     "performance": {"review_summary"},
     "conflict": {"grievance_triage"},
     "assistant": {"hr_request"},   # RH Chat: a request from an employee/applicant, handled by HR
+    # RH Chat, HR mode: changes the HR manager asked for, confirmed by them in the chat.
+    "operator": {"interview_update", "applicant_status", "leave_application", "leave_decision", "employee_update"},
 }
 HEX64 = re.compile(r"^[0-9a-f]{64}$")
 TOKEN = re.compile(r"\[[A-Z]+_\d+\]")
@@ -51,6 +53,18 @@ def _summary(kind: str, p: dict) -> str:
     if kind == "interview":
         return (f"{p['interview_type']} with {p['applicant']}\n"
                 f"{p['date']}  {p['from_time']} - {p['to_time']}")
+    if kind == "interview_update":
+        if p["action"] == "cancel":
+            return f"Cancel interview {p['interview']}" + (f"\nReason: {p['reason']}" if p.get("reason") else "")
+        return f"Reschedule interview {p['interview']} to {p['date']}  {p['from_time']} - {p['to_time']}"
+    if kind == "applicant_status":
+        return f"Set applicant {p['applicant']} to status {p['status']}" + (f"\nReason: {p['reason']}" if p.get("reason") else "")
+    if kind == "leave_application":
+        return (f"New {p['leave_type']} for {p['employee']} from {p['from_date']} to {p['to_date']}"
+                + (f"\nReason: {p['reason']}" if p.get("reason") else ""))
+    if kind == "employee_update":
+        changes = ", ".join(f"{k.replace('_', ' ')} -> {p[k]}" for k in ("department", "designation", "branch", "reports_to") if p.get(k))
+        return f"Update employee {p['employee']}: {changes}"
     if kind == "hr_request":
         return (f"RH Chat request from a {p['persona']} ({p['category']})\n{p['summary']}\n\n"
                 "HR follows up with the person; approving records the decision only.")

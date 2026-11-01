@@ -51,6 +51,12 @@ HMAC-SHA256 over timestamp + event id + body, a 300 s replay window, and one run
 Needs `WEBHOOK_HMAC_SECRET` in `.env`, and the same value in HR Core site config `hr_ai_agents_webhook_secret`
 (plus `hr_ai_agents_url = http://host.docker.internal:8200`). Ollama must be running (`ollama serve`).
 
+HR mode: when an HR Manager (or Administrator) uses `/chat`, the `operator` agent finds the people named in the
+message and prepares changes (interview reschedule/cancel, applicant status, new leave, leave approve/reject,
+employee department/designation/branch/manager). Each one appears as a card with Confirm / Cancel; Confirm is the
+human approval, then the Execution Gateway applies it. Create its read-only user once:
+`RHFLOW_URL=http://localhost:8001 ADMIN_PASSWORD=... python agents/scripts/setup_agent_users.py operator`.
+
 Chat demo account: `bench --site frontend execute hr_ai.setup.setup_demo_users --kwargs "{'chat_password': '...'}"`
 creates the login `Utilisateur` (website user, no Desk) linked to a fictional employee and a fictional applicant.
 

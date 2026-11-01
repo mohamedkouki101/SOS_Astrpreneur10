@@ -7,7 +7,8 @@ const KIND_LABELS = {
 	leave_decision: __("Leave decision"), onboarding_tasks: __("Onboarding tasks"),
 	welcome_email: __("Welcome email"), payroll_reply: __("Payroll answer"),
 	review_summary: __("Performance review summary"), grievance_triage: __("Grievance triage"),
-	hr_request: __("Chat request (RH Chat)"),
+	hr_request: __("Chat request (RH Chat)"), interview_update: __("Interview change"),
+	leave_application: __("New leave application"), employee_update: __("Employee update"),
 };
 const TABS = [
 	["Proposed", __("Waiting for decision"), "orange"],
@@ -20,7 +21,7 @@ const TABS = [
 const VERDICT_COLORS = { clean: "green", suspicious: "orange", quarantined: "red", released: "purple", rejected: "gray", error: "gray" };
 const SOURCE_LABELS = { upload_cv: __("CV upload"), email_body: __("Email"), email_attachment: __("Email attachment") };
 const esc = (v) => frappe.utils.escape_html(v == null ? "" : String(v)); // report text is hostile: always plain text
-const AGENTS = ["", "recruitment", "comms", "leave", "onboarding", "payroll", "performance", "conflict", "assistant"];
+const AGENTS = ["", "recruitment", "comms", "leave", "onboarding", "payroll", "performance", "conflict", "assistant", "operator"];
 
 frappe.pages["rh-ai"].on_page_load = function (wrapper) {
 	const page = frappe.ui.make_app_page({ parent: wrapper, title: __("RH AI: Decisions"), single_column: true });
