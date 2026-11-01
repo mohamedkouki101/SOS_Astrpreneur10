@@ -1,0 +1,47 @@
+[
+  {
+    "_key": "HR Screening",
+    "interview_type_name": "HR Screening",
+    "description": "Motivation, communication, availability.",
+    "expected_skill_set": [
+      {
+        "skill": "Communication"
+      },
+      {
+        "skill": "French"
+      },
+      {
+        "skill": "English"
+      }
+    ]
+  },
+  {
+    "_key": "Technical Interview",
+    "interview_type_name": "Technical Interview",
+    "description": "Role-specific technical depth.",
+    "expected_skill_set": [
+      {
+        "skill": "Python"
+      },
+      {
+        "skill": "SQL"
+      },
+      {
+        "skill": "Data Analysis"
+      }
+    ]
+  },
+  {
+    "_key": "Manager Interview",
+    "interview_type_name": "Manager Interview",
+    "description": "Team fit, ownership, delivery.",
+    "expected_skill_set": [
+      {
+        "skill": "Leadership"
+      },
+      {
+        "skill": "Project Management"
+      }
+    ]
+  }
+]

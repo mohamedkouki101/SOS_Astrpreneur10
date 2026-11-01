@@ -1,0 +1,11 @@
+# HR Flow theme layer: adds the hrflow_theme app (Desk/login styling only) on top of the hr_ai image.
+# Build (context = the hrflow_theme app folder):
+#   docker build -f images/hrflow-theme/Containerfile --build-arg BASE=<hr_ai image> -t custom:N <path-to>/SOS/hrflow_theme
+ARG BASE=custom:23
+FROM ${BASE}
+USER frappe
+WORKDIR /home/frappe/frappe-bench
+COPY --chown=frappe:root . apps/hrflow_theme
+RUN ./env/bin/pip install --no-cache-dir -e apps/hrflow_theme \
+ && ln -sfn /home/frappe/frappe-bench/apps/hrflow_theme/hrflow_theme/public assets/hrflow_theme \
+ && (grep -qx hrflow_theme sites/apps.txt || echo hrflow_theme >> sites/apps.txt)

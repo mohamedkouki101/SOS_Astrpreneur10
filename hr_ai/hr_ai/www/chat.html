@@ -4,35 +4,38 @@
 
 {% block content %}
 <style>
+  /* HR Flow palette (hrflow_theme). The --hf-* tokens come from hrflow-web.css; the values after
+     the comma keep the page on-brand if the theme app is not installed. Light only, like the theme. */
   :root {
-    --rc-bg: #f4f6f5; --rc-card: #ffffff; --rc-text: #1d2621; --rc-muted: #66736c; --rc-line: #e1e6e3;
-    --rc-me: #0e7c66; --rc-me-text: #ffffff; --rc-bot: #eef2f0; --rc-ok: #1f7a46; --rc-ok-bg: #e5f4ea;
-    --rc-warn: #9a5b00; --rc-warn-bg: #fff3dc; --rc-bad: #b42318; --rc-bad-bg: #fde8e6; --rc-info: #1f4e79;
-    --rc-info-bg: #e6eef7;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --rc-bg: #121715; --rc-card: #1a201d; --rc-text: #e6ece9; --rc-muted: #9aa8a1; --rc-line: #2b3430;
-      --rc-me: #14967b; --rc-bot: #232b27; --rc-ok: #7fd6a2; --rc-ok-bg: #1d3327; --rc-warn: #f2c06b;
-      --rc-warn-bg: #3a2e17; --rc-bad: #ff8f84; --rc-bad-bg: #3d1f1c; --rc-info: #9cc3ea; --rc-info-bg: #1c2a39;
-    }
+    --rc-bg: transparent; --rc-card: var(--hf-white, #FFFDF8); --rc-text: var(--hf-ink, #14264D);
+    --rc-muted: color-mix(in srgb, var(--rc-text) 62%, var(--rc-card)); --rc-line: color-mix(in srgb, var(--rc-text) 14%, transparent);
+    --rc-me: var(--hf-electric, #1455E8); --rc-me-hover: var(--hf-royal, #073B9B); --rc-me-text: #ffffff;
+    --rc-bot: color-mix(in srgb, var(--hf-soft, #76A9FF) 16%, var(--rc-card));
+    --rc-ok: color-mix(in srgb, #16A36A 78%, var(--rc-text)); --rc-ok-bg: color-mix(in srgb, #16A36A 13%, var(--rc-card));
+    --rc-warn: color-mix(in srgb, #F59E0B 62%, var(--rc-text)); --rc-warn-bg: color-mix(in srgb, #F59E0B 14%, var(--rc-card));
+    --rc-bad: color-mix(in srgb, #E5484D 85%, var(--rc-text)); --rc-bad-bg: color-mix(in srgb, #E5484D 12%, var(--rc-card));
+    --rc-info: var(--hf-electric, #1455E8); --rc-info-bg: color-mix(in srgb, var(--rc-info) 11%, var(--rc-card));
+    --rc-focus: 0 0 0 3px color-mix(in srgb, var(--rc-me) 22%, transparent);
   }
   .rc-wrap { background: var(--rc-bg); min-height: calc(100vh - 120px); padding: 24px 16px; }
   .rc-card { max-width: 820px; margin: 0 auto; background: var(--rc-card); border: 1px solid var(--rc-line);
-             border-radius: 16px; display: flex; flex-direction: column; height: calc(100vh - 180px); min-height: 480px; }
-  .rc-head { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--rc-line); }
-  .rc-head img { width: 36px; height: 36px; }
-  .rc-head h1 { font-size: 18px; margin: 0; color: var(--rc-text); }
+             box-shadow: 0 18px 48px -16px color-mix(in srgb, var(--rc-text) 28%, transparent); overflow: hidden;
+             border-radius: 20px; display: flex; flex-direction: column; height: calc(100vh - 180px); min-height: 480px; }
+  .rc-head { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--rc-line);
+             background: url("/assets/hrflow_theme/images/header-stripes.svg") right top / auto 100% no-repeat,
+             color-mix(in srgb, var(--hf-cream, #F8F0DF) 60%, var(--rc-card)); }
+  .rc-head img { width: 40px; height: 40px; border-radius: 12px; box-shadow: 0 6px 14px -8px color-mix(in srgb, var(--rc-me-hover) 55%, transparent); }
+  .rc-head h1 { font-size: 19px; margin: 0; color: var(--rc-text); font-weight: 700; letter-spacing: -0.01em; }
   .rc-head p { margin: 0; font-size: 12.5px; color: var(--rc-muted); }
   .rc-head .rc-spacer { flex: 1; }
-  .rc-btn { border: 1px solid var(--rc-line); background: transparent; color: var(--rc-text); border-radius: 8px;
+  .rc-btn { border: 1px solid color-mix(in srgb, var(--rc-me) 55%, transparent); background: var(--rc-card); color: var(--rc-me); border-radius: 999px;
             padding: 6px 12px; font-size: 13px; cursor: pointer; }
-  .rc-btn:hover { background: var(--rc-bot); }
+  .rc-btn:hover { background: var(--rc-info-bg); color: var(--rc-me); text-decoration: none; }
   .rc-list { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
   .rc-empty { margin: auto; text-align: center; color: var(--rc-muted); max-width: 460px; font-size: 14px; }
   .rc-empty b { color: var(--rc-text); }
   .rc-sugg { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 14px; }
-  .rc-sugg button { border: 1px solid var(--rc-line); background: var(--rc-card); color: var(--rc-text);
+  .rc-sugg button { border: 1px solid color-mix(in srgb, var(--rc-me) 30%, transparent); background: var(--rc-card); color: var(--rc-text);
                     border-radius: 999px; padding: 6px 12px; font-size: 13px; cursor: pointer; }
   .rc-row { display: flex; flex-direction: column; max-width: 78%; }
   .rc-row.me { align-self: flex-end; align-items: flex-end; }
@@ -48,18 +51,21 @@
   .rc-chip.warn { background: var(--rc-warn-bg); color: var(--rc-warn); }
   .rc-chip.bad { background: var(--rc-bad-bg); color: var(--rc-bad); }
   .rc-chip.info { background: var(--rc-info-bg); color: var(--rc-info); }
-  .rc-card-change { margin-top: 8px; border: 1px solid var(--rc-line); border-radius: 12px; padding: 10px 12px;
+  .rc-card-change { position: relative; margin-top: 8px; border: 1px solid color-mix(in srgb, var(--rc-me) 30%, transparent); border-left: 4px solid var(--rc-me); border-radius: 12px; padding: 10px 12px;
                     background: var(--rc-card); font-size: 13.5px; color: var(--rc-text); white-space: pre-wrap; max-width: 100%; }
   .rc-card-change b { display: block; font-size: 12px; color: var(--rc-muted); margin-bottom: 4px; font-weight: 600; }
   .rc-actions { display: flex; gap: 8px; margin-top: 10px; }
-  .rc-actions button { border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1px solid var(--rc-line); }
+  .rc-actions button { border-radius: 999px; padding: 6px 14px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1px solid var(--rc-line); }
   .rc-actions .yes { background: var(--rc-me); color: #fff; border-color: var(--rc-me); }
+  .rc-actions .yes:hover { background: var(--rc-me-hover); border-color: var(--rc-me-hover); }
   .rc-actions .no { background: transparent; color: var(--rc-text); }
   .rc-actions button:disabled { opacity: .5; cursor: default; }
   .rc-form { display: flex; gap: 10px; padding: 14px 16px; border-top: 1px solid var(--rc-line); }
-  .rc-form textarea { flex: 1; resize: none; border: 1px solid var(--rc-line); border-radius: 10px; padding: 10px 12px;
+  .rc-form textarea { flex: 1; resize: none; border: 1px solid color-mix(in srgb, var(--rc-text) 20%, transparent); border-radius: 14px; padding: 10px 12px;
                       font: inherit; font-size: 14.5px; background: var(--rc-card); color: var(--rc-text); min-height: 46px; max-height: 160px; }
-  .rc-form button { background: var(--rc-me); color: #fff; border: 0; border-radius: 10px; padding: 0 18px; font-weight: 600; cursor: pointer; }
+  .rc-form textarea:focus { outline: none; border-color: var(--rc-me); box-shadow: var(--rc-focus); }
+  .rc-form button { background: var(--rc-me); color: #fff; border: 0; border-radius: 999px; padding: 0 18px; font-weight: 600; cursor: pointer; }
+  .rc-form button:hover:not(:disabled) { background: var(--rc-me-hover); }
   .rc-form button:disabled { opacity: .5; cursor: default; }
   .rc-note { text-align: center; font-size: 11.5px; color: var(--rc-muted); padding: 0 16px 12px; }
   .rc-error { color: var(--rc-bad); font-size: 13px; padding: 0 16px 8px; display: none; }
@@ -74,7 +80,7 @@
 <div class="rc-wrap">
   <div class="rc-card">
     <div class="rc-head">
-      <img src="/assets/hr_ai/images/rh-chat-logo.svg" alt="">
+      <img src="/assets/hr_ai/images/hr-chat-logo.svg" alt="">
       <div>
         <h1>RH Chat</h1>
         <p>Ask HR anything about your job, your leave or your application.</p>

@@ -1,0 +1,11 @@
+# HR Flow AI layer: adds the hr_ai app (AI Action approval queue) on top of the base image.
+# Build (context = the hr_ai app folder):
+#   docker build -f images/hr-ai/Containerfile --build-arg BASE=custom:16 -t custom:17 <path-to>/SOS/hr_ai
+ARG BASE=custom:16
+FROM ${BASE}
+USER frappe
+WORKDIR /home/frappe/frappe-bench
+COPY --chown=frappe:root . apps/hr_ai
+RUN ./env/bin/pip install --no-cache-dir -e apps/hr_ai \
+ && ln -sfn /home/frappe/frappe-bench/apps/hr_ai/hr_ai/public assets/hr_ai \
+ && (grep -qx hr_ai sites/apps.txt || echo hr_ai >> sites/apps.txt)

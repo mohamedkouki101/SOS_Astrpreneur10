@@ -12,7 +12,7 @@ from tests.conftest import FakeLLM
 
 @pytest.fixture(autouse=True)
 def no_live_context(monkeypatch):
-    """Context is loaded from RH Flow over REST in production; tests never touch the live system."""
+    """Context is loaded from HR Flow over REST in production; tests never touch the live system."""
     monkeypatch.setattr(chat, "build_context", lambda persona, ctx, question, people=None: "<data>{}</data>")
 
 TEXT = "Bonjour, je voudrais prendre 3 jours de congé la semaine prochaine."

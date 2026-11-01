@@ -1,7 +1,7 @@
 """Helpers shared by all tools.
 
 Rules applied here:
-- Records read from RH Flow are registered as sources (SHA-256 of their JSON) so proposals can cite them.
+- Records read from HR Flow are registered as sources (SHA-256 of their JSON) so proposals can cite them.
 - Tools return IDs and job-related fields only: never names, emails, phones, birth dates or addresses
   (those are personal data and must not reach the LLM unmasked).
 - Free-text fields written by people (leave reasons, grievances, feedback) go through the ingest pipeline.

@@ -1,15 +1,15 @@
 """RH Chat handler: answer what a person would ask a human HR officer, from the real data.
 
 The message was scanned by the input security layer BEFORE this code runs; we fetch the masked,
-signed envelope ourselves (ENVELOPE key) and verify it. RH Flow only sends ids.
+signed envelope ourselves (ENVELOPE key) and verify it. HR Flow only sends ids.
 
-Two modes, chosen by RH Flow from the account's roles (never by the model):
+Two modes, chosen by HR Flow from the account's roles (never by the model):
 - "self" (employees, applicants): intake (qwen, strict JSON) picks the persona; code binds it to the
   employee / job applicant HR linked to the account (never to anyone named in the text). Code then
   loads that person's data (profile, every leave balance, their leave requests, holidays, their
   application and interviews, matching policy lines) and gives it to the HR Assistant as context.
   Requests become an `hr_request` AI Action for HR.
-- "hr" (HR Managers): RH Flow has matched the names typed in the message to record ids. Code loads
+- "hr" (HR Managers): HR Flow has matched the names typed in the message to record ids. Code loads
   those records; the operator agent answers and PREPARES changes (interview, applicant status, leave,
   employee job fields). The HR user confirms each change in the chat; the Execution Gateway writes it.
 Small local models are unreliable at deciding when to call a tool, so facts are loaded by code up
@@ -73,15 +73,15 @@ SELF_REQUEST_RULE = """
   HR will review it. Never say it is done or approved."""
 
 ROLES = {
-    "employee": "You are the RH Flow HR Assistant talking to an EMPLOYEE of the company." + ANSWER_RULES
+    "employee": "You are the HR Flow HR Assistant talking to an EMPLOYEE of the company." + ANSWER_RULES
                 + SELF_REQUEST_RULE,
-    "applicant": "You are the RH Flow HR Assistant talking to a JOB APPLICANT. Never comment on other candidates "
+    "applicant": "You are the HR Flow HR Assistant talking to a JOB APPLICANT. Never comment on other candidates "
                  "or on their chances; HR decides." + ANSWER_RULES + SELF_REQUEST_RULE,
-    "unknown": "You are the RH Flow HR Assistant. You do not know whether the person is an employee or an "
+    "unknown": "You are the HR Flow HR Assistant. You do not know whether the person is an employee or an "
                "applicant: answer general questions (policies, holidays, open positions) from the context. For "
                "personal questions, ask whether they are an employee or a job applicant of the company."
                + ANSWER_RULES,
-    "hr": """You are the RH Flow HR Operator, talking to an HR MANAGER of the company. You answer their questions
+    "hr": """You are the HR Flow HR Operator, talking to an HR MANAGER of the company. You answer their questions
 about employees, applicants, interviews and leave from the CONTEXT, and you PREPARE the changes they ask for
 with your propose_* tools (interview reschedule/cancel, applicant status, new leave application, leave
 approval/rejection, employee department/designation/branch/manager).
@@ -187,7 +187,7 @@ def _general_context() -> dict:
 
 
 def _hr_context(people: dict) -> dict:
-    """Records matching the people named in the message (ids from RH Flow, real names never shown)."""
+    """Records matching the people named in the message (ids from HR Flow, real names never shown)."""
     out = {}
     for token, match in list((people or {}).items())[:5]:
         if not isinstance(token, str) or len(token) > 80 or "\n" in token or not isinstance(match, dict):
@@ -296,7 +296,7 @@ def handle_chat(event: dict, *, llm: Any = None, specialist_llm: Any = None, fet
     reply = _safe_reply(res["answer"]) or _fallback(persona, proposals)
     out = {"reply": reply, "persona": persona, "proposals": proposals, "run_id": res["run_id"],
            "stopped": res.get("stopped")}
-    if persona == "hr":   # HR may see who [APPLICANT_n] is; RH Flow shows the name (never sent to the model)
+    if persona == "hr":   # HR may see who [APPLICANT_n] is; HR Flow shows the name (never sent to the model)
         store = token_store()
         out["display_tokens"] = {t: v for t in set(REF_TOKEN.findall(reply)) if (v := store.original(t))}
     return out

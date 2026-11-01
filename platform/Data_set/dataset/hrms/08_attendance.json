@@ -1,0 +1,2744 @@
+[
+  {
+    "_key": "EMP-CEO|2026-10-19",
+    "_employee": "EMP-CEO",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-CEO|2026-10-20",
+    "_employee": "EMP-CEO",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-CEO|2026-10-21",
+    "_employee": "EMP-CEO",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-CEO|2026-10-22",
+    "_employee": "EMP-CEO",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-CEO|2026-10-23",
+    "_employee": "EMP-CEO",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-CEO|2026-10-26",
+    "_employee": "EMP-CEO",
+    "attendance_date": "2026-10-26",
+    "status": "Absent",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-CEO|2026-10-27",
+    "_employee": "EMP-CEO",
+    "attendance_date": "2026-10-27",
+    "status": "Absent",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-CEO|2026-10-28",
+    "_employee": "EMP-CEO",
+    "attendance_date": "2026-10-28",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-CEO|2026-10-29",
+    "_employee": "EMP-CEO",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-CEO|2026-10-30",
+    "_employee": "EMP-CEO",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-HUMAN|2026-10-19",
+    "_employee": "EMP-HEAD-HUMAN",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-HUMAN|2026-10-20",
+    "_employee": "EMP-HEAD-HUMAN",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-HUMAN|2026-10-21",
+    "_employee": "EMP-HEAD-HUMAN",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-HUMAN|2026-10-22",
+    "_employee": "EMP-HEAD-HUMAN",
+    "attendance_date": "2026-10-22",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-HUMAN|2026-10-23",
+    "_employee": "EMP-HEAD-HUMAN",
+    "attendance_date": "2026-10-23",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-HUMAN|2026-10-26",
+    "_employee": "EMP-HEAD-HUMAN",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-HUMAN|2026-10-27",
+    "_employee": "EMP-HEAD-HUMAN",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-HUMAN|2026-10-28",
+    "_employee": "EMP-HEAD-HUMAN",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-HUMAN|2026-10-29",
+    "_employee": "EMP-HEAD-HUMAN",
+    "attendance_date": "2026-10-29",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-HUMAN|2026-10-30",
+    "_employee": "EMP-HEAD-HUMAN",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-002|2026-10-19",
+    "_employee": "EMP-002",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-002|2026-10-20",
+    "_employee": "EMP-002",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-002|2026-10-21",
+    "_employee": "EMP-002",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-002|2026-10-22",
+    "_employee": "EMP-002",
+    "attendance_date": "2026-10-22",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-002|2026-10-23",
+    "_employee": "EMP-002",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-002|2026-10-26",
+    "_employee": "EMP-002",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-002|2026-10-27",
+    "_employee": "EMP-002",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-002|2026-10-28",
+    "_employee": "EMP-002",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-002|2026-10-29",
+    "_employee": "EMP-002",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-002|2026-10-30",
+    "_employee": "EMP-002",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-003|2026-10-19",
+    "_employee": "EMP-003",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-003|2026-10-20",
+    "_employee": "EMP-003",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-003|2026-10-21",
+    "_employee": "EMP-003",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-003|2026-10-22",
+    "_employee": "EMP-003",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-003|2026-10-23",
+    "_employee": "EMP-003",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-003|2026-10-26",
+    "_employee": "EMP-003",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-003|2026-10-27",
+    "_employee": "EMP-003",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-003|2026-10-28",
+    "_employee": "EMP-003",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-003|2026-10-29",
+    "_employee": "EMP-003",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-003|2026-10-30",
+    "_employee": "EMP-003",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-004|2026-10-19",
+    "_employee": "EMP-004",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-004|2026-10-20",
+    "_employee": "EMP-004",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-004|2026-10-21",
+    "_employee": "EMP-004",
+    "attendance_date": "2026-10-21",
+    "status": "Absent",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-004|2026-10-22",
+    "_employee": "EMP-004",
+    "attendance_date": "2026-10-22",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-004|2026-10-23",
+    "_employee": "EMP-004",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-004|2026-10-26",
+    "_employee": "EMP-004",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-004|2026-10-27",
+    "_employee": "EMP-004",
+    "attendance_date": "2026-10-27",
+    "status": "Half Day",
+    "docstatus": 1,
+    "leave_type": "Casual Leave"
+  },
+  {
+    "_key": "EMP-004|2026-10-28",
+    "_employee": "EMP-004",
+    "attendance_date": "2026-10-28",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-004|2026-10-29",
+    "_employee": "EMP-004",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-004|2026-10-30",
+    "_employee": "EMP-004",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-RESEARCH|2026-10-19",
+    "_employee": "EMP-HEAD-RESEARCH",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-RESEARCH|2026-10-20",
+    "_employee": "EMP-HEAD-RESEARCH",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-RESEARCH|2026-10-21",
+    "_employee": "EMP-HEAD-RESEARCH",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-RESEARCH|2026-10-22",
+    "_employee": "EMP-HEAD-RESEARCH",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-RESEARCH|2026-10-23",
+    "_employee": "EMP-HEAD-RESEARCH",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-RESEARCH|2026-10-26",
+    "_employee": "EMP-HEAD-RESEARCH",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-RESEARCH|2026-10-27",
+    "_employee": "EMP-HEAD-RESEARCH",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-RESEARCH|2026-10-28",
+    "_employee": "EMP-HEAD-RESEARCH",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-RESEARCH|2026-10-29",
+    "_employee": "EMP-HEAD-RESEARCH",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-RESEARCH|2026-10-30",
+    "_employee": "EMP-HEAD-RESEARCH",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-005|2026-10-19",
+    "_employee": "EMP-005",
+    "attendance_date": "2026-10-19",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-005|2026-10-20",
+    "_employee": "EMP-005",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-005|2026-10-21",
+    "_employee": "EMP-005",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-005|2026-10-22",
+    "_employee": "EMP-005",
+    "attendance_date": "2026-10-22",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-005|2026-10-23",
+    "_employee": "EMP-005",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-005|2026-10-26",
+    "_employee": "EMP-005",
+    "attendance_date": "2026-10-26",
+    "status": "Absent",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-005|2026-10-27",
+    "_employee": "EMP-005",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-005|2026-10-28",
+    "_employee": "EMP-005",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-005|2026-10-29",
+    "_employee": "EMP-005",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-005|2026-10-30",
+    "_employee": "EMP-005",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-006|2026-10-19",
+    "_employee": "EMP-006",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-006|2026-10-20",
+    "_employee": "EMP-006",
+    "attendance_date": "2026-10-20",
+    "status": "Absent",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-006|2026-10-21",
+    "_employee": "EMP-006",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-006|2026-10-22",
+    "_employee": "EMP-006",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-006|2026-10-23",
+    "_employee": "EMP-006",
+    "attendance_date": "2026-10-23",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-006|2026-10-26",
+    "_employee": "EMP-006",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-006|2026-10-27",
+    "_employee": "EMP-006",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-006|2026-10-28",
+    "_employee": "EMP-006",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-006|2026-10-29",
+    "_employee": "EMP-006",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-006|2026-10-30",
+    "_employee": "EMP-006",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-007|2026-10-19",
+    "_employee": "EMP-007",
+    "attendance_date": "2026-10-19",
+    "status": "Half Day",
+    "docstatus": 1,
+    "leave_type": "Casual Leave"
+  },
+  {
+    "_key": "EMP-007|2026-10-20",
+    "_employee": "EMP-007",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-007|2026-10-21",
+    "_employee": "EMP-007",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-007|2026-10-22",
+    "_employee": "EMP-007",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-007|2026-10-23",
+    "_employee": "EMP-007",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-007|2026-10-26",
+    "_employee": "EMP-007",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-007|2026-10-27",
+    "_employee": "EMP-007",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-007|2026-10-28",
+    "_employee": "EMP-007",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-007|2026-10-29",
+    "_employee": "EMP-007",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-007|2026-10-30",
+    "_employee": "EMP-007",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-008|2026-10-19",
+    "_employee": "EMP-008",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-008|2026-10-20",
+    "_employee": "EMP-008",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-008|2026-10-21",
+    "_employee": "EMP-008",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-008|2026-10-22",
+    "_employee": "EMP-008",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-008|2026-10-23",
+    "_employee": "EMP-008",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-008|2026-10-26",
+    "_employee": "EMP-008",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-008|2026-10-27",
+    "_employee": "EMP-008",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-008|2026-10-28",
+    "_employee": "EMP-008",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-008|2026-10-29",
+    "_employee": "EMP-008",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-008|2026-10-30",
+    "_employee": "EMP-008",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-009|2026-10-19",
+    "_employee": "EMP-009",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-009|2026-10-20",
+    "_employee": "EMP-009",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-009|2026-10-21",
+    "_employee": "EMP-009",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-009|2026-10-22",
+    "_employee": "EMP-009",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-009|2026-10-23",
+    "_employee": "EMP-009",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-009|2026-10-26",
+    "_employee": "EMP-009",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-009|2026-10-27",
+    "_employee": "EMP-009",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-009|2026-10-28",
+    "_employee": "EMP-009",
+    "attendance_date": "2026-10-28",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-009|2026-10-29",
+    "_employee": "EMP-009",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-009|2026-10-30",
+    "_employee": "EMP-009",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-010|2026-10-19",
+    "_employee": "EMP-010",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-010|2026-10-20",
+    "_employee": "EMP-010",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-010|2026-10-21",
+    "_employee": "EMP-010",
+    "attendance_date": "2026-10-21",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-010|2026-10-22",
+    "_employee": "EMP-010",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-010|2026-10-23",
+    "_employee": "EMP-010",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-010|2026-10-26",
+    "_employee": "EMP-010",
+    "attendance_date": "2026-10-26",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-010|2026-10-27",
+    "_employee": "EMP-010",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-010|2026-10-28",
+    "_employee": "EMP-010",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-010|2026-10-29",
+    "_employee": "EMP-010",
+    "attendance_date": "2026-10-29",
+    "status": "Absent",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-010|2026-10-30",
+    "_employee": "EMP-010",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-011|2026-10-19",
+    "_employee": "EMP-011",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-011|2026-10-20",
+    "_employee": "EMP-011",
+    "attendance_date": "2026-10-20",
+    "status": "Absent",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-011|2026-10-21",
+    "_employee": "EMP-011",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-011|2026-10-22",
+    "_employee": "EMP-011",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-011|2026-10-23",
+    "_employee": "EMP-011",
+    "attendance_date": "2026-10-23",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-011|2026-10-26",
+    "_employee": "EMP-011",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-011|2026-10-27",
+    "_employee": "EMP-011",
+    "attendance_date": "2026-10-27",
+    "status": "Absent",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-011|2026-10-28",
+    "_employee": "EMP-011",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-011|2026-10-29",
+    "_employee": "EMP-011",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-011|2026-10-30",
+    "_employee": "EMP-011",
+    "attendance_date": "2026-10-30",
+    "status": "Half Day",
+    "docstatus": 1,
+    "leave_type": "Casual Leave"
+  },
+  {
+    "_key": "EMP-012|2026-10-19",
+    "_employee": "EMP-012",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-012|2026-10-20",
+    "_employee": "EMP-012",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-012|2026-10-21",
+    "_employee": "EMP-012",
+    "attendance_date": "2026-10-21",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-012|2026-10-22",
+    "_employee": "EMP-012",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-012|2026-10-23",
+    "_employee": "EMP-012",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-012|2026-10-26",
+    "_employee": "EMP-012",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-012|2026-10-27",
+    "_employee": "EMP-012",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-012|2026-10-28",
+    "_employee": "EMP-012",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-012|2026-10-29",
+    "_employee": "EMP-012",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-012|2026-10-30",
+    "_employee": "EMP-012",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-013|2026-10-19",
+    "_employee": "EMP-013",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-013|2026-10-20",
+    "_employee": "EMP-013",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-013|2026-10-21",
+    "_employee": "EMP-013",
+    "attendance_date": "2026-10-21",
+    "status": "Half Day",
+    "docstatus": 1,
+    "leave_type": "Casual Leave"
+  },
+  {
+    "_key": "EMP-013|2026-10-22",
+    "_employee": "EMP-013",
+    "attendance_date": "2026-10-22",
+    "status": "Absent",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-013|2026-10-23",
+    "_employee": "EMP-013",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-013|2026-10-26",
+    "_employee": "EMP-013",
+    "attendance_date": "2026-10-26",
+    "status": "Absent",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-013|2026-10-27",
+    "_employee": "EMP-013",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-013|2026-10-28",
+    "_employee": "EMP-013",
+    "attendance_date": "2026-10-28",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-013|2026-10-29",
+    "_employee": "EMP-013",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-013|2026-10-30",
+    "_employee": "EMP-013",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-SALES|2026-10-19",
+    "_employee": "EMP-HEAD-SALES",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-SALES|2026-10-20",
+    "_employee": "EMP-HEAD-SALES",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-SALES|2026-10-21",
+    "_employee": "EMP-HEAD-SALES",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-SALES|2026-10-22",
+    "_employee": "EMP-HEAD-SALES",
+    "attendance_date": "2026-10-22",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-SALES|2026-10-23",
+    "_employee": "EMP-HEAD-SALES",
+    "attendance_date": "2026-10-23",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-SALES|2026-10-26",
+    "_employee": "EMP-HEAD-SALES",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-SALES|2026-10-27",
+    "_employee": "EMP-HEAD-SALES",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-SALES|2026-10-28",
+    "_employee": "EMP-HEAD-SALES",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-SALES|2026-10-29",
+    "_employee": "EMP-HEAD-SALES",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-SALES|2026-10-30",
+    "_employee": "EMP-HEAD-SALES",
+    "attendance_date": "2026-10-30",
+    "status": "Absent",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-014|2026-10-19",
+    "_employee": "EMP-014",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-014|2026-10-20",
+    "_employee": "EMP-014",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-014|2026-10-21",
+    "_employee": "EMP-014",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-014|2026-10-22",
+    "_employee": "EMP-014",
+    "attendance_date": "2026-10-22",
+    "status": "Half Day",
+    "docstatus": 1,
+    "leave_type": "Casual Leave"
+  },
+  {
+    "_key": "EMP-014|2026-10-23",
+    "_employee": "EMP-014",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-014|2026-10-26",
+    "_employee": "EMP-014",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-014|2026-10-27",
+    "_employee": "EMP-014",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-014|2026-10-28",
+    "_employee": "EMP-014",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-014|2026-10-29",
+    "_employee": "EMP-014",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-014|2026-10-30",
+    "_employee": "EMP-014",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-015|2026-10-19",
+    "_employee": "EMP-015",
+    "attendance_date": "2026-10-19",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-015|2026-10-20",
+    "_employee": "EMP-015",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-015|2026-10-21",
+    "_employee": "EMP-015",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-015|2026-10-22",
+    "_employee": "EMP-015",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-015|2026-10-23",
+    "_employee": "EMP-015",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-015|2026-10-26",
+    "_employee": "EMP-015",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-015|2026-10-27",
+    "_employee": "EMP-015",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-015|2026-10-28",
+    "_employee": "EMP-015",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-015|2026-10-29",
+    "_employee": "EMP-015",
+    "attendance_date": "2026-10-29",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-015|2026-10-30",
+    "_employee": "EMP-015",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-016|2026-10-19",
+    "_employee": "EMP-016",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-016|2026-10-20",
+    "_employee": "EMP-016",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-016|2026-10-21",
+    "_employee": "EMP-016",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-016|2026-10-22",
+    "_employee": "EMP-016",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-016|2026-10-23",
+    "_employee": "EMP-016",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-016|2026-10-26",
+    "_employee": "EMP-016",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-016|2026-10-27",
+    "_employee": "EMP-016",
+    "attendance_date": "2026-10-27",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-016|2026-10-28",
+    "_employee": "EMP-016",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-016|2026-10-29",
+    "_employee": "EMP-016",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-016|2026-10-30",
+    "_employee": "EMP-016",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-017|2026-10-19",
+    "_employee": "EMP-017",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-017|2026-10-20",
+    "_employee": "EMP-017",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-017|2026-10-21",
+    "_employee": "EMP-017",
+    "attendance_date": "2026-10-21",
+    "status": "Absent",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-017|2026-10-22",
+    "_employee": "EMP-017",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-017|2026-10-23",
+    "_employee": "EMP-017",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-017|2026-10-26",
+    "_employee": "EMP-017",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-017|2026-10-27",
+    "_employee": "EMP-017",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-017|2026-10-28",
+    "_employee": "EMP-017",
+    "attendance_date": "2026-10-28",
+    "status": "Absent",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-017|2026-10-29",
+    "_employee": "EMP-017",
+    "attendance_date": "2026-10-29",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-017|2026-10-30",
+    "_employee": "EMP-017",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-018|2026-10-19",
+    "_employee": "EMP-018",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-018|2026-10-20",
+    "_employee": "EMP-018",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-018|2026-10-21",
+    "_employee": "EMP-018",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-018|2026-10-22",
+    "_employee": "EMP-018",
+    "attendance_date": "2026-10-22",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-018|2026-10-23",
+    "_employee": "EMP-018",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-018|2026-10-26",
+    "_employee": "EMP-018",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-018|2026-10-27",
+    "_employee": "EMP-018",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-018|2026-10-28",
+    "_employee": "EMP-018",
+    "attendance_date": "2026-10-28",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-018|2026-10-29",
+    "_employee": "EMP-018",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-018|2026-10-30",
+    "_employee": "EMP-018",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-MARKETING|2026-10-19",
+    "_employee": "EMP-HEAD-MARKETING",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-MARKETING|2026-10-20",
+    "_employee": "EMP-HEAD-MARKETING",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-MARKETING|2026-10-21",
+    "_employee": "EMP-HEAD-MARKETING",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-MARKETING|2026-10-22",
+    "_employee": "EMP-HEAD-MARKETING",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-MARKETING|2026-10-23",
+    "_employee": "EMP-HEAD-MARKETING",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-MARKETING|2026-10-26",
+    "_employee": "EMP-HEAD-MARKETING",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-MARKETING|2026-10-27",
+    "_employee": "EMP-HEAD-MARKETING",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-MARKETING|2026-10-28",
+    "_employee": "EMP-HEAD-MARKETING",
+    "attendance_date": "2026-10-28",
+    "status": "Half Day",
+    "docstatus": 1,
+    "leave_type": "Casual Leave"
+  },
+  {
+    "_key": "EMP-HEAD-MARKETING|2026-10-29",
+    "_employee": "EMP-HEAD-MARKETING",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-MARKETING|2026-10-30",
+    "_employee": "EMP-HEAD-MARKETING",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-019|2026-10-19",
+    "_employee": "EMP-019",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-019|2026-10-20",
+    "_employee": "EMP-019",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-019|2026-10-21",
+    "_employee": "EMP-019",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-019|2026-10-22",
+    "_employee": "EMP-019",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-019|2026-10-23",
+    "_employee": "EMP-019",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-019|2026-10-26",
+    "_employee": "EMP-019",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-019|2026-10-27",
+    "_employee": "EMP-019",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-019|2026-10-28",
+    "_employee": "EMP-019",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-019|2026-10-29",
+    "_employee": "EMP-019",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-019|2026-10-30",
+    "_employee": "EMP-019",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-020|2026-10-19",
+    "_employee": "EMP-020",
+    "attendance_date": "2026-10-19",
+    "status": "Half Day",
+    "docstatus": 1,
+    "leave_type": "Casual Leave"
+  },
+  {
+    "_key": "EMP-020|2026-10-20",
+    "_employee": "EMP-020",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-020|2026-10-21",
+    "_employee": "EMP-020",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-020|2026-10-22",
+    "_employee": "EMP-020",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-020|2026-10-23",
+    "_employee": "EMP-020",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-020|2026-10-26",
+    "_employee": "EMP-020",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-020|2026-10-27",
+    "_employee": "EMP-020",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-020|2026-10-28",
+    "_employee": "EMP-020",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-020|2026-10-29",
+    "_employee": "EMP-020",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-020|2026-10-30",
+    "_employee": "EMP-020",
+    "attendance_date": "2026-10-30",
+    "status": "Absent",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-021|2026-10-19",
+    "_employee": "EMP-021",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-021|2026-10-20",
+    "_employee": "EMP-021",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-021|2026-10-21",
+    "_employee": "EMP-021",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-021|2026-10-22",
+    "_employee": "EMP-021",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-021|2026-10-23",
+    "_employee": "EMP-021",
+    "attendance_date": "2026-10-23",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-021|2026-10-26",
+    "_employee": "EMP-021",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-021|2026-10-27",
+    "_employee": "EMP-021",
+    "attendance_date": "2026-10-27",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-021|2026-10-28",
+    "_employee": "EMP-021",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-021|2026-10-29",
+    "_employee": "EMP-021",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-021|2026-10-30",
+    "_employee": "EMP-021",
+    "attendance_date": "2026-10-30",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-ACCOUNTS|2026-10-19",
+    "_employee": "EMP-HEAD-ACCOUNTS",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-ACCOUNTS|2026-10-20",
+    "_employee": "EMP-HEAD-ACCOUNTS",
+    "attendance_date": "2026-10-20",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-ACCOUNTS|2026-10-21",
+    "_employee": "EMP-HEAD-ACCOUNTS",
+    "attendance_date": "2026-10-21",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-ACCOUNTS|2026-10-22",
+    "_employee": "EMP-HEAD-ACCOUNTS",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-ACCOUNTS|2026-10-23",
+    "_employee": "EMP-HEAD-ACCOUNTS",
+    "attendance_date": "2026-10-23",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-ACCOUNTS|2026-10-26",
+    "_employee": "EMP-HEAD-ACCOUNTS",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-ACCOUNTS|2026-10-27",
+    "_employee": "EMP-HEAD-ACCOUNTS",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-ACCOUNTS|2026-10-28",
+    "_employee": "EMP-HEAD-ACCOUNTS",
+    "attendance_date": "2026-10-28",
+    "status": "Half Day",
+    "docstatus": 1,
+    "leave_type": "Casual Leave"
+  },
+  {
+    "_key": "EMP-HEAD-ACCOUNTS|2026-10-29",
+    "_employee": "EMP-HEAD-ACCOUNTS",
+    "attendance_date": "2026-10-29",
+    "status": "Absent",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-ACCOUNTS|2026-10-30",
+    "_employee": "EMP-HEAD-ACCOUNTS",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-022|2026-10-19",
+    "_employee": "EMP-022",
+    "attendance_date": "2026-10-19",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-022|2026-10-20",
+    "_employee": "EMP-022",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-022|2026-10-21",
+    "_employee": "EMP-022",
+    "attendance_date": "2026-10-21",
+    "status": "Half Day",
+    "docstatus": 1,
+    "leave_type": "Casual Leave"
+  },
+  {
+    "_key": "EMP-022|2026-10-22",
+    "_employee": "EMP-022",
+    "attendance_date": "2026-10-22",
+    "status": "Half Day",
+    "docstatus": 1,
+    "leave_type": "Casual Leave"
+  },
+  {
+    "_key": "EMP-022|2026-10-23",
+    "_employee": "EMP-022",
+    "attendance_date": "2026-10-23",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-022|2026-10-26",
+    "_employee": "EMP-022",
+    "attendance_date": "2026-10-26",
+    "status": "Absent",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-022|2026-10-27",
+    "_employee": "EMP-022",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-022|2026-10-28",
+    "_employee": "EMP-022",
+    "attendance_date": "2026-10-28",
+    "status": "Absent",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-022|2026-10-29",
+    "_employee": "EMP-022",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-022|2026-10-30",
+    "_employee": "EMP-022",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-023|2026-10-19",
+    "_employee": "EMP-023",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-023|2026-10-20",
+    "_employee": "EMP-023",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-023|2026-10-21",
+    "_employee": "EMP-023",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-023|2026-10-22",
+    "_employee": "EMP-023",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-023|2026-10-23",
+    "_employee": "EMP-023",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-023|2026-10-26",
+    "_employee": "EMP-023",
+    "attendance_date": "2026-10-26",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-023|2026-10-27",
+    "_employee": "EMP-023",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-023|2026-10-28",
+    "_employee": "EMP-023",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-023|2026-10-29",
+    "_employee": "EMP-023",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-023|2026-10-30",
+    "_employee": "EMP-023",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-024|2026-10-19",
+    "_employee": "EMP-024",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-024|2026-10-20",
+    "_employee": "EMP-024",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-024|2026-10-21",
+    "_employee": "EMP-024",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-024|2026-10-22",
+    "_employee": "EMP-024",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-024|2026-10-23",
+    "_employee": "EMP-024",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-024|2026-10-26",
+    "_employee": "EMP-024",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-024|2026-10-27",
+    "_employee": "EMP-024",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-024|2026-10-28",
+    "_employee": "EMP-024",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-024|2026-10-29",
+    "_employee": "EMP-024",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-024|2026-10-30",
+    "_employee": "EMP-024",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-CUSTOMER|2026-10-19",
+    "_employee": "EMP-HEAD-CUSTOMER",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-CUSTOMER|2026-10-20",
+    "_employee": "EMP-HEAD-CUSTOMER",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-CUSTOMER|2026-10-21",
+    "_employee": "EMP-HEAD-CUSTOMER",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-CUSTOMER|2026-10-22",
+    "_employee": "EMP-HEAD-CUSTOMER",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-CUSTOMER|2026-10-23",
+    "_employee": "EMP-HEAD-CUSTOMER",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-CUSTOMER|2026-10-26",
+    "_employee": "EMP-HEAD-CUSTOMER",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-CUSTOMER|2026-10-27",
+    "_employee": "EMP-HEAD-CUSTOMER",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-CUSTOMER|2026-10-28",
+    "_employee": "EMP-HEAD-CUSTOMER",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-CUSTOMER|2026-10-29",
+    "_employee": "EMP-HEAD-CUSTOMER",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-CUSTOMER|2026-10-30",
+    "_employee": "EMP-HEAD-CUSTOMER",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-025|2026-10-19",
+    "_employee": "EMP-025",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-025|2026-10-20",
+    "_employee": "EMP-025",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-025|2026-10-21",
+    "_employee": "EMP-025",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-025|2026-10-22",
+    "_employee": "EMP-025",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-025|2026-10-23",
+    "_employee": "EMP-025",
+    "attendance_date": "2026-10-23",
+    "status": "Half Day",
+    "docstatus": 1,
+    "leave_type": "Casual Leave"
+  },
+  {
+    "_key": "EMP-025|2026-10-26",
+    "_employee": "EMP-025",
+    "attendance_date": "2026-10-26",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-025|2026-10-27",
+    "_employee": "EMP-025",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-025|2026-10-28",
+    "_employee": "EMP-025",
+    "attendance_date": "2026-10-28",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-025|2026-10-29",
+    "_employee": "EMP-025",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-025|2026-10-30",
+    "_employee": "EMP-025",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-026|2026-10-19",
+    "_employee": "EMP-026",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-026|2026-10-20",
+    "_employee": "EMP-026",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-026|2026-10-21",
+    "_employee": "EMP-026",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-026|2026-10-22",
+    "_employee": "EMP-026",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-026|2026-10-23",
+    "_employee": "EMP-026",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-026|2026-10-26",
+    "_employee": "EMP-026",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-026|2026-10-27",
+    "_employee": "EMP-026",
+    "attendance_date": "2026-10-27",
+    "status": "Absent",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-026|2026-10-28",
+    "_employee": "EMP-026",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-026|2026-10-29",
+    "_employee": "EMP-026",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-026|2026-10-30",
+    "_employee": "EMP-026",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-027|2026-10-19",
+    "_employee": "EMP-027",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-027|2026-10-20",
+    "_employee": "EMP-027",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-027|2026-10-21",
+    "_employee": "EMP-027",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-027|2026-10-22",
+    "_employee": "EMP-027",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-027|2026-10-23",
+    "_employee": "EMP-027",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-027|2026-10-26",
+    "_employee": "EMP-027",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-027|2026-10-27",
+    "_employee": "EMP-027",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-027|2026-10-28",
+    "_employee": "EMP-027",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-027|2026-10-29",
+    "_employee": "EMP-027",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-027|2026-10-30",
+    "_employee": "EMP-027",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-028|2026-10-19",
+    "_employee": "EMP-028",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-028|2026-10-20",
+    "_employee": "EMP-028",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-028|2026-10-21",
+    "_employee": "EMP-028",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-028|2026-10-22",
+    "_employee": "EMP-028",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-028|2026-10-23",
+    "_employee": "EMP-028",
+    "attendance_date": "2026-10-23",
+    "status": "Absent",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-028|2026-10-26",
+    "_employee": "EMP-028",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-028|2026-10-27",
+    "_employee": "EMP-028",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-028|2026-10-28",
+    "_employee": "EMP-028",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-028|2026-10-29",
+    "_employee": "EMP-028",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-028|2026-10-30",
+    "_employee": "EMP-028",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-OPERATIONS|2026-10-19",
+    "_employee": "EMP-HEAD-OPERATIONS",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-OPERATIONS|2026-10-20",
+    "_employee": "EMP-HEAD-OPERATIONS",
+    "attendance_date": "2026-10-20",
+    "status": "Half Day",
+    "docstatus": 1,
+    "leave_type": "Casual Leave"
+  },
+  {
+    "_key": "EMP-HEAD-OPERATIONS|2026-10-21",
+    "_employee": "EMP-HEAD-OPERATIONS",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-OPERATIONS|2026-10-22",
+    "_employee": "EMP-HEAD-OPERATIONS",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-OPERATIONS|2026-10-23",
+    "_employee": "EMP-HEAD-OPERATIONS",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-OPERATIONS|2026-10-26",
+    "_employee": "EMP-HEAD-OPERATIONS",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-OPERATIONS|2026-10-27",
+    "_employee": "EMP-HEAD-OPERATIONS",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-OPERATIONS|2026-10-28",
+    "_employee": "EMP-HEAD-OPERATIONS",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-OPERATIONS|2026-10-29",
+    "_employee": "EMP-HEAD-OPERATIONS",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-OPERATIONS|2026-10-30",
+    "_employee": "EMP-HEAD-OPERATIONS",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-029|2026-10-19",
+    "_employee": "EMP-029",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-029|2026-10-20",
+    "_employee": "EMP-029",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-029|2026-10-21",
+    "_employee": "EMP-029",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-029|2026-10-22",
+    "_employee": "EMP-029",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-029|2026-10-23",
+    "_employee": "EMP-029",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-029|2026-10-26",
+    "_employee": "EMP-029",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-029|2026-10-27",
+    "_employee": "EMP-029",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-029|2026-10-28",
+    "_employee": "EMP-029",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-029|2026-10-29",
+    "_employee": "EMP-029",
+    "attendance_date": "2026-10-29",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-029|2026-10-30",
+    "_employee": "EMP-029",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-030|2026-10-19",
+    "_employee": "EMP-030",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-030|2026-10-20",
+    "_employee": "EMP-030",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-030|2026-10-21",
+    "_employee": "EMP-030",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-030|2026-10-22",
+    "_employee": "EMP-030",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-030|2026-10-23",
+    "_employee": "EMP-030",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-030|2026-10-26",
+    "_employee": "EMP-030",
+    "attendance_date": "2026-10-26",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-030|2026-10-27",
+    "_employee": "EMP-030",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-030|2026-10-28",
+    "_employee": "EMP-030",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-030|2026-10-29",
+    "_employee": "EMP-030",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-030|2026-10-30",
+    "_employee": "EMP-030",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-031|2026-10-19",
+    "_employee": "EMP-031",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-031|2026-10-20",
+    "_employee": "EMP-031",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-031|2026-10-21",
+    "_employee": "EMP-031",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-031|2026-10-22",
+    "_employee": "EMP-031",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-031|2026-10-23",
+    "_employee": "EMP-031",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-031|2026-10-26",
+    "_employee": "EMP-031",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-031|2026-10-27",
+    "_employee": "EMP-031",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-031|2026-10-28",
+    "_employee": "EMP-031",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-031|2026-10-29",
+    "_employee": "EMP-031",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-031|2026-10-30",
+    "_employee": "EMP-031",
+    "attendance_date": "2026-10-30",
+    "status": "Work From Home",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-LEGAL|2026-10-19",
+    "_employee": "EMP-HEAD-LEGAL",
+    "attendance_date": "2026-10-19",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-LEGAL|2026-10-20",
+    "_employee": "EMP-HEAD-LEGAL",
+    "attendance_date": "2026-10-20",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-LEGAL|2026-10-21",
+    "_employee": "EMP-HEAD-LEGAL",
+    "attendance_date": "2026-10-21",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-LEGAL|2026-10-22",
+    "_employee": "EMP-HEAD-LEGAL",
+    "attendance_date": "2026-10-22",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-LEGAL|2026-10-23",
+    "_employee": "EMP-HEAD-LEGAL",
+    "attendance_date": "2026-10-23",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-LEGAL|2026-10-26",
+    "_employee": "EMP-HEAD-LEGAL",
+    "attendance_date": "2026-10-26",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-LEGAL|2026-10-27",
+    "_employee": "EMP-HEAD-LEGAL",
+    "attendance_date": "2026-10-27",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-LEGAL|2026-10-28",
+    "_employee": "EMP-HEAD-LEGAL",
+    "attendance_date": "2026-10-28",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-LEGAL|2026-10-29",
+    "_employee": "EMP-HEAD-LEGAL",
+    "attendance_date": "2026-10-29",
+    "status": "Present",
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-LEGAL|2026-10-30",
+    "_employee": "EMP-HEAD-LEGAL",
+    "attendance_date": "2026-10-30",
+    "status": "Present",
+    "docstatus": 1
+  }
+]

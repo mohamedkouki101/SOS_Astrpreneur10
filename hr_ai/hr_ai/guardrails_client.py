@@ -1,6 +1,6 @@
-"""Bridge between RH Flow and the guardrails service (`guardrails/`, FastAPI, port 8100).
+"""Bridge between HR Flow and the guardrails service (`guardrails/`, FastAPI, port 8100).
 
-RH Flow keeps its own AI Action queue, decision page and Execution Gateway. It asks the
+HR Flow keeps its own AI Action queue, decision page and Execution Gateway. It asks the
 guardrails at the two moments that matter (guardrails/INTEGRATION.md, option A):
 
   proposal arrives  (api.propose_action, before the record is stored)  -> blocked = never queued

@@ -1,0 +1,22 @@
+{
+  "seed": 2026,
+  "reference_date": "2026-10-30",
+  "counts": {
+    "01_branches.json": 4,
+    "02_holiday_lists.json": 1,
+    "02b_holiday_list_assignments.json": 1,
+    "03_skills.json": 35,
+    "04_interview_types.json": 3,
+    "05_employees.json": 40,
+    "06_leave_allocations.json": 114,
+    "07_leave_applications.json": 26,
+    "08_attendance.json": 390,
+    "09_job_openings.json": 6,
+    "10_job_applicants.json": 93,
+    "11_interviews.json": 10,
+    "cvs": 93,
+    "emails": 19,
+    "policies": 5
+  },
+  "notice": "All people, companies, emails and documents are fictional."
+}

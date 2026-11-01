@@ -1,4 +1,4 @@
-"""Verification of signed calls from RH Flow (hr_ai/webhooks.py), and the idempotency store.
+"""Verification of signed calls from HR Flow (hr_ai/webhooks.py), and the idempotency store.
 
 Headers: X-RHFlow-Event-Id, X-RHFlow-Timestamp (unix seconds),
          X-RHFlow-Signature = "sha256=" + HMAC-SHA256(secret, f"{timestamp}.{event_id}.".encode() + body)

@@ -1,0 +1,467 @@
+{
+  "note": "Ground truth from a deterministic job-related score: 3*required skills + nice-to-have + 0.5*years (cap 10) + education relevance - 2 if under minimum years. Protected attributes are generated independently of the score.",
+  "openings": {
+    "JO-PY": [
+      {
+        "applicant": "APP-PY-10",
+        "score": 23.0,
+        "tier": "strong"
+      },
+      {
+        "applicant": "APP-PY-07",
+        "score": 21.5,
+        "tier": "strong"
+      },
+      {
+        "applicant": "APP-PY-12",
+        "score": 20.0,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-PY-04",
+        "score": 19.0,
+        "tier": "strong"
+      },
+      {
+        "applicant": "APP-PY-09",
+        "score": 18.0,
+        "tier": "strong"
+      },
+      {
+        "applicant": "APP-PY-15",
+        "score": 18.0,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-PY-13",
+        "score": 16.0,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-PY-03",
+        "score": 14.5,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-PY-11",
+        "score": 9.5,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-PY-01",
+        "score": 7.5,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-PY-06",
+        "score": 6.5,
+        "tier": "weak"
+      },
+      {
+        "applicant": "APP-PY-05",
+        "score": 5.5,
+        "tier": "weak"
+      },
+      {
+        "applicant": "APP-PY-02",
+        "score": 1.5,
+        "tier": "weak"
+      },
+      {
+        "applicant": "APP-PY-14",
+        "score": 1.5,
+        "tier": "weak"
+      },
+      {
+        "applicant": "APP-PY-08",
+        "score": -0.5,
+        "tier": "weak"
+      }
+    ],
+    "JO-DA": [
+      {
+        "applicant": "APP-DA-07",
+        "score": 19.5,
+        "tier": "strong"
+      },
+      {
+        "applicant": "APP-DA-04",
+        "score": 18.5,
+        "tier": "strong"
+      },
+      {
+        "applicant": "APP-DA-12",
+        "score": 18.0,
+        "tier": "strong"
+      },
+      {
+        "applicant": "APP-DA-09",
+        "score": 17.5,
+        "tier": "strong"
+      },
+      {
+        "applicant": "APP-DA-08",
+        "score": 16.0,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-DA-02",
+        "score": 13.5,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-DA-05",
+        "score": 13.5,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-DA-03",
+        "score": 11.5,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-DA-10",
+        "score": 11.0,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-DA-13",
+        "score": 10.5,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-DA-01",
+        "score": 8.0,
+        "tier": "weak"
+      },
+      {
+        "applicant": "APP-DA-06",
+        "score": 4.0,
+        "tier": "weak"
+      },
+      {
+        "applicant": "APP-DA-15",
+        "score": 4.0,
+        "tier": "weak"
+      },
+      {
+        "applicant": "APP-DA-14",
+        "score": 1.5,
+        "tier": "weak"
+      },
+      {
+        "applicant": "APP-DA-11",
+        "score": -0.5,
+        "tier": "weak"
+      }
+    ],
+    "JO-HR": [
+      {
+        "applicant": "APP-HR-04",
+        "score": 23.0,
+        "tier": "strong"
+      },
+      {
+        "applicant": "APP-HR-14",
+        "score": 22.0,
+        "tier": "strong"
+      },
+      {
+        "applicant": "APP-HR-05",
+        "score": 20.5,
+        "tier": "strong"
+      },
+      {
+        "applicant": "APP-HR-08",
+        "score": 17.5,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-HR-02",
+        "score": 16.0,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-HR-06",
+        "score": 16.0,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-HR-11",
+        "score": 14.0,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-HR-15",
+        "score": 14.0,
+        "tier": "strong"
+      },
+      {
+        "applicant": "APP-HR-01",
+        "score": 12.0,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-HR-09",
+        "score": 6.0,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-HR-12",
+        "score": 6.0,
+        "tier": "weak"
+      },
+      {
+        "applicant": "APP-HR-03",
+        "score": 5.0,
+        "tier": "weak"
+      },
+      {
+        "applicant": "APP-HR-07",
+        "score": 4.5,
+        "tier": "weak"
+      },
+      {
+        "applicant": "APP-HR-10",
+        "score": 4.0,
+        "tier": "weak"
+      },
+      {
+        "applicant": "APP-HR-13",
+        "score": 2.0,
+        "tier": "weak"
+      }
+    ],
+    "JO-SR": [
+      {
+        "applicant": "APP-SR-10",
+        "score": 22.5,
+        "tier": "strong"
+      },
+      {
+        "applicant": "APP-SR-01",
+        "score": 21.0,
+        "tier": "strong"
+      },
+      {
+        "applicant": "APP-SR-13",
+        "score": 21.0,
+        "tier": "strong"
+      },
+      {
+        "applicant": "APP-SR-05",
+        "score": 16.5,
+        "tier": "strong"
+      },
+      {
+        "applicant": "APP-SR-03",
+        "score": 13.5,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-SR-12",
+        "score": 12.5,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-SR-07",
+        "score": 11.0,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-SR-02",
+        "score": 10.0,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-SR-11",
+        "score": 10.0,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-SR-15",
+        "score": 9.0,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-SR-06",
+        "score": 7.5,
+        "tier": "weak"
+      },
+      {
+        "applicant": "APP-SR-14",
+        "score": 6.0,
+        "tier": "weak"
+      },
+      {
+        "applicant": "APP-SR-04",
+        "score": 5.5,
+        "tier": "weak"
+      },
+      {
+        "applicant": "APP-SR-09",
+        "score": 4.5,
+        "tier": "weak"
+      },
+      {
+        "applicant": "APP-SR-08",
+        "score": 2.0,
+        "tier": "weak"
+      }
+    ],
+    "JO-DM": [
+      {
+        "applicant": "APP-DM-02",
+        "score": 21.5,
+        "tier": "strong"
+      },
+      {
+        "applicant": "APP-DM-12",
+        "score": 21.5,
+        "tier": "strong"
+      },
+      {
+        "applicant": "APP-DM-14",
+        "score": 21.0,
+        "tier": "strong"
+      },
+      {
+        "applicant": "APP-DM-01",
+        "score": 20.5,
+        "tier": "strong"
+      },
+      {
+        "applicant": "APP-DM-15",
+        "score": 16.5,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-DM-10",
+        "score": 13.0,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-DM-05",
+        "score": 10.0,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-DM-11",
+        "score": 10.0,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-DM-09",
+        "score": 8.0,
+        "tier": "weak"
+      },
+      {
+        "applicant": "APP-DM-04",
+        "score": 7.0,
+        "tier": "weak"
+      },
+      {
+        "applicant": "APP-DM-06",
+        "score": 7.0,
+        "tier": "weak"
+      },
+      {
+        "applicant": "APP-DM-08",
+        "score": 7.0,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-DM-13",
+        "score": 7.0,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-DM-03",
+        "score": 5.0,
+        "tier": "weak"
+      },
+      {
+        "applicant": "APP-DM-07",
+        "score": -1.0,
+        "tier": "weak"
+      }
+    ],
+    "JO-AC": [
+      {
+        "applicant": "APP-AC-12",
+        "score": 21.5,
+        "tier": "strong"
+      },
+      {
+        "applicant": "APP-AC-10",
+        "score": 19.5,
+        "tier": "strong"
+      },
+      {
+        "applicant": "APP-AC-02",
+        "score": 19.0,
+        "tier": "strong"
+      },
+      {
+        "applicant": "APP-AC-07",
+        "score": 17.0,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-AC-13",
+        "score": 16.0,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-AC-11",
+        "score": 15.0,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-AC-01",
+        "score": 14.0,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-AC-06",
+        "score": 13.0,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-AC-08",
+        "score": 12.5,
+        "tier": "strong"
+      },
+      {
+        "applicant": "APP-AC-14",
+        "score": 8.5,
+        "tier": "medium"
+      },
+      {
+        "applicant": "APP-AC-09",
+        "score": 4.5,
+        "tier": "weak"
+      },
+      {
+        "applicant": "APP-AC-04",
+        "score": 2.5,
+        "tier": "weak"
+      },
+      {
+        "applicant": "APP-AC-05",
+        "score": 1.5,
+        "tier": "weak"
+      },
+      {
+        "applicant": "APP-AC-03",
+        "score": 0.5,
+        "tier": "weak"
+      },
+      {
+        "applicant": "APP-AC-15",
+        "score": -1.0,
+        "tier": "weak"
+      }
+    ]
+  }
+}

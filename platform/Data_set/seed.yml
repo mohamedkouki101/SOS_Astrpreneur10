@@ -1,0 +1,20 @@
+# Compose overlay: adds a one-shot "seed" service to the hr stack.
+# Usage (from the repo root):
+#   docker compose -p hr -f hr.yml -f Data_set/seed.yml run --rm --build seed
+services:
+  seed:
+    build:
+      context: ./Data_set
+    profiles: ["seed"]
+    environment:
+      SITE_URL: http://frontend:8080
+      SITE_NAME: frontend
+      ADMIN_USER: Administrator
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?Set ADMIN_PASSWORD in .env or the shell}
+      COMPANY: ${SEED_COMPANY:-Bara3am}
+      SKIP: ${SEED_SKIP:-}
+      APP_NAME: ${APP_NAME:-HR Flow}
+    networks:
+      - frappe_network
+    depends_on:
+      - frontend

@@ -24,7 +24,7 @@ with smtplib.SMTP("localhost", 1025, timeout=15) as smtp:
     smtp.send_message(msg)
 r.info(f"sent '{subject}' from {SENDER}")
 
-r.step("2. RH Flow pulls the inbox through the input security layer (Sync inbox & CVs)")
+r.step("2. HR Flow pulls the inbox through the input security layer (Sync inbox & CVs)")
 res = adm.method("hr_ai.ingest.security_sync")
 r.check(res.status_code == 200, "security_sync accepted", str(res.json().get("message", {}).get("inbox")))
 rows = r.wait(lambda: adm.list("Inbound Email", ["name", "verdict", "released_to_ai", "subject", "agent_event"],

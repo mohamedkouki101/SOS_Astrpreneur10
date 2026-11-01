@@ -1,4 +1,4 @@
-"""Read-only REST client for RH Flow.
+"""Read-only REST client for HR Flow.
 
 Each agent uses its own API user (least-privilege, read-only role). This class exposes GET
 requests only; there is deliberately no method that creates, updates or deletes records.
@@ -29,7 +29,7 @@ class PlatformClient:
         creds = settings.credentials(agent)
         if not creds:
             raise MissingCredentials(
-                f"No RH Flow API credentials for agent '{agent}'. "
+                f"No HR Flow API credentials for agent '{agent}'. "
                 f"Run agents/scripts/setup_agent_users.py or set RHFLOW_{agent.upper()}_API_KEY/_API_SECRET."
             )
         self.agent = agent

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="HR AI">
+  <!-- HR AI (decision page): a proposal card, approved by a human. HR Flow palette. -->
+  <defs><clipPath id="t"><rect width="64" height="64" rx="16"/></clipPath></defs>
+  <g clip-path="url(#t)">
+    <rect width="64" height="64" fill="#FFFDF8"/>
+    <path d="M38 0h11L21 64H10z" fill="#76A9FF" fill-opacity=".22"/>
+    <path d="M53 0h11v5L37 64H27z" fill="#76A9FF" fill-opacity=".38"/>
+  </g>
+  <rect x=".75" y=".75" width="62.5" height="62.5" rx="15.25" fill="none" stroke="#14264D" stroke-opacity=".12" stroke-width="1.5"/>
+  <rect x="13" y="14" width="29" height="36" rx="7" fill="#073B9B"/>
+  <rect x="19" y="22" width="17" height="3.5" rx="1.75" fill="#F8F0DF"/>
+  <rect x="19" y="29" width="13" height="3.5" rx="1.75" fill="#F8F0DF" fill-opacity=".75"/>
+  <rect x="19" y="36" width="9" height="3.5" rx="1.75" fill="#F8F0DF" fill-opacity=".5"/>
+  <circle cx="43" cy="44" r="11" fill="#1455E8" stroke="#FFFDF8" stroke-width="3"/>
+  <path d="M38 44.2l3.4 3.4 6.6-7" fill="none" stroke="#FFFDF8" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M48 9l1.6 4.4 4.4 1.6-4.4 1.6L48 21l-1.6-4.4L42 15l4.4-1.6z" fill="#1455E8"/>
+</svg>

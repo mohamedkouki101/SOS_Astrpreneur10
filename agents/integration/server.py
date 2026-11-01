@@ -1,6 +1,6 @@
-"""Agent service HTTP receiver for signed calls from RH Flow (hr_ai/webhooks.py). FastAPI.
+"""Agent service HTTP receiver for signed calls from HR Flow (hr_ai/webhooks.py). FastAPI.
 
-    POST /chat    RH Chat message (synchronous: RH Flow's background job waits for the reply)
+    POST /chat    RH Chat message (synchronous: HR Flow's background job waits for the reply)
     POST /events  doc events, e.g. inbound_email.received (queued, 202 returned at once)
     GET  /health
 
@@ -35,7 +35,7 @@ log = logging.getLogger("rhflow.agents.server")
 def create_app(*, secret: str, window: int, store: EventStore, chat_handler: Callable[[dict], dict],
                event_handler: Callable[[dict], dict], run_worker: bool = True, retries: int = 3,
                retry_delay: float = 30.0) -> FastAPI:
-    app = FastAPI(title="RH Flow agent service", docs_url=None, redoc_url=None, openapi_url=None)
+    app = FastAPI(title="HR Flow agent service", docs_url=None, redoc_url=None, openapi_url=None)
     llm_lock = threading.Lock()          # one model run at a time (single local GPU / Ollama)
     jobs: queue.Queue[dict] = queue.Queue()
 
@@ -69,7 +69,7 @@ def create_app(*, secret: str, window: int, store: EventStore, chat_handler: Cal
                 run(event, event_handler)
             except Exception:
                 log.exception("event %s failed (attempt %d)", event.get("event_id"), attempt)
-                if attempt < retries:   # e.g. the model or RH Flow was briefly down
+                if attempt < retries:   # e.g. the model or HR Flow was briefly down
                     store.claim(event["event_id"], str(event.get("type", ""))[:60])
                     threading.Timer(retry_delay * attempt, jobs.put, args=({**event, "_attempt": attempt + 1},)).start()
             finally:

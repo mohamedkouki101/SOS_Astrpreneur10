@@ -1,7 +1,7 @@
 [project]
 name = "hr_ai"
 authors = [{ name = "SOS_Astrpreneur1 team" }]
-description = "RH Flow AI: AI Action approval queue and guardrails"
+description = "HR Flow AI: AI Action approval queue and guardrails"
 requires-python = ">=3.10"
 readme = "README.md"
 dynamic = ["version"]

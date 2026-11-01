@@ -5,7 +5,7 @@ Agents send *proposed actions*; this service decides, asks a human, and is the
 only component allowed to write to Frappe.
 
 > Team decision (2026-10-31): implemented as a standalone service instead of
-> inside the `hr_ai` Frappe app (CLAUDE.md §9), for faster iteration.
+> inside the `hr_ai` Frappe app (design rules), for faster iteration.
 
 **Integrating another layer (agents / `hr_ai`, ingest service, HR interface)?** See [INTEGRATION.md](INTEGRATION.md).
 
@@ -131,7 +131,7 @@ Rules live in `config/monitor.json`.
 - Alerts are stored in `monitor_alerts`, deduplicated, and written to the audit
   log as `monitor.alert`. HR acknowledges them (`acknowledge()`, also audited).
 - Notifiers are pluggable (`ConsoleNotifier` for now). A failing notifier never
-  stops monitoring. Alert channel still to decide (open question in CLAUDE.md).
+  stops monitoring. Alert channel still to decide (open question in the design notes).
 - The input pipeline reports quarantined documents with `report_input_flag()`.
 
 ## HTTP API
@@ -196,18 +196,18 @@ Frappe setup needed: an API key for the gateway user (write), one Frappe user pe
 `AI Agent` role (read-only), an ingest user, and HR users with the `HR Manager` role. List the
 agent and ingest accounts in `config/api.json`.
 
-## Running next to RH Flow (container)
+## Running next to HR Flow (container)
 ```bash
-# once, from ~/frappe_docker: creates the two service accounts, stores the check key in the
+# once, from the repo root: creates the two service accounts, stores the check key in the
 # site config and prints the reader key for guardrails/.env (with GUARDRAILS_APPROVAL_KEY)
-docker compose -p hr -f hr.yml exec backend bench --site frontend execute hr_ai.setup.setup_guardrails_accounts
+docker compose -p hr -f platform/hr.yml exec backend bench --site frontend execute hr_ai.setup.setup_guardrails_accounts
 # from the repo root
 docker compose -f guardrails/compose.guardrails.yml up -d --build
 curl http://localhost:8100/health
 ```
-- `guardrails.check@rhflow.local` (HR Manager + "RH Flow Guardrails Caller"): RH Flow calls
+- `guardrails.check@rhflow.local` (HR Manager + "RH Flow Guardrails Caller"): HR Flow calls
   `/agent-actions/check` with it. The Caller role only lets it read the roles on its own user record.
 - `guardrails.reader@rhflow.local` ("RH Flow Guardrails Reader"): read-only lookups of applicants,
-  employees and inbox senders. The guardrails hold no write credentials; RH Flow's Execution
+  employees and inbox senders. The guardrails hold no write credentials; HR Flow's Execution
   Gateway stays the only writer.
 - Stopping the container makes every new proposal and every execution fail (fail closed).

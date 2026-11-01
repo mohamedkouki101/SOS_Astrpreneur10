@@ -3,7 +3,7 @@
 A proposal is validated (Output Validator) and stored as an AI Action with status "Proposed".
 Nothing is executed here. Every proposal is kept in var/outbox/proposals.jsonl; with
 RHFLOW_PROPOSE_ENABLED=1 it is also POSTed to hr_ai.api.propose_action, which re-checks it and
-stores it as an "AI Action" (status Proposed) in RH Flow for HR to approve or reject.
+stores it as an "AI Action" (status Proposed) in HR Flow for HR to approve or reject.
 """
 
 from __future__ import annotations
@@ -53,7 +53,7 @@ def propose_action(kind: str, subject: str, payload: dict, source_hashes: list[s
         except (httpx.HTTPError, RuntimeError) as exc:
             audit.log("proposal_submit_failed", agent=ctx.agent, run_id=ctx.run_id, action_id=action["id"],
                       error=str(exc)[:300])
-            return {"status": "ERROR", "reason": "RH Flow refused or could not store the proposal"}
+            return {"status": "ERROR", "reason": "HR Flow refused or could not store the proposal"}
     with _outbox_path().open("a", encoding="utf-8") as f:
         f.write(json.dumps(action, ensure_ascii=False) + "\n")
     ctx.proposals.append(action)
@@ -65,7 +65,7 @@ def propose_action(kind: str, subject: str, payload: dict, source_hashes: list[s
 
 
 def _token_values(action: dict) -> dict:
-    """Real values for the pseudonyms used in this proposal. Sent only to RH Flow (the system of
+    """Real values for the pseudonyms used in this proposal. Sent only to HR Flow (the system of
     record, permlevel-1 field) so the Execution Gateway can de-tokenise; never shown to the model."""
     text = action["subject"] + json.dumps(action["payload"], ensure_ascii=False)
     store = pipeline.token_store()
@@ -77,7 +77,7 @@ def _submit(agent: str, action: dict) -> str:
     s = get_settings()
     creds = s.credentials(agent)
     if not creds:
-        raise RuntimeError(f"no RH Flow API credentials for agent '{agent}'")
+        raise RuntimeError(f"no HR Flow API credentials for agent '{agent}'")
     resp = httpx.post(f"{s.rhflow_url}/api/method/hr_ai.api.propose_action",
                       headers={"Authorization": f"token {creds[0]}:{creds[1]}"},
                       json={"action": {**action, "token_values": _token_values(action)}}, timeout=30)

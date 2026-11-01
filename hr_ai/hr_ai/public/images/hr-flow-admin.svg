@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="HR Flow Admin">
+  <!-- HR Flow Admin (Framework): settings sliders. HR Flow palette. -->
+  <defs><clipPath id="t"><rect width="64" height="64" rx="16"/></clipPath></defs>
+  <g clip-path="url(#t)">
+    <rect width="64" height="64" fill="#FFFDF8"/>
+    <path d="M38 0h11L21 64H10z" fill="#76A9FF" fill-opacity=".22"/>
+    <path d="M53 0h11v5L37 64H27z" fill="#76A9FF" fill-opacity=".38"/>
+  </g>
+  <rect x=".75" y=".75" width="62.5" height="62.5" rx="15.25" fill="none" stroke="#14264D" stroke-opacity=".12" stroke-width="1.5"/>
+  <g stroke-linecap="round" stroke-width="4.5" fill="none">
+    <path d="M14 21h36M14 32h36M14 43h36" stroke="#073B9B" stroke-opacity=".28"/>
+    <path d="M14 21h12M14 32h24M14 43h8" stroke="#073B9B"/>
+  </g>
+  <circle cx="29" cy="21" r="5.5" fill="#FFFDF8" stroke="#073B9B" stroke-width="4"/>
+  <circle cx="41" cy="32" r="5.5" fill="#FFFDF8" stroke="#1455E8" stroke-width="4"/>
+  <circle cx="25" cy="43" r="5.5" fill="#FFFDF8" stroke="#073B9B" stroke-width="4"/>
+</svg>

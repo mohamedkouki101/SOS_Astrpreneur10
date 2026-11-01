@@ -2,12 +2,12 @@
 
 1. Lines stating protected attributes (age, date of birth, gender, nationality, marital status,
    religion, photo) are removed entirely: they must never influence scoring.
-2. Known identifiers of the subject (from the RH Flow record: name, email, phone) are replaced
+2. Known identifiers of the subject (from the HR Flow record: name, email, phone) are replaced
    with stable tokens such as [PERSON_1].
 3. Presidio finds remaining names, emails and phone numbers (+ a Tunisian phone pattern).
 
 The token -> original map is kept per run in the TokenStore. Where it is persisted long-term and
-who may de-tokenize is an open question in CLAUDE.md; for now it is stored under var/ (gitignored).
+who may de-tokenize is an open question in the design notes; for now it is stored under var/ (gitignored).
 """
 
 from __future__ import annotations

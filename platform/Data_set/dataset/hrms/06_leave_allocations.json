@@ -1,0 +1,1028 @@
+[
+  {
+    "_key": "EMP-CEO|Casual Leave",
+    "_employee": "EMP-CEO",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-CEO|Sick Leave",
+    "_employee": "EMP-CEO",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-CEO|Privilege Leave",
+    "_employee": "EMP-CEO",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-HUMAN|Casual Leave",
+    "_employee": "EMP-HEAD-HUMAN",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-HUMAN|Sick Leave",
+    "_employee": "EMP-HEAD-HUMAN",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-HUMAN|Privilege Leave",
+    "_employee": "EMP-HEAD-HUMAN",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-002|Casual Leave",
+    "_employee": "EMP-002",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-002|Sick Leave",
+    "_employee": "EMP-002",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-002|Privilege Leave",
+    "_employee": "EMP-002",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-003|Casual Leave",
+    "_employee": "EMP-003",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-003|Sick Leave",
+    "_employee": "EMP-003",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-003|Privilege Leave",
+    "_employee": "EMP-003",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-004|Casual Leave",
+    "_employee": "EMP-004",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-004|Sick Leave",
+    "_employee": "EMP-004",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-004|Privilege Leave",
+    "_employee": "EMP-004",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-RESEARCH|Casual Leave",
+    "_employee": "EMP-HEAD-RESEARCH",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-RESEARCH|Sick Leave",
+    "_employee": "EMP-HEAD-RESEARCH",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-RESEARCH|Privilege Leave",
+    "_employee": "EMP-HEAD-RESEARCH",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-005|Casual Leave",
+    "_employee": "EMP-005",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-005|Sick Leave",
+    "_employee": "EMP-005",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-005|Privilege Leave",
+    "_employee": "EMP-005",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-006|Casual Leave",
+    "_employee": "EMP-006",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-006|Sick Leave",
+    "_employee": "EMP-006",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-006|Privilege Leave",
+    "_employee": "EMP-006",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-007|Casual Leave",
+    "_employee": "EMP-007",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-007|Sick Leave",
+    "_employee": "EMP-007",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-007|Privilege Leave",
+    "_employee": "EMP-007",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-008|Casual Leave",
+    "_employee": "EMP-008",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-008|Sick Leave",
+    "_employee": "EMP-008",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-008|Privilege Leave",
+    "_employee": "EMP-008",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-009|Casual Leave",
+    "_employee": "EMP-009",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-009|Sick Leave",
+    "_employee": "EMP-009",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-009|Privilege Leave",
+    "_employee": "EMP-009",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-010|Casual Leave",
+    "_employee": "EMP-010",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-010|Sick Leave",
+    "_employee": "EMP-010",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-010|Privilege Leave",
+    "_employee": "EMP-010",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-011|Casual Leave",
+    "_employee": "EMP-011",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-011|Sick Leave",
+    "_employee": "EMP-011",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-011|Privilege Leave",
+    "_employee": "EMP-011",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-012|Casual Leave",
+    "_employee": "EMP-012",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-012|Sick Leave",
+    "_employee": "EMP-012",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-012|Privilege Leave",
+    "_employee": "EMP-012",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-013|Casual Leave",
+    "_employee": "EMP-013",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-09-14",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 3,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-013|Sick Leave",
+    "_employee": "EMP-013",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-09-14",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 4,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-SALES|Casual Leave",
+    "_employee": "EMP-HEAD-SALES",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-SALES|Sick Leave",
+    "_employee": "EMP-HEAD-SALES",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-SALES|Privilege Leave",
+    "_employee": "EMP-HEAD-SALES",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-014|Casual Leave",
+    "_employee": "EMP-014",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-014|Sick Leave",
+    "_employee": "EMP-014",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-014|Privilege Leave",
+    "_employee": "EMP-014",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-015|Casual Leave",
+    "_employee": "EMP-015",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-015|Sick Leave",
+    "_employee": "EMP-015",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-015|Privilege Leave",
+    "_employee": "EMP-015",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-016|Casual Leave",
+    "_employee": "EMP-016",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-016|Sick Leave",
+    "_employee": "EMP-016",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-016|Privilege Leave",
+    "_employee": "EMP-016",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-017|Casual Leave",
+    "_employee": "EMP-017",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-017|Sick Leave",
+    "_employee": "EMP-017",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-017|Privilege Leave",
+    "_employee": "EMP-017",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-018|Casual Leave",
+    "_employee": "EMP-018",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-018|Sick Leave",
+    "_employee": "EMP-018",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-018|Privilege Leave",
+    "_employee": "EMP-018",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-MARKETING|Casual Leave",
+    "_employee": "EMP-HEAD-MARKETING",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-MARKETING|Sick Leave",
+    "_employee": "EMP-HEAD-MARKETING",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-MARKETING|Privilege Leave",
+    "_employee": "EMP-HEAD-MARKETING",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-019|Casual Leave",
+    "_employee": "EMP-019",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-019|Sick Leave",
+    "_employee": "EMP-019",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-019|Privilege Leave",
+    "_employee": "EMP-019",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-020|Casual Leave",
+    "_employee": "EMP-020",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-020|Sick Leave",
+    "_employee": "EMP-020",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-020|Privilege Leave",
+    "_employee": "EMP-020",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-021|Casual Leave",
+    "_employee": "EMP-021",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-07-23",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 4,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-021|Sick Leave",
+    "_employee": "EMP-021",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-07-23",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 5,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-ACCOUNTS|Casual Leave",
+    "_employee": "EMP-HEAD-ACCOUNTS",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-ACCOUNTS|Sick Leave",
+    "_employee": "EMP-HEAD-ACCOUNTS",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-ACCOUNTS|Privilege Leave",
+    "_employee": "EMP-HEAD-ACCOUNTS",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-022|Casual Leave",
+    "_employee": "EMP-022",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-022|Sick Leave",
+    "_employee": "EMP-022",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-022|Privilege Leave",
+    "_employee": "EMP-022",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-023|Casual Leave",
+    "_employee": "EMP-023",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-023|Sick Leave",
+    "_employee": "EMP-023",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-023|Privilege Leave",
+    "_employee": "EMP-023",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-024|Casual Leave",
+    "_employee": "EMP-024",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-02-03",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 9,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-024|Sick Leave",
+    "_employee": "EMP-024",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-02-03",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 11,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-024|Privilege Leave",
+    "_employee": "EMP-024",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-02-03",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 16,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-CUSTOMER|Casual Leave",
+    "_employee": "EMP-HEAD-CUSTOMER",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-CUSTOMER|Sick Leave",
+    "_employee": "EMP-HEAD-CUSTOMER",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-CUSTOMER|Privilege Leave",
+    "_employee": "EMP-HEAD-CUSTOMER",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-025|Casual Leave",
+    "_employee": "EMP-025",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-16",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-025|Sick Leave",
+    "_employee": "EMP-025",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-16",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 11,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-025|Privilege Leave",
+    "_employee": "EMP-025",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-16",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 17,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-026|Casual Leave",
+    "_employee": "EMP-026",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-026|Sick Leave",
+    "_employee": "EMP-026",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-026|Privilege Leave",
+    "_employee": "EMP-026",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-027|Casual Leave",
+    "_employee": "EMP-027",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-027|Sick Leave",
+    "_employee": "EMP-027",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-027|Privilege Leave",
+    "_employee": "EMP-027",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-028|Casual Leave",
+    "_employee": "EMP-028",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-08-17",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 4,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-028|Sick Leave",
+    "_employee": "EMP-028",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-08-17",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 4,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-OPERATIONS|Casual Leave",
+    "_employee": "EMP-HEAD-OPERATIONS",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-OPERATIONS|Sick Leave",
+    "_employee": "EMP-HEAD-OPERATIONS",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-OPERATIONS|Privilege Leave",
+    "_employee": "EMP-HEAD-OPERATIONS",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-029|Casual Leave",
+    "_employee": "EMP-029",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-029|Sick Leave",
+    "_employee": "EMP-029",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-029|Privilege Leave",
+    "_employee": "EMP-029",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-030|Casual Leave",
+    "_employee": "EMP-030",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-030|Sick Leave",
+    "_employee": "EMP-030",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-030|Privilege Leave",
+    "_employee": "EMP-030",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-031|Casual Leave",
+    "_employee": "EMP-031",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-031|Sick Leave",
+    "_employee": "EMP-031",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-031|Privilege Leave",
+    "_employee": "EMP-031",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-LEGAL|Casual Leave",
+    "_employee": "EMP-HEAD-LEGAL",
+    "leave_type": "Casual Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 10,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-LEGAL|Sick Leave",
+    "_employee": "EMP-HEAD-LEGAL",
+    "leave_type": "Sick Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 12,
+    "docstatus": 1
+  },
+  {
+    "_key": "EMP-HEAD-LEGAL|Privilege Leave",
+    "_employee": "EMP-HEAD-LEGAL",
+    "leave_type": "Privilege Leave",
+    "from_date": "2026-01-01",
+    "to_date": "2026-12-31",
+    "new_leaves_allocated": 18,
+    "docstatus": 1
+  }
+]

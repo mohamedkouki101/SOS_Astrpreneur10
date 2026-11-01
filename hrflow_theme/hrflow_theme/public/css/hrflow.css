@@ -518,3 +518,101 @@ html:not([data-theme="dark"]) body .rh-ai .rh-ai-empty {
 	border-radius: var(--hf-radius-card);
 	color: var(--hf-ink-muted);
 }
+html:not([data-theme="dark"]) body .rh-ai .rh-ai-tab[data-status="__security"] { background: var(--bg-orange); border-color: color-mix(in srgb, var(--hf-pending) 30%, transparent); }
+
+/* ---------- 5. Home page (/desk apps screen) ----------
+   The light-blue diagonal bands of the page header, scaled up across the page, plus the
+   sidebar's curved bands in the bottom-left corner. Tiles sit on warm-white cards. */
+html:not([data-theme="dark"]) body.desktop-page {
+	background:
+		url("/assets/hrflow_theme/images/home-stripes.svg") right top / min(78vw, 1100px) auto no-repeat,
+		url("/assets/hrflow_theme/images/home-arcs.svg") left bottom / min(42vw, 520px) auto no-repeat,
+		var(--hf-cream);
+	background-attachment: fixed;
+	min-height: 100vh;
+}
+/* Let the body's pattern show through the page wrappers (Frappe paints them with --bg-color). */
+html:not([data-theme="dark"]) body.desktop-page .page-container,
+html:not([data-theme="dark"]) body.desktop-page .desktop-wrapper,
+html:not([data-theme="dark"]) body.desktop-page .desktop-container {
+	background: transparent;
+}
+html:not([data-theme="dark"]) body.desktop-page .desktop-navbar {
+	background: color-mix(in srgb, var(--hf-cream) 80%, transparent);
+	backdrop-filter: blur(8px);
+	border-bottom-color: var(--hf-line);
+}
+html:not([data-theme="dark"]) body.desktop-page .navbar-home #brand-logo {
+	height: 30px;
+}
+html:not([data-theme="dark"]) body.desktop-page .desktop-icon {
+	border-radius: 20px;
+	transition: background-color .15s ease;
+}
+html:not([data-theme="dark"]) body.desktop-page .desktop-icon:hover {
+	background-color: color-mix(in srgb, var(--hf-white) 70%, transparent);
+}
+html:not([data-theme="dark"]) body.desktop-page .icon-container:has(img.app-icon) {
+	padding: 0;
+	border-radius: 16px;
+	background: var(--hf-white);
+	box-shadow: 0 1px 2px color-mix(in srgb, var(--hf-ink) 8%, transparent),
+		0 10px 22px -12px color-mix(in srgb, var(--hf-royal) 45%, transparent);
+}
+html:not([data-theme="dark"]) body.desktop-page .icon-container img.app-icon {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+/* Tiles: centred on the page (Frappe uses a fixed 6-column grid, which leaves them on the left)
+   and three times Frappe's 54px. Smaller again on phones. */
+html:not([data-theme="dark"]) body.desktop-page {
+	--desktop-icon-dimension: 162px;
+}
+html:not([data-theme="dark"]) body.desktop-page .desktop-container {
+	min-height: calc(100vh - var(--desktop-navbar-height, 49px));
+}
+html:not([data-theme="dark"]) body.desktop-page .desktop-container > .icons-container {
+	margin: 0 auto;
+	padding: 40px 24px 12vh;
+}
+html:not([data-theme="dark"]) body.desktop-page .desktop-container .icons {
+	display: flex !important;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 28px;
+	max-width: 1100px;
+}
+html:not([data-theme="dark"]) body.desktop-page .desktop-container .desktop-icon {
+	width: 210px;
+	height: auto;
+	gap: 18px;
+	padding: 20px 16px 18px;
+	border-radius: 28px;
+}
+html:not([data-theme="dark"]) body.desktop-page .desktop-container .icon-container:has(img.app-icon) {
+	border-radius: 40px;
+	box-shadow: 0 2px 4px color-mix(in srgb, var(--hf-ink) 8%, transparent),
+		0 22px 40px -18px color-mix(in srgb, var(--hf-royal) 50%, transparent);
+}
+html:not([data-theme="dark"]) body.desktop-page .desktop-container .icon-title {
+	font-size: 18px;
+	font-weight: 700;
+}
+@media (max-width: 768px) {
+	html:not([data-theme="dark"]) body.desktop-page { --desktop-icon-dimension: 96px; }
+	html:not([data-theme="dark"]) body.desktop-page .desktop-container .desktop-icon { width: 140px; padding: 12px 8px; }
+	html:not([data-theme="dark"]) body.desktop-page .desktop-container .icon-container:has(img.app-icon) { border-radius: 24px; }
+	html:not([data-theme="dark"]) body.desktop-page .desktop-container .icon-title { font-size: 15px; }
+}
+/* Letter tiles (apps without a logo) in the same palette */
+html:not([data-theme="dark"]) body.desktop-page .icon-container:has(.icon) {
+	background: var(--hf-tint-blue-2);
+	--icon-stroke: var(--hf-royal);
+}
+html:not([data-theme="dark"]) body.desktop-page .icon-title {
+	color: var(--hf-ink);
+}
+html:not([data-theme="dark"]) body.desktop-page .icon-subtitle {
+	color: var(--hf-electric);
+}

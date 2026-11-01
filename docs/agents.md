@@ -7,7 +7,7 @@
 
 ## One loop for all agents
 
-All agents share one LangGraph implementation (`agents/agents/base.py`): `model` node (qwen3:14b with bound tools) → `guarded_tools` node (our own, not the prebuilt ToolNode) → back to `model`. Each agent has its own **system prompt, tool allowlist and budgets** (CLAUDE.md §3 allows this).
+All agents share one LangGraph implementation (`agents/agents/base.py`): `model` node (qwen3:14b with bound tools) → `guarded_tools` node (our own, not the prebuilt ToolNode) → back to `model`. Each agent has its own **system prompt, tool allowlist and budgets** (design rules allows this).
 
 ```
 task ─► Qwen (system prompt + task + only THIS agent's tools)
@@ -28,11 +28,11 @@ Qwen decides; code enforces the limits:
 | Untrusted content | `get_applicant_cv`, `read_email`, `get_grievance` always run ingest stages 1–4. A quarantined item returns `{"status": "QUARANTINED"}` and no text. |
 | One candidate per context | The Recruitment agent handles one applicant per run; the Orchestrator fans out. |
 | Scoring | Qwen gathers evidence; the score comes from `score_candidate` (deterministic code, job-related criteria only). |
-| Read access | All reads go through the agent's own read-only RH Flow API user. No database access. |
+| Read access | All reads go through the agent's own read-only HR Flow API user. No database access. |
 
 ## The 9 agents and their tools
 
-The names come from the CLAUDE.md diagram (assumed: confirm). ★ = in demo scope; the others are stubs that work but are kept minimal.
+The names come from the architecture diagram (assumed: confirm). ★ = in demo scope; the others are stubs that work but are kept minimal.
 
 ### 0. Orchestrator ★
 Routes requests, events and scheduled triggers to one specialist agent. It cannot call domain tools itself.
@@ -46,7 +46,7 @@ Routes requests, events and scheduled triggers to one specialist agent. It canno
 Budget: max 3 delegations per request.
 
 ### 1. Recruitment ★
-| Tool | RH Flow source | Notes |
+| Tool | HR Flow source | Notes |
 |---|---|---|
 | `get_job_opening(opening)` | Job Opening | Requirements, skills, minimum years |
 | `list_applicants(opening, status?)` | Job Applicant (`job_title` = opening link) | IDs and status only, no PII |
@@ -135,7 +135,7 @@ It never decides about people; it only triages for HR.
 - Tool descriptions are short, arguments use enums, and each agent has at most 9 tools. Fewer tools means better choices from an 8B model.
 
 ## Runtime
-- The agent service runs in WSL (Python 3.12, venv) for fast iteration. It reaches RH Flow at `http://localhost:8001` and Ollama at `http://localhost:11434`.
+- The agent service runs in WSL (Python 3.12, venv) for fast iteration. It reaches HR Flow at `http://localhost:8001` and Ollama at `http://localhost:11434`.
 - Ollama does not currently answer at `host.docker.internal`, so containerising the agents later requires exposing Ollama (`OLLAMA_HOST=0.0.0.0`).
 - Expected latency: about 3–10 s per Qwen step, so 20–60 s per agent run. For the demo, run the ranking before the scene and show the result.
 

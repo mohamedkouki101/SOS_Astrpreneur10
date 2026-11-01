@@ -1,4 +1,4 @@
-# RH Flow: 4-minute demo script
+# HR Flow: 4-minute demo script
 
 Golden rule to repeat on camera: **the agent executes, the human decides about people.**
 Every scene below is real: real records, real model (qwen3:14b, local), real mail server (Mailpit).
@@ -12,16 +12,15 @@ The model needs 20 to 60 s per answer. Record the waits and cut or speed them up
 
 ### A1. Start everything (WSL terminal)
 ```bash
-# 1. HR Core stack
-cd ~/frappe_docker && docker compose -p hr -f hr.yml up -d
+# 1. HR Flow stack (from the repository root)
+docker compose -p hr -f platform/hr.yml up -d
 
-# 2. Input security layer + guardrails (from the repo root)
-cd /mnt/c/Users/ASUS/Desktop/SOS
+# 2. Input security layer + guardrails
 docker compose -f input-security-layer/compose.ingest.yml up -d
 docker compose -f guardrails/compose.guardrails.yml up -d
 
 # 3. Local model (keep it loaded in GPU memory for the whole recording)
-~/.local/ollama/bin/ollama serve > /tmp/ollama.log 2>&1 &
+ollama serve > /tmp/ollama.log 2>&1 &
 curl -s localhost:11434/api/generate -d '{"model":"qwen3:14b","prompt":"hi","keep_alive":-1}' >/dev/null
 
 # 4. Agent service (leave this terminal open)
@@ -44,7 +43,7 @@ correct behaviour, but not the demo you want.
 
 ### A3. Prepare the data
 ```bash
-cd /mnt/c/Users/ASUS/Desktop/SOS && P=$HOME/.venvs/rhflow-agents/bin/python
+P=$HOME/.venvs/rhflow-agents/bin/python
 
 # Fresh inbox: 1 candidate question, 1 employee question, 1 phishing / prompt-injection attack
 $P -m agents.scripts.demo_scenario --reset
@@ -55,7 +54,7 @@ $P -m agents.cli run recruitment "Rank the applicants for job opening HR-OPN-202
 ```
 To watch the progress, in another terminal (one line per scored CV):
 ```bash
-cd /mnt/c/Users/ASUS/Desktop/SOS && tail -f var/audit.jsonl | grep --line-buffered candidate_evaluated | cut -c1-140
+tail -f var/audit.jsonl | grep --line-buffered candidate_evaluated | cut -c1-140
 ```
 Then in RH AI click **Sync inbox & CVs** and wait about 1 minute. Check:
 - three new Inbound Emails, and the attack one is `quarantined`
@@ -84,7 +83,7 @@ Rehearse once. After a rehearsal, use a new date in scene 5, or move the intervi
 ## Part B: the script (4:00)
 
 ### 0:00-0:20 · Intro (RH AI page on screen)
-> "HR teams spend their day on CVs, emails and routine changes. RH Flow puts AI agents on that work,
+> "HR teams spend their day on CVs, emails and routine changes. HR Flow puts AI agents on that work,
 > on top of an open-source HR system. The rule: the agent executes, the human decides. Nothing is
 > sent or changed without an HR approval, and every input is treated as untrusted."
 
@@ -151,7 +150,7 @@ Expected: `403 ['Blocked by guardrails: subject_mismatch']`
 
 ### 3:50-4:00 · Close (RH AI page)
 > "Faster HR, with the human in control: masked data, blocked attacks, approval for every action, and
-> a hash-chained audit trail. That's RH Flow."
+> a hash-chained audit trail. That's HR Flow."
 
 ---
 

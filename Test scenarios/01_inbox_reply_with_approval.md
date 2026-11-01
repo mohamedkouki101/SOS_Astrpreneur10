@@ -1,7 +1,7 @@
 # 01 · Candidate email → masked draft → HR approval → sent with the real name
 
 **Story.** Dorra Mansouri (fictional Data Analyst applicant) emails the HR inbox to ask about the next
-steps. Without anyone touching it, RH Flow pulls the mail through the security layer, the Comms agent drafts
+steps. Without anyone touching it, HR Flow pulls the mail through the security layer, the Comms agent drafts
 a reply in which it never sees her name, address or phone number, and the draft waits for HR. HR clicks
 **Allow**; only then does the Execution Gateway put the real name back and send the email.
 

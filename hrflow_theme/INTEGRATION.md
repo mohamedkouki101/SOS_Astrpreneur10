@@ -24,40 +24,22 @@ styles simply do nothing if that page is not installed.
 
 ---
 
-## 2. Deploying it (Docker setup, `~/frappe_docker`)
+## 2. Deploying it (Docker setup, `platform/`)
 
-> CLAUDE.md §8: custom apps must be built into the image. The backend, queue and scheduler
-> containers all load every installed app's hooks, so an app present in only one container
-> breaks the others.
+> Custom apps must be built into the image. The backend, queue and scheduler containers all
+> load every installed app's hooks, so an app present in only one container breaks the others.
 
-`apps.json` needs one Git repository **per app, with the app at the repository root**.
-In our repo, `hrflow_theme/` is a subfolder (like `hr_ai/`). Pick one of the two options below.
+`platform/build-images.sh` builds the image in three layers: Frappe + ERPNext + HRMS (`apps.json`),
+then `hr_ai` (`platform/images/hr-ai/Containerfile`), then this app
+(`platform/images/hrflow-theme/Containerfile`, build context `hrflow_theme/`). Then:
 
-### Option A: own repository (recommended, cleanest for the image build)
-1. Create a repo, e.g. `github.com/<team>/hrflow_theme`, and copy the **contents** of this
-   `hrflow_theme/` folder to its root (so `pyproject.toml` sits at the top).
-2. Add it to `apps.json`:
-   ```json
-   [
-     { "url": "https://github.com/frappe/erpnext", "branch": "version-16" },
-     { "url": "https://github.com/frappe/hrms", "branch": "version-16" },
-     { "url": "https://github.com/<team>/hrflow_theme", "branch": "main" }
-   ]
-   ```
-   Keep any `hr_ai` entry the team already has. Order does not matter for the theme.
-3. Rebuild the image as `custom:N` (same command the team used for `custom:16`, about 10–15 min)
-   and update the image tag for **every** service in `hr.yml`.
-4. Start the stack and install:
-   ```bash
-   docker compose -p hr -f hr.yml up -d
-   docker compose -p hr -f hr.yml exec backend bench --site frontend install-app hrflow_theme
-   docker compose -p hr -f hr.yml exec backend bench --site frontend clear-cache
-   ```
-5. Hard-refresh the browser (Ctrl+Shift+R).
-
-### Option B: same way the team ships `hr_ai`
-If `hr_ai` is already deployed from this monorepo (copied into the image, mounted volume, etc.),
-do exactly the same for `hrflow_theme/`, then run steps 4–5 above.
+```bash
+bash platform/build-images.sh
+docker compose -p hr -f platform/hr.yml up -d
+docker compose -p hr -f platform/hr.yml exec backend bench --site frontend install-app hrflow_theme   # once
+docker compose -p hr -f platform/hr.yml exec backend bench --site frontend clear-cache
+```
+Hard-refresh the browser (Ctrl+Shift+R). `scripts/setup_stack.py site` runs the install step for you.
 
 ### Dev bench (no Docker)
 ```bash
@@ -141,19 +123,19 @@ The page's own inline `<style>` can stay: the theme's rules are more specific an
 
 | Point | Detail |
 |---|---|
-| Branding settings | Install overwrites Website Settings `app_logo` / `app_name` and Navbar Settings `app_logo` (currently `/files/rh-flow-logo.svg`). The old values are saved and restored on uninstall, unless someone changed them in between. |
+| Branding settings | Install overwrites Website Settings `app_logo` / `app_name` and Navbar Settings `app_logo` (the old `/files/rh-flow-logo.svg` before). The old values are saved and restored on uninstall, unless someone changed them in between. |
 | Global look | All Desk pages change colour, radius and shadows. Behaviour, permissions and data are not affected. |
 | Dark theme | Not themed; users who pick Dark get Frappe's dark theme. |
 | Frappe updates | Selectors were checked against the v16 desk bundle. If an update renames a class, that element falls back to Frappe's default style. |
-| Merging into the repo | The app only adds the `hrflow_theme/` folder, so merging it cannot overwrite other code. `apps.json` / `hr.yml` changes are made by whoever owns the Docker setup. |
+| Merging into the repo | The app only adds the `hrflow_theme/` folder, so merging it cannot overwrite other code. |
 
 ---
 
 ## 6. Rollback
 
 ```bash
-docker compose -p hr -f hr.yml exec backend bench --site frontend uninstall-app hrflow_theme
-docker compose -p hr -f hr.yml exec backend bench --site frontend clear-cache
+docker compose -p hr -f platform/hr.yml exec backend bench --site frontend uninstall-app hrflow_theme
+docker compose -p hr -f platform/hr.yml exec backend bench --site frontend clear-cache
 ```
 To remove it from the image, delete its `apps.json` entry and rebuild.
 
@@ -165,6 +147,6 @@ To remove it from the image, delete its `apps.json` entry and rebuild.
 |---|---|
 | Nothing changed | `bench --site frontend clear-cache`, then Ctrl+Shift+R. Check that `list-apps` shows `hrflow_theme`. |
 | `/assets/hrflow_theme/...` returns 404 | Assets were not built or the frontend container uses an old image: run `bench build --app hrflow_theme`, or rebuild the image and update **all** tags in `hr.yml`. |
-| `ModuleNotFoundError: hrflow_theme` in queue/scheduler logs | The app is installed in only one container. Build it into the image (Option A or B). |
+| `ModuleNotFoundError: hrflow_theme` in queue/scheduler logs | The app is installed in only one container. Build it into the image (`bash platform/build-images.sh`). |
 | Logo missing in the sidebar | Check the browser console for `hrflow.js` errors, and that `/assets/hrflow_theme/images/hrflow-logo-on-dark.svg` loads. |
 | Login page still shows the old logo | Website Settings → App Logo was changed after install, or `after_install` did not run. Set it to `/assets/hrflow_theme/images/hrflow-logo.svg`. |

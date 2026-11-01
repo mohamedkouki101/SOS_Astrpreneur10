@@ -1,6 +1,6 @@
 """Comms (inbox) tools.
 
-INPUT_LAYER=service (the product path): the HR inbox is the list of Inbound Email records that RH Flow
+INPUT_LAYER=service (the product path): the HR inbox is the list of Inbound Email records that HR Flow
 created after sending each message through the input security layer. Content is the released, masked,
 signed envelope; the sender is never visible to the model ("<SENDER>") and replies go back to the
 original sender, resolved by the Execution Gateway.
@@ -146,7 +146,7 @@ def search_policies(query: str) -> list[dict]:
 @tool
 @safe_tool
 def propose_email_reply(email_id: str, subject: str, body: str) -> dict:
-    """PROPOSE a reply to an email (read it first). Never write real names: keep placeholders exactly as they appear in the email (e.g. <PERSON_1> or [PERSON_1]); sign as "The RH Flow HR team". A human approves before sending."""
+    """PROPOSE a reply to an email (read it first). Never write real names: keep placeholders exactly as they appear in the email (e.g. <PERSON_1> or [PERSON_1]); sign as "The HR Flow HR team". A human approves before sending."""
     ctx = current()
     src = ctx.source_for(f"email/{email_id}")
     if not src:

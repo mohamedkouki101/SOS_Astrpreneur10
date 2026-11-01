@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-DATASET = Path(os.environ.get("DATASET_DIR", Path.home() / "frappe_docker/Data_set/dataset"))
+DATASET = Path(os.environ.get("DATASET_DIR", Path(__file__).resolve().parents[1] / "platform/Data_set/dataset"))
 
 
 @pytest.fixture(autouse=True)
@@ -11,7 +11,7 @@ def isolated_var(tmp_path, monkeypatch):
     """Each test gets its own var/ (audit, outbox, token map) and fresh cached settings."""
     monkeypatch.setenv("AGENTS_VAR_DIR", str(tmp_path / "var"))
     monkeypatch.setenv("DATASET_DIR", str(DATASET))
-    monkeypatch.setenv("RHFLOW_PROPOSE_ENABLED", "0")  # tests never write to RH Flow
+    monkeypatch.setenv("RHFLOW_PROPOSE_ENABLED", "0")  # tests never write to HR Flow
     monkeypatch.setenv("MAIL_SOURCE", "folder")        # tests read the dataset .eml folder
     monkeypatch.setenv("INPUT_LAYER", "local")         # service-mode tests opt in explicitly
     from agents import config

@@ -9,7 +9,7 @@
 | `assistant.stub` | Employee Q&A (RAG, vector store TODO) | Nice to have |
 | `stubs.stub` | Onboarding, Leave, Payroll, Performance, Conflict | Stubbed |
 
-One implementation with per-agent tool allowlists is acceptable (CLAUDE.md §3).
+One implementation with per-agent tool allowlists is acceptable (design rules).
 
 **May depend on:** `tools/` (through the orchestrator's allowlist), `context/`.
 **Must never be depended on by:** `validation/`, `ingest/`.

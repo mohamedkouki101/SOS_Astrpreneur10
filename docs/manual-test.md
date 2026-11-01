@@ -1,17 +1,17 @@
 # Manual end-to-end test: inbox → agent → human approval → email sent
 
 What you will see: an external email arrives in the HR inbox, the Comms agent drafts a reply (names masked),
-HR approves it in RH Flow, the Execution Gateway sends it, and the sent email appears in Mailpit.
+HR approves it in HR Flow, the Execution Gateway sends it, and the sent email appears in Mailpit.
 A phishing / prompt-injection email is quarantined and never reaches the model.
 
 ## Open these 3 windows
 | Window | URL / place |
 |---|---|
-| RH Flow (login `Administrator`) | http://localhost:8001/desk, then the **RH AI** tile (or directly http://localhost:8001/desk/rh-ai) |
+| HR Flow (login `Administrator`) | http://localhost:8001/desk, then the **RH AI** tile (or directly http://localhost:8001/desk/rh-ai) |
 | Mailpit (test mail server, catches every email) | http://localhost:8025 |
-| WSL terminal | `cd ~/Desktop/SOS && P=$HOME/.venvs/rhflow-agents/bin/python` |
+| WSL terminal, at the repo root | `P=$HOME/.venvs/rhflow-agents/bin/python` |
 
-Prerequisites: the stack is up (`docker compose -p hr -f hr.yml up -d` in `~/frappe_docker`) and Ollama runs `qwen3:14b`.
+Prerequisites: the full stack is installed and running ([`JURY_GUIDE.md`](../JURY_GUIDE.md), Part B) and Ollama runs `qwen3:14b`.
 
 ## Step 1: external emails arrive
 ```bash
@@ -35,7 +35,7 @@ In the same run, `list_new_emails` returned the attack as `QUARANTINED` with no 
 **Check:** `tail -1 var/alerts.jsonl` shows an `injection_quarantine` alert.
 You can also run `$P -m agents.cli run comms "Make a digest of the HR inbox"`. The digest lists the attack as a security item.
 
-## Step 4: HR reviews the proposal in RH Flow
+## Step 4: HR reviews the proposal in HR Flow
 Open the **RH AI** app from the `/desk` apps screen. The decision page shows one card per agent proposal:
 - tabs with counters: Waiting for decision / Allowed / Done / Declined / Failed
 - an agent filter
@@ -68,7 +68,7 @@ Test mode: every outgoing email goes to the site setting `hr_ai_test_recipient` 
 - **Audit:** `$P -m agents.cli audit-verify` checks the agent-side hash chain. The AI Action's history (timeline) shows who approved it and when.
 
 ## Reset
-Run Step 1 again with `--reset`. Old AI Actions stay in RH Flow as history.
+Run Step 1 again with `--reset`. Old AI Actions stay in HR Flow as history.
 
 ## Variant: through the input security layer (`INPUT_LAYER=service`)
 With `INPUT_LAYER=service` in `.env`, the agents never read Mailpit or CV files directly. Every CV and every
@@ -104,20 +104,13 @@ Agent API users get 403 on every security endpoint, and they cannot read the sen
 Fail closed: if the guardrails are not configured, unreachable or refuse the credentials, every proposal is refused
 and every approved action fails. Start them before running the agents.
 
-Setup, once:
-1. Start the service: `cd guardrails && ./venv/Scripts/python -m uvicorn guardrails.settings:create_app_from_env --factory --host 0.0.0.0 --port 8100` (needs `guardrails/.env`, see `example.env`).
-2. The guardrails gateway user (`FRAPPE_GATEWAY_API_KEY`) needs the **HR Manager** role: it reads the HR-only sender of an Inbound Email to check `<SENDER>` replies.
-3. Create an HR Manager API user for `hr_ai` (not an agent account), then, from `~/frappe_docker`:
-   ```bash
-   docker compose -p hr -f hr.yml exec backend bench --site frontend set-config hr_ai_guardrails_url http://host.docker.internal:8100
-   docker compose -p hr -f hr.yml exec backend bench --site frontend set-config hr_ai_guardrails_api_key <KEY>
-   docker compose -p hr -f hr.yml exec backend bench --site frontend set-config hr_ai_guardrails_api_secret <SECRET>
-   ```
-   Check that the backend container reaches the URL: `docker compose -p hr -f hr.yml exec backend curl -s http://host.docker.internal:8100/health`. If not, use the host's WSL IP instead.
+Setup: done by `python3 scripts/setup_stack.py site` (service accounts, keys in the site config and in
+`guardrails/.env`), then `docker compose -f guardrails/compose.guardrails.yml up -d --build`. See
+[`JURY_GUIDE.md`](../JURY_GUIDE.md), Part B.
 
 What to try:
 - **Normal flow:** run Step 2. Replies to `<SENDER>`, interviews, status changes, rankings and the digest are allowed and appear in the queue as before.
 - **Injected recipient:** a reply whose `[EMAIL_1]` points to an address that isn't a Job Applicant or Employee is refused with `recipient_unknown`.
 - **Bias:** a ranking or status reason that mentions age, gender, origin… is refused with `protected_term_in_text`.
-- **Wrong agent:** comms proposing a ranking is refused with `tool_not_allowed`. Stub agents (leave, payroll…) are refused by default.
+- **Wrong agent:** comms proposing a ranking is refused with `tool_not_allowed`. Stub agents (onboarding, payroll…) are refused by default.
 - **Guardrails down:** stop the service and approve an action: it becomes Failed, "fail closed".

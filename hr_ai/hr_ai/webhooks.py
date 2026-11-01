@@ -1,4 +1,4 @@
-"""Signed calls from RH Flow to the agent service (Frappe -> agents).
+"""Signed calls from HR Flow to the agent service (Frappe -> agents).
 
 Every request carries three headers:
     X-RHFlow-Event-Id   idempotency key (one event = one agent run, however often it is delivered)

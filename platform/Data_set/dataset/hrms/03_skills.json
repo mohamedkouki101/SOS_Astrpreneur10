@@ -1,0 +1,142 @@
+[
+  {
+    "_key": "Python",
+    "skill_name": "Python"
+  },
+  {
+    "_key": "JavaScript",
+    "skill_name": "JavaScript"
+  },
+  {
+    "_key": "SQL",
+    "skill_name": "SQL"
+  },
+  {
+    "_key": "Docker",
+    "skill_name": "Docker"
+  },
+  {
+    "_key": "React",
+    "skill_name": "React"
+  },
+  {
+    "_key": "REST APIs",
+    "skill_name": "REST APIs"
+  },
+  {
+    "_key": "Git",
+    "skill_name": "Git"
+  },
+  {
+    "_key": "Linux",
+    "skill_name": "Linux"
+  },
+  {
+    "_key": "Machine Learning",
+    "skill_name": "Machine Learning"
+  },
+  {
+    "_key": "Data Analysis",
+    "skill_name": "Data Analysis"
+  },
+  {
+    "_key": "Power BI",
+    "skill_name": "Power BI"
+  },
+  {
+    "_key": "Excel",
+    "skill_name": "Excel"
+  },
+  {
+    "_key": "Statistics",
+    "skill_name": "Statistics"
+  },
+  {
+    "_key": "Accounting",
+    "skill_name": "Accounting"
+  },
+  {
+    "_key": "IFRS",
+    "skill_name": "IFRS"
+  },
+  {
+    "_key": "Tax Compliance",
+    "skill_name": "Tax Compliance"
+  },
+  {
+    "_key": "Payroll",
+    "skill_name": "Payroll"
+  },
+  {
+    "_key": "Recruitment",
+    "skill_name": "Recruitment"
+  },
+  {
+    "_key": "Labour Law",
+    "skill_name": "Labour Law"
+  },
+  {
+    "_key": "Onboarding",
+    "skill_name": "Onboarding"
+  },
+  {
+    "_key": "Sales Negotiation",
+    "skill_name": "Sales Negotiation"
+  },
+  {
+    "_key": "CRM",
+    "skill_name": "CRM"
+  },
+  {
+    "_key": "Prospecting",
+    "skill_name": "Prospecting"
+  },
+  {
+    "_key": "Digital Marketing",
+    "skill_name": "Digital Marketing"
+  },
+  {
+    "_key": "SEO",
+    "skill_name": "SEO"
+  },
+  {
+    "_key": "Content Writing",
+    "skill_name": "Content Writing"
+  },
+  {
+    "_key": "Social Media",
+    "skill_name": "Social Media"
+  },
+  {
+    "_key": "Project Management",
+    "skill_name": "Project Management"
+  },
+  {
+    "_key": "Agile/Scrum",
+    "skill_name": "Agile/Scrum"
+  },
+  {
+    "_key": "Customer Support",
+    "skill_name": "Customer Support"
+  },
+  {
+    "_key": "Communication",
+    "skill_name": "Communication"
+  },
+  {
+    "_key": "Leadership",
+    "skill_name": "Leadership"
+  },
+  {
+    "_key": "French",
+    "skill_name": "French"
+  },
+  {
+    "_key": "English",
+    "skill_name": "English"
+  },
+  {
+    "_key": "Arabic",
+    "skill_name": "Arabic"
+  }
+]

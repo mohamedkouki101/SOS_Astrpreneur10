@@ -1,7 +1,7 @@
 # 09 · Guardrails down: fail closed
 
 **Story.** The guardrails service crashes in the middle of the day. A safe system must not "fail open" and
-let agents through unchecked. RH Flow asks the guardrails at two moments (when a proposal arrives and right
+let agents through unchecked. HR Flow asks the guardrails at two moments (when a proposal arrives and right
 before executing it); with no answer, it refuses in both places, even for an action HR has just approved.
 
 Script: `scripts/s09_fail_closed.py` · about 30 seconds, no model. It stops the `guardrails-guardrails-1`

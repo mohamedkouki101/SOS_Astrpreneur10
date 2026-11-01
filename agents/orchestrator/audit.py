@@ -1,7 +1,7 @@
 """Agent-side audit trail: append-only, hash-chained JSONL under var/ (plus an alerts file for the Monitor).
 
 Each entry stores the SHA-256 of the previous entry, so editing or deleting a line breaks the chain
-(`verify()` detects it). The authoritative Audit Log lives in hr_ai (CLAUDE.md); this file records
+(`verify()` detects it). The authoritative Audit Log lives in hr_ai (design notes); this file records
 what happens inside the agent service: tool calls, rejections, quarantines, budget stops, proposals.
 Never log secrets or unmasked PII here.
 """

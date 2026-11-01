@@ -1,4 +1,4 @@
-"""Bridge between RH Flow and the input security layer (Untrusted Input Zone, `input-security-layer/`).
+"""Bridge between HR Flow and the input security layer (Untrusted Input Zone, `input-security-layer/`).
 
 Every document that comes from outside passes through the layer BEFORE anything else reads it:
 
@@ -64,7 +64,7 @@ def _call(method: str, path: str, key_name: str, timeout: int = 120, **kwargs):
 
 
 def verdict_of(summary: dict) -> str:
-    """One word for RH Flow: clean / suspicious / quarantined / released / rejected / error."""
+    """One word for HR Flow: clean / suspicious / quarantined / released / rejected / error."""
     if summary.get("decision") in ("released", "rejected"):
         return summary["decision"]
     if summary.get("status") == "rejected":
@@ -239,7 +239,7 @@ def _throw(exc: IngestError):
 
 
 def _links() -> dict:
-    """report_id -> the RH Flow record it belongs to."""
+    """report_id -> the HR Flow record it belongs to."""
     links = {}
     for r in frappe.get_all("Inbound Email", fields=["name", "report_id", "attachments"]):
         if r.report_id:

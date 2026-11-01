@@ -16,7 +16,9 @@ brand. **Styling only**: no DocType, no API, no business logic, and nothing in `
 | Cards, workspace widgets, forms, lists, reports | warm-white cards, 16 px radius, soft shadow, cream table headers, blue row hover |
 | Status pills | soft tint plus matching border (pending amber, success green, info blue, error red, failed magenta) |
 | RH AI Decisions page (`hr_ai`) | banner, status tabs, decision cards with a left accent bar, matching the reference design (CSS only, its JS is untouched) |
-| Login page | cream background, warm-white card, HRflow logo, `app_name` = HRflow |
+| Login page | cream background, warm-white card, HRflow logo, `app_name` = HR Flow |
+| Home page (`/desk` apps screen) | large light-blue diagonal stripes (`home-stripes.svg`) and soft curved bands (`home-arcs.svg`), tiles on warm-white cards |
+| Branding | logo (Website/Navbar Settings, splash, website navbar), favicon = the "HR" end of the logo (`hr_ai/public/images/hr-flow-favicon.svg`), app name "HR Flow" (Website + System Settings, English overrides of "Frappe HR", "Framework"...). Re-apply with `bench --site frontend execute hrflow_theme.install.apply_branding` |
 
 The dark theme (user setting) is left as Frappe's own.
 
@@ -39,20 +41,19 @@ hrflow_theme/
             └── header-stripes.svg       # decoration
 ```
 
-## Install (Docker setup from CLAUDE.md, run in `~/frappe_docker`)
+## Install
 Custom apps must be **built into the image** (queue/scheduler containers must see them too).
+`platform/build-images.sh` already adds this app as the last image layer, and `scripts/setup_stack.py site`
+installs it on the site. By hand, after a rebuild:
 
-1. Add the app to `apps.json` (next to erpnext, hrms, and `hr_ai` if it is there), pointing at
-   this repo and branch, then rebuild the image as `custom:N` and update the tag in `hr.yml`.
-2. Restart and install it on the site:
-   ```bash
-   docker compose -p hr -f hr.yml up -d
-   docker compose -p hr -f hr.yml exec backend bench --site frontend install-app hrflow_theme
-   docker compose -p hr -f hr.yml exec backend bench --site frontend clear-cache
-   ```
-3. Hard-refresh the browser (Ctrl+Shift+R).
+```bash
+docker compose -p hr -f platform/hr.yml up -d
+docker compose -p hr -f platform/hr.yml exec backend bench --site frontend install-app hrflow_theme
+docker compose -p hr -f platform/hr.yml exec backend bench --site frontend clear-cache
+```
+Then hard-refresh the browser (Ctrl+Shift+R).
 
-**Quick try on a dev bench** (no Docker): `bench get-app <repo-url> --branch <branch>`, then
+**Quick try on a dev bench** (no Docker): copy the folder to `apps/`, then
 `bench --site <site> install-app hrflow_theme && bench build --app hrflow_theme && bench --site <site> clear-cache`.
 
 ## Uninstall
@@ -69,6 +70,6 @@ Branding settings go back to their previous values (only if nobody changed them 
 - **Logo:** the SVG paths are copied verbatim from `HRFlow_logo.svg`. Only the viewBox is
   trimmed, and the "on-dark" version adds a white fill behind the badge so it reads on blue.
 - **Install side effect:** `install.py` overwrites Website Settings `app_logo` / `app_name` and
-  Navbar Settings `app_logo` (today the site uses `/files/rh-flow-logo.svg`). Restored on uninstall.
+  Navbar Settings `app_logo` (the site used `/files/rh-flow-logo.svg` before). Restored on uninstall.
 - Selectors were checked against the v16 desk bundle. If a future Frappe update renames a class,
   that part simply falls back to Frappe's normal style.

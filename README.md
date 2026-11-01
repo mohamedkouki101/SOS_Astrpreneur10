@@ -1,15 +1,17 @@
-# RH Flow — Secure AI HR System
+# HR Flow — Secure AI HR System
 
 AI agents for the **HR / recruitment team**: screen and rank resumes, triage the HR inbox, draft replies,
 propose interview slots. They are built on top of an open-source HR platform (Frappe v16 + ERPNext + HRMS,
-branded **RH Flow**), which stays the system of record. Our code lives in our own app (`hr_ai`) and in
-separate services. Upstream platform code is never patched.
+branded **HR Flow**), which stays the system of record. Our code lives in our own app (`hr_ai`) and in
+separate services. Upstream platform code is never patched: the exact Frappe HR source we build on is
+included in [`hrms/`](hrms/) (v16.53.0, GPL v3) and the whole platform setup in [`platform/`](platform/).
 
 **Golden rule: the agent executes, the human decides about people.** Agents only read and propose.
 Nothing is sent or recorded until a human approves it.
 
 Hackathon project (Astropreneur 2.0, SUP'COM, ~17 h). **Fictional data only.**
 
+> **Jury: start with [`JURY_GUIDE.md`](JURY_GUIDE.md)**: install, logins, feature tour, tests.
 > What is not done, simplified or assumed: [`LIMITATIONS.md`](LIMITATIONS.md).
 
 ---
@@ -18,17 +20,18 @@ Hackathon project (Astropreneur 2.0, SUP'COM, ~17 h). **Fictional data only.**
 
 ```mermaid
 flowchart TB
-  CV["CV upload (recruiter, RH Flow)"] --> ISL
+  CV["CV upload (recruiter, HR Flow)"] --> ISL
   MAIL["HR inbox (Mailpit)"] -->|hr_ai sync, every minute| ISL
+  CHAT["RH Chat (employees, candidates, HR)"] --> ISL
   subgraph ISL["Input security layer :8090"]
     S1["1 Sanitizer"] --> S2["2 PII mask"] --> S3["3 Injection scan"] --> S4["4 Provenance + HMAC signature"]
   end
   ISL -->|quarantined| SEC["HR: Security checks tab (release / reject)"]
-  ISL -->|signed, masked envelopes| AG["Agents (LangGraph + qwen3:8b, local)"]
-  AG -->|read-only REST, one user per agent| RHF["RH Flow (Frappe + HRMS)"]
+  ISL -->|signed, masked envelopes| AG["Agents :8200 (LangGraph + qwen3:14b, local)"]
+  AG -->|read-only REST, one user per agent| RHF["HR Flow (Frappe + HRMS)"]
   AG -->|propose_action| Q["AI Action queue (hr_ai)"]
   Q -->|check 1: on proposal| GR["Guardrails :8100 (policy, fairness)"]
-  Q --> HUM["HR approves in the RH AI page"]
+  Q --> HUM["HR approves (RH AI page, or Confirm in RH Chat)"]
   HUM --> EX["Execution Gateway (hr_ai)"]
   EX -->|check 2: right before acting| GR
   EX -->|resolve tokens, gateway key only| ISL
@@ -54,16 +57,20 @@ a human approves; only the Execution Gateway writes, after re-checking everythin
 
 | Folder | What it is | Runs | Port |
 |---|---|---|---|
+| [`platform/`](platform/) | HR Flow platform: Frappe v16 + ERPNext + HRMS in Docker, Mailpit, image build (`build-images.sh`), fictional company **Bara3am** and its loader (`Data_set/`) | Docker Compose (project `hr`) | 8001, 8025 |
+| [`hrms/`](hrms/) | Frappe HR source, v16.53.0 (GPL v3): the version built into the image | in the platform image | — |
+| [`hr_ai/`](hr_ai/) | Our Frappe app: AI Action queue, **RH AI** decision page, **RH Chat**, Inbound Email, Execution Gateway, bridges to the services | in the platform image | 8001 |
+| [`hrflow_theme/`](hrflow_theme/) | Our Frappe app: HR Flow look (Desk, login, website) | in the platform image | — |
 | [`input-security-layer/`](input-security-layer/) | Untrusted Input Zone: sanitizer, PII masking (Presidio EN + FR), injection scanner, provenance + signature, evidence store, inspection reports | FastAPI, Docker (non-root, read-only FS) | 8090 |
-| [`guardrails/`](guardrails/) | Policy Engine (default-deny), fairness checks, approval tokens, gateway logic, hash-chained audit log, monitor | FastAPI, Python 3.11 | 8100 |
-| [`hr_ai/`](hr_ai/) | Frappe app inside RH Flow: AI Action queue, **RH AI** decision page, Inbound Email, Execution Gateway, bridges to the two services | In-process in Frappe | 8001 |
-| [`agents/`](agents/) | 9 LangGraph agents (Orchestrator + 8 specialists), qwen3:8b via Ollama, read-only tools, deterministic Output Validator | Python 3.12 (WSL) | — |
-| [`tests/`](tests/) | Cross-layer guardrail tests (injection, bypass, disparity, PII, input layer) | pytest | — |
-| [`docs/`](docs/) | Architecture, agents, security, contracts, [manual end-to-end test](docs/manual-test.md), [demo script](docs/demo-script.md) | — | — |
-| [`Test scenarios/`](Test%20scenarios/) | 12 end-to-end scenarios (story + HTTP script with PASS / FAIL checks) run on the live stack | Python, WSL | — |
+| [`guardrails/`](guardrails/) | Policy Engine (default-deny), fairness checks, approval tokens, gateway logic, hash-chained audit log, monitor | FastAPI, Docker (non-root, read-only FS) | 8100 |
+| [`agents/`](agents/) | LangGraph agents (Orchestrator, 8 specialists, chat operator), qwen3:14b via Ollama, read-only tools, deterministic Output Validator, signed chat/webhook service | Python 3.12 | 8200 |
+| [`scripts/`](scripts/) | `setup_stack.py`: creates every key and configures the site in two commands | Python | — |
+| [`tests/`](tests/) | Cross-layer guardrail tests (injection, bypass, disparity, PII, duplicate webhook, chat) | pytest | — |
+| [`docs/`](docs/) | [Agents](docs/agents.md), [manual end-to-end test](docs/manual-test.md), [demo script](docs/demo-script.md) | — | — |
+| [`Test scenarios/`](Test%20scenarios/) | 12 end-to-end scenarios (story + HTTP script with PASS / FAIL checks) run on the live stack | Python | — |
 
 Demo agents: **Recruitment** (ranking, status, interviews), **Comms** (inbox digest, replies), **HR Assistant**
-(policy Q&A). Leave, Onboarding, Payroll, Performance and Conflict exist as minimal stubs and are **denied by
+(policy and own-data Q&A in RH Chat), **Operator** (HR orders typed in RH Chat), **Leave** (leave decisions). Onboarding, Payroll, Performance and Conflict exist as minimal stubs and are **denied by
 the policy engine** by default.
 
 ---
@@ -102,40 +109,22 @@ the policy engine** by default.
 
 ## Running it
 
-Full step-by-step walkthrough (inbox → agent → approval → email sent, plus the attack being quarantined):
-**[`docs/manual-test.md`](docs/manual-test.md)**.
-
-Prerequisites
-- Docker (on Windows via WSL2) with the Frappe stack: compose project `hr`, site `frontend`, network `hr_frappe_network`, RH Flow on http://localhost:8001.
-- `hr_ai` installed on the site.
-- Mailpit (test mail server, http://localhost:8025).
-- Ollama with `qwen3:8b` (http://localhost:11434).
-
-Start the services
+Step by step, from a clean clone: **[`JURY_GUIDE.md`](JURY_GUIDE.md)**. In short (WSL / Linux, from the repo root):
 
 ```bash
-# 1. Input security layer (needs input-security-layer/.env, see .env.example)
-docker compose -f input-security-layer/compose.ingest.yml up -d --build
-
-# 2. Guardrails (needs guardrails/.env, see example.env)
-cd guardrails && ./venv/Scripts/python -m uvicorn guardrails.settings:create_app_from_env --factory --host 0.0.0.0 --port 8100
-
-# 3. Agents (WSL; needs .env, see .env.example; per-agent users from agents/scripts/setup_agent_users.py)
-P=$HOME/.venvs/rhflow-agents/bin/python
-$P -m agents.scripts.demo_scenario --reset          # 3 fictional emails, one is an attack
-$P -m agents.cli run comms "List the new emails in the HR inbox and draft a reply to the candidate."
+bash platform/build-images.sh                                   # the image named in hr.yml (~15 min)
+docker compose -p hr -f platform/hr.yml up -d                   # HR Flow on :8001 + Mailpit on :8025
+#   -> setup wizard (company Bara3am), then load the fictional data:
+ADMIN_PASSWORD=admin docker compose -p hr -f platform/hr.yml -f platform/Data_set/seed.yml run --rm --build seed
+python3 scripts/setup_stack.py env && python3 scripts/setup_stack.py site     # keys + site configuration
+docker compose -f input-security-layer/compose.ingest.yml up -d --build      # :8090
+docker compose -f guardrails/compose.guardrails.yml up -d --build            # :8100
+P=$HOME/.venvs/rhflow-agents/bin/python                                     # uv sync, see the guide
+ADMIN_PASSWORD=admin $P agents/scripts/setup_agent_users.py                  # read-only agent users
+$P -m agents.integration.server                                              # :8200 (Ollama runs qwen3:14b)
 ```
 
-Then open RH Flow → **RH AI** (`/desk/rh-ai`): review the proposal, open **Security checks** to inspect the
-quarantined attack, **Allow** the reply and watch it arrive in Mailpit.
-
-The recorded demo ([`docs/demo-script.md`](docs/demo-script.md)) and the 12 [`Test scenarios/`](Test%20scenarios/)
-were run on the team's full live stack, which also includes an agent HTTP service (port 8200), RH Chat, signed
-webhooks, a guardrails compose file and qwen3:14b. **That part of the code is not in this repository yet**, so
-scenarios 04, 05, 06 and 08 and the demo script's setup do not run from a clean clone. See
-[`LIMITATIONS.md`](LIMITATIONS.md).
-
-Secrets live only in `.env` files and Frappe site config (`bench set-config`), all gitignored. The repository
+Secrets live only in `.env` files and the Frappe site config (`bench set-config`), all gitignored. The repository
 only holds `.env.example` / `example.env` with variable names.
 
 ---
@@ -144,15 +133,13 @@ only holds `.env.example` / `example.env` with variable names.
 
 | Suite | Command | Result (2026-11-01) |
 |---|---|---|
-| Input security layer | `cd input-security-layer && pytest -q` | 355 passed, 1 skipped (file-permission check, Linux only) |
-| Guardrails | `cd guardrails && ./venv/Scripts/python -m pytest -q` | 333 passed |
-| Agents + cross-layer | `pytest -q tests` (repo root) | 33 passed, 8 skipped (7 need the synthetic dataset via `DATASET_DIR`, 1 webhook receiver not built) |
+| Agents + cross-layer | `uv run pytest -q tests` (repo root) | 67 passed |
+| Guardrails | `cd guardrails && venv/bin/python -m pytest -q` | 362 passed |
+| Input security layer | `cd input-security-layer && .venv/bin/python -m pytest -q` | 367 passed |
 
-All tests run offline: a scripted fake LLM stands in for Qwen and a fake Frappe stands in for RH Flow where needed.
-The guardrails also ship a self-contained demo: `cd guardrails && ./venv/Scripts/python scripts/demo.py --start --step`.
-
-Total measured on this repository: **721 passed**, 9 skipped. (`Test scenarios/README.md` reports 796 tests on the
-live stack, which includes code not pushed yet.)
+**796 passed**, all offline: a scripted fake LLM stands in for qwen and a fake Frappe stands in for HR Flow where
+needed. Environment setup: [`JURY_GUIDE.md` Part A](JURY_GUIDE.md#part-a--automated-tests-no-platform-needed-5-min).
+The guardrails also ship a self-contained demo: `cd guardrails && venv/bin/python scripts/demo.py --start --step`.
 
 End-to-end scenarios on the live stack: `bash "Test scenarios/scripts/run_all.sh" fast` (6 scenarios without the
 model, ~3 min) or without `fast` (all 12, ~30 min). Last full run 2026-11-01: 12/12 green.
@@ -171,5 +158,5 @@ model, ~3 min) or without `fast` (all 12, ~30 min). Last full run 2026-11-01: 12
 |---|---|
 | Input security layer (Untrusted Input Zone) | `input-security-layer/` |
 | Guardrails & execution control | `guardrails/` |
-| Agents, `hr_ai` app, RH Flow integration | `agents/`, `hr_ai/` |
-| Interface / theme, test data and demo scenarios | RH Flow UI, `data/` |
+| Agents, `hr_ai` app, HR Flow integration | `agents/`, `hr_ai/` |
+| Platform, interface / theme, test data and demo scenarios | `platform/`, `hrflow_theme/`, `Test scenarios/` |

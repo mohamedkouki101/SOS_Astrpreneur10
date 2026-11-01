@@ -1,6 +1,6 @@
 """Whitelisted API. POST /api/method/hr_ai.api.propose_action
 
-The ONLY way agents put anything into RH Flow. Agents have no create/write permission on any
+The ONLY way agents put anything into HR Flow. Agents have no create/write permission on any
 DocType; this method checks the caller's agent role, re-validates the proposal, recomputes the
 action hash server-side and always stores it as "Proposed". It never executes anything.
 """

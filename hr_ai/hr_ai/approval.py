@@ -2,7 +2,7 @@
 
 The approval token is an HMAC over (AI Action name, action_hash, approver) with a site secret.
 Any change to the payload changes the action_hash, which voids the token (see ai_action.py).
-Key management is an open question (CLAUDE.md); for now the secret lives in site_config.json.
+Key management is an open question (design notes); for now the secret lives in site_config.json.
 """
 
 import hashlib

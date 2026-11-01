@@ -1,4 +1,4 @@
-"""Guardrail: signed calls from RH Flow to the agent service (agents/integration/server.py).
+"""Guardrail: signed calls from HR Flow to the agent service (agents/integration/server.py).
 
 Bad signature -> 401, stale timestamp (replay) -> 401, tampered body -> 401,
 same event id twice -> the agents run ONCE (the stored result / "duplicate" is returned).

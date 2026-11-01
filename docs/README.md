@@ -2,9 +2,12 @@
 
 | File | Content |
 |---|---|
-| `architecture.md` | Components, trust boundaries, data flows |
-| `security.md` | Security principles, rule → component map, guardrail tests |
-| `contracts.md` | REST endpoints, webhook payloads, AI Action fields (TODO tables) |
-| `build-plan.md` | First tasks with their checks |
+| [`agents.md`](agents.md) | The agents: graph, tools per agent, budgets, output validator |
+| [`manual-test.md`](manual-test.md) | Manual end-to-end walkthrough: inbox → agent → approval → email sent, attack quarantined |
+| [`demo-script.md`](demo-script.md) | The recorded 4-minute demo, scene by scene |
+| [`assets/`](assets/) | HR Flow logo |
 
-`CLAUDE.md` at the repo root is the source of truth; these files elaborate it.
+Installation and feature tour for the jury: [`../JURY_GUIDE.md`](../JURY_GUIDE.md). Architecture, security features
+and test results: [`../README.md`](../README.md). Known gaps: [`../LIMITATIONS.md`](../LIMITATIONS.md).
+Component contracts: [`../input-security-layer/INTEGRATION.md`](../input-security-layer/INTEGRATION.md),
+[`../guardrails/INTEGRATION.md`](../guardrails/INTEGRATION.md).

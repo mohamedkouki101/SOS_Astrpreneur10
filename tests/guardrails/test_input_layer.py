@@ -1,6 +1,6 @@
 """Guardrail: agents only use envelopes released by the input security layer, verified and masked.
 
-No network: the layer's HTTP calls and the RH Flow client are replaced by fakes; envelopes are signed
+No network: the layer's HTTP calls and the HR Flow client are replaced by fakes; envelopes are signed
 here with the same canonical JSON + HMAC as input-security-layer/ingest/signing.py.
 """
 
@@ -104,7 +104,7 @@ def test_comms_reads_only_released_envelopes_and_replies_to_sender(service_mode,
         mail = c.read_email.invoke({"email_id": "IN-1"})
         assert mail["applicant"].startswith("[APPLICANT_") and "dorra" not in json.dumps(mail).lower()
         res = c.propose_email_reply.invoke({"email_id": "IN-1", "subject": "Re: Data Analyst",
-                                            "body": "Dear <PERSON_1>, thank you. The RH Flow HR team"})
+                                            "body": "Dear <PERSON_1>, thank you. The HR Flow HR team"})
         assert res["status"] == "Proposed", res
         p = ctx.proposals[0]["payload"]
         assert p["to"] == "<SENDER>" and p["doc_id"] == env["doc_id"]

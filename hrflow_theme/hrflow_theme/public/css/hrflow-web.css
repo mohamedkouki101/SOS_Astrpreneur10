@@ -91,3 +91,16 @@ html:not([data-theme="dark"]) .btn-default {
 	color: var(--hf-ink);
 }
 html:not([data-theme="dark"]) a { color: var(--hf-electric); }
+
+/* Website navbar and footer (e.g. /chat): cream, translucent, HR Flow logo from brand_html */
+html:not([data-theme="dark"]) .navbar {
+	background: color-mix(in srgb, var(--hf-cream) 82%, transparent);
+	backdrop-filter: blur(8px);
+	border-bottom: 1px solid var(--hf-line);
+}
+html:not([data-theme="dark"]) .navbar .navbar-brand img { max-height: 28px; width: auto; }
+html:not([data-theme="dark"]) .navbar .nav-link { color: var(--hf-ink); }
+html:not([data-theme="dark"]) .web-footer {
+	background: transparent;
+	border-top: 1px solid var(--hf-line);
+}

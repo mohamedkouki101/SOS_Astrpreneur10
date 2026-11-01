@@ -13,10 +13,10 @@
 			brand = document.createElement("a");
 			brand.className = "hrflow-brand";
 			brand.href = "/desk";
-			brand.setAttribute("aria-label", "HRflow home");
+			brand.setAttribute("aria-label", "HR Flow home");
 			const img = document.createElement("img");
 			img.src = LOGO;
-			img.alt = "HRflow";
+			img.alt = "HR Flow";
 			brand.appendChild(img);
 		}
 		if (sidebar.firstElementChild !== brand) sidebar.prepend(brand);

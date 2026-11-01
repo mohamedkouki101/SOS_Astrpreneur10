@@ -6,7 +6,7 @@
 |---|---|
 | `mail_ingester.stub` | Source: IMAP pull or HR Core Email Account + webhook (TODO verify) |
 | `sanitizer.stub` | 1 Sanitizer: type/size allowlist, malware scan (TODO), sandboxed parser, strip macros/links/hidden text |
-| `pii.stub` | 2 PII masking (Presidio per CLAUDE.md): tokens for names/emails/phones; remove age, gender, photo, nationality |
+| `pii.stub` | 2 PII masking (Presidio per the design): tokens for names/emails/phones; remove age, gender, photo, nationality |
 | `injection.stub` | 3 Injection scanner: rules + classifier (TODO); quarantine + alert |
 | `provenance.stub` | 4 Provenance tagger: source ID, SHA-256, candidate ID, trust=untrusted |
 

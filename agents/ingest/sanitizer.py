@@ -5,7 +5,7 @@ separates VISIBLE text from HIDDEN text (white, tiny or off-page characters in P
 white runs in DOCX; display:none / comments in HTML email), and link stripping.
 
 Hidden text is never silently dropped: it is returned separately so stage 3 can scan it and the
-item can be quarantined. Malware scanning is a hook (scanner not chosen yet, see CLAUDE.md).
+item can be quarantined. Malware scanning is a hook (scanner not chosen yet, see LIMITATIONS.md).
 """
 
 from __future__ import annotations

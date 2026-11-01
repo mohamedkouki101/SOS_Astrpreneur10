@@ -89,7 +89,7 @@ def text_of(envelope: dict) -> str:
 
 
 def mask_known(text: str, known: dict[str, str]) -> str:
-    """Defence in depth: replace identifiers RH Flow already knows (from the trusted record, e.g. the
+    """Defence in depth: replace identifiers HR Flow already knows (from the trusted record, e.g. the
     applicant's name, email, phone) that the layer's detectors missed. Each value and each name part
     (3+ letters) becomes its placeholder, case-insensitively, on word boundaries.
     Needed because the layer does not mask names written in a CV header (e.g. "SARRA LAHMAR")."""

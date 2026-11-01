@@ -1,4 +1,4 @@
-"""Create one least-privilege, READ-ONLY API user per agent in RH Flow and write its key to .env.
+"""Create one least-privilege, READ-ONLY API user per agent in HR Flow and write its key to .env.
 
 Run once (and again after a site reset), as an administrator:
     ADMIN_PASSWORD=... python agents/scripts/setup_agent_users.py
@@ -21,7 +21,7 @@ from pathlib import Path
 import httpx
 
 REPO = Path(__file__).resolve().parents[2]
-URL = os.environ.get("RHFLOW_URL", "http://localhost:8080").rstrip("/")
+URL = os.environ.get("RHFLOW_URL", "http://localhost:8001").rstrip("/")
 
 READS: dict[str, list[str]] = {
     "orchestrator": ["Leave Application", "Job Applicant"],

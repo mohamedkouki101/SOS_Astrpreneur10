@@ -1,32 +1,27 @@
-# hr_ai — HR Core custom app
+# hr_ai — our Frappe app inside HR Flow
 
-**Responsibility:** In-process extension of HR Core. Holds the AI Action queue and every guardrail that decides or performs writes.
+Runs in-process in Frappe HR (built into the platform image, see `platform/build-images.sh`). It holds the
+human side of every AI action and is the **only writer**: agents never get write credentials.
 
-**Implements:** AI Action DocType + workflow, Policy Engine, Fairness checks, Human approval, Execution Gateway, Audit Log, Monitor, Webhooks/doc_events, Scheduler hooks.
-
-| File | Component |
+| File | What it does |
 |---|---|
-| `hr_ai/hooks.py` | doc_events, scheduler_events |
-| `hr_ai/api.py` | whitelisted `propose_action` |
-| `hr_ai/webhooks.py` | signed outbound events |
-| `hr_ai/policy.py` | Policy Engine |
-| `hr_ai/fairness.py` | Fairness checks |
-| `hr_ai/approval.py` | Human approval token |
-| `hr_ai/executor.py` | Execution Gateway |
-| `hr_ai/audit.py` | Audit Log |
-| `hr_ai/monitor.py` | Monitor |
-| `hr_ai/ai_action/` | AI Action DocType (JSON not yet created) |
+| `hooks.py` | `doc_events` (AI Action → executor, Job Applicant → input layer), scheduler (inbox sync every minute), RH AI tile |
+| `api.py` | `propose_action` (agents' only way in: creates a *Proposed* AI Action after guardrails check #1), RH AI queue API |
+| `approval.py` | Canonical action hash + approval token (HMAC over action, hash, approver). Any edit voids the approval |
+| `executor.py` | **Execution Gateway**: re-checks hash, token and guardrails (check #2), resolves `<PERSON_n>` tokens, writes or sends; idempotent, fails closed |
+| `guardrails_client.py` | Bridge to `guardrails/` (policy, fairness) |
+| `ingest.py` | Bridge to `input-security-layer/`: CVs and Mailpit inbox → stages 1–4, HR **Security checks** (inspect / release / reject) |
+| `webhooks.py` | Signed events to the agent service (HMAC, timestamp, idempotency key) |
+| `chat.py`, `www/chat.*` | **RH Chat** (`/chat`): employees, candidates and HR; every message goes through the input layer first |
+| `desk.py` | Apps screen and website home page for chat users |
+| `setup.py` | Install/migrate hooks; `setup_guardrails_accounts`, `setup_demo_users` (called by `scripts/setup_stack.py site`) |
+| `hr_ai/doctype/` | **AI Action** (Proposed → Approved / Rejected → Executed / Failed), **Inbound Email**, **Chat Message** |
+| `hr_ai/page/rh_ai/` | **RH AI** decision page (`/desk/rh-ai`) |
 
-The nested `hr_ai/hr_ai/` package follows the platform's standard app layout (assumed).
+Site config keys (all set by `scripts/setup_stack.py site`, never in git): `hr_ai_ingest_*`, `hr_ai_guardrails_*`,
+`hr_ai_agents_url`, `hr_ai_agents_webhook_secret`, `hr_ai_mailpit_url`, `hr_ai_hr_inbox`, `hr_ai_test_recipient`,
+`hr_ai_approval_secret` (generated on install).
 
-**May depend on:** HR Core framework and HR module APIs (Python calls, hooks).
-**Must never be depended on by:** `agents/` code importing it. Agents reach it only over REST (`/api/method/hr_ai.api.*`, `/api/resource/*`).
-
-**Rules (CLAUDE.md §7):**
-- Never edit upstream platform code; extend only via this app, hooks and DocTypes.
-- Only the Execution Gateway writes, only for Approved actions, after verifying approval ↔ action_hash and re-checking policy. Idempotent.
-- Policy Engine is default-deny; never loosen defaults to pass a test.
-- Every proposal, approval and execution writes an Audit Log entry; entries are never updated or deleted.
-- Use the permission-aware list API, never the permission-ignoring one, in anything agents can reach.
-- Webhooks: HMAC + replay protection; handlers idempotent.
-- Deployment: must be built into the image (`custom:N`); never installed only in a running container.
+**Rules:** never patch `hrms`, `erpnext` or `frappe`; extend through this app. Only Approved actions are executed,
+after the approval ↔ hash check and a fresh guardrails check. Permission-aware queries (`frappe.get_list`) in
+anything agents can reach. Test mode: every outgoing email goes to `hr_ai_test_recipient`.

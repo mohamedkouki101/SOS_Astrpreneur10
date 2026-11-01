@@ -1,4 +1,4 @@
-"""Install / migrate hooks: approval key, the fields linking RH Flow records to the input security layer,
+"""Install / migrate hooks: approval key, the fields linking HR Flow records to the input security layer,
 and the chat (RH Chat) role and identity links.
 
 Demo users (run once, passwords passed on the command line, never stored in git):

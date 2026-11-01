@@ -67,6 +67,6 @@ def ingest_bytes(source_id: str, filename: str, data: bytes, *, known_pii: dict[
 
 def ingest_text(source_id: str, text: str, *, known_pii: dict[str, str] | None = None,
                 candidate_id: str | None = None) -> IngestResult:
-    """Free-text fields from RH Flow records (cover letters, leave reasons, grievances)."""
+    """Free-text fields from HR Flow records (cover letters, leave reasons, grievances)."""
     return ingest_bytes(source_id, f"{source_id}.txt", (text or "").encode("utf-8"),
                         known_pii=known_pii, candidate_id=candidate_id)

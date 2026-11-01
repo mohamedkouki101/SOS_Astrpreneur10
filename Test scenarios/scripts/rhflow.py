@@ -1,4 +1,4 @@
-"""Small client used by the test-scenario scripts. Talks to the running RH Flow stack exactly like a
+"""Small client used by the test-scenario scripts. Talks to the running HR Flow stack exactly like a
 browser or an agent would: HTTP only, with the same logins and API keys. Nothing here bypasses a layer.
 
     HR Core                 http://localhost:8001   Administrator / admin, utilisateur@rhflow.local / user
@@ -15,6 +15,7 @@ Run every script from the repo root with the agents' venv:
 from __future__ import annotations
 
 import json
+import os
 import sys
 import time
 from pathlib import Path
@@ -29,7 +30,7 @@ AGENTS = "http://127.0.0.1:8200"
 MAILPIT = "http://localhost:8025"
 
 ADMIN = ("Administrator", "admin")
-STACK_DIR = Path.home() / "frappe_docker"   # docker compose project of the HR Core stack (CLAUDE.md section 8)
+STACK_DIR = Path(os.environ.get("STACK_DIR") or Path(__file__).resolve().parents[2] / "platform")  # Frappe stack compose project (platform/)
 EMPLOYEE = ("utilisateur@rhflow.local", "user")   # website user, chat only; linked to HR-EMP-00007
 
 

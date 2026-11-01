@@ -1,4 +1,4 @@
-"""Apps screen (/desk) for RH Flow: the ERPNext tile is replaced by the RH Chat tile.
+"""Apps screen (/desk) for HR Flow: the ERPNext tile is replaced by the RH Chat tile.
 
 ERPNext stays installed (HRMS depends on it) and its pages keep working; only its tile leaves the
 apps screen. The change is applied to this user's boot data, so nothing in erpnext is modified.
@@ -7,6 +7,11 @@ apps screen. The change is applied to this user's boot data, so nothing in erpne
 import frappe
 
 HIDDEN_APPS = {"erpnext"}
+# Tiles of apps we do not own get the HR Flow pictograms (boot data only; their files are untouched).
+TILE_LOGOS = {
+    "hrms": "/assets/hr_ai/images/hr-flow-favicon.svg",
+    "frappe": "/assets/hr_ai/images/hr-flow-admin.svg",
+}
 CHAT_TILE = {
     "on_apps_screen": True,
     "sequence_id": 1,
@@ -14,7 +19,7 @@ CHAT_TILE = {
     "app_title": "RH Chat",
     "app_route": "/chat",
     "desk_route": "",
-    "app_logo_url": "/assets/hr_ai/images/rh-chat-logo.svg",
+    "app_logo_url": "/assets/hr_ai/images/hr-chat-logo.svg",
     "dock": [],
 }
 
@@ -24,6 +29,8 @@ def extend_bootinfo(bootinfo):
     for app in apps:
         if app.get("app_name") in HIDDEN_APPS:
             app["on_apps_screen"] = False
+        if app.get("app_name") in TILE_LOGOS:
+            app["app_logo_url"] = TILE_LOGOS[app["app_name"]]
     if frappe.session.user != "Guest" and not any(a.get("app_name") == "rh_chat" for a in apps):
         apps.append(dict(CHAT_TILE))
     bootinfo["app_data"] = apps

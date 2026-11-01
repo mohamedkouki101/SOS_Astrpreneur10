@@ -136,7 +136,7 @@ def _send_email(doc, p, tokens):
     subject = _real(p["subject"], tokens, doc_id)
     body = _real(p["body"], tokens, doc_id)
     message = (
-        f"<p style='color:#888'>[RH Flow test mode] Intended recipient: {html.escape(intended)} "
+        f"<p style='color:#888'>[HR Flow test mode] Intended recipient: {html.escape(intended)} "
         f"(AI Action {doc.name})</p>"
         + "".join(f"<p>{html.escape(par).replace(chr(10), '<br>')}</p>" for par in body.split("\n\n"))
     )

@@ -1,4 +1,4 @@
-"""RH Chat: employees and job applicants talk to the RH Flow assistant in plain language.
+"""RH Chat: employees and job applicants talk to the HR Flow assistant in plain language.
 
     user types -> send() stores the message (status Checking) and queues process()
     process(): 1. INPUT SECURITY LAYER first (POST /v1/email, UPLOAD key): sanitize, mask PII, scan

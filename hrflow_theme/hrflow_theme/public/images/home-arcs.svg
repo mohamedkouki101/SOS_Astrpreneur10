@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 360" preserveAspectRatio="xMinYMax meet">
+  <!-- Home page: the sidebar's curved bands, soft, in the bottom-left corner. They fade out to the
+       right and top so no edge of the image is visible. -->
+  <defs>
+    <linearGradient id="fade" x1="0" y1="1" x2="1" y2="0.2">
+      <stop offset=".35" stop-color="#fff"/><stop offset=".95" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="m"><rect width="520" height="360" fill="url(#fade)"/></mask>
+  </defs>
+  <g fill="none" stroke-linecap="round" mask="url(#m)">
+    <path d="M-60 420 C 40 220, 220 160, 520 150" stroke="#1455E8" stroke-opacity=".10" stroke-width="70"/>
+    <path d="M-60 470 C 60 300, 230 250, 520 250" stroke="#76A9FF" stroke-opacity=".22" stroke-width="46"/>
+    <path d="M-60 520 C 80 380, 250 340, 520 345" stroke="#073B9B" stroke-opacity=".07" stroke-width="30"/>
+  </g>
+</svg>

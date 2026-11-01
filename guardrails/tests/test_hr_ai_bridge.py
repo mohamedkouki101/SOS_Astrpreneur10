@@ -1,8 +1,8 @@
-"""RH Flow (hr_ai) asking the guardrails, end to end.
+"""HR Flow (hr_ai) asking the guardrails, end to end.
 
 hr_ai/hr_ai/guardrails_client.py is loaded as is and its HTTP call is routed to this
 service's real FastAPI app: the records below have the shape of AI Action records as
-RH Flow stores them (JSON text fields, extra Frappe fields). All data is fictional."""
+HR Flow stores them (JSON text fields, extra Frappe fields). All data is fictional."""
 import importlib.util
 import json
 import sys

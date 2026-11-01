@@ -1,0 +1,684 @@
+{
+  "timezone": "Africa/Tunis",
+  "slots": [
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-02",
+      "start": "09:00",
+      "end": "09:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-02",
+      "start": "14:00",
+      "end": "14:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-02",
+      "start": "15:00",
+      "end": "15:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-02",
+      "start": "11:00",
+      "end": "11:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-02",
+      "start": "15:00",
+      "end": "15:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-02",
+      "start": "16:00",
+      "end": "16:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-02",
+      "start": "09:00",
+      "end": "09:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-02",
+      "start": "10:00",
+      "end": "10:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-02",
+      "start": "11:00",
+      "end": "11:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-02",
+      "start": "16:00",
+      "end": "16:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-03",
+      "start": "09:00",
+      "end": "09:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-03",
+      "start": "11:00",
+      "end": "11:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-03",
+      "start": "15:00",
+      "end": "15:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-03",
+      "start": "09:00",
+      "end": "09:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-03",
+      "start": "11:00",
+      "end": "11:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-03",
+      "start": "16:00",
+      "end": "16:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-04",
+      "start": "11:00",
+      "end": "11:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-04",
+      "start": "14:00",
+      "end": "14:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-04",
+      "start": "11:00",
+      "end": "11:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-04",
+      "start": "15:00",
+      "end": "15:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-04",
+      "start": "09:00",
+      "end": "09:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-04",
+      "start": "10:00",
+      "end": "10:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-04",
+      "start": "15:00",
+      "end": "15:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-04",
+      "start": "16:00",
+      "end": "16:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-05",
+      "start": "09:00",
+      "end": "09:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-05",
+      "start": "11:00",
+      "end": "11:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-05",
+      "start": "15:00",
+      "end": "15:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-05",
+      "start": "10:00",
+      "end": "10:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-05",
+      "start": "11:00",
+      "end": "11:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-05",
+      "start": "14:00",
+      "end": "14:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-05",
+      "start": "15:00",
+      "end": "15:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-05",
+      "start": "11:00",
+      "end": "11:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-05",
+      "start": "14:00",
+      "end": "14:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-05",
+      "start": "15:00",
+      "end": "15:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-06",
+      "start": "11:00",
+      "end": "11:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-06",
+      "start": "14:00",
+      "end": "14:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-06",
+      "start": "15:00",
+      "end": "15:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-06",
+      "start": "10:00",
+      "end": "10:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-06",
+      "start": "14:00",
+      "end": "14:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-06",
+      "start": "16:00",
+      "end": "16:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-09",
+      "start": "09:00",
+      "end": "09:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-09",
+      "start": "11:00",
+      "end": "11:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-09",
+      "start": "14:00",
+      "end": "14:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-09",
+      "start": "16:00",
+      "end": "16:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-09",
+      "start": "09:00",
+      "end": "09:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-09",
+      "start": "11:00",
+      "end": "11:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-09",
+      "start": "14:00",
+      "end": "14:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-09",
+      "start": "15:00",
+      "end": "15:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-09",
+      "start": "09:00",
+      "end": "09:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-09",
+      "start": "10:00",
+      "end": "10:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-09",
+      "start": "14:00",
+      "end": "14:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-09",
+      "start": "15:00",
+      "end": "15:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-10",
+      "start": "10:00",
+      "end": "10:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-10",
+      "start": "11:00",
+      "end": "11:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-10",
+      "start": "15:00",
+      "end": "15:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-10",
+      "start": "10:00",
+      "end": "10:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-10",
+      "start": "15:00",
+      "end": "15:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-10",
+      "start": "16:00",
+      "end": "16:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-10",
+      "start": "09:00",
+      "end": "09:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-10",
+      "start": "11:00",
+      "end": "11:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-10",
+      "start": "14:00",
+      "end": "14:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-10",
+      "start": "15:00",
+      "end": "15:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-11",
+      "start": "10:00",
+      "end": "10:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-11",
+      "start": "15:00",
+      "end": "15:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-11",
+      "start": "09:00",
+      "end": "09:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-11",
+      "start": "10:00",
+      "end": "10:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-11",
+      "start": "14:00",
+      "end": "14:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-11",
+      "start": "15:00",
+      "end": "15:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-11",
+      "start": "16:00",
+      "end": "16:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-11",
+      "start": "09:00",
+      "end": "09:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-11",
+      "start": "11:00",
+      "end": "11:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-11",
+      "start": "14:00",
+      "end": "14:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-11",
+      "start": "16:00",
+      "end": "16:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-12",
+      "start": "09:00",
+      "end": "09:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-12",
+      "start": "10:00",
+      "end": "10:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-12",
+      "start": "14:00",
+      "end": "14:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-12",
+      "start": "15:00",
+      "end": "15:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-12",
+      "start": "16:00",
+      "end": "16:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-12",
+      "start": "09:00",
+      "end": "09:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-12",
+      "start": "14:00",
+      "end": "14:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-12",
+      "start": "15:00",
+      "end": "15:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-12",
+      "start": "16:00",
+      "end": "16:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-12",
+      "start": "11:00",
+      "end": "11:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-12",
+      "start": "15:00",
+      "end": "15:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-12",
+      "start": "16:00",
+      "end": "16:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-13",
+      "start": "10:00",
+      "end": "10:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-13",
+      "start": "11:00",
+      "end": "11:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-13",
+      "start": "14:00",
+      "end": "14:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-13",
+      "start": "15:00",
+      "end": "15:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-HUMAN",
+      "interviewer": "Cyrine Masmoudi",
+      "date": "2026-11-13",
+      "start": "16:00",
+      "end": "16:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-13",
+      "start": "09:00",
+      "end": "09:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-13",
+      "start": "10:00",
+      "end": "10:45"
+    },
+    {
+      "interviewer_key": "EMP-002",
+      "interviewer": "Skander Jaziri",
+      "date": "2026-11-13",
+      "start": "14:00",
+      "end": "14:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-13",
+      "start": "09:00",
+      "end": "09:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-13",
+      "start": "11:00",
+      "end": "11:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-13",
+      "start": "14:00",
+      "end": "14:45"
+    },
+    {
+      "interviewer_key": "EMP-HEAD-RESEARCH",
+      "interviewer": "Rim Sfaxi",
+      "date": "2026-11-13",
+      "start": "15:00",
+      "end": "15:45"
+    }
+  ]
+}

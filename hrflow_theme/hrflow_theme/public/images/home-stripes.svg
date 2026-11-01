@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 700" preserveAspectRatio="xMaxYMin meet">
+  <!-- Home page: the header's diagonal bands, larger, fading out towards the bottom and the left
+       so no edge of the image is visible. -->
+  <defs>
+    <linearGradient id="fade-diag" x1="1" y1="0" x2="0.15" y2="1">
+      <stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="#fff" stop-opacity=".7"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="fade-down" x1="0" y1="0" x2="0" y2="1">
+      <stop offset=".45" stop-color="#fff"/><stop offset=".97" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="m1"><rect width="1100" height="700" fill="url(#fade-diag)"/></mask>
+    <mask id="m2"><rect width="1100" height="700" fill="url(#fade-down)"/></mask>
+  </defs>
+  <g mask="url(#m2)"><g mask="url(#m1)">
+    <path d="M430 0 H560 L120 700 H-10 Z" fill="#76A9FF" fill-opacity=".20"/>
+    <path d="M610 0 H800 L360 700 H170 Z" fill="#76A9FF" fill-opacity=".32"/>
+    <path d="M850 0 H950 L510 700 H410 Z" fill="#1455E8" fill-opacity=".12"/>
+    <path d="M1000 0 H1100 V90 L700 700 H560 Z" fill="#76A9FF" fill-opacity=".28"/>
+  </g></g>
+</svg>

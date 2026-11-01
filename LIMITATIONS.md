@@ -13,9 +13,9 @@ are gaps in coverage, not ways for an agent to act alone.
 
 | Item | Detail |
 |---|---|
-| Code used by the live demo is not pushed | The agent HTTP service (`agents.integration.server`, port 8200), RH Chat (employee self-service and HR orders), the signed webhook receiver, `guardrails/compose.guardrails.yml` and the switch to qwen3:14b are used in `docs/demo-script.md` and `Test scenarios/`, but are not in the repository. Scenarios 04, 05, 06 and 08 cannot run from a clean clone. |
-| Two test counts | 721 tests pass on this repository (355 + 333 + 33, 9 skipped). `Test scenarios/README.md` reports 796 on the live stack, which includes the code above. |
-| Theme not merged | `feat/hrflow-theme` (RH Flow theme and logo) is a separate branch, not merged into `kouki-branch`. |
+| Everything is in the repository | Platform setup (`platform/`), Frappe HR source (`hrms/`), our apps (`hr_ai/`, `hrflow_theme/`), services, agents, tests and the 12 scenarios. 796 automated tests pass (67 + 362 + 367). |
+| Clean-install path not timed end to end | The stack was built and tested step by step on the team's machine (image `custom:N` from `platform/hr.yml`). `scripts/setup_stack.py` and `platform/build-images.sh` package those same steps; a full rebuild from an empty Docker host was not re-run before submission. `apps.json` pins ERPNext / HRMS to `v16.53.0`; Frappe follows the `version-16` branch. |
+| Setup wizard is manual | Company **Bara3am** must be created in the Frappe setup wizard before the seed runs. |
 | Two masking pipelines | `input-security-layer/` (service, tokens `<PERSON_1>`) and `agents/ingest/` (local fallback, tokens `[PERSON_1]`). `INPUT_LAYER=service` is the intended mode; the local one is kept for offline tests. The gateway handles both formats. |
 
 ## 2. Input security layer (`input-security-layer/`)
@@ -35,14 +35,14 @@ are gaps in coverage, not ways for an agent to act alone.
 
 ## 3. Agents (`agents/`)
 
-- **Demo scope:** Orchestrator, Recruitment, Comms, HR Assistant. Leave, Onboarding, Payroll, Performance and Conflict are minimal stubs, and the policy engine denies their proposals by default.
+- **Demo scope:** Orchestrator, Recruitment, Comms, HR Assistant, Leave, and the chat Operator. Onboarding, Payroll, Performance and Conflict are minimal stubs, and the policy engine denies their proposals by default.
 - **Local LLM is slow:** 3–10 s per step, 20–60 s per run; ranking one opening (~16 CVs) takes several minutes. Rankings are prepared before the demo.
-- **Model quality:** an 8B / 14B local model can pick a wrong tool or write a weak draft. Code limits what it can do (allowlist, schemas, budgets); a human reviews every proposal.
+- **Model quality:** a 14B local model can pick a wrong tool or write a weak draft. Code limits what it can do (allowlist, schemas, budgets); a human reviews every proposal.
 - **Calendar and policies are files** (JSON free slots, policy documents), not a real calendar or document system.
 
 ## 4. Guardrails, approval and execution (`guardrails/`, `hr_ai/`)
 
-- **Refused proposals leave no central audit entry.** `hr_ai/audit.py`, `monitor.py`, `policy.py`, `fairness.py` and `webhooks.py` are placeholders: that logic lives in the guardrails service. In the wired mode `hr_ai` calls the guardrails' dry-run check, so a refusal is returned to the caller and logged on the agent side (`var/audit.jsonl`), but a direct API call that is refused leaves no trace.
+- **Refused proposals leave no central audit entry.** `hr_ai` has no audit or monitor of its own: that logic lives in the guardrails service. In the wired mode `hr_ai` calls the guardrails' dry-run check, so a refusal is returned to the caller and logged on the agent side (`var/audit.jsonl`), but a direct API call that is refused leaves no trace.
 - **The guardrails' own queue, audit chain and monitor are built and tested but not on the main path.** The decision trail in the demo is the AI Action history in Frappe (who approved, when), plus the agent-side hash-chained trail.
 - **RH AI card hides placeholders.** Frappe's HTML filter strips `<SENDER>` and `<PERSON_1>` from the card summary (they look like tags), so the card shows `To: ` / `Hello ,`. The payload and the sent email are correct; show **Details / edit → Payload** in the demo. The filter must stay on: the summary is model output.
 - **Decision-only kinds** (ranking, digest, leave decision) record HR's decision but trigger no automatic write; HR follows up by hand.
@@ -56,7 +56,7 @@ are gaps in coverage, not ways for an agent to act alone.
 - **Test mode only:** every outgoing email goes to `hr_ai_test_recipient` (Mailpit). Real sending needs an outgoing Email Account and turning test mode off.
 - **Single machine, no TLS.** Services talk over plain HTTP on localhost / the Docker network. The input layer binds to `127.0.0.1` in compose; the guardrails example binds to `0.0.0.0` and should be firewalled.
 - **`hr_ai` must be built into the Frappe image** (10–15 min rebuild); changes are not hot-reloaded.
-- **Licensing:** Frappe HR is GPL v3; implications for distributing a modified product are not reviewed.
+- **Licensing:** Frappe HR (`hrms/`) and ERPNext are GPL v3 and are redistributed unmodified with their licence files; `platform/` is based on frappe_docker (MIT). The licence of our own Frappe apps relative to the GPL was not reviewed by a lawyer.
 
 ## 6. Data
 

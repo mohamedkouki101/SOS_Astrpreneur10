@@ -1,4 +1,4 @@
-"""Command line for the RH Flow agents.
+"""Command line for the HR Flow agents.
 
     python -m agents.cli ask "Rank the applicants for Senior Python Developer"
     python -m agents.cli ask "How many casual leave days do I have left?" --as HR-EMP-00007

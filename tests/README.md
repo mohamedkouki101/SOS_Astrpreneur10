@@ -1,13 +1,20 @@
-# tests
+# tests — cross-layer tests
 
-**Responsibility:** Checks for each build-plan task and one test per guardrail.
+One test (or more) per guardrail, run offline: a scripted fake model stands in for qwen, and the fictional
+dataset in `platform/Data_set/dataset` stands in for real CVs and emails.
 
 | Path | Content |
 |---|---|
-| `guardrails/` | injection, bypass, disparity, duplicate webhook (placeholders) |
-| `hr_ai/` | `hr_ai` app tests (TODO) |
-| `agents/` | agent service tests (TODO) |
+| `guardrails/test_injection.py` | Poisoned CVs and emails are caught by stages 1–4 and never reach the model |
+| `guardrails/test_bypass.py` | A tricked agent cannot write, call unknown tools or exceed its budgets |
+| `guardrails/test_disparity.py` | Rankings are job-related only; protected attributes are blind |
+| `guardrails/test_duplicate_webhook.py` | Signed webhooks: bad signature, replay and duplicate events are rejected |
+| `guardrails/test_input_layer.py`, `test_pii.py` | Envelope signature checks, PII masking |
+| `agents/` | Orchestrator routing, Comms placeholders, RH Chat |
 
-Test runner/commands: TODO (CLAUDE.md §8).
+```bash
+uv run pytest -q tests      # repo root: 67 passed
+```
 
-**Rules:** External content goes through stages 1–4 even in tests. Never loosen Policy Engine defaults to pass a test. Fictional data only.
+The `hr_ai` ↔ guardrails bridge is tested in `guardrails/tests/test_hr_ai_bridge.py`.
+**Rules:** external content goes through stages 1–4 even in tests. Never loosen Policy Engine defaults to pass a test. Fictional data only.

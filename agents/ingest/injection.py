@@ -2,7 +2,7 @@
 
 Any rule hit, in visible OR hidden text, quarantines the item. Hidden text on its own also
 quarantines it: a CV or email has no legitimate reason to hide text from the human reader.
-The classifier is a hook (model not chosen yet, see CLAUDE.md).
+The classifier is a hook (model not chosen yet, see LIMITATIONS.md).
 """
 
 from __future__ import annotations

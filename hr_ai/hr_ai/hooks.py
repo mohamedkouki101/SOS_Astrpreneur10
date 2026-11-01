@@ -1,7 +1,7 @@
 app_name = "hr_ai"
-app_title = "RH Flow AI"
+app_title = "HR Flow AI"
 app_publisher = "SOS_Astrpreneur1 team"
-app_description = "AI Action approval queue and guardrails for RH Flow"
+app_description = "AI Action approval queue and guardrails for HR Flow"
 app_email = "team@rhflow.example"
 app_license = "UNLICENSED"  # TODO: team to choose a licence
 
@@ -31,7 +31,7 @@ get_website_user_home_page = "hr_ai.desk.home_page"
 add_to_apps_screen = [
     {
         "name": "hr_ai",
-        "logo": "/assets/hr_ai/images/rh-ai-logo.svg",
+        "logo": "/assets/hr_ai/images/hr-ai-logo.svg",
         "title": "RH AI",
         "route": "/desk/rh-ai",
         "has_permission": "hr_ai.api.check_app_permission",

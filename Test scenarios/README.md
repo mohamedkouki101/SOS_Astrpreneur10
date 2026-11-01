@@ -1,4 +1,4 @@
-# RH Flow: test scenarios
+# HR Flow: test scenarios
 
 Twelve end-to-end use cases that show the whole solution working on the running stack, from the
 untrusted inbox to the HR Core records. Each scenario has:
@@ -32,7 +32,7 @@ No scenario had to be hard-coded or faked: every result above comes from the rea
 
 ## Which layer each scenario exercises
 
-| Layer (CLAUDE.md §4) | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 | 11 | 12 |
+| Layer (design rules) | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 | 11 | 12 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | Interfaces: Desk RH AI page / RH Chat / REST, roles | ● | ● | ● | ● | ● | ● | ● | | ● | ● | ● | ● |
 | Authentication + role permissions (HR Core) | ● | ● | | ● | ● | ● | ● | | | | | ● |
@@ -50,13 +50,13 @@ No scenario had to be hard-coded or faked: every result above comes from the rea
 
 ## Before you run anything
 
-Start the stack (WSL, details in `docs/demo-script.md` part A):
+Start the stack (WSL, from the repository root; first install: [`JURY_GUIDE.md`](../JURY_GUIDE.md) part B):
 ```bash
-cd ~/frappe_docker && docker compose -p hr -f hr.yml up -d                 # HR Core + Mailpit
-cd /mnt/c/Users/ASUS/Desktop/SOS
+# from the repository root, after the one-time install of JURY_GUIDE.md part B
+docker compose -p hr -f platform/hr.yml up -d                 # HR Flow + Mailpit
 docker compose -f input-security-layer/compose.ingest.yml up -d           # input security layer :8090
 docker compose -f guardrails/compose.guardrails.yml up -d                 # guardrails :8100
-~/.local/ollama/bin/ollama serve > /tmp/ollama.log 2>&1 &                 # qwen3:14b
+ollama serve > /tmp/ollama.log 2>&1 &                 # qwen3:14b
 $HOME/.venvs/rhflow-agents/bin/python -m agents.integration.server        # agent service :8200 (own terminal)
 ```
 Health check: every script starts with one and stops with "Stack not ready, down: …" if a service is missing.
@@ -99,7 +99,7 @@ restarts it. S07 uses the backend console only to simulate a database attacker (
 4. **Refused proposals are not stored in an audit log.** `hr_ai/audit.py` and `hr_ai/monitor.py` are still
    placeholders and the guardrails' `/agent-actions/check` is a dry run. A refusal is returned to the caller;
    agent runs log it in `var/audit.jsonl` (`proposal_submit_failed`), direct API calls leave no trace.
-   CLAUDE.md asks for "every proposal … writes an Audit Log entry": this is the gap.
+   The design asks for "every proposal … writes an Audit Log entry": this is the gap.
 5. The guardrails monitor shows older `forbidden_endpoint` alerts for `guardrails.check@` from before the
    wiring was finished (2026-11-01 early morning). Acknowledge them before the demo
    (`POST /alerts/{id}/ack`) so the alert list starts clean.

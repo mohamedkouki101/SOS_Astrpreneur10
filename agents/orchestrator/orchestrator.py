@@ -30,7 +30,7 @@ MAX_DELEGATIONS = 3
 ORCHESTRATOR = AgentSpec(
     name="orchestrator",
     description="Routes requests to the right specialist agent.",
-    role="You are the Orchestrator of RH Flow. You route each request to the right specialist agent:\n"
+    role="You are the Orchestrator of HR Flow. You route each request to the right specialist agent:\n"
     + "\n".join(f"- {s.name}: {s.description}" for s in SPECIALISTS.values())
     + "\nDelegate to ONE specialist at a time with a clear task that includes any IDs from the request. "
       "After the specialist answers, summarise the result for the user in 2-4 sentences, including any "

@@ -1,13 +1,13 @@
-# agents — RH Flow agent service
+# agents — HR Flow agent service
 
-9 agents (Orchestrator + 8 specialists), each a **LangGraph** graph, all using **qwen3:14b** (Ollama) as the decision model. Agents only **read** RH Flow (one read-only API user per agent) and **propose** actions; a human approves every proposal.
+9 agents (Orchestrator + 8 specialists), each a **LangGraph** graph, all using **qwen3:14b** (Ollama) as the decision model. Agents only **read** HR Flow (one read-only API user per agent) and **propose** actions; a human approves every proposal.
 
 Design and tool lists: [`docs/agents.md`](../docs/agents.md).
 
 ## Setup (WSL)
 
 ```sh
-cd ~/Desktop/SOS        # repo root
+cd SOS_Astrpreneur10        # repo root
 export UV_PROJECT_ENVIRONMENT=$HOME/.venvs/rhflow-agents
 uv sync --python 3.12
 uv pip install --python $UV_PROJECT_ENVIRONMENT/bin/python \
@@ -17,7 +17,7 @@ uv pip install --python $UV_PROJECT_ENVIRONMENT/bin/python \
 ADMIN_PASSWORD=... $UV_PROJECT_ENVIRONMENT/bin/python agents/scripts/setup_agent_users.py
 ```
 
-Prerequisites: RH Flow at `http://localhost:8001` with the demo dataset, and Ollama at `http://localhost:11434` with `qwen3:14b`.
+Prerequisites: HR Flow at `http://localhost:8001` with the demo dataset, and Ollama at `http://localhost:11434` with `qwen3:14b`.
 
 ## Run
 
@@ -77,7 +77,7 @@ Expect about 5–20 s per Qwen step. Ranking one opening (about 16 CVs) takes se
 
 Runtime files go to `var/` (gitignored): `audit.jsonl`, `alerts.jsonl`, `outbox/proposals.jsonl`, `token_map.json`.
 
-## Rules enforced in code (CLAUDE.md §7)
+## Rules enforced in code (design rules)
 - **No write credentials.** `PlatformClient` only issues GET requests, and each agent's API role is read-only on its own DocTypes. This is verified: PUT, POST and DELETE return 403.
 - **Allowlists.** Each agent is shown only its own tools. Any other tool name is rejected and audited.
 - **Budgets.** Tool calls, steps, tokens and proposals per run.
@@ -99,7 +99,7 @@ used, and names the layer missed are masked again from the trusted record. Needs
 $HOME/.venvs/rhflow-agents/bin/python -m pytest -q
 ```
 
-The tests run offline: a scripted fake LLM stands in for Qwen and nothing calls RH Flow. There is one test file per guardrail (`tests/guardrails/`). The duplicate-webhook test is skipped until the receiver exists.
+The tests run offline: a scripted fake LLM stands in for Qwen and nothing calls HR Flow. There is one test file per guardrail (`tests/guardrails/`). The duplicate-webhook test is skipped until the receiver exists.
 
 ## Not done yet
 - Malware scanner and injection classifier (hooks exist; not chosen yet).

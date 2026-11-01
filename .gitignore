@@ -5,15 +5,10 @@
 *.pem
 *.key
 
-# Upstream platform code and tooling: never part of this repo
-hrms/
-erpnext/
-frappe/
-frappe_docker/
+# Frappe bench / runtime folders (hrms/ and platform/ ARE part of this repo)
 frappe-bench/
-apps/
+/apps/
 sites/
-apps.json
 *.sql
 *.sql.gz
 
