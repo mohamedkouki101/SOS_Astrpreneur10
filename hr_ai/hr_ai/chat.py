@@ -16,7 +16,7 @@ import re
 import frappe
 from frappe.utils import add_to_date, now_datetime
 
-from hr_ai.ingest import IngestError, _call, masked_values, verdict_of
+from hr_ai.ingest import SENDER, IngestError, _call, masked_values, verdict_of
 from hr_ai.setup import CHAT_ROLE
 from hr_ai.webhooks import AgentsError, call_agents
 
@@ -32,6 +32,7 @@ BLOCKED_REPLY = ("Your message was held back by the security check, so the assis
                  "HR has been notified and will review it. If this is a mistake, please rephrase your "
                  "message without instructions aimed at the assistant.")
 LAYER_DOWN_REPLY = "The security check is unavailable right now, so your message was not processed. Please try again later."
+LAYER_REFUSED_REPLY = "The security check could not accept this message, so it was not processed. Please rephrase it."
 AGENTS_DOWN_REPLY = "The assistant is unavailable right now. Your message was checked and kept; please try again later."
 
 
@@ -103,11 +104,11 @@ def process(name: str):
     # 1. Security layer first. The chat text is treated exactly like an inbound email.
     try:
         summary = _call("POST", "/v1/email", "hr_ai_ingest_upload_key", json={
-            "body": msg.content, "is_html": False, "sender_email": msg.user,
+            "body": msg.content, "is_html": False, "sender_email": _sender(msg.user),
             "message_id": f"<{msg.name}@chat.rhflow.local>"})
-    except IngestError:
-        frappe.log_error(title=f"RH Chat {name}: input security layer unavailable")
-        return _reply(msg, "Error", LAYER_DOWN_REPLY)
+    except IngestError as exc:
+        frappe.log_error(title=f"RH Chat {name}: input security layer call failed")
+        return _reply(msg, "Error", LAYER_REFUSED_REPLY if exc.status and exc.status < 500 else LAYER_DOWN_REPLY)
     verdict = verdict_of(summary)
     _update(name, report_id=summary["report_id"], doc_id=summary["doc_id"], verdict=verdict)
 
@@ -142,6 +143,12 @@ def process(name: str):
     _reply(msg, "Answered", _unmask(masked, report_ids), persona=persona, ai_action=ai_action,
            masked_content=masked, run_id=str(result.get("run_id") or "")[:40], verdict=verdict)
     return "Answered"
+
+
+def _sender(user: str) -> str:
+    """The layer needs an email-shaped sender. Accounts like "Administrator" have a name, not an email."""
+    email = user if SENDER.fullmatch(user or "") else frappe.db.get_value("User", user, "email")
+    return email if SENDER.fullmatch(email or "") else "chat-user@chat.rhflow.local"
 
 
 def _history_for_agents(msg) -> list[dict]:
