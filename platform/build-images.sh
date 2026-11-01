@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Builds the HR Flow image used by hr.yml (same tag as in hr.yml), in three layers:
 #   1. Frappe v16 + ERPNext + HRMS (versions pinned in apps.json; hrms v16.53.0 = ../hrms)
-#   2. + hr_ai        (../hr_ai: AI Action queue, RH AI page, RH Chat, Execution Gateway)
+#   2. + hr_ai        (../hr_ai: AI Action queue, HR AI page, HR Chat, Execution Gateway)
 #   3. + hrflow_theme (../hrflow_theme: HR Flow look)
 # About 15 minutes the first time. Run from anywhere: bash platform/build-images.sh
 set -euo pipefail

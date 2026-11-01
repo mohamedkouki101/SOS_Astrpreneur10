@@ -14,6 +14,22 @@ Agents can only read and propose. A human approves, and only the Execution Gatew
 | Try each feature by hand | [Part C](#part-c--feature-tour-what-to-try-in-the-browser) |
 | Run the 12 end-to-end scenarios | [Part D](#part-d--end-to-end-scenarios-scripted) |
 | Known limits | [`LIMITATIONS.md`](LIMITATIONS.md) |
+| See what changed last | [Latest updates](#latest-updates-2026-11-01) |
+
+### Latest updates (2026-11-01)
+
+- **Name:** the product is **HR Flow** everywhere users see it (login page, browser tab, apps, chat, emails,
+  agent prompts). The apps are **HR Chat**, **HR AI**, **HR Flow** and **HR Flow Admin**. Internal ids keep
+  their old spelling on purpose (URL `/desk/rh-ai`, roles `RH Flow …`, headers `X-RHFlow-*`): renaming them
+  would break links and stored permissions without changing anything a user sees.
+- **One look for every page:** the HR Flow theme (cream background, royal-blue sidebar, pill buttons, warm-white
+  cards) now also covers the HR Chat page and the website navbar. New logo on the login page, the navbar and the
+  splash screen, and a square **favicon** (the "HR" end of the logo) in the browser tab.
+- **Home page** (`/desk`): four large tiles with icons drawn in the same style, centred, on a background of
+  light-blue diagonal stripes and curved bands.
+- **Sign-in step on each tile:** HR Chat needs a chat user account, the other three need an administrator
+  account. Checked on the server, wrong account types are refused. See
+  [Sign-in step on the home page tiles](#sign-in-step-on-the-home-page-tiles).
 
 ---
 
@@ -24,7 +40,7 @@ Agents can only read and propose. A human approves, and only the Execution Gatew
 | [`platform/`](platform/) | The HR platform: **Frappe v16 + ERPNext + Frappe HR (HRMS)**, Docker setup, image build, fictional demo company and loader | Docker (project `hr`) | 8001, Mailpit 8025 |
 | [`hrms/`](hrms/) | Frappe HR source (v16.53.0, GPL v3), the exact version built into the image | inside the platform image | — |
 | [`hr_ai/`](hr_ai/) | Our Frappe app: AI Action queue, **HR AI** decision page, **HR Chat**, Inbound Email, Execution Gateway | inside the platform image | — |
-| [`hrflow_theme/`](hrflow_theme/) | Our Frappe app: HR Flow look and branding | inside the platform image | — |
+| [`hrflow_theme/`](hrflow_theme/) | Our Frappe app: HR Flow look and branding (palette, logo, favicon, home page) | inside the platform image | — |
 | [`input-security-layer/`](input-security-layer/) | Untrusted input zone: sanitizer, PII masking, injection scanner, signed envelopes | Docker | 8090 |
 | [`guardrails/`](guardrails/) | Default-deny policy, fairness checks, approval tokens, hash-chained audit log, monitor | Docker | 8100 |
 | [`agents/`](agents/) | LangGraph agents (Orchestrator, 8 specialists, chat operator) with a local **qwen3:14b** model, read-only tools, deterministic output validator, signed HTTP service | Python 3.12 (host) | 8200 |
@@ -43,8 +59,7 @@ All suites run offline: a scripted fake model stands in for qwen and a fake Frap
 Linux or WSL, Python 3.12 and [uv](https://docs.astral.sh/uv/).
 
 ```bash
-git clone https://github.com/mohamedkouki101/SOS_Astrpreneur10.git && cd SOS_Astrpreneur10
-git checkout kouki-branch
+git clone https://github.com/mohamedkouki101/SOS_Astrpreneur10.git && cd SOS_Astrpreneur10   # branch main
 
 # 1. Agents + cross-layer tests (injection, bypass, disparity, duplicate webhook, chat)
 uv sync --python 3.12
@@ -155,8 +170,16 @@ without Docker Desktop, start the agent service with `AGENTS_HOST=0.0.0.0` and s
 
 ### Logins and URLs
 
+All accounts below are fictional and created by the setup (B1 and B2).
+
+| Account | Login ID | Password | Kind | Opens |
+|---|---|---|---|---|
+| HR administrator | `Administrator` | `admin` | Desk, System Manager + HR Manager | everything in Desk; **HR Flow**, **HR AI**, **HR Flow Admin** tiles |
+| Employee / candidate | `Utilisateur` (or `utilisateur@rhflow.local`) | `user` | Website user with the chat role, linked to employee HR-EMP-00007 and one job application | **HR Chat** only |
+
 | What | URL | Login |
 |---|---|---|
+| HR Flow home page (4 tiles) | http://localhost:8001/desk | `Administrator` / `admin`, then each tile asks again (see below) |
 | HR Flow Desk (HR Manager) | http://localhost:8001/desk | `Administrator` / `admin` |
 | **HR AI** decision page | http://localhost:8001/desk/rh-ai | `Administrator` |
 | **HR Chat**, employee / candidate | http://localhost:8001/chat (use a private window) | `Utilisateur` / `user` (employee HR-EMP-00007 + one job application) |
@@ -167,12 +190,52 @@ without Docker Desktop, start the agent service with `AGENTS_HOST=0.0.0.0` and s
 
 `admin` / `user` are local demo passwords. Change them on any shared machine.
 
+#### Sign-in step on the home page tiles
+
+The home page (`/desk`) shows four tiles: **HR Chat**, **HR Flow**, **HR AI**, **HR Flow Admin**. Clicking a
+tile does not open the app directly: a sign-in dialog asks for an account of the right kind.
+
+| Tile | Account required | Use |
+|---|---|---|
+| **HR Chat** | a chat user (website user with the chat role) | `Utilisateur` / `user` |
+| **HR Flow** (HR modules) | an administrator (System Manager) | `Administrator` / `admin` |
+| **HR AI** (decision page) | an administrator | `Administrator` / `admin` |
+| **HR Flow Admin** (Frappe settings) | an administrator | `Administrator` / `admin` |
+
+What to check:
+- the right account opens the app; the browser session is **replaced** by a session for that account (after
+  opening HR Chat you are `Utilisateur`: log out to come back to the admin home page);
+- a wrong password is refused (*Invalid login credentials*) and counted by Frappe's lockout;
+- the wrong kind of account is refused and gets no session: `Utilisateur` on an admin tile (*This app needs an
+  administrator account.*), `Administrator` on HR Chat (*Use a chat user account.*);
+- more than 10 attempts a minute are refused (rate limit).
+
+The password check runs on the server (`hr_ai/hr_ai/app_gate.py`, Frappe's own `LoginManager`), not in the
+browser. The tiles are a step-up sign-in: opening an app by URL still goes through that app's own permissions
+(`/chat` needs the chat role, `/desk/rh-ai` needs an HR role). HR Chat in **HR mode** is reached by URL as
+`Administrator` (http://localhost:8001/chat), as in tour step 5.
+
+Optional extra fictional accounts, if you prefer separate logins for the dialog:
+```bash
+docker compose -p hr -f platform/hr.yml exec backend bench --site frontend execute hr_ai.setup.setup_gate_users \
+  --kwargs "{'user_password': 'HRFlow-User-2026', 'admin_password': 'HRFlow-Admin-2026'}"
+# creates demo.user (chat user, same links as Utilisateur) and demo.admin (System Manager + HR Manager)
+```
+
 ---
 
 ## Part C — Feature tour (what to try in the browser)
 
 In a terminal at the repository root: `P=$HOME/.venvs/rhflow-agents/bin/python`.
 The local model needs 20–60 s per answer.
+
+### 0. Home page and sign-in step
+1. Open http://localhost:8001/desk as `Administrator` / `admin`: the four HR Flow tiles, the striped background,
+   the HR Flow favicon in the browser tab.
+2. Click **HR AI**: a sign-in dialog opens. Try `Utilisateur` / `user` → refused (*needs an administrator
+   account*). Then `Administrator` / `admin` → the HR AI decision page opens.
+3. Back on `/desk`, click **HR Chat**, try `Administrator` / `admin` → refused (*use a chat user account*). Then
+   `Utilisateur` / `user` → the chat opens as the employee. Log out to return to the admin home page.
 
 ### 1. Inbox → masked draft → human approval → email sent
 ```bash
@@ -270,6 +333,9 @@ stops with "Stack not ready, down: …" if a service is missing.
 | Email approved but not in Mailpit | `bench --site frontend enable-scheduler` and check the Email Account "HR Flow HR" (created by `setup_stack.py site`) |
 | Seed says "Company 'Bara3am' not found" | Finish the setup wizard with that exact company name, then re-run the seed (it is idempotent) |
 | The HR AI card shows `To: ` / `Hello ,` | Known display limit: the HTML filter hides `<SENDER>` / `<PERSON_1>`. Open **Details / edit → Payload** |
+| A tile's sign-in says *Too many attempts* | Rate limit (10 a minute): wait one minute |
+| After opening HR Chat, `/desk` sends you back to the chat | Expected: the session is now `Utilisateur`. Log out (chat page, top right), then sign in as `Administrator` |
+| Old logo, old favicon or "RH" names still visible | Hard refresh (Ctrl+Shift+R). If it stays: `docker compose -p hr -f platform/hr.yml exec backend bench --site frontend execute hrflow_theme.install.apply_branding`, then `... bench --site frontend clear-cache` |
 | Start over | `docker compose -p hr -f platform/hr.yml down -v` (deletes the database), then B1 again |
 
 ---

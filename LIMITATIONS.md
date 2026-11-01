@@ -1,7 +1,7 @@
 # Limitations
 
 What is not built, simplified for the hackathon, or known to behave imperfectly. State as of 2026-11-01,
-`kouki-branch`. Overview of what *is* built: [`README.md`](README.md).
+branch `main`. Overview of what *is* built: [`README.md`](README.md).
 
 The security design does not depend on any single detector being perfect: agents have no write rights, their
 output is validated by code, the guardrails check every action twice, and a human approves. The items below

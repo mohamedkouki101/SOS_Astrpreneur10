@@ -35,7 +35,7 @@
 							: __("This app needs a <b>user</b> account (employee or applicant).")}</div>
 					</div>` },
 				{ fieldtype: "Data", fieldname: "usr", label: __("Login ID"), reqd: 1,
-					placeholder: admin ? "demo.admin" : "demo.user" },
+					placeholder: admin ? "Administrator" : "Utilisateur" },
 				{ fieldtype: "Password", fieldname: "pwd", label: __("Password"), reqd: 1 },
 				{ fieldtype: "HTML", fieldname: "error", options: '<div class="hf-gate-error"></div>' },
 			],
